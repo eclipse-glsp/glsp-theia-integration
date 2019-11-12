@@ -13,6 +13,15 @@ spec:
       requests:
         memory: "2Gi"
         cpu: "1"
+    command:
+    - cat
+    volumeMounts:
+    - mountPath: "/home/jenkins"
+      name: "jenkins-home"
+      readOnly: false
+  volumes:
+  - name: "jenkins-home"
+    emptyDir: {}
 """
 
 pipeline {
@@ -30,14 +39,22 @@ pipeline {
         stage('Build package') {
             steps {
                 container('node') {
-                    sh "yarn  install"
+                    sh "yarn install"
                 }
             }
         }
-        stage('Deploy (master)') {
+
+        stage('Deploy (master only)') {
             when { branch 'master'}
             steps {
-                sh 'echo "TODO deploy artifacts"'
+                container('node') {
+                    withCredentials([string(credentialsId: 'npmjs-token', variable: 'NPM_AUTH_TOKEN')]) {
+                    sh 'printf "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}\n" >> /home/jenkins/.npmrc'
+                    }
+                    sh  'git config  user.email "eclipse-glsp-bot@eclipse.org"'
+                    sh  'git config  user.name "eclipse-glsp-bot"'
+                    sh 'yarn publish:next'
+                }
             }
         }
     }
