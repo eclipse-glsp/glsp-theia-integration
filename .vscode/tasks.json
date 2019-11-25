@@ -4,21 +4,21 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build GLSP Theia Integration",
+      "label": "Build glsp-theia-integration",
       "type": "shell",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
+      "group": "build",
       "command": "yarn",
       "presentation": {
         "reveal": "always",
         "panel": "new"
       },
-      "problemMatcher": []
+      "problemMatcher": [
+        "$tsc",
+        "$tslint5"
+      ]
     },
     {
-      "label": "Build GLSP Theia Integration",
+      "label": "Watch glsp-theia-integration",
       "type": "shell",
       "group": "build",
       "command": "yarn watch",
@@ -26,7 +26,9 @@
         "reveal": "always",
         "panel": "new"
       },
-      "problemMatcher": []
+      "problemMatcher": [
+        "$tsc-watch"
+      ]
     }
   ]
 }
