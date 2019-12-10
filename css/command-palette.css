@@ -19,6 +19,10 @@
     background-color: var(--theia-layout-color0);
 }
 
+.command-palette-suggestions {
+    background-color: inherit;
+}
+
 .command-palette-suggestions>div:hover:not(.group) {
     background: var(--theia-layout-color2);
 }

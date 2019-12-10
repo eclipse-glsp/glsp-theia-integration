@@ -13,8 +13,6 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import "../../css/command-palette.css";
-
 import { bindContributionProvider, CommandContribution, MenuContribution } from "@theia/core";
 import { FrontendApplicationContribution, KeybindingContribution } from "@theia/core/lib/browser";
 import { ContainerModule } from "inversify";
