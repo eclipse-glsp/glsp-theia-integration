@@ -26,6 +26,9 @@ export namespace TheiaGlspContextMenu {
 @injectable()
 export class TheiaContextMenuService implements IContextMenuService {
 
+    protected timeout?: number;
+    protected disposables?: DisposableItem[];
+
     @inject(ContextMenuRenderer)
     protected readonly contextMenuRenderer: ContextMenuRenderer;
 
@@ -42,10 +45,11 @@ export class TheiaContextMenuService implements IContextMenuService {
     }
 
     show(items: MenuItem[], anchor: Anchor, onHide?: () => void): void {
-        const disposables = this.register(TheiaGlspContextMenu.CONTEXT_MENU, items);
+        this.cleanUpNow();
+        this.disposables = this.register(TheiaGlspContextMenu.CONTEXT_MENU, items);
         const renderOptions = {
             menuPath: TheiaGlspContextMenu.CONTEXT_MENU, anchor: anchor,
-            onHide: () => { if (onHide) onHide(); window.setTimeout(() => this.cleanUp(disposables), 500); }
+            onHide: () => { if (onHide) onHide(); this.scheduleCleanup(); }
         };
         this.contextMenuRenderer.render(renderOptions);
     }
@@ -82,8 +86,22 @@ export class TheiaContextMenuService implements IContextMenuService {
         return new DisposableMenuAction(menuAction, disposable);
     }
 
-    protected cleanUp(disposables: DisposableItem[]) {
-        disposables.forEach(disposable => disposable.dispose(this.menuProvider, this.commandRegistry));
+    protected cleanUpNow() {
+        window.clearTimeout(this.timeout);
+        this.cleanUp();
+    }
+
+    protected scheduleCleanup() {
+        this.timeout = window.setTimeout(() => {
+            this.cleanUp();
+        }, 200);
+    }
+
+    protected cleanUp() {
+        if (this.disposables) {
+            this.disposables.forEach(disposable => disposable.dispose(this.menuProvider, this.commandRegistry));
+            this.disposables = undefined;
+        }
     }
 }
 
