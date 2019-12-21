@@ -29,7 +29,6 @@ import { GLSPClientContribution } from "./language/glsp-client-contribution";
 import { GLSPClientProvider, GLSPClientProviderImpl } from "./language/glsp-client-provider";
 import { GLSPFrontendContribution } from "./language/glsp-frontend-contribution";
 
-
 export default new ContainerModule(bind => {
     bind(GLSPClientFactory).toSelf().inSingletonScope();
 
