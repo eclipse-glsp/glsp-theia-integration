@@ -25,10 +25,15 @@ import { injectable } from "inversify";
 import { TheiaDiagramServer } from "sprotty-theia/lib";
 
 @injectable()
-export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource {
+export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource, DirtyStateNotifier {
+
     readonly handledActionEventEmitter: Emitter<Action> = new Emitter<Action>();
+    readonly dirtyStateChangeEmitter: Emitter<DirtyState> = new Emitter<DirtyState>();
+
+    protected dirtyState: DirtyState = { isDirty: false };
 
     initialize(registry: ActionHandlerRegistry): void {
+        registry.register(SetDirtyStateAction.KIND, this);
         registerDefaultGLSPServerActions(registry, this);
     }
 
@@ -40,9 +45,28 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         return this.handledActionEventEmitter.event;
     }
 
+    get onDirtyStateChange(): Event<DirtyState> {
+        return this.dirtyStateChangeEmitter.event;
+    }
+
+    protected setDirty(dirty: boolean) {
+        if (dirty !== this.dirtyState.isDirty) {
+            this.dirtyState = { isDirty: dirty };
+            this.dirtyStateChangeEmitter.fire(this.dirtyState);
+        }
+    }
+
     handle(action: Action) {
         this.handledActionEventEmitter.fire(action);
         return super.handle(action);
+    }
+
+    handleLocally(action: Action): boolean {
+        if (isSetDirtyStateAction(action)) {
+            this.setDirty(action.isDirty);
+            return false;
+        }
+        return super.handleLocally(action);
     }
 
     protected handleComputedBounds(action: ComputedBoundsAction): boolean {
@@ -57,5 +81,29 @@ export interface NotifyingModelSource extends ModelSource {
 export namespace NotifyingModelSource {
     export function is(arg: any): arg is NotifyingModelSource {
         return !!arg && ('onHandledAction' in arg);
+    }
+}
+
+export class SetDirtyStateAction implements Action {
+    static readonly KIND = 'setDirtyState';
+    readonly kind = SetDirtyStateAction.KIND;
+    constructor(public isDirty: boolean) { }
+}
+
+export function isSetDirtyStateAction(action: Action): action is SetDirtyStateAction {
+    return SetDirtyStateAction.KIND === action.kind && ('isDirty' in action);
+}
+
+export interface DirtyState {
+    isDirty: boolean;
+}
+
+export interface DirtyStateNotifier {
+    readonly onDirtyStateChange: Event<DirtyState>;
+}
+
+export namespace DirtyStateNotifier {
+    export function is(arg: any): arg is DirtyStateNotifier {
+        return !!arg && ('onDirtyStateChange' in arg);
     }
 }

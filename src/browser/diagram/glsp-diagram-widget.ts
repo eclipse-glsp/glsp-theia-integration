@@ -14,11 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import {
-    Action,
     DiagramServer,
     IActionDispatcher,
     ModelSource,
-    OperationKind,
     RequestModelAction,
     RequestOperationsAction,
     RequestTypeHintsAction,
@@ -31,7 +29,7 @@ import { EditorPreferences } from "@theia/editor/lib/browser";
 import { Container } from "inversify";
 import { DiagramWidget, DiagramWidgetOptions, TheiaSprottyConnector } from "sprotty-theia/lib";
 
-import { GLSPTheiaDiagramServer, NotifyingModelSource } from "./glsp-theia-diagram-server";
+import { DirtyStateNotifier, GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
@@ -82,11 +80,8 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
     readonly dirtyChangedEmitter: Emitter<void> = new Emitter<void>();
 
     constructor(readonly actionDispatcher: IActionDispatcher, readonly modelSource: ModelSource) {
-        if (NotifyingModelSource.is(this.modelSource)) {
-            const notifyingModelSource = this.modelSource as NotifyingModelSource;
-            notifyingModelSource.onHandledAction((action) => {
-                this.dirty = this.dirty || isModelManipulation(action);
-            });
+        if (DirtyStateNotifier.is(this.modelSource)) {
+            this.modelSource.onDirtyStateChange((dirtyState) => this.dirty = dirtyState.isDirty);
         }
     }
 
@@ -95,8 +90,7 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
     }
 
     save(): MaybePromise<void> {
-        return this.actionDispatcher.dispatch(new SaveModelAction())
-            .then(() => { this.dirty = false; });
+        return this.actionDispatcher.dispatch(new SaveModelAction());
     }
 
     get dirty(): boolean {
@@ -148,15 +142,4 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
         this.autoSaveJobs.dispose();
         this.dirtyChangedEmitter.dispose();
     }
-}
-
-function isModelManipulation(action: Action): boolean {
-    const kind = action.kind;
-    return kind === OperationKind.CREATE_NODE ||
-        kind === OperationKind.CREATE_CONNECTION ||
-        kind === OperationKind.DELETE_ELEMENT ||
-        kind === OperationKind.CHANGE_BOUNDS ||
-        kind === OperationKind.CHANGE_CONTAINER ||
-        kind === OperationKind.CREATE_CONNECTION ||
-        kind === OperationKind.GENERIC;
 }
