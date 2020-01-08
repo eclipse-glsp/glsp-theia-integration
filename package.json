@@ -24,7 +24,8 @@
   },
   "files": [
     "lib",
-    "src"
+    "src",
+    "css"
   ],
   "dependencies": {
     "@theia/core": "next",
