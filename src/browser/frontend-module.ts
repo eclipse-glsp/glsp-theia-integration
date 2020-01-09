@@ -16,13 +16,13 @@
 import { bindContributionProvider, CommandContribution, MenuContribution } from "@theia/core";
 import { FrontendApplicationContribution, KeybindingContribution } from "@theia/core/lib/browser";
 import { ContainerModule } from "inversify";
+import { TheiaContextMenuService } from "sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service";
 
 import {
     GLSPDiagramCommandContribution,
     GLSPDiagramKeybindingContribution,
     GLSPDiagramMenuContribution
 } from "./diagram/glsp-diagram-commands";
-import { TheiaContextMenuService } from "./diagram/glsp-theia-context-menu-service";
 import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
 import { GLSPClientFactory } from "./language/glsp-client";
 import { GLSPClientContribution } from "./language/glsp-client-contribution";
