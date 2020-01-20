@@ -15,7 +15,9 @@
  ********************************************************************************/
 import {
     DiagramServer,
+    GLSP_TYPES,
     IActionDispatcher,
+    ICopyPasteHandler,
     ModelSource,
     RequestModelAction,
     RequestOperationsAction,
@@ -23,6 +25,7 @@ import {
     SaveModelAction,
     TYPES
 } from "@eclipse-glsp/client/lib";
+import { Message } from "@phosphor/messaging/lib";
 import { Saveable, SaveableSource } from "@theia/core/lib/browser";
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from "@theia/core/lib/common";
 import { EditorPreferences } from "@theia/editor/lib/browser";
@@ -33,6 +36,7 @@ import { DirtyStateNotifier, GLSPTheiaDiagramServer } from "./glsp-theia-diagram
 
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
+    protected copyPasteHandler?: ICopyPasteHandler;
     saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
 
     constructor(options: DiagramWidgetOptions, readonly widgetId: string, readonly diContainer: Container,
@@ -68,6 +72,34 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         }));
         this.actionDispatcher.dispatch(new RequestOperationsAction());
         this.actionDispatcher.dispatch(new RequestTypeHintsAction(this.options.diagramType));
+    }
+
+    protected onAfterAttach(msg: Message): void {
+        super.onAfterAttach(msg);
+        if (this.diContainer.isBound(GLSP_TYPES.ICopyPasteHandler)) {
+            this.copyPasteHandler = this.diContainer.get<ICopyPasteHandler>(GLSP_TYPES.ICopyPasteHandler);
+            this.addClipboardListener(this.node, 'copy', e => this.handleCopy(e));
+            this.addClipboardListener(this.node, 'paste', e => this.handlePaste(e));
+            this.addClipboardListener(this.node, 'cut', e => this.handleCut(e));
+        }
+    }
+
+    handleCopy(e: ClipboardEvent) {
+        if (this.copyPasteHandler) {
+            this.copyPasteHandler.handleCopy(e);
+        }
+    }
+
+    handleCut(e: ClipboardEvent) {
+        if (this.copyPasteHandler) {
+            this.copyPasteHandler.handleCut(e);
+        }
+    }
+
+    handlePaste(e: ClipboardEvent) {
+        if (this.copyPasteHandler) {
+            this.copyPasteHandler.handlePaste(e);
+        }
     }
 }
 
