@@ -13,6 +13,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import "../../../css/diagram.css";
+import "../../../css/tool-palette.css";
+
 import { CommandRegistry, DisposableCollection, MaybePromise, MessageService } from "@theia/core";
 import { FrontendApplication, WebSocketConnectionProvider, WebSocketOptions } from "@theia/core/lib/browser";
 import { Deferred } from "@theia/core/lib/common/promise-util";
