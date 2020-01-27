@@ -15,20 +15,32 @@
  ********************************************************************************/
 
 .command-palette {
-    box-shadow: var(--theia-border-width) var(--theia-border-width) var(--theia-border-color0);
-    background-color: var(--theia-layout-color0);
+    box-shadow: var(--theia-border-width) var(--theia-border-width) var(--theia-widget-shadow);
+    background-color: var(--theia-menu-background);
+}
+
+.command-palette input {
+    background: var(--theia-input-background);
+    color: var(--theia-input-foreground);
+    border: var(--theia-border-width) solid var(--theia-input-border);
+    font-family: var(--theia-ui-font-family);
+    font-size: var(--theia-ui-font-size1);
+    line-height: var(--theia-content-line-height);
+    padding-left: 5px;
 }
 
 .command-palette-suggestions {
     background-color: inherit;
+    line-height: var(--theia-content-line-height);
 }
 
 .command-palette-suggestions>div:hover:not(.group) {
-    background: var(--theia-layout-color2);
+    background: var(--theia-menubar-selectionBackground);
 }
 
 .command-palette-suggestions>div.selected {
-    background: var(--theia-accent-color4);
+    background: var(--theia-menu-selectionBackground);
+    color: var(--theia-menu-selectionForeground);
 }
 
 .command-palette .loading {
