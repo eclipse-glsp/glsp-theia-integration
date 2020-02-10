@@ -45,12 +45,13 @@ pipeline {
         SPAWN_WRAP_SHIM_ROOT = "${env.WORKSPACE}"
     }
     
-    
     stages {
         stage('Build package') {
             steps {
-                container('node') {
-                    sh "yarn install"
+                timeout(30) {
+                    container('node') {
+                        sh "yarn install"
+                    }
                 }
             }
         }
@@ -58,7 +59,7 @@ pipeline {
         stage('Deploy (master only)') {
             when { branch 'master'}
             steps {
-             build job: 'deploy-npm-glsp-theia-integration', wait: false
+                build job: 'deploy-npm-glsp-theia-integration', wait: false
             }
         }
     }
