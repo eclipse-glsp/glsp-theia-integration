@@ -17,7 +17,7 @@ import { WidgetOpenerOptions } from "@theia/core/lib/browser";
 import URI from "@theia/core/lib/common/uri";
 import { EditorPreferences } from "@theia/editor/lib/browser";
 import { inject, injectable } from "inversify";
-import { DiagramManager, DiagramWidget, DiagramWidgetOptions } from "sprotty-theia/lib";
+import { DiagramManager, DiagramWidget, DiagramWidgetOptions } from "sprotty-theia";
 
 import { GLSPDiagramWidget } from "./glsp-diagram-widget";
 import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";

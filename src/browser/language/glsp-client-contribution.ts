@@ -24,7 +24,7 @@ import { Commands, Disposable, InitializeParams, State } from "@theia/languages/
 import { LanguageContribution } from "@theia/languages/lib/common";
 import { WorkspaceService } from "@theia/workspace/lib/browser";
 import { inject, injectable, multiInject } from "inversify";
-import { DiagramManagerProvider } from "sprotty-theia/lib";
+import { DiagramManagerProvider } from "sprotty-theia";
 import { MessageConnection, ResponseError } from "vscode-jsonrpc";
 
 import { InitializeParameters } from "../../common";

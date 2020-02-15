@@ -44,9 +44,6 @@
     "tslint": "^5.5.0",
     "typescript": "3.6.4"
   },
-  "resolutions": {
-    "**/sprotty-theia": "0.8.0-next.fec87e7"
-  },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
     "clean": "rimraf lib",
@@ -60,5 +57,7 @@
     {
       "frontend": "lib/browser/frontend-module"
     }
-  ]
+  ],
+  "main": "lib/index",
+  "types": "lib/index"
 }
