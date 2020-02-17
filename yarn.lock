@@ -25,10 +25,10 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@eclipse-glsp/client@next":
-  version "0.8.0-next.27b2c49"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.0-next.27b2c49.tgz#89887764ac75c4f95ccf5a98faa91b9ee22b0f43"
-  integrity sha512-unr+QjMGo3SuGWuAnkBT+t47rmaAcZ2IbBn82ZWZh60lcOkZsem+vez1hyiLv82BtT+X+xH/GR0tE3z5lsx0LQ==
+"@eclipse-glsp/client@^0.8.0-next.3cb2510":
+  version "0.8.0-next.3cb2510"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.0-next.3cb2510.tgz#3c005696e556e610fc344bf679aed1060dff8dff"
+  integrity sha512-NGK4zpRrPr9lvieTzafRsHXhnB+KOaNEiq6jJp4Hwx0P7YFR1SsPBv2E4m0aqTCYI6NBU3oInL3k8HCZI37rrg==
   dependencies:
     autocompleter "^4.0.2"
     sprotty next
@@ -2580,9 +2580,9 @@ sprotty-theia@0.8.0-next.fec87e7, sprotty-theia@next:
     sprotty next
 
 sprotty@next:
-  version "0.8.0-next.15163a3"
-  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.8.0-next.15163a3.tgz#9c3da255955651c7b0ddb1f543f0651c6ef4039c"
-  integrity sha512-vudzv1V4IG1YSQ2KBGhojn1sX9y6bJNCrKwDTaQyRz1ndXrxbODWfCBtWtJ7sVq5Huv1zL1IRJWGVLyXo0mwsw==
+  version "0.8.0-next.666cfe0"
+  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.8.0-next.666cfe0.tgz#a28991e7601bb466857ca076570a2b16db851a55"
+  integrity sha512-Yh04DIYMCEKHWBk44TWxZduBeDlQWTldddiFjvpjyrFS2r2VJk68RM2s1FI2vmMtGRdB4XTuLQ3ICznqiyqghg==
   dependencies:
     autocompleter "5.1.0"
     file-saver "2.0.2"

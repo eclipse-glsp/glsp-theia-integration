@@ -31,6 +31,8 @@ export interface GLSPTheiaSprottyConnectorServices {
     readonly messageService: MessageService
 }
 
+const SHOW_DETAILS_LABEL = 'Show details';
+
 export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPTheiaSprottyConnectorServices {
     private servers: Map<String, TheiaDiagramServer> = new Map;
 
@@ -67,18 +69,53 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
             widget.setStatus(status);
         }
 
-        if (status.severity === "ERROR") {
-            const details = isGLSPServerStatusAction(status) ? status.details : undefined;
+        if (status.severity !== "NONE") {
+            const { details, timeout } = isGLSPServerStatusAction(status) ? status : { details: undefined, timeout: -1 };
             if (details) {
-                this.messageService.error(status.message, "Show details").then(result => {
-                    if (result === 'Show details') {
-                        showErrorDialog(status.message, details);
-                    }
-                });
+                switch (status.severity) {
+                    case 'ERROR':
+                        this.messageService.error(status.message, SHOW_DETAILS_LABEL)
+                            .then(result => this.showDetailsOrClearStatus(result, status, details, widgetId));
+                        break;
+                    case 'WARNING':
+                        this.messageService.warn(status.message, SHOW_DETAILS_LABEL)
+                            .then(result => this.showDetailsOrClearStatus(result, status, details, widgetId));
+                        break;
+                    case 'INFO':
+                        this.messageService.info(status.message, SHOW_DETAILS_LABEL)
+                            .then(result => this.showDetailsOrClearStatus(result, status, details, widgetId));
+                        break;
+                }
             } else {
-                this.messageService.error(status.message, { timeout: -1 });
+                switch (status.severity) {
+                    case 'ERROR':
+                        this.messageService.error(status.message, { timeout });
+                        break;
+                    case 'WARNING':
+                        this.messageService.warn(status.message, { timeout });
+                        break;
+                    case 'INFO':
+                        this.messageService.info(status.message, { timeout });
+                        break;
+                }
+            }
+
+            if (timeout && timeout >= 0) {
+                window.setTimeout(() => this.clearStatus(widgetId), timeout);
             }
         }
+    }
+
+    protected showDetailsOrClearStatus(result: string | undefined, status: ServerStatusAction, details: string, widgetId: string) {
+        if (result === SHOW_DETAILS_LABEL) {
+            showDialog(status.message, details).then(() => this.clearStatus(widgetId));
+        } else {
+            this.clearStatus(widgetId);
+        }
+    }
+
+    clearStatus(widgetId: string) {
+        this.showStatus(widgetId, { kind: ServerStatusAction.KIND, message: '', severity: 'NONE' });
     }
 
     sendMessage(message: ActionMessage) {
@@ -97,6 +134,6 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
     }
 }
 
-export function showErrorDialog(title: string, msg: string) {
-    new ConfirmDialog({ title, msg }).open();
+export function showDialog(title: string, msg: string) {
+    return new ConfirmDialog({ title, msg }).open();
 }
