@@ -23,7 +23,7 @@ import {
     ResizeElementsCommand,
     Select,
     SelectableBoundsAware
-} from "@eclipse-glsp/client/lib";
+} from "@eclipse-glsp/client";
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, MenuPath } from "@theia/core";
 import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from "@theia/core/lib/browser";
 import { inject, injectable } from "inversify";

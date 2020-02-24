@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ActionMessage } from "@eclipse-glsp/client/lib";
+import { ActionMessage } from "@eclipse-glsp/client";
 import { NotificationType, NotificationType0, RequestType, RequestType0 } from "vscode-jsonrpc";
 
 

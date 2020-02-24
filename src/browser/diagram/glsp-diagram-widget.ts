@@ -15,24 +15,25 @@
  ********************************************************************************/
 import {
     DiagramServer,
+    EnableToolPaletteAction,
     GLSP_TYPES,
     IActionDispatcher,
     ICopyPasteHandler,
     ModelSource,
     RequestModelAction,
-    RequestOperationsAction,
     RequestTypeHintsAction,
     SaveModelAction,
     TYPES
-} from "@eclipse-glsp/client/lib";
+} from "@eclipse-glsp/client";
 import { Message } from "@phosphor/messaging/lib";
 import { Saveable, SaveableSource } from "@theia/core/lib/browser";
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from "@theia/core/lib/common";
 import { EditorPreferences } from "@theia/editor/lib/browser";
 import { Container } from "inversify";
-import { DiagramWidget, DiagramWidgetOptions, TheiaSprottyConnector } from "sprotty-theia/lib";
+import { DiagramWidget, DiagramWidgetOptions, TheiaSprottyConnector } from "sprotty-theia";
 
 import { DirtyStateNotifier, GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
+
 
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
@@ -70,8 +71,8 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
             needsClientLayout: `${this.viewerOptions.needsClientLayout}`,
             ...this.options
         }));
-        this.actionDispatcher.dispatch(new RequestOperationsAction());
         this.actionDispatcher.dispatch(new RequestTypeHintsAction(this.options.diagramType));
+        this.actionDispatcher.dispatch(new EnableToolPaletteAction());
     }
 
     protected onAfterAttach(msg: Message): void {

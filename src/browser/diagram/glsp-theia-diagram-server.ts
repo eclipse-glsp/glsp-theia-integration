@@ -19,10 +19,10 @@ import {
     ComputedBoundsAction,
     ModelSource,
     registerDefaultGLSPServerActions
-} from "@eclipse-glsp/client/lib";
+} from "@eclipse-glsp/client";
 import { Emitter, Event } from "@theia/core/lib/common";
 import { injectable } from "inversify";
-import { TheiaDiagramServer } from "sprotty-theia/lib";
+import { TheiaDiagramServer } from "sprotty-theia";
 
 @injectable()
 export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource, DirtyStateNotifier {

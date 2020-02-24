@@ -17,8 +17,8 @@ import { CommandRegistry } from "@theia/core";
 import { ApplicationShell } from "@theia/core/lib/browser";
 import { EditorManager } from "@theia/editor/lib/browser";
 import { inject, injectable } from "inversify";
+import { ActionMessage } from "sprotty";
 import { ActionMessageReceiver } from "sprotty-theia/lib/theia/languageserver/diagram-language-client";
-import { ActionMessage } from "sprotty/lib";
 
 import { ActionMessageNotification } from "../../common";
 import { GLSPClientContribution } from "../language/glsp-client-contribution";
