@@ -10,7 +10,7 @@ This project is governed by the [Eclipse Community Code of Conduct](https://gith
 
 The following communication channels are available:
 
- * [GitHub issues](https://github.com/eclipse-glps/glsp/issues) - for bug reports, feature requests, etc.
+ * [GitHub issues](https://github.com/eclipse-glsp/glsp/issues) - for bug reports, feature requests, etc.
  * [Eclipse community forum](https://www.eclipse.org/forums/index.php/f/443/) - for questions
  * [Developer mailing list](https://accounts.eclipse.org/mailing-list/glsp-dev) - for organizational issues (e.g. elections of new committers)
 
