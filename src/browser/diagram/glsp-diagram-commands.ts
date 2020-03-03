@@ -17,12 +17,12 @@ import {
     AlignElementsAction,
     AlignElementsCommand,
     Alignment,
+    BoundsAwareModelElement,
     Reduce,
     ResizeDimension,
     ResizeElementsAction,
     ResizeElementsCommand,
-    Select,
-    SelectableBoundsAware
+    Select
 } from "@eclipse-glsp/client";
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, MenuPath } from "@theia/core";
 import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from "@theia/core/lib/browser";
@@ -249,7 +249,7 @@ export class GLSPDiagramCommandContribution implements CommandContribution {
         );
     }
 
-    registerAlign(registry: CommandRegistry, id: string, label: string, alignment: Alignment, f: (elements: SelectableBoundsAware[]) => SelectableBoundsAware[]) {
+    registerAlign(registry: CommandRegistry, id: string, label: string, alignment: Alignment, f: (elements: BoundsAwareModelElement[]) => BoundsAwareModelElement[]) {
         registry.registerCommand({
             id: id,
             label: label
