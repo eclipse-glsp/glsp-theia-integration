@@ -25,10 +25,10 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@eclipse-glsp/client@0.8.0-next.9bb05b9", "@eclipse-glsp/client@next":
-  version "0.8.0-next.9bb05b9"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.0-next.9bb05b9.tgz#e20bbed2c2405717ba2a6ebdd20989c8e98e3401"
-  integrity sha512-BSMu4YjGcymp+SgiX5zhbdC6tN41JP1Y+jaJKis4MrnK4X2EBI+rg9vgNjz6QsVYqw+UxVG/BPEaqYPoZudveA==
+"@eclipse-glsp/client@next":
+  version "0.8.0-next.2be8d77"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.0-next.2be8d77.tgz#b2c24333df2d6ad2fd30272a1c5402510d3c80ac"
+  integrity sha512-mdOgUtupj3TFW25WB+ov874RvPI+HRvFWRhDUfhlB1V5bXN6yTz3Kxsqt66vUeDm3IiOUlv/94Qipmdx7jS1eA==
   dependencies:
     autocompleter "^4.0.2"
     sprotty next
@@ -2567,18 +2567,6 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-sprotty-theia@0.8.0-next.a3b3621:
-  version "0.8.0-next.a3b3621"
-  resolved "https://registry.yarnpkg.com/sprotty-theia/-/sprotty-theia-0.8.0-next.a3b3621.tgz#5fa561b45e578def564c1b91f8cced47ee342dc7"
-  integrity sha512-6XeQeGqwXHPEz1Dc8RGY9hz5NfdZERupEFcdg+ToyvSjflNahPQtwKDW4GuAiTdy10ZXc1CfjWj9EO0rZnHf1g==
-  dependencies:
-    "@theia/core" next
-    "@theia/editor" next
-    "@theia/filesystem" next
-    "@theia/languages" next
-    "@theia/monaco" next
-    sprotty next
-
 sprotty-theia@next:
   version "0.8.0-next.fec87e7"
   resolved "https://registry.yarnpkg.com/sprotty-theia/-/sprotty-theia-0.8.0-next.fec87e7.tgz#3c052822096097faa1e358883d437c41dc85d84d"
@@ -2591,7 +2579,7 @@ sprotty-theia@next:
     "@theia/monaco" next
     sprotty next
 
-sprotty@0.8.0-next.666cfe0, sprotty@next:
+sprotty@next:
   version "0.8.0-next.666cfe0"
   resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.8.0-next.666cfe0.tgz#a28991e7601bb466857ca076570a2b16db851a55"
   integrity sha512-Yh04DIYMCEKHWBk44TWxZduBeDlQWTldddiFjvpjyrFS2r2VJk68RM2s1FI2vmMtGRdB4XTuLQ3ICznqiyqghg==
