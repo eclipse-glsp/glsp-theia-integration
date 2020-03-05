@@ -17,12 +17,16 @@ import {
     Action,
     ActionHandlerRegistry,
     ComputedBoundsAction,
+    isServerMessageAction,
     ModelSource,
-    registerDefaultGLSPServerActions
+    registerDefaultGLSPServerActions,
+    ServerMessageAction
 } from "@eclipse-glsp/client";
 import { Emitter, Event } from "@theia/core/lib/common";
 import { injectable } from "inversify";
 import { TheiaDiagramServer } from "sprotty-theia";
+
+import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
 
 @injectable()
 export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource, DirtyStateNotifier {
@@ -34,6 +38,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
 
     initialize(registry: ActionHandlerRegistry): void {
         registry.register(SetDirtyStateAction.KIND, this);
+        registry.register(ServerMessageAction.KIND, this);
         registerDefaultGLSPServerActions(registry, this);
     }
 
@@ -66,11 +71,19 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
             this.setDirty(action.isDirty);
             return false;
         }
+        if (isServerMessageAction(action)) {
+            return this.handleServerMessageAction(action);
+        }
         return super.handleLocally(action);
     }
 
     protected handleComputedBounds(action: ComputedBoundsAction): boolean {
         return true;
+    }
+
+    protected handleServerMessageAction(status: ServerMessageAction): boolean {
+        (<GLSPTheiaSprottyConnector>this.connector).showMessage(this.clientId, status);
+        return false;
     }
 }
 

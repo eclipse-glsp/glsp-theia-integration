@@ -15,6 +15,7 @@
  ********************************************************************************/
 import { bindContributionProvider, CommandContribution, MenuContribution } from "@theia/core";
 import { FrontendApplicationContribution, KeybindingContribution } from "@theia/core/lib/browser";
+import { NotificationManager } from "@theia/messages/lib/browser/notifications-manager";
 import { ContainerModule } from "inversify";
 import { TheiaContextMenuService } from "sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service";
 
@@ -23,13 +24,14 @@ import {
     GLSPDiagramKeybindingContribution,
     GLSPDiagramMenuContribution
 } from "./diagram/glsp-diagram-commands";
+import { GLSPNotificationManager } from "./diagram/glsp-notification-manager";
 import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
 import { GLSPClientFactory } from "./language/glsp-client";
 import { GLSPClientContribution } from "./language/glsp-client-contribution";
 import { GLSPClientProvider, GLSPClientProviderImpl } from "./language/glsp-client-provider";
 import { GLSPFrontendContribution } from "./language/glsp-frontend-contribution";
 
-export default new ContainerModule(bind => {
+export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(GLSPClientFactory).toSelf().inSingletonScope();
 
     bindContributionProvider(bind, GLSPClientContribution);
@@ -45,4 +47,12 @@ export default new ContainerModule(bind => {
     bind(KeybindingContribution).to(GLSPDiagramKeybindingContribution).inSingletonScope();
 
     bind(TheiaContextMenuService).toSelf().inSingletonScope();
+
+    bind(GLSPNotificationManager).toSelf().inSingletonScope();
+
+    if (isBound(NotificationManager)) {
+        rebind(NotificationManager).toService(GLSPNotificationManager);
+    } else {
+        bind(NotificationManager).toService(GLSPNotificationManager);
+    }
 });
