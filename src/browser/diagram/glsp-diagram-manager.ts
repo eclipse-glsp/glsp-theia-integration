@@ -41,7 +41,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     canHandle(uri: URI, options?: WidgetOpenerOptions | undefined): number {
         for (const extension of this.fileExtensions) {
             if (uri.path.toString().endsWith(extension)) {
-                return 101;
+                return 1001;
             }
         }
         return 0;
