@@ -56,7 +56,6 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
     readonly messageService: MessageService;
     readonly notificationManager: GLSPNotificationManager;
 
-
     constructor(services: GLSPTheiaSprottyConnectorServices) {
         Object.assign(this, services);
         this.diagramClient.connect(this);
