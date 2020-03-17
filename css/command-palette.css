@@ -15,6 +15,10 @@
  ********************************************************************************/
 
 .command-palette {
+    z-index: var(--theia-menu-z-index);
+}
+
+.command-palette {
     box-shadow: var(--theia-border-width) var(--theia-border-width) var(--theia-widget-shadow);
     background-color: var(--theia-menu-background);
 }
