@@ -25,10 +25,10 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@eclipse-glsp/client@0.8.0-next.7324d57":
-  version "0.8.0-next.7324d57"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.0-next.7324d57.tgz#f74c8919ed0adb7dccd8fb5e267bb1391259d392"
-  integrity sha512-OJzWpRo5JPjFvDfIAjZN/XNzk73J40hLfUzLhgjEa3nM7MKex0KOfrmYSjasCw2e2CFAT2J7m5V9CqZzS0mnyQ==
+"@eclipse-glsp/client@next":
+  version "0.8.0-next.a1a2b52"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.0-next.a1a2b52.tgz#7a72582656fa5fbaf21bcf5114c33f888181f045"
+  integrity sha512-DIWOL/v9BXy+DfuuUl8dVQ2srRq05SWf5sofhQuqR3bSrnx8zwjM+RJDNqvBP4pGOkiubmZ6TwgHAI64eaMaYQ==
   dependencies:
     autocompleter "^4.0.2"
     sprotty next

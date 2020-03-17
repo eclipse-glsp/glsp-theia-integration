@@ -124,7 +124,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
     }
 
     clearServerMessages(widgetId: string) {
-        const widgetMessages = this.widgetMessages.get(widgetId) || [];
+        const widgetMessages = Array.from(this.widgetMessages.get(widgetId) || []);
         widgetMessages.forEach(messageId => this.clearServerMessage(widgetId, messageId));
     }
 
