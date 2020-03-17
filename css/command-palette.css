@@ -29,16 +29,16 @@
     padding-left: 5px;
 }
 
-.command-palette-suggestions {
-    background-color: inherit;
+.command-palette .command-palette-suggestions {
+    background: inherit;
     line-height: var(--theia-content-line-height);
 }
 
-.command-palette-suggestions>div:hover:not(.group) {
+.command-palette .command-palette-suggestions>div:hover:not(.group) {
     background: var(--theia-menubar-selectionBackground);
 }
 
-.command-palette-suggestions>div.selected {
+.command-palette .command-palette-suggestions>div.selected {
     background: var(--theia-menu-selectionBackground);
     color: var(--theia-menu-selectionForeground);
 }
