@@ -34,7 +34,6 @@ import { DiagramWidget, DiagramWidgetOptions, TheiaSprottyConnector } from "spro
 
 import { DirtyStateNotifier, GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 
-
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
     protected copyPasteHandler?: ICopyPasteHandler;

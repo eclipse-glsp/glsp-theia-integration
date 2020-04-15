@@ -22,6 +22,7 @@ export * from './diagram/glsp-diagram-widget';
 export * from './diagram/glsp-theia-diagram-server';
 export * from './diagram/glsp-theia-sprotty-connector';
 export * from './diagram/glsp-notification-manager';
+export * from './diagram/glsp-theia-context-menu-service';
 // language export
 export * from './language/glsp-client';
 export * from './language/glsp-client-contribution';

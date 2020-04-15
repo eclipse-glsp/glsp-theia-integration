@@ -25,6 +25,7 @@ import {
     GLSPDiagramMenuContribution
 } from "./diagram/glsp-diagram-commands";
 import { GLSPNotificationManager } from "./diagram/glsp-notification-manager";
+import { TheiaContextMenuServiceFactory } from "./diagram/glsp-theia-context-menu-service";
 import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
 import { GLSPClientFactory } from "./language/glsp-client";
 import { GLSPClientContribution } from "./language/glsp-client-contribution";
@@ -46,7 +47,11 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(MenuContribution).to(GLSPDiagramMenuContribution).inSingletonScope();
     bind(KeybindingContribution).to(GLSPDiagramKeybindingContribution).inSingletonScope();
 
-    bind(TheiaContextMenuService).toSelf().inSingletonScope();
+    bind(TheiaContextMenuServiceFactory).toFactory(context => () => {
+        const container = context.container.createChild();
+        container.bind(TheiaContextMenuService).toSelf().inSingletonScope();
+        return container.get(TheiaContextMenuService);
+    });
 
     bind(GLSPNotificationManager).toSelf().inSingletonScope();
 
