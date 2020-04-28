@@ -268,7 +268,7 @@
     monaco-languageclient "^0.10.2"
     uuid "^3.2.1"
 
-"@theia/markers@^1.0.0":
+"@theia/markers@1.0.0", "@theia/markers@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@theia/markers/-/markers-1.0.0.tgz#113a586f85c244c765110356405a47a7aaf38524"
   integrity sha512-YBu4P9ne24WAcvtIeN/drXg7C3cyJXwqc5p6Bn2suzxXpWprVyjCpO7njDezAsJ5A5GRy/LgUa8FY0kONxJ3ag==

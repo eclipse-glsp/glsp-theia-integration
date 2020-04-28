@@ -13,6 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { CenterAction, SelectAction, SelectAllAction } from "@eclipse-glsp/client";
 import { WidgetOpenerOptions } from "@theia/core/lib/browser";
 import URI from "@theia/core/lib/common/uri";
 import { EditorPreferences } from "@theia/editor/lib/browser";
@@ -20,6 +21,7 @@ import { inject, injectable } from "inversify";
 import { DiagramManager, DiagramWidget, DiagramWidgetOptions } from "sprotty-theia";
 
 import { GLSPDiagramWidget } from "./glsp-diagram-widget";
+import { RangeAwareOptions, RangeOfElements } from "./glsp-theia-marker-manager";
 import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
 
 @injectable()
@@ -27,6 +29,14 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     @inject(EditorPreferences)
     protected readonly editorPreferences: EditorPreferences;
     abstract get fileExtensions(): string[];
+
+    async doOpen(widget: DiagramWidget, options?: WidgetOpenerOptions) {
+        await super.doOpen(widget);
+        if (RangeAwareOptions.is(options) && RangeOfElements.is(options.selection)) {
+            const elementIds = options.selection.elementIds;
+            widget.actionDispatcher.dispatchAll([new SelectAllAction(false), new SelectAction(elementIds), new CenterAction(elementIds)]);
+        }
+    }
 
     async createWidget(options?: any): Promise<DiagramWidget> {
         if (DiagramWidgetOptions.is(options)) {
