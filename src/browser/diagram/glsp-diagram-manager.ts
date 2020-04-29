@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { CenterAction, SelectAction, SelectAllAction } from "@eclipse-glsp/client";
+import { CenterAction, GLSPActionDispatcher, SelectAction, SelectAllAction } from "@eclipse-glsp/client";
 import { WidgetOpenerOptions } from "@theia/core/lib/browser";
 import URI from "@theia/core/lib/common/uri";
 import { EditorPreferences } from "@theia/editor/lib/browser";
@@ -34,8 +34,16 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         await super.doOpen(widget);
         if (RangeAwareOptions.is(options) && RangeOfElements.is(options.selection)) {
             const elementIds = options.selection.elementIds;
-            widget.actionDispatcher.dispatchAll([new SelectAllAction(false), new SelectAction(elementIds), new CenterAction(elementIds)]);
+            if (widget.actionDispatcher instanceof GLSPActionDispatcher) {
+                widget.actionDispatcher.onceModelInitialized().then(() => this.selectAndCenter(widget, elementIds));
+            } else {
+                this.selectAndCenter(widget, elementIds);
+            }
         }
+    }
+
+    protected selectAndCenter(widget: DiagramWidget, elementIds: string[]) {
+        widget.actionDispatcher.dispatchAll([new SelectAllAction(false), new SelectAction(elementIds), new CenterAction(elementIds)]);
     }
 
     async createWidget(options?: any): Promise<DiagramWidget> {
