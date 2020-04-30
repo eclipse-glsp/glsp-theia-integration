@@ -67,12 +67,32 @@ export namespace RangeOfElements {
     }
 }
 
+class DiagnosticMarkers {
+    protected diagnotic2marker = new Map<Diagnostic, Marker>();
+    get size() { return this.diagnotic2marker.size; }
+    all() { return this.diagnotic2marker.values(); }
+    marker(diagnostic: Diagnostic) { return this.diagnotic2marker.get(diagnostic); }
+    add(diagnostic: Diagnostic, marker: Marker) { return this.diagnotic2marker.set(diagnostic, marker); }
+    delete(diagnostic: Diagnostic) { return this.diagnotic2marker.delete(diagnostic); }
+    clear() { return this.diagnotic2marker.clear(); }
+}
+
 @injectable()
 export class TheiaMarkerManager extends ExternalMarkerManager {
 
     @inject(ProblemManager) @optional() protected readonly problemManager?: ProblemManager;
 
-    protected currentMarkers = new Map<Diagnostic, Marker>();
+    protected uri2markers = new Map<URI, DiagnosticMarkers>();
+
+    protected markers(uri: URI) {
+        const marker = this.uri2markers.get(uri);
+        if (marker === undefined) {
+            const newMarker = new DiagnosticMarkers();
+            this.uri2markers.set(uri, newMarker);
+            return newMarker;
+        }
+        return marker;
+    }
 
     @postConstruct()
     initialize() {
@@ -82,19 +102,19 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
     }
 
     protected async refreshMarker(uri: URI): Promise<void> {
-        if (this.problemManager === undefined || this.currentMarkers.size < 1) {
+        if (this.problemManager === undefined || this.markers(uri).size < 1) {
             return;
         }
-        const toDelete = [...this.currentMarkers.values()];
+        const toDelete = [...this.markers(uri).all()];
         for (const existingMarker of this.problemManager.findMarkers({ uri })) {
             const diagnostic = existingMarker.data;
-            const marker = this.currentMarkers.get(diagnostic);
+            const marker = this.markers(uri).marker(diagnostic);
             if (marker) {
                 const index = toDelete.indexOf(marker);
                 if (index > -1) {
                     toDelete.splice(index, 1);
                 } else {
-                    this.currentMarkers.delete(diagnostic);
+                    this.markers(uri).delete(diagnostic);
                 }
             }
         }
@@ -104,16 +124,17 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
     }
 
     setMarkers(markers: Marker[], sourceUri?: string) {
-        if (this.problemManager) {
-            const uri = new URI(sourceUri);
-            this.currentMarkers.clear();
-            this.problemManager.setMarkers(uri, this.languageLabel, markers.map(marker => this.createDiagnostic(marker)));
+        if (this.problemManager === undefined) {
+            return;
         }
+        const uri = new URI(sourceUri);
+        this.markers(uri).clear();
+        this.problemManager.setMarkers(uri, this.languageLabel, markers.map(marker => this.createDiagnostic(uri, marker)));
     }
 
-    protected createDiagnostic(marker: Marker): Diagnostic {
+    protected createDiagnostic(uri: URI, marker: Marker): Diagnostic {
         const diagnostic = Diagnostic.create(RangeOfElements.create([marker.elementId]), marker.label, this.toSeverity(marker.kind));
-        this.currentMarkers.set(diagnostic, marker);
+        this.markers(uri).add(diagnostic, marker);
         return diagnostic;
     }
 
@@ -125,5 +146,4 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
             default: return undefined;
         }
     }
-
 }
