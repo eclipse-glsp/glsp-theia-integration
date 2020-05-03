@@ -26,6 +26,7 @@ import {
 } from "./diagram/glsp-diagram-commands";
 import { GLSPNotificationManager } from "./diagram/glsp-notification-manager";
 import { TheiaContextMenuServiceFactory } from "./diagram/glsp-theia-context-menu-service";
+import { TheiaMarkerManager, TheiaMarkerManagerFactory } from "./diagram/glsp-theia-marker-manager";
 import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
 import { GLSPClientFactory } from "./language/glsp-client";
 import { GLSPClientContribution } from "./language/glsp-client-contribution";
@@ -54,10 +55,15 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     });
 
     bind(GLSPNotificationManager).toSelf().inSingletonScope();
-
     if (isBound(NotificationManager)) {
         rebind(NotificationManager).toService(GLSPNotificationManager);
     } else {
         bind(NotificationManager).toService(GLSPNotificationManager);
     }
+
+    bind(TheiaMarkerManagerFactory).toFactory(context => () => {
+        const container = context.container.createChild();
+        container.bind(TheiaMarkerManager).toSelf().inSingletonScope();
+        return container.get(TheiaMarkerManager);
+    });
 });

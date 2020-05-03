@@ -20,7 +20,8 @@ import {
     isServerMessageAction,
     ModelSource,
     registerDefaultGLSPServerActions,
-    ServerMessageAction
+    ServerMessageAction,
+    SourceUriAware
 } from "@eclipse-glsp/client";
 import { Emitter, Event } from "@theia/core/lib/common";
 import { injectable } from "inversify";
@@ -29,7 +30,7 @@ import { TheiaDiagramServer } from "sprotty-theia";
 import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
 
 @injectable()
-export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource, DirtyStateNotifier {
+export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource, DirtyStateNotifier, SourceUriAware {
 
     readonly handledActionEventEmitter: Emitter<Action> = new Emitter<Action>();
     readonly dirtyStateChangeEmitter: Emitter<DirtyState> = new Emitter<DirtyState>();
