@@ -32,6 +32,8 @@ import { GLSPClientFactory } from "./language/glsp-client";
 import { GLSPClientContribution } from "./language/glsp-client-contribution";
 import { GLSPClientProvider, GLSPClientProviderImpl } from "./language/glsp-client-provider";
 import { GLSPFrontendContribution } from "./language/glsp-frontend-contribution";
+import { TheiaNavigateToTargetHandler } from "./theia-navigate-to-target-handler";
+import { TheiaOpenerOptionsNavigationService } from "./theia-opener-options-navigation-service";
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(GLSPClientFactory).toSelf().inSingletonScope();
@@ -66,4 +68,7 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
         container.bind(TheiaMarkerManager).toSelf().inSingletonScope();
         return container.get(TheiaMarkerManager);
     });
+
+    bind(TheiaNavigateToTargetHandler).toSelf().inSingletonScope();
+    bind(TheiaOpenerOptionsNavigationService).toSelf().inSingletonScope();
 });

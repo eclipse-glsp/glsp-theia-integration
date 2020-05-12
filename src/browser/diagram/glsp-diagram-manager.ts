@@ -13,37 +13,38 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { CenterAction, GLSPActionDispatcher, SelectAction, SelectAllAction } from "@eclipse-glsp/client";
-import { WidgetOpenerOptions } from "@theia/core/lib/browser";
+import { GLSPActionDispatcher } from "@eclipse-glsp/client";
+import { NavigatableWidgetOptions, WidgetOpenerOptions } from "@theia/core/lib/browser";
 import URI from "@theia/core/lib/common/uri";
 import { EditorPreferences } from "@theia/editor/lib/browser";
 import { inject, injectable } from "inversify";
 import { DiagramManager, DiagramWidget, DiagramWidgetOptions } from "sprotty-theia";
 
+import { TheiaOpenerOptionsNavigationService } from "../theia-opener-options-navigation-service";
 import { GLSPDiagramWidget } from "./glsp-diagram-widget";
-import { RangeAwareOptions, RangeOfElements } from "./glsp-theia-marker-manager";
 import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
 
 @injectable()
 export abstract class GLSPDiagramManager extends DiagramManager {
+
     @inject(EditorPreferences)
     protected readonly editorPreferences: EditorPreferences;
+
+    @inject(TheiaOpenerOptionsNavigationService)
+    protected readonly diagramNavigationService: TheiaOpenerOptionsNavigationService;
+
     abstract get fileExtensions(): string[];
 
     async doOpen(widget: DiagramWidget, options?: WidgetOpenerOptions) {
         await super.doOpen(widget);
-        if (RangeAwareOptions.is(options) && RangeOfElements.is(options.selection)) {
-            const elementIds = options.selection.elementIds;
+        const navigations = this.diagramNavigationService.determineNavigations(widget.uri.toString(true), options);
+        if (navigations.length > 0) {
             if (widget.actionDispatcher instanceof GLSPActionDispatcher) {
-                widget.actionDispatcher.onceModelInitialized().then(() => this.selectAndCenter(widget, elementIds));
+                widget.actionDispatcher.onceModelInitialized().then(() => widget.actionDispatcher.dispatchAll(navigations));
             } else {
-                this.selectAndCenter(widget, elementIds);
+                widget.actionDispatcher.dispatchAll(navigations);
             }
         }
-    }
-
-    protected selectAndCenter(widget: DiagramWidget, elementIds: string[]) {
-        widget.actionDispatcher.dispatchAll([new SelectAllAction(false), new SelectAction(elementIds), new CenterAction(elementIds)]);
     }
 
     async createWidget(options?: any): Promise<DiagramWidget> {
@@ -54,6 +55,16 @@ export abstract class GLSPDiagramManager extends DiagramManager {
             return new GLSPDiagramWidget(options, clientId + '_widget', diContainer, this.editorPreferences, this.diagramConnector);
         }
         throw Error('DiagramWidgetFactory needs DiagramWidgetOptions but got ' + JSON.stringify(options));
+    }
+
+    protected createWidgetOptions(uri: URI, options?: WidgetOpenerOptions): DiagramWidgetOptions & NavigatableWidgetOptions {
+        return {
+            diagramType: this.diagramType,
+            kind: 'navigatable',
+            uri: uri.toString(true),
+            iconClass: this.iconClass,
+            label: uri.path.base
+        };
     }
 
     canHandle(uri: URI, options?: WidgetOpenerOptions | undefined): number {

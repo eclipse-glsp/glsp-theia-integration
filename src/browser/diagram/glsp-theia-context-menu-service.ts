@@ -19,7 +19,7 @@ import { TheiaContextMenuService } from "sprotty-theia/lib/sprotty/theia-sprotty
 
 export const TheiaContextMenuServiceFactory = Symbol('TheiaContextMenuServiceFactory');
 
-export function connectTheiaDiagramService(container: Container, contextMenuServiceFactory: () => TheiaContextMenuService) {
+export function connectTheiaContextMenuService(container: Container, contextMenuServiceFactory: () => TheiaContextMenuService) {
     const contextMenuService = contextMenuServiceFactory();
     container.bind(GLSP_TYPES.IContextMenuService).toConstantValue(contextMenuService);
     if (contextMenuService instanceof TheiaContextMenuService) {
