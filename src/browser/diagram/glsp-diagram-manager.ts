@@ -50,9 +50,10 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     async createWidget(options?: any): Promise<DiagramWidget> {
         if (DiagramWidgetOptions.is(options)) {
             const clientId = this.createClientId();
+            const widgetId = this.id + ':' + options.uri;
             const config = this.diagramConfigurationRegistry.get(options.diagramType);
             const diContainer = config.createContainer(clientId);
-            return new GLSPDiagramWidget(options, clientId + '_widget', diContainer, this.editorPreferences, this.diagramConnector);
+            return new GLSPDiagramWidget(options, widgetId, diContainer, this.editorPreferences, this.diagramConnector);
         }
         throw Error('DiagramWidgetFactory needs DiagramWidgetOptions but got ' + JSON.stringify(options));
     }
