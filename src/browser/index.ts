@@ -15,6 +15,9 @@
  ********************************************************************************/
 
 export * from './theia-command-palette';
+export * from './theia-navigate-to-target-handler';
+export * from './theia-opener-options-navigation-service';
+
 // diagram export
 export * from './diagram/glsp-diagram-client';
 export * from './diagram/glsp-diagram-manager';
@@ -23,6 +26,7 @@ export * from './diagram/glsp-theia-diagram-server';
 export * from './diagram/glsp-theia-sprotty-connector';
 export * from './diagram/glsp-notification-manager';
 export * from './diagram/glsp-theia-context-menu-service';
+
 // language export
 export * from './language/glsp-client';
 export * from './language/glsp-client-contribution';

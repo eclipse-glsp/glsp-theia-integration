@@ -26,9 +26,9 @@
     regenerator-runtime "^0.13.2"
 
 "@eclipse-glsp/client@next":
-  version "0.8.0-next.b11cde2"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.0-next.b11cde2.tgz#1486b988983aaac9fdd9879fb7ffa57f1b9061ea"
-  integrity sha512-DEJA+dyIFXcgoOlEFO6fR3YJ2oRnthHDXJrLiqx/dG5ilwKdpeVbn9wwVSc5Uax42a9raUQ2gmpdfumhhXleeg==
+  version "0.8.0-next.155bf6e"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.0-next.155bf6e.tgz#5149b83e15425653316aaef730216d99fc19ea5a"
+  integrity sha512-B3bvsmI9jxHO6zgXjcIhj2XR6D8UER27CkpnEsCO2sXkEq4c8974sBr291Qtc86WdZgxHBe5ukjlFQHrJUCKyA==
   dependencies:
     autocompleter "5.1.0"
     sprotty next

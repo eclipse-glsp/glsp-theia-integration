@@ -14,11 +14,12 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { ExternalMarkerManager, IActionDispatcher, Marker, MarkerKind, TYPES } from "@eclipse-glsp/client/lib";
-import { OpenerOptions } from "@theia/core/lib/browser";
 import URI from "@theia/core/lib/common/uri";
 import { Diagnostic } from "@theia/languages/lib/browser";
 import { ProblemManager } from "@theia/markers/lib/browser/problem/problem-manager";
 import { Container, inject, injectable, optional, postConstruct } from "inversify";
+
+import { SelectionWithElementIds } from "../theia-opener-options-navigation-service";
 
 export const TheiaMarkerManagerFactory = Symbol('TheiaMarkerManagerFactory');
 
@@ -32,38 +33,6 @@ export function connectTheiaMarkerManager(container: Container, markerManagerFac
         }
         markerManager.languageLabel = languageLabel;
         markerManager.connect(container.get<IActionDispatcher>(TYPES.IActionDispatcher));
-    }
-}
-
-export interface RangeAwareOptions {
-    readonly selection: Range;
-}
-
-export namespace RangeAwareOptions {
-    export function is(options: OpenerOptions | undefined): options is RangeAwareOptions {
-        return options !== undefined && 'selection' in options;
-    }
-    export function elementId(options: OpenerOptions | undefined): string[] | undefined {
-        if (!RangeAwareOptions.is(options)) {
-            return undefined;
-        }
-        if (!RangeOfElements.is(options.selection)) {
-            return undefined;
-        }
-        return options.selection.elementIds;
-    }
-}
-
-export interface RangeOfElements extends Range {
-    readonly elementIds: string[];
-}
-
-export namespace RangeOfElements {
-    export function is(range: Range | undefined): range is RangeOfElements {
-        return range !== undefined && 'elementIds' in range;
-    }
-    export function create(elementIds: string[]) {
-        return { start: { line: -1, character: -1 }, end: { line: -1, character: -1 }, elementIds };
     }
 }
 
@@ -133,7 +102,8 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
     }
 
     protected createDiagnostic(uri: URI, marker: Marker): Diagnostic {
-        const diagnostic = Diagnostic.create(RangeOfElements.create([marker.elementId]), marker.label, this.toSeverity(marker.kind));
+        const range = SelectionWithElementIds.createRange([marker.elementId]);
+        const diagnostic = Diagnostic.create(range, marker.label, this.toSeverity(marker.kind));
         this.markers(uri).add(diagnostic, marker);
         return diagnostic;
     }
