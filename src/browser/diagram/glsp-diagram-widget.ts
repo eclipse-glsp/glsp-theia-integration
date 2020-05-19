@@ -43,6 +43,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         readonly editorPreferences: EditorPreferences, readonly connector?: TheiaSprottyConnector) {
         super(options, widgetId, diContainer, connector);
         this.updateSaveable();
+        this.title.caption = this.uri.path.toString();
         const prefUpdater = editorPreferences.onPreferenceChanged(() => this.updateSaveable());
         this.toDispose.push(prefUpdater);
         this.toDispose.push(this.saveable);
@@ -66,7 +67,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         });
 
         this.actionDispatcher.dispatch(new RequestModelAction({
-            sourceUri: this.options.uri.replace("file://", ""),
+            sourceUri: this.uri.path.toString(),
             needsClientLayout: `${this.viewerOptions.needsClientLayout}`,
             ...this.options
         }));
@@ -76,6 +77,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
     protected onAfterAttach(msg: Message): void {
         super.onAfterAttach(msg);
+        this.node.dataset['uri'] = this.uri.toString();
         if (this.diContainer.isBound(GLSP_TYPES.ICopyPasteHandler)) {
             this.copyPasteHandler = this.diContainer.get<ICopyPasteHandler>(GLSP_TYPES.ICopyPasteHandler);
             this.addClipboardListener(this.node, 'copy', e => this.handleCopy(e));
