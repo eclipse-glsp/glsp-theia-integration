@@ -14,15 +14,33 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { GLSPActionDispatcher } from "@eclipse-glsp/client";
-import { NavigatableWidgetOptions, WidgetOpenerOptions } from "@theia/core/lib/browser";
+import {
+    FrontendApplicationContribution,
+    NavigatableWidgetOptions,
+    OpenHandler,
+    WidgetFactory,
+    WidgetOpenerOptions
+} from "@theia/core/lib/browser";
 import URI from "@theia/core/lib/common/uri";
 import { EditorPreferences } from "@theia/editor/lib/browser";
-import { inject, injectable } from "inversify";
-import { DiagramManager, DiagramWidget, DiagramWidgetOptions } from "sprotty-theia";
+import { inject, injectable, interfaces } from "inversify";
+import { DiagramManager, DiagramManagerProvider, DiagramWidget, DiagramWidgetOptions } from "sprotty-theia";
 
 import { TheiaOpenerOptionsNavigationService } from "../theia-opener-options-navigation-service";
 import { GLSPDiagramWidget } from "./glsp-diagram-widget";
 import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
+
+export function registerDiagramManager(bind: interfaces.Bind, diagramManagerServiceId: interfaces.ServiceIdentifier<DiagramManager>) {
+    bind(diagramManagerServiceId).toSelf().inSingletonScope();
+    bind(FrontendApplicationContribution).toService(diagramManagerServiceId);
+    bind(OpenHandler).toService(diagramManagerServiceId);
+    bind(WidgetFactory).toService(diagramManagerServiceId);
+    bind(DiagramManagerProvider).toProvider<DiagramManager>((context) => {
+        return () => new Promise<DiagramManager>((resolve) => {
+            resolve(context.container.get(diagramManagerServiceId));
+        });
+    });
+}
 
 @injectable()
 export abstract class GLSPDiagramManager extends DiagramManager {
