@@ -15,6 +15,7 @@
  ********************************************************************************/
 import {
     DiagramServer,
+    EditorContextService,
     EnableToolPaletteAction,
     GLSP_TYPES,
     IActionDispatcher,
@@ -84,6 +85,10 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
             this.addClipboardListener(this.node, 'paste', e => this.handlePaste(e));
             this.addClipboardListener(this.node, 'cut', e => this.handleCut(e));
         }
+    }
+
+    get editorContext(): EditorContextService {
+        return this.diContainer.get(EditorContextService);
     }
 
     handleCopy(e: ClipboardEvent) {

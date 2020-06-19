@@ -14,12 +14,18 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
+export * from 'sprotty-theia';
+
 export * from './theia-command-palette';
 export * from './theia-navigate-to-target-handler';
 export * from './theia-opener-options-navigation-service';
+export * from './theia-copy-paste-context-menu-contribution';
+export * from './theia-navigate-to-marker-contribution';
 
 // diagram export
+export * from './diagram/glsp-command-handler';
 export * from './diagram/glsp-diagram-client';
+export * from './diagram/glsp-diagram-layout-commands';
 export * from './diagram/glsp-diagram-manager';
 export * from './diagram/glsp-diagram-widget';
 export * from './diagram/glsp-theia-diagram-server';

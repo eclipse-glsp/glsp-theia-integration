@@ -13,17 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { bindContributionProvider, CommandContribution, MenuContribution } from "@theia/core";
-import { FrontendApplicationContribution, KeybindingContribution } from "@theia/core/lib/browser";
+import { bindContributionProvider } from "@theia/core";
+import { FrontendApplicationContribution } from "@theia/core/lib/browser";
 import { NotificationManager } from "@theia/messages/lib/browser/notifications-manager";
 import { ContainerModule } from "inversify";
 import { TheiaContextMenuService } from "sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service";
 
-import {
-    GLSPDiagramCommandContribution,
-    GLSPDiagramKeybindingContribution,
-    GLSPDiagramMenuContribution
-} from "./diagram/glsp-diagram-commands";
 import { GLSPNotificationManager } from "./diagram/glsp-notification-manager";
 import { TheiaContextMenuServiceFactory } from "./diagram/glsp-theia-context-menu-service";
 import { TheiaMarkerManager, TheiaMarkerManagerFactory } from "./diagram/glsp-theia-marker-manager";
@@ -45,10 +40,6 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(GLSPClientProvider).toService(GLSPClientProviderImpl);
 
     bind(GLSPTheiaSprottyConnector).toSelf().inSingletonScope();
-
-    bind(CommandContribution).to(GLSPDiagramCommandContribution).inSingletonScope();
-    bind(MenuContribution).to(GLSPDiagramMenuContribution).inSingletonScope();
-    bind(KeybindingContribution).to(GLSPDiagramKeybindingContribution).inSingletonScope();
 
     bind(TheiaContextMenuServiceFactory).toFactory(context => () => {
         const container = context.container.createChild();
