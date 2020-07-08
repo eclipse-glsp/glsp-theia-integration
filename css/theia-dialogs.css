@@ -1,0 +1,5 @@
+.scroll-div {
+    /** scrollable div, used e.g. in a Theia ConfirmDialog */
+    max-height: 260px;
+    overflow: auto;
+}

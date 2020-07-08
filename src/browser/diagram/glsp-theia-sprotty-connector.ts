@@ -218,5 +218,20 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
 }
 
 export function showDialog(title: string, msg: string) {
-    return new ConfirmDialog({ title, msg }).open();
+    const wrappedMsg = wrapMessage(msg);
+    return new ConfirmDialog({ title, msg: wrappedMsg }).open();
+}
+
+/**
+ * Wraps the given message in a pre-formatted,
+ * scrollable div.
+ * @param msg
+ */
+function wrapMessage(msg: string) {
+    const scrollDiv = document.createElement('div');
+    scrollDiv.className = 'scroll-div';
+    const pre = document.createElement('pre');
+    pre.textContent = msg;
+    scrollDiv.appendChild(pre);
+    return scrollDiv;
 }
