@@ -87,6 +87,10 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         }
     }
 
+    get diagramType(): string {
+        return this.options.diagramType;
+    }
+
     get editorContext(): EditorContextService {
         return this.diContainer.get(EditorContextService);
     }

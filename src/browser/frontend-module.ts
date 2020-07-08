@@ -19,6 +19,7 @@ import { NotificationManager } from "@theia/messages/lib/browser/notifications-m
 import { ContainerModule } from "inversify";
 import { TheiaContextMenuService } from "sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service";
 
+import { GLSPDiagramContextKeyService } from "./diagram/glsp-diagram-context-key-service";
 import { GLSPNotificationManager } from "./diagram/glsp-notification-manager";
 import { TheiaContextMenuServiceFactory } from "./diagram/glsp-theia-context-menu-service";
 import { TheiaMarkerManager, TheiaMarkerManagerFactory } from "./diagram/glsp-theia-marker-manager";
@@ -60,6 +61,7 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
         return container.get(TheiaMarkerManager);
     });
 
+    bind(GLSPDiagramContextKeyService).toSelf().inSingletonScope();
     bind(TheiaNavigateToTargetHandler).toSelf().inSingletonScope();
     bind(TheiaOpenerOptionsNavigationService).toSelf().inSingletonScope();
 });
