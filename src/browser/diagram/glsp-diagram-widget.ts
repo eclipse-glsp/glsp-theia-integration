@@ -24,6 +24,7 @@ import {
     RequestModelAction,
     RequestTypeHintsAction,
     SaveModelAction,
+    SetEditModeAction,
     TYPES
 } from "@eclipse-glsp/client";
 import { Message } from "@phosphor/messaging/lib";
@@ -33,14 +34,15 @@ import { EditorPreferences } from "@theia/editor/lib/browser";
 import { Container } from "inversify";
 import { DiagramWidget, DiagramWidgetOptions, TheiaSprottyConnector } from "sprotty-theia";
 
+import { GLSPWidgetOpenerOptions, GLSPWidgetOptions } from "./glsp-diagram-manager";
 import { DirtyStateNotifier, GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
 
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
     protected copyPasteHandler?: ICopyPasteHandler;
     saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
-
-    constructor(options: DiagramWidgetOptions, readonly widgetId: string, readonly diContainer: Container,
+    options: DiagramWidgetOptions & GLSPWidgetOptions;
+    constructor(options: DiagramWidgetOptions & GLSPWidgetOpenerOptions, readonly widgetId: string, readonly diContainer: Container,
         readonly editorPreferences: EditorPreferences, readonly connector?: TheiaSprottyConnector) {
         super(options, widgetId, diContainer, connector);
         this.updateSaveable();
@@ -70,10 +72,12 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         this.actionDispatcher.dispatch(new RequestModelAction({
             sourceUri: this.uri.path.toString(),
             needsClientLayout: `${this.viewerOptions.needsClientLayout}`,
-            ...this.options
+            ... this.options
         }));
+
         this.actionDispatcher.dispatch(new RequestTypeHintsAction(this.options.diagramType));
         this.actionDispatcher.dispatch(new EnableToolPaletteAction());
+        this.actionDispatcher.dispatch(new SetEditModeAction(this.options.editMode));
     }
 
     protected onAfterAttach(msg: Message): void {
