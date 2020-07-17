@@ -27,6 +27,7 @@ import { inject, injectable, interfaces } from "inversify";
 import { DiagramManager, DiagramManagerProvider, DiagramWidget, DiagramWidgetOptions } from "sprotty-theia";
 
 import { TheiaOpenerOptionsNavigationService } from "../theia-opener-options-navigation-service";
+import { GLSPDiagramContextKeyService } from "./glsp-diagram-context-key-service";
 import { GLSPDiagramWidget } from "./glsp-diagram-widget";
 import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
 
@@ -50,6 +51,9 @@ export abstract class GLSPDiagramManager extends DiagramManager {
 
     @inject(TheiaOpenerOptionsNavigationService)
     protected readonly diagramNavigationService: TheiaOpenerOptionsNavigationService;
+
+    @inject(GLSPDiagramContextKeyService)
+    protected readonly contextKeyService: GLSPDiagramContextKeyService;
 
     abstract get fileExtensions(): string[];
 

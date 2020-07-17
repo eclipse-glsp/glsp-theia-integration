@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { GLSP_TYPES, isDeletable, isMoveable, SModelRoot } from "@eclipse-glsp/client";
+import { GLSP_TYPES, isDeletable, isMoveable, isNotUndefined, SModelElement, SModelRoot } from "@eclipse-glsp/client";
 import { SelectionService } from "@eclipse-glsp/client/lib/features/select/selection-service";
 import { ApplicationShell } from "@theia/core/lib/browser";
 import { ContextKey, ContextKeyService } from "@theia/core/lib/browser/context-key-service";
@@ -23,7 +23,7 @@ import { isDiagramWidgetContainer } from "sprotty-theia";
 import { GLSPDiagramWidget } from "./glsp-diagram-widget";
 
 @injectable()
-export class GLSPDiagramContextKeyService {
+export abstract class AbstractGLSPDiagramContextKeyService {
 
     @inject(ApplicationShell)
     protected readonly shell: ApplicationShell;
@@ -36,6 +36,64 @@ export class GLSPDiagramContextKeyService {
     protected readonly selectionChangeListener = {
         selectionChanged: (root: Readonly<SModelRoot>, selectedElements: string[]) => this.updateSelectionContextKeys(root, selectedElements)
     };
+
+    @postConstruct()
+    protected init(): void {
+        this.registerContextKeys();
+        this.updateContextKeys();
+        this.shell.activeChanged.connect(() => this.updateContextKeys());
+    }
+
+    protected updateContextKeys() {
+        if (this.currentSelectionService) {
+            this.currentSelectionService.deregister(this.selectionChangeListener);
+        }
+        const glspDiagramWidget = this.getDiagramWidget();
+        if (glspDiagramWidget) {
+            this.doUpdateStaticContextKeys(glspDiagramWidget);
+            this.currentSelectionService = this.getSelectionService(glspDiagramWidget);
+            this.currentSelectionService.register(this.selectionChangeListener);
+            this.updateSelectionContextKeys(this.currentSelectionService.getModelRoot(), Array.from(this.currentSelectionService.getSelectedElementIDs()));
+        } else {
+            this.resetContextKeys();
+        }
+    }
+
+    protected updateSelectionContextKeys(root: Readonly<SModelRoot>, selectedElementIds: string[]) {
+        if (selectedElementIds.length < 1) {
+            this.doResetSelectionContextKeys();
+            return;
+        }
+        this.doUpdateSelectionContextKeys(selectedElementIds.map(id => root.index.getById(id)).filter(isNotUndefined));
+    }
+
+    protected getSelectionService(glspDiagramWidget: GLSPDiagramWidget): SelectionService {
+        return glspDiagramWidget.diContainer.get(GLSP_TYPES.SelectionService);
+    }
+
+    protected getDiagramWidget() {
+        const widget = (this.shell.activeWidget || this.shell.currentWidget);
+        if (widget instanceof GLSPDiagramWidget) {
+            return widget as GLSPDiagramWidget;
+        } else if (isDiagramWidgetContainer(widget) && widget.diagramWidget instanceof GLSPDiagramWidget) {
+            return widget.diagramWidget as GLSPDiagramWidget;
+        }
+        return undefined;
+    }
+
+    protected resetContextKeys() {
+        this.doResetStaticContextKeys();
+        this.doResetSelectionContextKeys();
+    }
+
+    protected abstract registerContextKeys(): void;
+    protected abstract doUpdateStaticContextKeys(glspDiagramWidget: GLSPDiagramWidget): void;
+    protected abstract doResetStaticContextKeys(): void;
+    protected abstract doUpdateSelectionContextKeys(selectedElements: SModelElement[]): void;
+    protected abstract doResetSelectionContextKeys(): void;
+}
+
+export class GLSPDiagramContextKeyService extends AbstractGLSPDiagramContextKeyService {
 
     protected _glspEditorFocus: ContextKey<boolean>;
     get glspEditorFocus(): ContextKey<boolean> {
@@ -72,13 +130,6 @@ export class GLSPDiagramContextKeyService {
         return this._glspEditorHasMoveableSelection;
     }
 
-    @postConstruct()
-    protected init(): void {
-        this.registerContextKeys();
-        this.updateContextKeys();
-        this.shell.activeChanged.connect(() => this.updateContextKeys());
-    }
-
     protected registerContextKeys() {
         this._glspEditorFocus = this.contextKeyService.createKey<boolean>('glspEditorFocus', false);
         this._glspEditorDiagramType = this.contextKeyService.createKey<string>('glspEditorDiagramType', undefined);
@@ -89,28 +140,17 @@ export class GLSPDiagramContextKeyService {
         this._glspEditorHasMoveableSelection = this.contextKeyService.createKey<boolean>('glspEditorHasMoveableSelection', false);
     }
 
-    protected updateContextKeys() {
-        if (this.currentSelectionService) {
-            this.currentSelectionService.deregister(this.selectionChangeListener);
-        }
-        const glspDiagramWidget = this.getDiagramWidget();
-        if (glspDiagramWidget) {
-            this.glspEditorFocus.set(true);
-            this.glspEditorDiagramType.set(glspDiagramWidget.diagramType);
-            this.currentSelectionService = this.getSelectionService(glspDiagramWidget);
-            this.currentSelectionService.register(this.selectionChangeListener);
-            this.updateSelectionContextKeys(this.currentSelectionService.getModelRoot(), Array.from(this.currentSelectionService.getSelectedElementIDs()));
-        } else {
-            this.resetContextKeys();
-        }
+    protected doUpdateStaticContextKeys(glspDiagramWidget: GLSPDiagramWidget): void {
+        this.glspEditorFocus.set(true);
+        this.glspEditorDiagramType.set(glspDiagramWidget.diagramType);
     }
 
-    protected updateSelectionContextKeys(root: Readonly<SModelRoot>, selectedElementIds: string[]) {
-        if (selectedElementIds.length < 1) {
-            this.resetSelectionContextKeys();
-            return;
-        }
-        const selectedElements = selectedElementIds.map(id => root.index.getById(id));
+    protected doResetStaticContextKeys(): void {
+        this.glspEditorFocus.reset();
+        this.glspEditorDiagramType.reset();
+    }
+
+    protected doUpdateSelectionContextKeys(selectedElements: SModelElement[]): void {
         this.glspEditorHasSelection.set(true);
         this.glspEditorHasMultipleSelection.set(selectedElements.length > 1);
         this.glspEditorHasDeletableSelection.set(selectedElements.filter(isDeletable).length > 0);
@@ -120,31 +160,12 @@ export class GLSPDiagramContextKeyService {
         }
     }
 
-    protected getSelectionService(glspDiagramWidget: GLSPDiagramWidget): SelectionService {
-        return glspDiagramWidget.diContainer.get(GLSP_TYPES.SelectionService);
-    }
-
-    protected getDiagramWidget() {
-        const widget = (this.shell.activeWidget || this.shell.currentWidget);
-        if (widget instanceof GLSPDiagramWidget) {
-            return widget as GLSPDiagramWidget;
-        } else if (isDiagramWidgetContainer(widget) && widget.diagramWidget instanceof GLSPDiagramWidget) {
-            return widget.diagramWidget as GLSPDiagramWidget;
-        }
-        return undefined;
-    }
-
-    protected resetContextKeys() {
-        this.glspEditorFocus.reset();
-        this.glspEditorDiagramType.reset();
-        this.resetSelectionContextKeys();
-    }
-
-    protected resetSelectionContextKeys() {
+    protected doResetSelectionContextKeys(): void {
         this.glspEditorHasDeletableSelection.reset();
         this.glspEditorHasMoveableSelection.reset();
         this.glspEditorHasMultipleSelection.reset();
         this.glspEditorHasSelection.reset();
         this.glspEditorHasSelectionOfType.reset();
     }
+
 }
