@@ -285,7 +285,7 @@ export class GLSPLayoutCommandContribution implements CommandContribution {
             label: "Resize to " + label,
         }, new GLSPCommandHandler(this.shell, {
             actions: () => [new ResizeElementsAction([], dimension, f)],
-            isEnabled: context => context.get().selectedElementIds.length > 1
+            isEnabled: context => !context.isReadonly && context.get().selectedElementIds.length > 1
         }));
     }
 
@@ -296,7 +296,7 @@ export class GLSPLayoutCommandContribution implements CommandContribution {
             label: "Align " + label
         }, new GLSPCommandHandler(this.shell, {
             actions: () => [new AlignElementsAction([], alignment, f)],
-            isEnabled: context => context.get().selectedElementIds.length > 1
+            isEnabled: context => !context.isReadonly && context.get().selectedElementIds.length > 1
         }));
     }
 
@@ -354,22 +354,26 @@ export class GLSPLayoutKeybindingContribution implements KeybindingContribution 
         registry.registerKeybinding({
             command: GLSPLayoutCommands.ALIGN_LEFT,
             context: this.diagramKeybindingContext.id,
-            keybinding: 'alt+shift+left'
+            keybinding: 'alt+shift+left',
+            when: '!glspEditorIsReadonly && glspEditorHasMultipleSelection'
         });
         registry.registerKeybinding({
             command: GLSPLayoutCommands.ALIGN_RIGHT,
             context: this.diagramKeybindingContext.id,
-            keybinding: 'alt+shift+right'
+            keybinding: 'alt+shift+right',
+            when: '!glspEditorIsReadonly && glspEditorHasMultipleSelection'
         });
         registry.registerKeybinding({
             command: GLSPLayoutCommands.ALIGN_TOP,
             context: this.diagramKeybindingContext.id,
-            keybinding: 'alt+shift+up'
+            keybinding: 'alt+shift+up',
+            when: '!glspEditorIsReadonly && glspEditorHasMultipleSelection'
         });
         registry.registerKeybinding({
             command: GLSPLayoutCommands.ALIGN_BOTTOM,
             context: this.diagramKeybindingContext.id,
-            keybinding: 'alt+shift+down'
+            keybinding: 'alt+shift+down',
+            when: '!glspEditorIsReadonly && glspEditorHasMultipleSelection'
         });
     }
 }

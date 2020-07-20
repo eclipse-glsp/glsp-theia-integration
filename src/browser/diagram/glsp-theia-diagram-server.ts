@@ -18,21 +18,21 @@ import {
     ActionHandlerRegistry,
     ComputedBoundsAction,
     isServerMessageAction,
-    ModelSource,
     registerDefaultGLSPServerActions,
     ServerMessageAction,
-    SourceUriAware
+    SetEditModeAction,
+    SourceUriAware,
+    isSetEditModeAction
 } from "@eclipse-glsp/client";
 import { Emitter, Event } from "@theia/core/lib/common";
 import { injectable } from "inversify";
 import { TheiaDiagramServer } from "sprotty-theia";
 
 import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
-
+const receivedFromServerProperty = '__receivedFromServer';
 @injectable()
-export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements NotifyingModelSource, DirtyStateNotifier, SourceUriAware {
+export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyStateNotifier, SourceUriAware {
 
-    readonly handledActionEventEmitter: Emitter<Action> = new Emitter<Action>();
     readonly dirtyStateChangeEmitter: Emitter<DirtyState> = new Emitter<DirtyState>();
 
     protected dirtyState: DirtyState = { isDirty: false };
@@ -47,10 +47,6 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         return this.sourceUri;
     }
 
-    get onHandledAction(): Event<Action> {
-        return this.handledActionEventEmitter.event;
-    }
-
     get onDirtyStateChange(): Event<DirtyState> {
         return this.dirtyStateChangeEmitter.event;
     }
@@ -62,11 +58,6 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         }
     }
 
-    handle(action: Action) {
-        this.handledActionEventEmitter.fire(action);
-        return super.handle(action);
-    }
-
     handleLocally(action: Action): boolean {
         if (isSetDirtyStateAction(action)) {
             this.setDirty(action.isDirty);
@@ -75,6 +66,9 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         if (isServerMessageAction(action)) {
             return this.handleServerMessageAction(action);
         }
+        if (isSetEditModeAction(action)) {
+            return this.handleSetEditModeAction(action);
+        }
         return super.handleLocally(action);
     }
 
@@ -82,19 +76,13 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements Notify
         return true;
     }
 
+    protected handleSetEditModeAction(action: SetEditModeAction): boolean {
+        return (action as any)[receivedFromServerProperty] !== true;
+    }
+
     protected handleServerMessageAction(status: ServerMessageAction): boolean {
         (<GLSPTheiaSprottyConnector>this.connector).showMessage(this.clientId, status);
         return false;
-    }
-}
-
-export interface NotifyingModelSource extends ModelSource {
-    readonly onHandledAction: Event<Action>;
-}
-
-export namespace NotifyingModelSource {
-    export function is(arg: any): arg is NotifyingModelSource {
-        return !!arg && ('onHandledAction' in arg);
     }
 }
 

@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { GLSPActionDispatcher } from "@eclipse-glsp/client";
+import { EditMode, GLSPActionDispatcher } from "@eclipse-glsp/client";
 import {
     FrontendApplicationContribution,
     NavigatableWidgetOptions,
@@ -80,13 +80,14 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         throw Error('DiagramWidgetFactory needs DiagramWidgetOptions but got ' + JSON.stringify(options));
     }
 
-    protected createWidgetOptions(uri: URI, options?: WidgetOpenerOptions): DiagramWidgetOptions & NavigatableWidgetOptions {
-        return {
+    protected createWidgetOptions(uri: URI, options?: GLSPWidgetOpenerOptions): DiagramWidgetOptions & GLSPWidgetOptions {
+        return <DiagramWidgetOptions & GLSPWidgetOptions>{
             diagramType: this.diagramType,
             kind: 'navigatable',
             uri: uri.toString(true),
             iconClass: this.iconClass,
-            label: uri.path.base
+            label: uri.path.base,
+            editMode: options && options.editMode ? options.editMode : EditMode.EDITABLE
         };
     }
 
@@ -102,4 +103,12 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     get diagramConnector(): GLSPTheiaSprottyConnector | undefined {
         return undefined;
     }
+}
+
+export interface GLSPWidgetOpenerOptions extends WidgetOpenerOptions {
+    editMode?: string;
+}
+
+export interface GLSPWidgetOptions extends NavigatableWidgetOptions {
+    editMode: string;
 }
