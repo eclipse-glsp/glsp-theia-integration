@@ -35,3 +35,7 @@
 .sprotty-node.selected {
     stroke: var(--theia-menu-selectionBackground);
 }
+
+.sprotty-resize-handle.active {
+    fill: var(--theia-menu-selectionBackground);
+}
