@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019 EclipseSource and others.
+ * Copyright (c) 2020 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,26 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ActionMessage } from "@eclipse-glsp/client";
-import { NotificationType, NotificationType0, RequestType, RequestType0 } from "vscode-jsonrpc";
-
-
-export interface InitializeParameters {
-    options?: any
-}
-
-export namespace ActionMessageNotification {
-    export const type = new NotificationType<ActionMessage, void>('process');
-}
-
-export namespace InitializeRequest {
-    export const type = new RequestType<InitializeParameters, Boolean, void, void>('initialize');
-}
-
-export namespace ShutdownRequest {
-    export const type = new RequestType0<void, void, void>('shutdown');
-}
-
-export namespace ExitNotification {
-    export const type = new NotificationType0<void>('exit');
-}
+export * from './glsp-command-handler';
+export * from './glsp-diagram-client';
+export * from './glsp-diagram-layout-commands';
+export * from './glsp-diagram-manager';
+export * from './glsp-diagram-widget';
+export * from './glsp-theia-diagram-server';
+export * from './glsp-theia-sprotty-connector';
+export * from './glsp-notification-manager';
+export * from './glsp-theia-context-menu-service';
+export * from './glsp-diagram-context-key-service';

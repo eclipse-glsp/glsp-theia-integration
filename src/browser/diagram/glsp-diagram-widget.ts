@@ -15,6 +15,7 @@
  ********************************************************************************/
 import {
     DiagramServer,
+    DisposeClientAction,
     EditorContextService,
     EnableToolPaletteAction,
     GLSP_TYPES,
@@ -50,6 +51,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         const prefUpdater = editorPreferences.onPreferenceChanged(() => this.updateSaveable());
         this.toDispose.push(prefUpdater);
         this.toDispose.push(this.saveable);
+        this.toDispose.push(Disposable.create(() => this.actionDispatcher.dispatch(new DisposeClientAction())));
     }
 
     protected updateSaveable() {

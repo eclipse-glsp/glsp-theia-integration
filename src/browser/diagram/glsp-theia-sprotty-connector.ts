@@ -16,6 +16,7 @@
 import {
     ActionMessage,
     ExportSvgAction,
+    GLSPClient,
     isGLSPServerStatusAction,
     remove,
     ServerMessageAction,
@@ -27,7 +28,6 @@ import { Message, MessageType } from "@theia/core/lib/common";
 import { EditorManager } from "@theia/editor/lib/browser";
 import { DiagramManager, DiagramWidget, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "sprotty-theia";
 
-import { GLSPClient } from "../language/glsp-client-services";
 import { GLSPDiagramClient } from "./glsp-diagram-client";
 import { GLSPMessageOptions, GLSPNotificationManager } from "./glsp-notification-manager";
 

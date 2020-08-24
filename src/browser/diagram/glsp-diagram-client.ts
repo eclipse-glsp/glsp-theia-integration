@@ -13,6 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { GLSPClient } from "@eclipse-glsp/client";
 import { CommandRegistry } from "@theia/core";
 import { ApplicationShell } from "@theia/core/lib/browser";
 import { EditorManager } from "@theia/editor/lib/browser";
@@ -20,9 +21,7 @@ import { inject, injectable } from "inversify";
 import { ActionMessage } from "sprotty";
 import { ActionMessageReceiver } from "sprotty-theia/lib/theia/languageserver/diagram-language-client";
 
-import { ActionMessageNotification } from "../../common";
-import { GLSPClientContribution } from "../language/glsp-client-contribution";
-import { GLSPClient } from "../language/glsp-client-services";
+import { GLSPClientContribution } from "../glsp-client-contribution";
 
 @injectable()
 export class GLSPDiagramClient {
@@ -35,14 +34,13 @@ export class GLSPDiagramClient {
     constructor(readonly glspClientContribution: GLSPClientContribution,
         readonly editorManager: EditorManager) {
         this.glspClientContribution.glspClient
-            .then(gc => gc.onNotification(ActionMessageNotification.type, this.onMessageReceived.bind(this)))
+            .then(gc => gc.onActionMessage(this.onMessageReceived.bind(this)))
             .catch(err => console.error(err));
     }
 
     sendThroughLsp(message: ActionMessage) {
         this.glspClientContribution.glspClient
-            .then(gc => gc.onReady()
-                .then(() => gc.sendNotification(ActionMessageNotification.type, message)));
+            .then(client => client.sendActionMessage(message));
     }
 
     onMessageReceived(message: ActionMessage) {
