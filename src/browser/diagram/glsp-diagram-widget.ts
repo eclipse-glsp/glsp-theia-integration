@@ -43,6 +43,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     protected copyPasteHandler?: ICopyPasteHandler;
     saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
     options: DiagramWidgetOptions & GLSPWidgetOptions;
+
     constructor(options: DiagramWidgetOptions & GLSPWidgetOpenerOptions, readonly widgetId: string, readonly diContainer: Container,
         readonly editorPreferences: EditorPreferences, readonly connector?: TheiaSprottyConnector) {
         super(options, widgetId, diContainer, connector);

@@ -22,6 +22,7 @@ export class TheiaJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
     constructor(options: JsonrpcGLSPClient.Options, protected readonly messageService: MessageService) {
         super(options);
     }
+
     protected handleConnectionError(error: Error, message: Message, count: number): void {
         super.handleConnectionError(error, message, count);
         this.messageService.error(`Connection the ${this.name} glsp server is erroring. Shutting down server.`);

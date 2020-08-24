@@ -53,12 +53,10 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
 
     protected async createProcessSocketConnection(outSocket: MaybePromise<net.Socket>, inSocket: MaybePromise<net.Socket>,
         command: string, args?: string[], options?: cp.SpawnOptions): Promise<IConnection> {
-
         const process = await this.spawnProcessAsync(command, args, options);
         const [outSock, inSock] = await Promise.all<net.Socket>([outSocket, inSocket]);
         return createProcessSocketConnection(process.process!, outSock, inSock);
     }
-
 
     protected async createProcessStreamConnectionAsync(command: string, args?: string[], options?: cp.SpawnOptions): Promise<IConnection> {
         const process = await this.spawnProcessAsync(command, args, options);
