@@ -15,9 +15,9 @@
  ********************************************************************************/
 import { ExternalMarkerManager, IActionDispatcher, Marker, MarkerKind, TYPES } from "@eclipse-glsp/client/lib";
 import URI from "@theia/core/lib/common/uri";
-import { Diagnostic } from "@theia/languages/lib/browser";
 import { ProblemManager } from "@theia/markers/lib/browser/problem/problem-manager";
 import { Container, inject, injectable, optional, postConstruct } from "inversify";
+import { Diagnostic } from "vscode-languageserver-types";
 
 import { SelectionWithElementIds } from "../theia-opener-options-navigation-service";
 

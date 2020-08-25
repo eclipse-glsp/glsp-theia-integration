@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019 EclipseSource and others.
+ * Copyright (c) 2019-2020 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { EditMode, GLSPActionDispatcher } from "@eclipse-glsp/client";
+import { ApplicationIdProvider, EditMode, GLSPActionDispatcher } from "@eclipse-glsp/client";
 import {
     FrontendApplicationContribution,
     NavigatableWidgetOptions,
@@ -72,7 +72,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     async createWidget(options?: any): Promise<DiagramWidget> {
         if (DiagramWidgetOptions.is(options)) {
             const clientId = this.createClientId();
-            const widgetId = this.id + ':' + options.uri;
+            const widgetId = `${ApplicationIdProvider.get()}-${this.diagramType}:${options.uri}`;
             const config = this.diagramConfigurationRegistry.get(options.diagramType);
             const diContainer = config.createContainer(clientId);
             return new GLSPDiagramWidget(options, widgetId, diContainer, this.editorPreferences, this.diagramConnector);

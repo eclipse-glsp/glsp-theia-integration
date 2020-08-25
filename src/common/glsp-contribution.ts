@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019 EclipseSource and others.
+ * Copyright (C) 2020 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -14,14 +14,19 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-export * from 'sprotty-theia';
-export * from './diagram';
-export * from './glsp-client-contribution';
-export * from './glsp-client-provider';
-export * from './glsp-frontend-contribution';
-export * from './theia-command-palette';
-export * from './theia-copy-paste-context-menu-contribution';
-export * from './theia-navigate-to-marker-contribution';
-export * from './theia-navigate-to-target-handler';
-export * from './theia-opener-options-navigation-service';
+export interface GLSPContribution {
+    readonly id: string;
+    readonly name: string;
+}
 
+export namespace GLSPContribution {
+    export const servicePath = '/services/glsp';
+    export function getPath(contribution: GLSPContribution, sessionId: string = ':id'): string {
+        return servicePath + '/' + contribution.id + '/' + sessionId;
+    }
+    export const Service = Symbol('GLSPContributionService');
+    export interface Service {
+        create(contributionId: string, parameters: any): Promise<string>;
+        destroy(sessionId: string): Promise<void>;
+    }
+}

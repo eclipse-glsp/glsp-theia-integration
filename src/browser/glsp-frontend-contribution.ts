@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019 EclipseSource and others.
+ * Copyright (c) 2019-2020 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -19,7 +19,6 @@ import { inject, injectable, named } from "inversify";
 
 import { GLSPClientContribution } from "./glsp-client-contribution";
 
-
 @injectable()
 export class GLSPFrontendContribution implements FrontendApplicationContribution {
     @inject(FrontendApplication)
@@ -33,6 +32,12 @@ export class GLSPFrontendContribution implements FrontendApplicationContribution
     onStart(app: FrontendApplication): void {
         for (const contribution of this.contributions.getContributions()) {
             contribution.activate(app);
+        }
+    }
+
+    onStop(app: FrontendApplication): void {
+        for (const contribution of this.contributions.getContributions()) {
+            contribution.deactivate(app);
         }
     }
 }

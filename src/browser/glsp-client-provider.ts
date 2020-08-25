@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019 EclipseSource and others.
+ * Copyright (c) 2019-2020 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,11 +13,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { GLSPClient } from "@eclipse-glsp/client";
 import { ContributionProvider } from "@theia/core";
 import { inject, injectable, named } from "inversify";
 
 import { GLSPClientContribution } from "./glsp-client-contribution";
-import { GLSPClient } from "./glsp-client-services";
 
 export const GLSPClientProvider = Symbol.for('GLSPClientProvider');
 

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019 EclipseSource and others.
+ * Copyright (C) 2017-2020 TypeFox and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,39 +13,40 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import "../../../css/decoration.css";
-import "../../../css/diagram.css";
-import "../../../css/theia-dialogs.css";
-import "../../../css/tool-palette.css";
+import "../../css/decoration.css";
+import "../../css/diagram.css";
+import "../../css/theia-dialogs.css";
+import "../../css/tool-palette.css";
 
-import { CommandRegistry, DisposableCollection, MaybePromise, MessageService } from "@theia/core";
-import { FrontendApplication, WebSocketConnectionProvider, WebSocketOptions } from "@theia/core/lib/browser";
+import {
+    ApplicationIdProvider,
+    ClientState,
+    ConnectionProvider,
+    GLSPClient,
+    InitializeParameters
+} from "@eclipse-glsp/client";
+import { Disposable, DisposableCollection, MaybePromise, MessageService } from "@theia/core";
+import { FrontendApplication, WebSocketConnectionProvider } from "@theia/core/lib/browser";
 import { Deferred } from "@theia/core/lib/common/promise-util";
-import { EditorManager } from "@theia/editor/lib/browser";
-import { Commands, Disposable, InitializeParams, State } from "@theia/languages/lib/browser";
-import { LanguageContribution } from "@theia/languages/lib/common";
 import { WorkspaceService } from "@theia/workspace/lib/browser";
 import { inject, injectable, multiInject } from "inversify";
 import { DiagramManagerProvider } from "sprotty-theia";
-import { MessageConnection, ResponseError } from "vscode-jsonrpc";
+import { MessageConnection } from "vscode-jsonrpc";
 
-import { InitializeParameters } from "../../common";
-import { GLSPClientFactory } from "./glsp-client";
-import { GLSPClient, GLSPClientOptions } from "./glsp-client-services";
+import { GLSPContribution } from "../common";
+import { TheiaJsonrpcGLSPClient } from "./theia-jsonrpc-glsp-client";
 
 export const GLSPClientContribution = Symbol.for('GLSPClientContribution');
 
-export interface GLSPClientContribution extends LanguageContribution {
+export interface GLSPClientContribution extends GLSPContribution {
     readonly running: boolean;
     readonly glspClient: Promise<GLSPClient>;
     waitForActivation(app: FrontendApplication): Promise<void>;
     activate(app: FrontendApplication): Disposable;
-    deactivate(): void;
-    restart(): void;
+    deactivate(app: FrontendApplication): void;
 }
-
 @injectable()
-export abstract class BaseGLSPClientContribution implements GLSPClientContribution, Commands {
+export abstract class BaseGLSPClientContribution implements GLSPClientContribution {
 
     abstract readonly id: string;
     abstract readonly name: string;
@@ -55,13 +56,12 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
 
     protected resolveReady: (glspClient: GLSPClient) => void;
     protected ready: Promise<GLSPClient>;
+    protected deferredConnection = new Deferred<MessageConnection>();
+    protected readonly toDeactivate = new DisposableCollection();
 
     @inject(WorkspaceService) protected readonly workspaceService: WorkspaceService;
     @inject(MessageService) protected readonly messageService: MessageService;
     @inject(WebSocketConnectionProvider) protected readonly connectionProvider: WebSocketConnectionProvider;
-    @inject(GLSPClientFactory) protected readonly languageClientFactory: GLSPClientFactory;
-    @inject(CommandRegistry) protected readonly registry: CommandRegistry;
-    @inject(EditorManager) protected readonly editorManager: EditorManager;
     @multiInject(DiagramManagerProvider) protected diagramManagerProviders: DiagramManagerProvider[];
 
     constructor() {
@@ -77,10 +77,6 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         const workspaceContains = this.workspaceContains;
         if (workspaceContains.length !== 0) {
             activationPromises.push(this.waitForItemInWorkspace());
-        }
-        const fileExtensions = this.fileExtensions;
-        if (fileExtensions) {
-            activationPromises.push(this.waitForOpenDocument(fileExtensions));
         }
         activationPromises.push(this.waitForOpenDiagrams());
         if (activationPromises.length !== 0) {
@@ -112,23 +108,29 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         }));
     }
 
-    protected readonly toDeactivate = new DisposableCollection();
-
     activate(): Disposable {
         if (this.toDeactivate.disposed) {
+            if (!this._glspClient) {
+                this._glspClient = this.createGLSPCLient(() => this.deferredConnection.promise);
+            }
+            const toStop = new DisposableCollection(Disposable.create(() => { })); // mark as not disposed
+            this.toDeactivate.push(toStop);
             this.doActivate(this.toDeactivate)
                 .then(() => this.initialize());
         }
         return this.toDeactivate;
     }
 
-    deactivate(): void {
+    deactivate(_app: FrontendApplication): void {
         this.toDeactivate.dispose();
     }
 
     protected async createInitializeParameters(): Promise<InitializeParameters> {
         const options = await this.createInitializeOptions();
-        return { options };
+        return {
+            applicationId: ApplicationIdProvider.get(),
+            options
+        };
     }
 
     protected createInitializeOptions(): MaybePromise<any> {
@@ -137,7 +139,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
 
     async initialize(): Promise<void> {
         const parameters = await this.createInitializeParameters();
-        this.glspClient.then(client => client.initialize(parameters)
+        this.ready.then(client => client.initializeServer(parameters)
             .then(success => {
                 if (!success) {
                     this.messageService.error(`Failed to initialize ${this.name} glsp server with ${JSON.stringify(parameters)}`, 'Retry')
@@ -151,43 +153,43 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         );
     }
 
-    protected async doActivate(toDeactivate: DisposableCollection): Promise<void> {
-        const options: WebSocketOptions = {};
-        toDeactivate.push(Disposable.create(() => options.reconnecting = false));
-        this.connectionProvider.listen({
-            path: LanguageContribution.getPath(this),
-            onConnection: messageConnection => {
-                if (toDeactivate.disposed) {
-                    messageConnection.dispose();
-                    return;
-                }
-                const languageClient = this.createLanguageClient(messageConnection);
-                this.onWillStart(languageClient);
-                toDeactivate.pushAll([
-                    messageConnection,
-                    this.toRestart.push(Disposable.create(async () => {
-                        await languageClient.onReady();
-                        languageClient.stop();
-                    })),
-                    languageClient.start()
-                ]);
-            }
-        }, options);
-    }
+    protected async doActivate(toStop: DisposableCollection): Promise<void> {
+        try {
+            this.connectionProvider.listen({
+                path: GLSPContribution.getPath(this),
+                onConnection: messageConnection => {
+                    this.deferredConnection.resolve(messageConnection);
+                    messageConnection.onDispose(() => this.deferredConnection = new Deferred<MessageConnection>());
 
-    protected state: State | undefined;
+                    if (toStop.disposed) {
+                        messageConnection.dispose();
+                        return;
+                    }
+                    const languageClient = this.createGLSPCLient(messageConnection);
+                    this.onWillStart(languageClient);
+                    toStop.pushAll([
+                        messageConnection,
+                        Disposable.create(() => {
+                            languageClient.shutdownServer();
+                            languageClient.stop();
+                        }
+                        )
+                    ]);
+                }
+            }, { reconnecting: false });
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
     get running(): boolean {
-        return !this.toDeactivate.disposed && this.state === State.Running;
+        return !this.toDeactivate.disposed && this._glspClient !== undefined
+            && this._glspClient.currentState() === ClientState.Running;
     }
 
-    restart(): void {
-        this.deactivate();
-        this.activate();
-    }
-
-    protected onWillStart(languageClient: GLSPClient): void {
-        languageClient.onReady().then(() => this.onReady(languageClient));
+    protected async onWillStart(languageClient: GLSPClient): Promise<void> {
+        await languageClient.start();
+        this.onReady(languageClient);
     }
 
     protected onReady(languageClient: GLSPClient): void {
@@ -196,52 +198,23 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         this.waitForReady();
     }
 
-    protected readonly toRestart = new DisposableCollection();
-
     protected waitForReady(): void {
         this.ready = new Promise<GLSPClient>(resolve =>
             this.resolveReady = resolve
         );
     }
 
-    protected createLanguageClient(connection: MessageConnection | (() => MaybePromise<MessageConnection>)): GLSPClient {
-        const clientOptions = this.createOptions();
-        return this.languageClientFactory.get(this, clientOptions, connection);
+    protected createGLSPCLient(connectionProvider: ConnectionProvider): GLSPClient {
+        return new TheiaJsonrpcGLSPClient({
+            name: this.name,
+            id: this.id,
+            connectionProvider
+        }, this.messageService);
     }
 
-    protected createOptions(): GLSPClientOptions {
-        return {
-            initializationFailedHandler: err => this.handleInitializationFailed(err),
-        };
-    }
-
-    protected handleInitializationFailed(err: ResponseError<InitializeParams> | Error | any): boolean {
-        this.deactivate();
-        const detail = err instanceof Error ? `: ${err.message}` : '.';
-        this.messageService.error(`Failed to start ${this.name} glsp server${detail}`, 'Retry').then(result => {
-            if (result) {
-                this.activate();
-            }
-        });
-        return false;
-    }
-
-    protected deferredConnection = new Deferred<MessageConnection>();
 
     protected get workspaceContains(): string[] {
         return [];
-    }
-
-    protected async waitForOpenDocument(fileExtensions: string[]): Promise<any> {
-        const currentEditor = this.editorManager.currentEditor;
-        if (currentEditor) {
-            const uri = currentEditor.editor.uri.toString();
-            for (const extension of fileExtensions) {
-                if (uri.endsWith(extension)) {
-                    return Promise.resolve();
-                }
-            }
-        }
     }
 
     protected async waitForItemInWorkspace(): Promise<any> {
@@ -250,12 +223,5 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
             return new Promise(resolve => { });
         }
         return doesContain;
-    }
-
-    protected stop = Promise.resolve();
-
-    registerCommand(id: string, callback: (...args: any[]) => any, thisArg?: any): Disposable {
-        const execute = callback.bind(thisArg);
-        return this.registry.registerCommand({ id }, { execute });
     }
 }

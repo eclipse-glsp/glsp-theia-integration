@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019 EclipseSource and others.
+ * Copyright (c) 2019-2020 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,6 +15,7 @@
  ********************************************************************************/
 import {
     DiagramServer,
+    DisposeClientAction,
     EditorContextService,
     EnableToolPaletteAction,
     GLSP_TYPES,
@@ -42,6 +43,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     protected copyPasteHandler?: ICopyPasteHandler;
     saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
     options: DiagramWidgetOptions & GLSPWidgetOptions;
+
     constructor(options: DiagramWidgetOptions & GLSPWidgetOpenerOptions, readonly widgetId: string, readonly diContainer: Container,
         readonly editorPreferences: EditorPreferences, readonly connector?: TheiaSprottyConnector) {
         super(options, widgetId, diContainer, connector);
@@ -50,6 +52,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         const prefUpdater = editorPreferences.onPreferenceChanged(() => this.updateSaveable());
         this.toDispose.push(prefUpdater);
         this.toDispose.push(this.saveable);
+        this.toDispose.push(Disposable.create(() => this.actionDispatcher.dispatch(new DisposeClientAction())));
     }
 
     protected updateSaveable() {
