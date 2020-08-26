@@ -4,7 +4,7 @@ kind: Pod
 spec:
   containers:
   - name: node
-    image: node:10.20.1
+    image: node:12.14.1
     tty: true
     resources:
       limits:
@@ -50,7 +50,7 @@ pipeline {
             steps {
                 timeout(30) {
                     container('node') {
-                        sh "yarn install"
+                        sh "yarn install --ignore-engines"
                     }
                 }
             }

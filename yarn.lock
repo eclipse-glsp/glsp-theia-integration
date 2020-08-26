@@ -31,9 +31,9 @@
     regenerator-runtime "^0.13.4"
 
 "@eclipse-glsp/client@next":
-  version "0.8.0-next.f55a32f"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.0-next.f55a32f.tgz#1a510229ad0d48781681672fce41c4834656e5a1"
-  integrity sha512-HlMNQ73WftnlbjFzSjLbElhlnZW/dP4ReZowc73fdF0bqK657OHD0QSEVv8qNr9TsuL78BMWEwwHRPjaJ2zyYA==
+  version "0.8.0-next.cd80fce"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.0-next.cd80fce.tgz#de70dd487afb39c45d0b83fc6ffc618e7f689560"
+  integrity sha512-weOc7HCq5wTh3/MUGO7XyD/BJ5Dr/XIZ7I6MeNlPwg+8XAyT2VnTtYtH3rfunQT/fyVQsnNpF8uGgINsT5OG1g==
   dependencies:
     autocompleter "5.1.0"
     sprotty "0.9.0"
@@ -475,11 +475,6 @@
   version "14.6.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.6.0.tgz#7d4411bf5157339337d7cff864d9ff45f177b499"
   integrity sha512-mikldZQitV94akrc4sCcSjtJfsTKt4p+e/s0AGscVA6XArQ9kFclP+ZiYUMnq987rc6QlYxXv/EivqlfSLxpKA==
-
-"@types/node@10.14.18":
-  version "10.14.18"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.18.tgz#b7d45fc950e6ffd7edc685e890d13aa7b8535dce"
-  integrity sha512-ryO3Q3++yZC/+b8j8BdKd/dn9JlzlHBPdm80656xwYUdmPkpTGTjkAdt6BByiNupGPE8w0FhBgvYy/fX9hRNGQ==
 
 "@types/prop-types@*":
   version "15.7.3"
