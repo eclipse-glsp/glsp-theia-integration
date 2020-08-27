@@ -15,12 +15,13 @@
  ********************************************************************************/
 import {
     DiagramServer,
-    DisposeClientAction,
+    DisposeClientSessionAction,
     EditorContextService,
     EnableToolPaletteAction,
     GLSP_TYPES,
     IActionDispatcher,
     ICopyPasteHandler,
+    InitializeClientSessionAction,
     ModelSource,
     RequestModelAction,
     RequestTypeHintsAction,
@@ -52,7 +53,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         const prefUpdater = editorPreferences.onPreferenceChanged(() => this.updateSaveable());
         this.toDispose.push(prefUpdater);
         this.toDispose.push(this.saveable);
-        this.toDispose.push(Disposable.create(() => this.actionDispatcher.dispatch(new DisposeClientAction())));
+        this.toDispose.push(Disposable.create(() => this.actionDispatcher.dispatch(new DisposeClientSessionAction(this.widgetId))));
     }
 
     protected updateSaveable() {
@@ -72,6 +73,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
                 this.connector.disconnect(modelSource);
         });
 
+        this.actionDispatcher.dispatch(new InitializeClientSessionAction(this.widgetId));
         this.actionDispatcher.dispatch(new RequestModelAction({
             sourceUri: this.uri.path.toString(),
             needsClientLayout: `${this.viewerOptions.needsClientLayout}`,
