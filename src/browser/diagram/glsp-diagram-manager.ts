@@ -72,8 +72,8 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     async createWidget(options?: any): Promise<DiagramWidget> {
         if (DiagramWidgetOptions.is(options)) {
             const clientId = this.createClientId();
-            const widgetId = `${ApplicationIdProvider.get()}-${this.diagramType}:${options.uri}`;
-            const config = this.diagramConfigurationRegistry.get(options.diagramType);
+            const widgetId = this.createWidgetId(options);
+            const config = this.getDiagramConfiguration(options);
             const diContainer = config.createContainer(clientId);
             return new GLSPDiagramWidget(options, widgetId, diContainer, this.editorPreferences, this.diagramConnector);
         }
@@ -89,6 +89,14 @@ export abstract class GLSPDiagramManager extends DiagramManager {
             label: uri.path.base,
             editMode: options && options.editMode ? options.editMode : EditMode.EDITABLE
         };
+    }
+
+    protected createWidgetId(options: DiagramWidgetOptions): string {
+        return `${ApplicationIdProvider.get()}-${this.diagramType}:${options.uri}`;
+    }
+
+    protected getDiagramConfiguration(options: DiagramWidgetOptions) {
+        return this.diagramConfigurationRegistry.get(options.diagramType);
     }
 
     canHandle(uri: URI, options?: WidgetOpenerOptions | undefined): number {
