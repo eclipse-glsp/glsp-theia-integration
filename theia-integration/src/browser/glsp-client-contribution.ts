@@ -24,7 +24,7 @@ import {
     ConnectionProvider,
     GLSPClient,
     InitializeParameters
-} from "@eclipse-glsp/client";
+} from "@eclipse-glsp/protocol";
 import { Disposable, DisposableCollection, MaybePromise, MessageService } from "@theia/core";
 import { FrontendApplication, WebSocketConnectionProvider } from "@theia/core/lib/browser";
 import { Deferred } from "@theia/core/lib/common/promise-util";

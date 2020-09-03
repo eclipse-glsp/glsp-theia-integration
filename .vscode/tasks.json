@@ -4,9 +4,12 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build glsp-theia-integration",
+      "label": "Build all packages",
       "type": "shell",
-      "group": "build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
       "command": "yarn",
       "presentation": {
         "reveal": "always",
@@ -18,7 +21,7 @@
       ]
     },
     {
-      "label": "Watch glsp-theia-integration",
+      "label": "Watch all",
       "type": "shell",
       "group": "build",
       "command": "yarn watch",
@@ -29,6 +32,68 @@
       "problemMatcher": [
         "$tsc-watch"
       ]
+    },
+    {
+      "label": "Start Workflow Theia Backend Example",
+      "type": "shell",
+      "group": "test",
+      "command": "cd examples/browser-app && yarn start:debug",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Yarn link glsp-client packages (local dev)",
+      "detail": "Links all packages to the local source and shared dependencies",
+      "type": "shell",
+      "group": "none",
+      "presentation": {
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "linux": {
+        "command": "./configs/local-linking.sh",
+        "args": [
+          "${workspaceFolder}/../"
+        ]
+      },
+      "osx": {
+        "command": "./configs/local-linking.sh",
+        "args": [
+          "${workspaceFolder}/../"
+        ]
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Yarn unlink glsp-client packages (local dev)",
+      "type": "shell",
+      "group": "none",
+      "presentation": {
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "linux": {
+        "command": "./configs/local-linking.sh",
+        "args": [
+          "${workspaceFolder}/../",
+          "--unlink"
+        ]
+      },
+      "osx": {
+        "command": "./configs/local-linking.sh",
+        "args": [
+          "${workspaceFolder}/../",
+          "--unlink"
+        ]
+      },
+      "problemMatcher": []
     }
   ]
 }

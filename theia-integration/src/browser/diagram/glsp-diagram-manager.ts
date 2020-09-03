@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ApplicationIdProvider, EditMode, GLSPActionDispatcher } from "@eclipse-glsp/client";
+import { EditMode, GLSPActionDispatcher } from "@eclipse-glsp/client";
 import {
     FrontendApplicationContribution,
     NavigatableWidgetOptions,
@@ -92,7 +92,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     }
 
     protected createWidgetId(options: DiagramWidgetOptions): string {
-        return `${ApplicationIdProvider.get()}-${this.diagramType}:${options.uri}`;
+        return `${this.diagramType}:${options.uri}`;
     }
 
     protected getDiagramConfiguration(options: DiagramWidgetOptions) {
