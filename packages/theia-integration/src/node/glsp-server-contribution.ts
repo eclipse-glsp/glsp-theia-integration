@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { MaybePromise } from "@eclipse-glsp/client";
+import { MaybePromise } from "@eclipse-glsp/protocol";
 import { WebSocketChannelConnection } from "@theia/core/lib/node/messaging";
 import { ProcessErrorEvent } from "@theia/process/lib/node/process";
 import { ProcessManager } from "@theia/process/lib/node/process-manager";

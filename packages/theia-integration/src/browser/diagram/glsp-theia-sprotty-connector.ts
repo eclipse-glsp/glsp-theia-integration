@@ -16,12 +16,12 @@
 import {
     ActionMessage,
     ExportSvgAction,
-    GLSPClient,
     isGLSPServerStatusAction,
     remove,
     ServerMessageAction,
     ServerStatusAction
 } from "@eclipse-glsp/client";
+import { GLSPClient } from "@eclipse-glsp/protocol";
 import { MessageService } from "@theia/core";
 import { ConfirmDialog, WidgetManager } from "@theia/core/lib/browser";
 import { Message, MessageType } from "@theia/core/lib/common";

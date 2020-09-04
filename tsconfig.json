@@ -1,11 +1,27 @@
 {
   "extends": "./configs/base.tsconfig",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "lib",
-    "baseUrl": "."
+    "skipLibCheck": false,
+    "baseUrl": ".",
+    "paths": {
+      "@eclipse-glsp-examples/workflow-theia": [
+        "examples/workflow-theia/src/*"
+      ],
+      "@eclipse-glsp-examples/workflow-sprotty": [
+        "examples/workflow-sprotty/src/*"
+      ],
+      "@eclipse/theia-integration": [
+        "theia-integration/src/*"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "tslint-language-service"
+      }
+    ]
   },
   "include": [
-    "src"
+    "theia-integration/src",
+    "examples/*/src"
   ]
 }

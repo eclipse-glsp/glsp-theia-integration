@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { GLSPClient } from "@eclipse-glsp/client";
+import { GLSPClient } from "@eclipse-glsp/protocol";
 import { ContributionProvider } from "@theia/core";
 import { inject, injectable, named } from "inversify";
 
