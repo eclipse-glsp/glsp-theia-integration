@@ -61,6 +61,7 @@ else
     yarn unlink @eclipse-glsp/protocol
     yarn unlink @eclipse-glsp-examples/workflow-sprotty
     linkClient unlink $baseDir
+    cd $baseDir/glsp-theia-integration
     yarn install --force
     echo "--- UNLINKING SUCCESSFULL --- "
 fi

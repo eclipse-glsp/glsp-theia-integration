@@ -856,6 +856,14 @@
     uuid "7.0.3"
     vscode-ws-jsonrpc "0.2.0"
 
+"@eclipse-glsp/protocol@next":
+  version "0.8.0-next.8c2ad5ce"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.8.0-next.8c2ad5ce.tgz#b2e2e93f1b7275a27cf52eb3b027913e959c226c"
+  integrity sha512-wcIsqPLdx0DDh8FqgAKu50XWv/JESJf1XHTlmJrrnt5mLSeK7aFXnEiS42a3sS/2356n+hUGe3QSgRF7B4yluw==
+  dependencies:
+    uuid "7.0.3"
+    vscode-ws-jsonrpc "0.2.0"
+
 "@improved/node@^1.0.0":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@improved/node/-/node-1.1.1.tgz#7be3d401b7cd2f848d5bb8713d2826b84fc51817"

@@ -48,7 +48,7 @@
     "**/@eclipse-glsp-examples/workflow-theia": "0.7.1"
   },
   "workspaces": [
-    "theia-integration",
+    "packages/theia-integration",
     "examples/*"
   ]
 }

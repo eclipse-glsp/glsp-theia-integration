@@ -30,6 +30,9 @@
     "lint": "tslint -c ../../configs/tslint.json --project ./tsconfig.json",
     "watch": "tsc -w"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "theiaExtensions": [
     {
       "frontend": "lib/browser/workflow-frontend-module",
