@@ -4,12 +4,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build all packages",
+      "label": "[Theia] Build all packages",
       "type": "shell",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
+      "group": "build",
       "command": "yarn",
       "presentation": {
         "reveal": "always",
@@ -21,7 +18,7 @@
       ]
     },
     {
-      "label": "Watch all",
+      "label": "[Theia] Watch all",
       "type": "shell",
       "group": "build",
       "command": "yarn watch",
@@ -34,7 +31,7 @@
       ]
     },
     {
-      "label": "Start Workflow Theia Backend Example",
+      "label": "[Theia] Start Workflow Theia Backend Example",
       "type": "shell",
       "group": "test",
       "command": "cd examples/browser-app && yarn start:debug",
@@ -45,7 +42,7 @@
       "problemMatcher": []
     },
     {
-      "label": "Yarn link glsp-client packages (local dev)",
+      "label": "[Theia] Link packages (local dev)",
       "detail": "Links all packages to the local source and shared dependencies",
       "type": "shell",
       "group": "none",
@@ -70,7 +67,7 @@
       "problemMatcher": []
     },
     {
-      "label": "Yarn unlink glsp-client packages (local dev)",
+      "label": "[Theia] Unlink packages (local dev)",
       "type": "shell",
       "group": "none",
       "presentation": {
