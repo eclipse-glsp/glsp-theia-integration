@@ -13,7 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { BaseGLSPServerContribution, getPort } from "@eclipse-glsp/theia-integration/lib/node";
+import { getPort } from "@eclipse-glsp/protocol";
+import { BaseGLSPServerContribution } from "@eclipse-glsp/theia-integration/lib/node";
 import { injectable } from "inversify";
 import * as net from "net";
 import { createSocketConnection, IConnection } from "vscode-ws-jsonrpc/lib/server";
