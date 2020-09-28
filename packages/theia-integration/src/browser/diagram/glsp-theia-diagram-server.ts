@@ -18,18 +18,20 @@ import {
     ActionHandlerRegistry,
     ComputedBoundsAction,
     isServerMessageAction,
+    isSetEditModeAction,
     registerDefaultGLSPServerActions,
     ServerMessageAction,
     SetEditModeAction,
-    SourceUriAware,
-    isSetEditModeAction
+    SourceUriAware
 } from "@eclipse-glsp/client";
 import { Emitter, Event } from "@theia/core/lib/common";
 import { injectable } from "inversify";
 import { TheiaDiagramServer } from "sprotty-theia";
 
 import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
+
 const receivedFromServerProperty = '__receivedFromServer';
+
 @injectable()
 export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyStateNotifier, SourceUriAware {
 
@@ -72,7 +74,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
         return super.handleLocally(action);
     }
 
-    protected handleComputedBounds(action: ComputedBoundsAction): boolean {
+    protected handleComputedBounds(_action: ComputedBoundsAction): boolean {
         return true;
     }
 
@@ -88,8 +90,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
 
 export class SetDirtyStateAction implements Action {
     static readonly KIND = 'setDirtyState';
-    readonly kind = SetDirtyStateAction.KIND;
-    constructor(public isDirty: boolean) { }
+    constructor(public isDirty: boolean, public readonly kind = SetDirtyStateAction.KIND) { }
 }
 
 export function isSetDirtyStateAction(action: Action): action is SetDirtyStateAction {

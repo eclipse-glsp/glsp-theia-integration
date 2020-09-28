@@ -64,7 +64,7 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
     }
 
     @postConstruct()
-    initialize() {
+    protected initialize() {
         if (this.problemManager) {
             this.problemManager.onDidChangeMarkers(uri => this.refreshMarker(uri));
         }

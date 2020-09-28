@@ -99,7 +99,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         return this.diagramConfigurationRegistry.get(options.diagramType);
     }
 
-    canHandle(uri: URI, options?: WidgetOpenerOptions | undefined): number {
+    canHandle(uri: URI, _options?: WidgetOpenerOptions | undefined): number {
         for (const extension of this.fileExtensions) {
             if (uri.path.toString().endsWith(extension)) {
                 return 1001;
