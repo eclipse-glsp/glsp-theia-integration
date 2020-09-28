@@ -42,8 +42,8 @@ import { DirtyStateNotifier, GLSPTheiaDiagramServer } from "./glsp-theia-diagram
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
     protected copyPasteHandler?: ICopyPasteHandler;
-    saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
-    options: DiagramWidgetOptions & GLSPWidgetOptions;
+    public saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
+    protected options: DiagramWidgetOptions & GLSPWidgetOptions;
 
     constructor(options: DiagramWidgetOptions & GLSPWidgetOpenerOptions, readonly widgetId: string, readonly diContainer: Container,
         readonly editorPreferences: EditorPreferences, readonly connector?: TheiaSprottyConnector) {

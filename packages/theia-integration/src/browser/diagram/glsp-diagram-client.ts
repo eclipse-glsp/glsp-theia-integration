@@ -26,10 +26,10 @@ import { GLSPClientContribution } from "../glsp-client-contribution";
 @injectable()
 export class GLSPDiagramClient {
 
-    actionMessageReceivers: ActionMessageReceiver[] = [];
+    protected actionMessageReceivers: ActionMessageReceiver[] = [];
 
-    @inject(ApplicationShell) readonly shell: ApplicationShell;
-    @inject(CommandRegistry) readonly commandsRegistry: CommandRegistry;
+    @inject(ApplicationShell) protected readonly shell: ApplicationShell;
+    @inject(CommandRegistry) protected readonly commandsRegistry: CommandRegistry;
 
     constructor(readonly glspClientContribution: GLSPClientContribution,
         readonly editorManager: EditorManager) {
@@ -43,7 +43,7 @@ export class GLSPDiagramClient {
             .then(client => client.sendActionMessage(message));
     }
 
-    onMessageReceived(message: ActionMessage) {
+    protected onMessageReceived(message: ActionMessage) {
         this.actionMessageReceivers.forEach(client => client.onMessageReceived(message));
     }
 
@@ -51,7 +51,7 @@ export class GLSPDiagramClient {
         return this.glspClientContribution.glspClient;
     }
 
-    didClose(clientId: string) {
+    didClose(_clientId: string) {
         // this.glspClient.then(gc => gc.stop())
     }
 

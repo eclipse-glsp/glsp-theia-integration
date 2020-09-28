@@ -86,12 +86,12 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         }
     }
 
-    clearWidgetStatus(widgetId: string) {
+    protected clearWidgetStatus(widgetId: string) {
         // any status but FATAL, ERROR, WARNING or INFO will lead to a clear of the status
         this.showWidgetStatus(widgetId, { kind: ServerStatusAction.KIND, message: '', severity: 'CLEAR' });
     }
 
-    showWidgetStatus(widgetId: string, status: ServerStatusAction): void {
+    protected showWidgetStatus(widgetId: string, status: ServerStatusAction): void {
         // remove any pending timeout
         const pendingTimeout = this.widgetStatusTimeouts.get(widgetId);
         if (pendingTimeout) {
@@ -123,17 +123,17 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         }
     }
 
-    clearServerMessages(widgetId: string) {
+    protected clearServerMessages(widgetId: string) {
         const widgetMessages = Array.from(this.widgetMessages.get(widgetId) || []);
         widgetMessages.forEach(messageId => this.clearServerMessage(widgetId, messageId));
     }
 
-    clearServerMessage(widgetId: string, messageId: string) {
+    protected clearServerMessage(widgetId: string, messageId: string) {
         remove(this.widgetMessages.get(widgetId) || [], messageId);
         this.notificationManager.clear(messageId);
     }
 
-    showServerMessage(widgetId: string, action: ServerMessageAction) {
+    protected showServerMessage(widgetId: string, action: ServerMessageAction) {
         const widget = this.widgetManager.getWidgets(this.diagramManager.id).find(w => w.id === widgetId);
         const uri = widget instanceof DiagramWidget ? widget.uri.toString() : '';
 
@@ -167,7 +167,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         }
     }
 
-    addServerMessage(widgetId: string, messageId: string) {
+    protected addServerMessage(widgetId: string, messageId: string) {
         const widgetMessages = this.widgetMessages.get(widgetId) || [];
         widgetMessages.push(messageId);
         this.widgetMessages.set(widgetId, widgetMessages);
@@ -181,7 +181,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         }
     }
 
-    toMessageType(severity: string) {
+    protected toMessageType(severity: string) {
         switch (severity) {
             case 'ERROR':
                 return MessageType.Error;
@@ -193,7 +193,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         return MessageType.Log;
     }
 
-    isClear(severity: string) {
+    protected isClear(severity: string) {
         return severity === 'NONE';
     }
 

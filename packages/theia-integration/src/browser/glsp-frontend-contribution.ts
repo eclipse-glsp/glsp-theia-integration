@@ -24,10 +24,8 @@ export class GLSPFrontendContribution implements FrontendApplicationContribution
     @inject(FrontendApplication)
     protected readonly app: FrontendApplication;
 
-    constructor(
-        @inject(ContributionProvider) @named(GLSPClientContribution)
-        protected readonly contributions: ContributionProvider<GLSPClientContribution>
-    ) { }
+    @inject(ContributionProvider) @named(GLSPClientContribution)
+    protected readonly contributions: ContributionProvider<GLSPClientContribution>;
 
     onStart(app: FrontendApplication): void {
         for (const contribution of this.contributions.getContributions()) {

@@ -36,6 +36,7 @@ export namespace NavigateToMarkerCommand {
 @injectable()
 export class NavigateToMarkerCommandContribution implements CommandContribution {
     @inject(ApplicationShell) protected readonly shell: ApplicationShell;
+
     registerCommands(commands: CommandRegistry): void {
         commands.registerCommand({ id: NavigateToMarkerCommand.NEXT_MARKER, label: 'Go to Next Marker', category: 'Diagram' },
             new GLSPCommandHandler(this.shell, {
@@ -55,6 +56,7 @@ export class NavigateToMarkerCommandContribution implements CommandContribution 
 @injectable()
 export class NavigateToMarkerMenuContribution implements MenuContribution {
     static readonly NAVIGATION = GLSPContextMenu.MENU_PATH.concat('navigate');
+
     registerMenus(menus: MenuModelRegistry): void {
         menus.registerSubmenu(NavigateToMarkerMenuContribution.NAVIGATION, "Go to");
         menus.registerMenuAction(NavigateToMarkerMenuContribution.NAVIGATION.concat('m'), { commandId: NavigateToMarkerCommand.NEXT_MARKER, label: 'Next Marker' });
@@ -65,6 +67,7 @@ export class NavigateToMarkerMenuContribution implements MenuContribution {
 @injectable()
 export class NavigateToMarkerKeybindingContribution implements KeybindingContribution {
     @inject(DiagramKeybindingContext) protected readonly diagramKeybindingContext: DiagramKeybindingContext;
+
     registerKeybindings(keybindings: KeybindingRegistry): void {
         keybindings.registerKeybinding({
             command: NavigateToMarkerCommand.NEXT_MARKER,

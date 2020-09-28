@@ -31,7 +31,7 @@ export class GLSPBackendContribution implements MessagingService.Contribution, G
     protected nextId: number = 1;
     protected readonly sessions = new Map<string, any>();
 
-    async create(contributionId: string, startParameters: any): Promise<string> {
+    async create(_contributionId: string, startParameters: any): Promise<string> {
         const id = this.nextId;
         this.nextId++;
         const sessionId = String(id);

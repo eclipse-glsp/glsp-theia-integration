@@ -45,6 +45,7 @@ export interface GLSPClientContribution extends GLSPContribution {
     activate(app: FrontendApplication): Disposable;
     deactivate(app: FrontendApplication): void;
 }
+
 @injectable()
 export abstract class BaseGLSPClientContribution implements GLSPClientContribution {
 

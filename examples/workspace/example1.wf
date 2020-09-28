@@ -10,24 +10,23 @@
           "id": "task0_header",
           "children": [
             {
-              "commandId": "simulate-command",
               "id": "task0_icon",
               "children": [
                 {
                   "id": "task0_ticon",
                   "type": "label:icon",
                   "position": {
-                    "x": 7.65625,
-                    "y": 4.796875
+                    "x": 7.4921875,
+                    "y": 5.0
                   },
                   "size": {
-                    "width": 16.6875,
-                    "height": 22.40625
+                    "width": 17.015625,
+                    "height": 22.0
                   },
                   "text": "M",
                   "alignment": {
                     "x": 8.34375,
-                    "y": 18.40625
+                    "y": 18.0
                   }
                 }
               ],
@@ -51,16 +50,16 @@
               "type": "label:heading",
               "position": {
                 "x": 38.0,
-                "y": 9.796875
+                "y": 10.0
               },
               "size": {
                 "width": 48.90625,
-                "height": 22.40625
+                "height": 22.0
               },
               "text": "Push",
               "alignment": {
                 "x": 24.453125,
-                "y": 18.40625
+                "y": 18.0
               }
             }
           ],
@@ -96,24 +95,23 @@
           "id": "task1_header",
           "children": [
             {
-              "commandId": "simulate-command",
               "id": "task1_icon",
               "children": [
                 {
                   "id": "task1_ticon",
                   "type": "label:icon",
                   "position": {
-                    "x": 7.65625,
-                    "y": 4.796875
+                    "x": 7.4921875,
+                    "y": 5.0
                   },
                   "size": {
-                    "width": 16.6875,
-                    "height": 22.40625
+                    "width": 17.015625,
+                    "height": 22.0
                   },
                   "text": "M",
                   "alignment": {
                     "x": 8.34375,
-                    "y": 18.40625
+                    "y": 18.0
                   }
                 }
               ],
@@ -137,16 +135,16 @@
               "type": "label:heading",
               "position": {
                 "x": 38.0,
-                "y": 9.796875
+                "y": 10.0
               },
               "size": {
                 "width": 53.5625,
-                "height": 22.40625
+                "height": 22.0
               },
               "text": "RflWt",
               "alignment": {
                 "x": 26.109375,
-                "y": 18.40625
+                "y": 18.0
               }
             }
           ],
@@ -182,24 +180,23 @@
           "id": "task2_header",
           "children": [
             {
-              "commandId": "simulate-command",
               "id": "task2_icon",
               "children": [
                 {
                   "id": "task2_ticon",
                   "type": "label:icon",
                   "position": {
-                    "x": 7.65625,
-                    "y": 4.796875
+                    "x": 7.4921875,
+                    "y": 5.0
                   },
                   "size": {
-                    "width": 16.6875,
-                    "height": 22.40625
+                    "width": 17.015625,
+                    "height": 22.0
                   },
                   "text": "M",
                   "alignment": {
                     "x": 8.34375,
-                    "y": 18.40625
+                    "y": 18.0
                   }
                 }
               ],
@@ -223,16 +220,16 @@
               "type": "label:heading",
               "position": {
                 "x": 38.0,
-                "y": 9.796875
+                "y": 10.0
               },
               "size": {
-                "width": 62.8125,
-                "height": 22.40625
+                "width": 64.015625,
+                "height": 22.0
               },
               "text": "ChkTp",
               "alignment": {
-                "x": 31.109375,
-                "y": 18.40625
+                "x": 32.109375,
+                "y": 18.0
               }
             }
           ],
@@ -242,7 +239,7 @@
             "y": 5.0
           },
           "size": {
-            "width": 105.8125,
+            "width": 107.015625,
             "height": 42.0
           },
           "layout": "hbox"
@@ -254,7 +251,7 @@
         "y": 350.0
       },
       "size": {
-        "width": 115.8125,
+        "width": 117.015625,
         "height": 52.0
       },
       "layout": "vbox"
@@ -268,24 +265,23 @@
           "id": "task3_header",
           "children": [
             {
-              "commandId": "simulate-command",
               "id": "task3_icon",
               "children": [
                 {
                   "id": "task3_ticon",
                   "type": "label:icon",
                   "position": {
-                    "x": 7.65625,
-                    "y": 4.796875
+                    "x": 7.4921875,
+                    "y": 5.0
                   },
                   "size": {
-                    "width": 16.6875,
-                    "height": 22.40625
+                    "width": 17.015625,
+                    "height": 22.0
                   },
                   "text": "M",
                   "alignment": {
                     "x": 8.34375,
-                    "y": 18.40625
+                    "y": 18.0
                   }
                 }
               ],
@@ -309,16 +305,16 @@
               "type": "label:heading",
               "position": {
                 "x": 38.0,
-                "y": 9.796875
+                "y": 10.0
               },
               "size": {
                 "width": 76.953125,
-                "height": 22.40625
+                "height": 22.0
               },
               "text": "PreHeat",
               "alignment": {
                 "x": 37.8125,
-                "y": 18.40625
+                "y": 18.0
               }
             }
           ],
@@ -354,24 +350,23 @@
           "id": "task4_header",
           "children": [
             {
-              "commandId": "simulate-command",
               "id": "task4_icon",
               "children": [
                 {
                   "id": "task4_ticon",
                   "type": "label:icon",
                   "position": {
-                    "x": 7.65625,
-                    "y": 4.796875
+                    "x": 7.4921875,
+                    "y": 5.0
                   },
                   "size": {
-                    "width": 16.6875,
-                    "height": 22.40625
+                    "width": 17.015625,
+                    "height": 22.0
                   },
                   "text": "M",
                   "alignment": {
                     "x": 8.34375,
-                    "y": 18.40625
+                    "y": 18.0
                   }
                 }
               ],
@@ -395,16 +390,16 @@
               "type": "label:heading",
               "position": {
                 "x": 38.0,
-                "y": 9.796875
+                "y": 10.0
               },
               "size": {
-                "width": 50.15625,
-                "height": 22.40625
+                "width": 50.359375,
+                "height": 22.0
               },
               "text": "Brew",
               "alignment": {
                 "x": 24.453125,
-                "y": 18.40625
+                "y": 18.0
               }
             }
           ],
@@ -414,7 +409,7 @@
             "y": 5.0
           },
           "size": {
-            "width": 93.15625,
+            "width": 93.359375,
             "height": 42.0
           },
           "layout": "hbox"
@@ -426,7 +421,7 @@
         "y": 260.0
       },
       "size": {
-        "width": 103.15625,
+        "width": 103.359375,
         "height": 52.0
       },
       "layout": "vbox"
@@ -440,24 +435,23 @@
           "id": "task6_header",
           "children": [
             {
-              "commandId": "simulate-command",
               "id": "task6_icon",
               "children": [
                 {
                   "id": "task6_ticon",
                   "type": "label:icon",
                   "position": {
-                    "x": 7.65625,
-                    "y": 4.796875
+                    "x": 7.4921875,
+                    "y": 5.0
                   },
                   "size": {
-                    "width": 16.6875,
-                    "height": 22.40625
+                    "width": 17.015625,
+                    "height": 22.0
                   },
                   "text": "M",
                   "alignment": {
                     "x": 8.34375,
-                    "y": 18.40625
+                    "y": 18.0
                   }
                 }
               ],
@@ -481,16 +475,16 @@
               "type": "label:heading",
               "position": {
                 "x": 38.0,
-                "y": 9.796875
+                "y": 10.0
               },
               "size": {
-                "width": 73.9375,
-                "height": 22.40625
+                "width": 74.125,
+                "height": 22.0
               },
               "text": "KeepTp",
               "alignment": {
                 "x": 36.671875,
-                "y": 18.40625
+                "y": 18.0
               }
             }
           ],
@@ -500,7 +494,7 @@
             "y": 5.0
           },
           "size": {
-            "width": 116.9375,
+            "width": 117.125,
             "height": 42.0
           },
           "layout": "hbox"
@@ -512,7 +506,7 @@
         "y": 300.0
       },
       "size": {
-        "width": 126.9375,
+        "width": 127.125,
         "height": 52.0
       },
       "layout": "vbox"
@@ -526,7 +520,6 @@
           "id": "task8_header",
           "children": [
             {
-              "commandId": "simulate-command",
               "id": "task8_icon",
               "children": [
                 {
@@ -534,16 +527,16 @@
                   "type": "label:icon",
                   "position": {
                     "x": 7.9921875,
-                    "y": 4.796875
+                    "y": 5.0
                   },
                   "size": {
                     "width": 16.015625,
-                    "height": 22.40625
+                    "height": 22.0
                   },
                   "text": "A",
                   "alignment": {
-                    "x": 8.28125,
-                    "y": 18.40625
+                    "x": 7.671875,
+                    "y": 18.0
                   }
                 }
               ],
@@ -567,16 +560,16 @@
               "type": "label:heading",
               "position": {
                 "x": 38.0,
-                "y": 9.796875
+                "y": 10.0
               },
               "size": {
-                "width": 64.671875,
-                "height": 22.40625
+                "width": 65.671875,
+                "height": 22.0
               },
               "text": "ChkWt",
               "alignment": {
-                "x": 31.671875,
-                "y": 18.40625
+                "x": 32.671875,
+                "y": 18.0
               }
             }
           ],
@@ -586,7 +579,7 @@
             "y": 5.0
           },
           "size": {
-            "width": 107.671875,
+            "width": 108.671875,
             "height": 42.0
           },
           "layout": "hbox"
@@ -598,7 +591,7 @@
         "y": 160.0
       },
       "size": {
-        "width": 117.671875,
+        "width": 118.671875,
         "height": 52.0
       },
       "layout": "vbox"
@@ -612,7 +605,6 @@
           "id": "task9_header",
           "children": [
             {
-              "commandId": "simulate-command",
               "id": "task9_icon",
               "children": [
                 {
@@ -620,16 +612,16 @@
                   "type": "label:icon",
                   "position": {
                     "x": 7.9921875,
-                    "y": 4.796875
+                    "y": 5.0
                   },
                   "size": {
                     "width": 16.015625,
-                    "height": 22.40625
+                    "height": 22.0
                   },
                   "text": "A",
                   "alignment": {
-                    "x": 8.28125,
-                    "y": 18.40625
+                    "x": 7.671875,
+                    "y": 18.0
                   }
                 }
               ],
@@ -653,16 +645,16 @@
               "type": "label:heading",
               "position": {
                 "x": 38.0,
-                "y": 9.796875
+                "y": 10.0
               },
               "size": {
-                "width": 57.109375,
-                "height": 22.40625
+                "width": 58.109375,
+                "height": 22.0
               },
               "text": "WtOK",
               "alignment": {
-                "x": 28.578125,
-                "y": 18.40625
+                "x": 28.78125,
+                "y": 18.0
               }
             }
           ],
@@ -672,7 +664,7 @@
             "y": 5.0
           },
           "size": {
-            "width": 100.109375,
+            "width": 101.109375,
             "height": 42.0
           },
           "layout": "hbox"
@@ -684,7 +676,7 @@
         "y": 190.0
       },
       "size": {
-        "width": 110.109375,
+        "width": 111.109375,
         "height": 52.0
       },
       "layout": "vbox"
