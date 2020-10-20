@@ -27,7 +27,7 @@ import {
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, MenuPath } from "@theia/core";
 import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from "@theia/core/lib/browser";
 import { inject, injectable, interfaces } from "inversify";
-import { DiagramKeybindingContext, DiagramMenus } from "sprotty-theia";
+import { DiagramKeybindingContext, DiagramMenus } from "@glsp/sprotty-theia";
 
 import { GLSPCommandHandler } from "./glsp-command-handler";
 

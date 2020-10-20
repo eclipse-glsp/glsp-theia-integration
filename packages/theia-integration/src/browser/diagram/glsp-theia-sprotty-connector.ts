@@ -26,7 +26,7 @@ import { MessageService } from "@theia/core";
 import { ConfirmDialog, WidgetManager } from "@theia/core/lib/browser";
 import { Message, MessageType } from "@theia/core/lib/common";
 import { EditorManager } from "@theia/editor/lib/browser";
-import { DiagramManager, DiagramWidget, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "sprotty-theia";
+import { DiagramManager, DiagramWidget, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "@glsp/sprotty-theia";
 
 import { GLSPDiagramClient } from "./glsp-diagram-client";
 import { GLSPMessageOptions, GLSPNotificationManager } from "./glsp-notification-manager";

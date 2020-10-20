@@ -30,7 +30,7 @@ import { FrontendApplication, WebSocketConnectionProvider } from "@theia/core/li
 import { Deferred } from "@theia/core/lib/common/promise-util";
 import { WorkspaceService } from "@theia/workspace/lib/browser";
 import { inject, injectable, multiInject } from "inversify";
-import { DiagramManagerProvider } from "sprotty-theia";
+import { DiagramManagerProvider } from "@glsp/sprotty-theia";
 import { MessageConnection } from "vscode-jsonrpc";
 
 import { GLSPContribution } from "../common";

@@ -23,7 +23,7 @@ import {
 import { CommandContribution, MenuContribution } from "@theia/core";
 import { KeybindingContext, KeybindingContribution } from "@theia/core/lib/browser";
 import { ContainerModule, interfaces } from "inversify";
-import { DiagramConfiguration } from "sprotty-theia";
+import { DiagramConfiguration } from "@glsp/sprotty-theia";
 
 import { WorkflowDiagramConfiguration } from "./diagram/workflow-diagram-configuration";
 import { WorkflowDiagramManager } from "./diagram/workflow-diagram-manager";

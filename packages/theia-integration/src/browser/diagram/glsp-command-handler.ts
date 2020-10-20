@@ -15,7 +15,7 @@
  ********************************************************************************/
 import { Action, EditorContextService } from "@eclipse-glsp/client";
 import { ApplicationShell } from "@theia/core/lib/browser";
-import { DiagramCommandHandler } from "sprotty-theia";
+import { DiagramCommandHandler } from "@glsp/sprotty-theia";
 
 import { GLSPDiagramWidget } from "./glsp-diagram-widget";
 

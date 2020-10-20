@@ -18,7 +18,7 @@ import { Container } from "inversify";
 import {
     TheiaContextMenuService,
     TheiaSprottyContextMenu
-} from "sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service";
+} from "@glsp/sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service";
 
 export const TheiaContextMenuServiceFactory = Symbol('TheiaContextMenuServiceFactory');
 

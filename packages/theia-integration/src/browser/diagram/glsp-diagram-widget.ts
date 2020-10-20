@@ -34,7 +34,7 @@ import { Saveable, SaveableSource } from "@theia/core/lib/browser";
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from "@theia/core/lib/common";
 import { EditorPreferences } from "@theia/editor/lib/browser";
 import { Container } from "inversify";
-import { DiagramWidget, DiagramWidgetOptions, TheiaSprottyConnector } from "sprotty-theia";
+import { DiagramWidget, DiagramWidgetOptions, TheiaSprottyConnector } from "@glsp/sprotty-theia";
 
 import { GLSPWidgetOpenerOptions, GLSPWidgetOptions } from "./glsp-diagram-manager";
 import { DirtyStateNotifier, GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";

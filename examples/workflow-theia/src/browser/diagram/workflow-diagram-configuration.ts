@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import "sprotty-theia/css/theia-sprotty.css";
+import "@glsp/sprotty-theia/css/theia-sprotty.css";
 
 import { createWorkflowDiagramContainer } from "@eclipse-glsp-examples/workflow-sprotty/lib";
 import { CommandPalette, TYPES } from "@eclipse-glsp/client";
@@ -29,10 +29,10 @@ import {
     TheiaMarkerManagerFactory
 } from "@eclipse-glsp/theia-integration/lib/browser/diagram/glsp-theia-marker-manager";
 import { TheiaNavigateToTargetHandler } from "@eclipse-glsp/theia-integration/lib/browser/theia-navigate-to-target-handler";
+import { DiagramConfiguration, TheiaDiagramServer, TheiaSprottySelectionForwarder } from "@glsp/sprotty-theia";
+import { TheiaContextMenuService } from "@glsp/sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service";
 import { SelectionService } from "@theia/core";
 import { Container, inject, injectable } from "inversify";
-import { DiagramConfiguration, TheiaDiagramServer, TheiaSprottySelectionForwarder } from "sprotty-theia";
-import { TheiaContextMenuService } from "sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service";
 
 import { WorkflowLanguage } from "../../common/workflow-language";
 import { WorkflowDiagramServer } from "./workflow-diagram-server";

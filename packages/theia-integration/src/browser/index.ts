@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-export * from 'sprotty-theia';
+export * from '@glsp/sprotty-theia';
 export * from './diagram';
 export * from './glsp-client-contribution';
 export * from './glsp-client-provider';

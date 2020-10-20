@@ -26,7 +26,7 @@ import {
 } from "@eclipse-glsp/client";
 import { Emitter, Event } from "@theia/core/lib/common";
 import { injectable } from "inversify";
-import { TheiaDiagramServer } from "sprotty-theia";
+import { TheiaDiagramServer } from "@glsp/sprotty-theia";
 
 import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
 
