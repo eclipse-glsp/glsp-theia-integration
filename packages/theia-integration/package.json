@@ -1,6 +1,6 @@
 {
   "name": "@eclipse-glsp/theia-integration",
-  "version": "0.7.0",
+  "version": "0.8.0-next.8bc9ac3",
   "description": "Glue code to integrate GLSP clients into Eclipse Theia",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "engines": {
@@ -32,9 +32,9 @@
     "css"
   ],
   "dependencies": {
-    "@glsp/sprotty-theia": "next",
     "@eclipse-glsp/client": "next",
     "@eclipse-glsp/protocol": "next",
+    "@glsp/sprotty-theia": "next",
     "@theia/messages": "^1.0.0"
   },
   "devDependencies": {
@@ -47,7 +47,8 @@
     "clean": "rimraf lib",
     "build": "tsc && yarn run lint",
     "lint": "tslint -c ../../configs/tslint.json --project ./tsconfig.json",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "publish:tag": "yarn publish --new-version \"$(semver $npm_package_version -i minor)-next.$(git rev-parse --short HEAD)\" --tag no-lsp"
   },
   "theiaExtensions": [
     {
