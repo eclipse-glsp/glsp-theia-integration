@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import {
+    Args,
     DiagramServer,
     DisposeClientSessionAction,
     EditorContextService,
@@ -44,6 +45,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     protected copyPasteHandler?: ICopyPasteHandler;
     public saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
     protected options: DiagramWidgetOptions & GLSPWidgetOptions;
+    protected requestModelOptions: Args;
 
     constructor(options: DiagramWidgetOptions & GLSPWidgetOpenerOptions, readonly widgetId: string, readonly diContainer: Container,
         readonly editorPreferences: EditorPreferences, readonly connector?: TheiaSprottyConnector) {
@@ -74,12 +76,13 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         });
 
         this.actionDispatcher.dispatch(new InitializeClientSessionAction(this.widgetId));
-        this.actionDispatcher.dispatch(new RequestModelAction({
+
+        this.requestModelOptions = {
             sourceUri: this.uri.path.toString(),
             needsClientLayout: `${this.viewerOptions.needsClientLayout}`,
             ... this.options
-        }));
-
+        };
+        this.actionDispatcher.dispatch(new RequestModelAction(this.requestModelOptions));
         this.actionDispatcher.dispatch(new RequestTypeHintsAction(this.options.diagramType));
         this.actionDispatcher.dispatch(new EnableToolPaletteAction());
         this.actionDispatcher.dispatch(new SetEditModeAction(this.options.editMode));
@@ -102,6 +105,10 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
     get editorContext(): EditorContextService {
         return this.diContainer.get(EditorContextService);
+    }
+
+    reloadModel(): Promise<void> {
+        return this.actionDispatcher.dispatch(new RequestModelAction(this.requestModelOptions));
     }
 
     handleCopy(e: ClipboardEvent) {
