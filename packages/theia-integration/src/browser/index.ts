@@ -24,4 +24,4 @@ export * from './theia-copy-paste-context-menu-contribution';
 export * from './theia-navigate-to-marker-contribution';
 export * from './theia-navigate-to-target-handler';
 export * from './theia-opener-options-navigation-service';
-
+export * from './theia-model-source-changed-handler';
