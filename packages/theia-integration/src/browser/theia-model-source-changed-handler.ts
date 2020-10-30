@@ -40,7 +40,7 @@ export class TheiaModelSourceChangedHandler extends ExternalModelSourceChangedHa
     }
 
     protected async notifyModelSourceChangedWithWidget(diagramWidget: GLSPDiagramWidget, modelSourceName: string): Promise<Action[]> {
-        if (!diagramWidget.saveable.dirty) {
+        if (this.autoReload() && !diagramWidget.saveable.dirty) {
             await diagramWidget.reloadModel();
             return [];
         }
@@ -52,7 +52,11 @@ export class TheiaModelSourceChangedHandler extends ExternalModelSourceChangedHa
         return [];
     }
 
-    protected getDiagramWidget(widget: Widget) {
+    protected autoReload(): boolean {
+        return false;
+    }
+
+    protected getDiagramWidget(widget: Widget): GLSPDiagramWidget | undefined {
         if (widget instanceof GLSPDiagramWidget) {
             return widget as GLSPDiagramWidget;
         } else if (isDiagramWidgetContainer(widget) && widget.diagramWidget instanceof GLSPDiagramWidget) {
