@@ -17,6 +17,7 @@ import {
     Action,
     ActionHandlerRegistry,
     ComputedBoundsAction,
+    ExportSvgAction,
     isServerMessageAction,
     isSetEditModeAction,
     registerDefaultGLSPServerActions,
@@ -42,6 +43,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
     initialize(registry: ActionHandlerRegistry): void {
         registry.register(SetDirtyStateAction.KIND, this);
         registry.register(ServerMessageAction.KIND, this);
+        registry.register(ExportSvgAction.KIND, this);
         registerDefaultGLSPServerActions(registry, this);
     }
 
@@ -72,6 +74,11 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
             return this.handleSetEditModeAction(action);
         }
         return super.handleLocally(action);
+    }
+
+    handleExportSvgAction(action: ExportSvgAction): boolean {
+        this.connector.save(this.sourceUri, action);
+        return false;
     }
 
     protected handleComputedBounds(_action: ComputedBoundsAction): boolean {
