@@ -19,22 +19,98 @@ import { ProcessErrorEvent } from "@theia/process/lib/node/process";
 import { ProcessManager } from "@theia/process/lib/node/process-manager";
 import { RawProcess, RawProcessFactory } from "@theia/process/lib/node/raw-process";
 import * as cp from "child_process";
-import { inject, injectable } from "inversify";
-import * as net from "net";
-import { createProcessSocketConnection, createStreamConnection, forward, IConnection } from "vscode-ws-jsonrpc/lib/server";
+import { inject, injectable, postConstruct } from "inversify";
+import { forward, IConnection } from "vscode-ws-jsonrpc/lib/server";
 
 import { GLSPContribution } from "../common";
 
 export const GLSPServerContribution = Symbol.for('GLSPServerContribution');
-export interface GLSPServerStartOptions {
-    sessionId: string
-    parameters?: any
-}
 
 export interface GLSPServerContribution extends GLSPContribution {
-    start(clientConnection: IConnection, options: GLSPServerStartOptions): MaybePromise<void>;
+    /**
+     * Establish a connection between the given client (connection) and the GLSP server.
+     * @param clientConnection  The client (connection) which should be connected to the server
+     */
+    connect(clientConnection: IConnection): MaybePromise<void>
+
+    /**
+     * Optional function that can be used by the contribution to launch an embedded GLSP server.
+     * @returns A 'Promise' that resolves after the server has been successfully launched and is ready to establish a client connection.
+     */
+    launch?(): Promise<void>
+    /**
+     * The {@link GLSPServerLaunchOptions} for this contribution.
+     */
+    launchOptions: GLSPServerLaunchOptions
+
+    /***
+     * Queries the contribution to determine wether a server instance is currently running.
+     * @returns `true` if a server instance is currently running.
+     */
+    isServerRunning(): boolean
+}
+export interface GLSPServerLaunchOptions {
+    /** Declares if the server can handle multiple clients.
+     * A `multiClient` server only has to be started once whereas in a `singleClient` scenario a new server needs to be launched for each client.
+     */
+    multiClient: boolean
+    /** Declares wether the  server should be launched on application start or on demand (e.g. on widget open). */
+    launchOnDemand: boolean
+    /** Declares that the server contribution does not have to consider server launching. This will be done externally.
+     *  Mostly used for debug purposes.
+     */
+    launchedExternally: boolean
 }
 
+export namespace GLSPServerLaunchOptions {
+    /** Default values for {@link GLSPServerLaunchOptions }**/
+    export function createDefaultOptions(): GLSPServerLaunchOptions {
+        return <GLSPServerLaunchOptions>{
+            multiClient: true,
+            launchOnDemand: false,
+            launchedExternally: inDebugMode()
+        };
+    }
+
+    /**
+     * Utility function to partially set the launch options. Default values (from 'defaultOptions') are used for
+     * options that are not specified.
+     * @param options (partial) launch options that should be extended with default values (if necessary).
+     */
+    export function configure(options?: Partial<GLSPServerLaunchOptions>): GLSPServerLaunchOptions {
+        return options ?
+            <GLSPServerLaunchOptions>{
+                ...createDefaultOptions(),
+                ...options
+            } : createDefaultOptions();
+    }
+
+    export const debugArgument = "--debug";
+
+    /**
+     * Utility function which specifies if the Theia application has been started in debug mode.
+     * i.e. if the '--debug' flag has been passed.
+     * @returns `true` if the '--debug' flag has been set.
+     */
+    export function inDebugMode(): boolean {
+        const args = process.argv.filter(a => a.startsWith(debugArgument));
+        return args.length > 0;
+    }
+    /**
+     * Utility function that processes the contribution launch options to determine wether the server should be launched on
+     * application start.
+     * @param contribution The glsp server contribution.
+     * @returns `true` if the server should be launched on application start.
+     */
+    export function shouldLaunchOnApplicationStart(contribution: GLSPServerContribution): boolean {
+        return contribution.launch !== undefined && !contribution.launchOptions.launchOnDemand && !contribution.launchOptions.launchedExternally;
+    }
+}
+
+/**
+ * A base implementation of {@link GLSPServerContribution} that provides utility methods for forwarding
+ *  (frontend) client connections to a GLSP server and for spawning new server processes.
+ */
 @injectable()
 export abstract class BaseGLSPServerContribution implements GLSPServerContribution {
 
@@ -42,7 +118,19 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
     @inject(ProcessManager) protected readonly processManager: ProcessManager;
     abstract readonly id: string;
     abstract readonly name: string;
-    abstract start(clientConnection: IConnection, options?: GLSPServerStartOptions): void;
+    protected running = false;
+    launchOptions: GLSPServerLaunchOptions = GLSPServerLaunchOptions.createDefaultOptions();
+
+    abstract connect(clientConnection: IConnection): void;
+
+    @postConstruct()
+    protected initialize() {
+        if (this.createLaunchOptions) {
+            this.launchOptions = GLSPServerLaunchOptions.configure(this.createLaunchOptions());
+        }
+    }
+
+    abstract createLaunchOptions?(): Partial<GLSPServerLaunchOptions>;
 
     protected forward(clientConnection: IConnection, serverConnection: IConnection): void {
         forward(clientConnection, serverConnection);
@@ -51,21 +139,14 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
         }
     }
 
-    protected async createProcessSocketConnection(outSocket: MaybePromise<net.Socket>, inSocket: MaybePromise<net.Socket>,
-        command: string, args?: string[], options?: cp.SpawnOptions): Promise<IConnection> {
-        const process = await this.spawnProcessAsync(command, args, options);
-        const [outSock, inSock] = await Promise.all<net.Socket>([outSocket, inSocket]);
-        return createProcessSocketConnection(process.process!, outSock, inSock);
+    isServerRunning(): boolean {
+        return this.running;
     }
 
-    protected async createProcessStreamConnectionAsync(command: string, args?: string[], options?: cp.SpawnOptions): Promise<IConnection> {
-        const process = await this.spawnProcessAsync(command, args, options);
-        return createStreamConnection(process.outputStream, process.inputStream, () => process.kill());
-    }
-
-    protected spawnProcessAsync(command: string, args?: string[], options?: cp.SpawnOptions): Promise<RawProcess> {
+    protected spawnProcessAsync(command: string, args?: string[], options?: cp.SpawnOptions) {
         const rawProcess = this.processFactory({ command, args, options });
-        rawProcess.errorStream.on('data', this.logError.bind(this));
+        rawProcess.errorStream.on('data', this.processLogError.bind(this));
+        rawProcess.outputStream.on('data', this.processLogInfo.bind(this));
         return new Promise<RawProcess>((resolve, reject) => {
             rawProcess.onError((error: ProcessErrorEvent) => {
                 this.onDidFailSpawnProcess(error);
@@ -86,13 +167,13 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
         console.error(error);
     }
 
-    protected logError(data: string | Buffer): void {
+    protected processLogError(data: string | Buffer): void {
         if (data) {
             console.error(`${this.name}: ${data}`);
         }
     }
 
-    protected logInfo(data: string | Buffer): void {
+    protected processLogInfo(data: string | Buffer): void {
         if (data) {
             console.info(`${this.name}: ${data}`);
         }

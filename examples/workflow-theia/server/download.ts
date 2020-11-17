@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2020 EclipseSource and others.
+ * Copyright (c) 2020 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,6 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export * from './glsp-server-contribution';
-export * from './java-socket-glsp-server';
-export * from './glsp-backend-contribution';
+import download from "mvn-artifact-download";
+import { join, resolve } from "path";
+
+const downloadDir = resolve(join(__dirname));
+const mavenRepository = "https://oss.sonatype.org/content/repositories/snapshots/";
+const groupId = "org.eclipse.glsp.example";
+const artifactId = "org.eclipse.glsp.example.workflow";
+const version = "0.8.0";
+const classifier = "glsp";
+
+console.log("Download latest version of the Workflow Example Java Server from the maven repository.");
+download({ groupId, artifactId, version, classifier, isSnapShot: true }, downloadDir, mavenRepository)
+    .then(() => console.log("Download completed."));

@@ -14,41 +14,29 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { getPort } from "@eclipse-glsp/protocol";
-import { BaseGLSPServerContribution } from "@eclipse-glsp/theia-integration/lib/node";
+import { JavaSocketServerContribution, JavaSocketServerLaunchOptions } from "@eclipse-glsp/theia-integration/lib/node";
 import { injectable } from "inversify";
-import * as net from "net";
-import { createSocketConnection, IConnection } from "vscode-ws-jsonrpc/lib/server";
+import { join, resolve } from "path";
 
 import { WorkflowLanguage } from "../common/workflow-language";
 
+export const DEFAULT_PORT = 5007;
+export const PORT_ARG_KEY = "WF_GLSP";
+export const SERVER_DIR = join(__dirname, '..', '..', 'server');
+export const JAR_FILE = resolve(join(SERVER_DIR, "org.eclipse.glsp.example.workflow-0.8.0-SNAPSHOT-glsp.jar"));
+
 @injectable()
-export class WorkflowGLServerContribution extends BaseGLSPServerContribution {
-    static readonly DEFAULT_PORT = 5007;
-    static readonly PORT_ARG_KEY = "WF_GLSP";
+export class WorkflowGLServerContribution extends JavaSocketServerContribution {
     readonly id = WorkflowLanguage.Id;
     readonly name = WorkflowLanguage.Name;
 
-    readonly description = {
-        id: 'workflow',
-        name: 'Workflow',
-        documentSelector: ['workflow'],
-        fileEvents: [
-            '**/*.workflow'
-        ]
-    };
-
-    start(clientConnection: IConnection): void {
-        let socketPort = getPort(WorkflowGLServerContribution.PORT_ARG_KEY);
-        if (isNaN(socketPort)) {
-            console.info(`No valid port argument was passed (--${WorkflowGLServerContribution.PORT_ARG_KEY}=xxxx). Default port ${WorkflowGLServerContribution.DEFAULT_PORT} is used.`);
-            socketPort = WorkflowGLServerContribution.DEFAULT_PORT;
-        }
-
-        const socket = new net.Socket();
-        const serverConnection = createSocketConnection(socket, socket, () => {
-            socket.destroy();
-        });
-        this.forward(clientConnection, serverConnection);
-        socket.connect(socketPort);
+    createLaunchOptions(): Partial<JavaSocketServerLaunchOptions> {
+        return {
+            jarPath: JAR_FILE,
+            additionalArgs: ["--consoleLog", "false",
+                "--fileLog", "true",
+                "--logDir", SERVER_DIR],
+            serverPort: getPort(PORT_ARG_KEY, DEFAULT_PORT)
+        };
     }
 }

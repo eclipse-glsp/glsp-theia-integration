@@ -13,3 +13,6 @@ yarn-error.log
 examples/browser-app/**
 !examples/browser-app/package.json
 
+examples/**/server/**
+!examples/**/server/download.ts
+

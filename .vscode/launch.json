@@ -1,0 +1,91 @@
+{
+  // Use IntelliSense to learn about possible Node.js debug attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Workflow Browser Backend",
+      "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
+      "args": [
+        "--hostname=localhost",
+        "--WF_GLSP=5007",
+        "--port=3000",
+        "--no-cluster",
+        "--root-dir=${workspaceRoot}/examples/workspace",
+        "--app-project-path=${workspaceRoot}/examples/browser-app"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
+        "${workspaceRoot}/examples/browser-app/lib/**/*.js",
+        "${workspaceRoot}/examples/browser-app/src-gen/**/*.js",
+        "${workspaceRoot}/packages/*/lib/**/*.js",
+        "${workspaceRoot}/examples/*/lib/**/*.js"
+      ],
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "presentation": {
+        "group": "Browser launch configurations",
+        "order": 1
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Workflow Browser Backend (DEBUG)",
+      "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
+      "args": [
+        "--hostname=localhost",
+        "--WF_GLSP=5007",
+        "--port=3000",
+        "--no-cluster",
+        "--root-dir=${workspaceRoot}/examples/workspace",
+        "--app-project-path=${workspaceRoot}/examples/browser-app",
+        "--debug",
+        "--loglevel=debug"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
+        "${workspaceRoot}/examples/browser-app/lib/**/*.js",
+        "${workspaceRoot}/examples/browser-app/src-gen/**/*.js",
+        "${workspaceRoot}/packages/*/lib/**/*.js",
+        "${workspaceRoot}/examples/*/lib/**/*.js"
+      ],
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "presentation": {
+        "group": "Browser launch configurations",
+        "order": 1
+      }
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Workflow Browser Frontend",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "sourceMapPathOverrides": {
+        "./src/*": "${workspaceFolder}/src/*"
+      },
+      "presentation": {
+        "group": "Browser launch configurations",
+        "order": 2
+      },
+      "runtimeArgs": [
+        "--incognito"
+      ]
+    }
+  ]
+}
