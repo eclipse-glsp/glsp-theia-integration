@@ -834,27 +834,27 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@eclipse-glsp-examples/workflow-glsp@next":
-  version "0.8.0-next.2657aad3"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.8.0-next.2657aad3.tgz#2b3b3feb6232ff37c128918906df1ff1c818b6ef"
-  integrity sha512-7/spcHnuOIftvPc2IY+UfUU0+mJO770ZeofOr0NA/8V1upaSOdX91bBdLjumGFn7VVKTPBgBJItAFrAyBNdRPg==
+"@eclipse-glsp-examples/workflow-glsp@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.8.0.tgz#d1e87ccf662ab5ca6e0ab1edf62555d01c82590d"
+  integrity sha512-0Ws/WMjpQ5SK9wrmmLkoNHbFdlnuqRzPEjN7HNoJYwV7t6aDO1NSxw+YIxUYxMZTwG0pjwmBNX1EXiIEW3bpsw==
   dependencies:
-    "@eclipse-glsp/client" "0.8.0-next.2657aad3"
+    "@eclipse-glsp/client" "0.8.1"
     balloon-css "^0.5.0"
 
-"@eclipse-glsp/client@0.8.0-next.2657aad3", "@eclipse-glsp/client@next":
-  version "0.8.0-next.2657aad3"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.0-next.2657aad3.tgz#2e5af2e341462790fd86a82439bbf1f85d8dd795"
-  integrity sha512-lHcS7DQ+NPDF6dB2zbogPjXQcaXn26xgmOq2xFEd9ftu8GeXv2qsqaJJaTJlp1JtTu6iVftmPB9riajAU9sGmQ==
+"@eclipse-glsp/client@0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.1.tgz#9b40aa0d68a35963fe5d570f28761c2ea2d6afde"
+  integrity sha512-4O3E02Po7tFAz+SUe2E87GIckQrmUhC8MuXaUs/k0fNb8gW9vZ8pHswWpNbaghzN3SEV5v4wJY+tcTu1FL6agg==
   dependencies:
-    "@eclipse-glsp/protocol" "0.8.0-next.2657aad3"
+    "@eclipse-glsp/protocol" "0.8.0"
     autocompleter "5.1.0"
     sprotty "0.9.0"
 
-"@eclipse-glsp/protocol@0.8.0-next.2657aad3", "@eclipse-glsp/protocol@next":
-  version "0.8.0-next.2657aad3"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.8.0-next.2657aad3.tgz#431c210c8a81651811049556ba5f01b1ecbdb3c1"
-  integrity sha512-69XAOMzU152ef0LfHAIW+ZUw2JhJoQrJITr7xwgn8lAZbJWvzJl04kfnvvWTG4dmgQNvOTjFMYtwpAVKZUN96Q==
+"@eclipse-glsp/protocol@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.8.0.tgz#28e60a277af5364c8e9071752b9dba08b6f047c1"
+  integrity sha512-nWYMTGtBCD2JQlPZN9b03BcZ4YPIMPCDmm+vpr3nyuPkBVbzf28uwIoVypL3NVJU9P1saMfBP2gzmJ0r5FcZCg==
   dependencies:
     uuid "7.0.3"
     vscode-ws-jsonrpc "0.2.0"
