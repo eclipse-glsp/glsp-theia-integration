@@ -7,9 +7,6 @@
       "@eclipse-glsp-examples/workflow-theia": [
         "examples/workflow-theia/src/*"
       ],
-      "@eclipse-glsp-examples/workflow-sprotty": [
-        "examples/workflow-sprotty/src/*"
-      ],
       "@eclipse/theia-integration": [
         "theia-integration/src/*"
       ]

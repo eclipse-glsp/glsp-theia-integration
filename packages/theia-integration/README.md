@@ -1,8 +1,8 @@
-# workflow-theia
+# Eclipse GLSP - Theia Integration for GLSP Clients
 
-This package contains the glue code to integrate the [GLSP Workflow example language](https://www.npmjs.com/package/@eclipse-glsp-examples/workflow-glsp) into a Theia applicatiopn.
+This package contains the glue code necessary to integrate diagram editors built with the [graphical language server platform](https://github.com/eclipse-glsp/glsp) with [Eclipse Theia](https://github.com/theia-ide/theia).
 
-This project is built with `yarn` and is available from npm via [@eclipse-glsp-examples/workflow-theia](https://www.npmjs.com/package/@eclipse-glsp-examples/workflow-theia).
+This project is built with `yarn` and is available from npm via [@eclipse-glsp/theia-integration](https://www.npmjs.com/package/@eclipse-glsp/theia-integration).
 
 ## Theia Version compatibility   
 This package is currently only compatible with Theia up to Version 1.4.0. 

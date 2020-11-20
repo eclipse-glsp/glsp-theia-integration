@@ -15,7 +15,7 @@
  ********************************************************************************/
 import "sprotty-theia/css/theia-sprotty.css";
 
-import { createWorkflowDiagramContainer } from "@eclipse-glsp-examples/workflow-sprotty/lib";
+import { createWorkflowDiagramContainer } from "@eclipse-glsp-examples/workflow-glsp/lib";
 import { CommandPalette, ExternalModelSourceChangedHandler, TYPES } from "@eclipse-glsp/client";
 import { ExternalNavigateToTargetHandler } from "@eclipse-glsp/client/lib";
 import { TheiaCommandPalette } from "@eclipse-glsp/theia-integration/lib/browser";
