@@ -14,7 +14,7 @@
     "name": "EclipseSource"
   },
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-sprotty": "next",
+    "@eclipse-glsp-examples/workflow-glsp": "next",
     "@eclipse-glsp/theia-integration": "0.7.0",
     "@eclipse-glsp/client": "next"
   },

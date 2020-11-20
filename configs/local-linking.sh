@@ -10,7 +10,7 @@
 function linkClient(){
     cd $2/glsp-client || exit
     
-    cd examples/workflow-sprotty || exit
+    cd examples/workflow-glsp || exit
     yarn $1
     cd ../../packages/client || exit
     yarn $1
@@ -49,7 +49,7 @@ if [[ "$2" != "--unlink" ]]; then
     cd $baseDir/glsp-theia-integration || exit
     yarn link @eclipse-glsp/client
     yarn link @eclipse-glsp/protocol
-    yarn link @eclipse-glsp-examples/workflow-sprotty
+    yarn link @eclipse-glsp-examples/workflow-glsp
     yarn install --force
     echo "--- LINKING SUCCESSFULL --- "
 else
@@ -59,7 +59,7 @@ else
     cd ../..
     yarn unlink @eclipse-glsp/client
     yarn unlink @eclipse-glsp/protocol
-    yarn unlink @eclipse-glsp-examples/workflow-sprotty
+    yarn unlink @eclipse-glsp-examples/workflow-glsp
     linkClient unlink $baseDir
     cd $baseDir/glsp-theia-integration
     yarn install --force
