@@ -18,7 +18,7 @@ import { MessagingService } from "@theia/core/lib/node/messaging/messaging-servi
 import { inject, injectable, named } from "inversify";
 
 import { GLSPContribution } from "../common";
-import { GLSPServerContribution } from "./glsp-server-contribution";
+import { GLSPServerContribution, GLSPServerLaunchOptions } from "./glsp-server-contribution";
 
 @injectable()
 export class GLSPBackendContribution implements MessagingService.Contribution, GLSPContribution.Service {
@@ -46,15 +46,22 @@ export class GLSPBackendContribution implements MessagingService.Contribution, G
     configure(service: MessagingService): void {
         for (const contribution of this.contributors.getContributions()) {
             const path = GLSPContribution.getPath(contribution);
-            service.forward(path, async ({ id }: { id: string }, connection) => {
-                try {
-                    const parameters = this.sessions.get(id);
-                    connection.onClose(() => this.destroy(id));
-                    await contribution.start(connection, { sessionId: id, parameters });
-                } catch (e) {
-                    this.logger.error(`Error occurred while starting glsp contribution. ${path}.`, e);
-                }
-            });
+            if (GLSPServerLaunchOptions.shouldLaunchOnApplicationStart(contribution)) {
+                contribution.launch!().then(() => this.forward(service, path, contribution));
+            } else {
+                this.forward(service, path, contribution);
+            }
         }
+    }
+
+    protected forward(service: MessagingService, path: string, contribution: GLSPServerContribution) {
+        service.forward(path, async ({ id }: { id: string }, connection) => {
+            try {
+                connection.onClose(() => this.destroy(id));
+                await contribution.connect(connection);
+            } catch (e) {
+                this.logger.error(`Error occurred while starting GLSP contribution. ${path}.`, e);
+            }
+        });
     }
 }

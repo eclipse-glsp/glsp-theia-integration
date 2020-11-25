@@ -19,5 +19,6 @@ import { ContainerModule } from "inversify";
 import { WorkflowGLServerContribution } from "./workflow-glsp-server-contribution";
 
 export default new ContainerModule(bind => {
-    bind(GLSPServerContribution).to(WorkflowGLServerContribution).inSingletonScope();
+    bind(WorkflowGLServerContribution).toSelf().inSingletonScope();
+    bind(GLSPServerContribution).toService(WorkflowGLServerContribution);
 });
