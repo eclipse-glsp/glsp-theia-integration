@@ -78,21 +78,19 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
         this.connectToSocketServer(clientConnection);
     }
     async launch(): Promise<void> {
-        if (!this.launchOptions.multiClient || !this.isServerRunning()) {
-            if (!fs.existsSync(this.launchOptions.jarPath)) {
-                throw Error(`Could not launch GLSP server. The given jar path is not valid: ${this.launchOptions.jarPath}`);
-            }
-            if (isNaN(this.launchOptions.serverPort)) {
-                throw new Error(`Could not launch GLSP Server. The given server port is not a number: ${this.launchOptions.serverPort}`);
-            }
-            let args = ["-jar", this.launchOptions.jarPath, "--port", `${this.launchOptions.serverPort}`];
-            if (this.launchOptions.additionalArgs) {
-                args = [...args, ...this.launchOptions.additionalArgs];
-            }
-
-            await this.spawnProcessAsync("java", args, undefined);
-            return this.onReady;
+        if (!fs.existsSync(this.launchOptions.jarPath)) {
+            throw Error(`Could not launch GLSP server. The given jar path is not valid: ${this.launchOptions.jarPath}`);
         }
+        if (isNaN(this.launchOptions.serverPort)) {
+            throw new Error(`Could not launch GLSP Server. The given server port is not a number: ${this.launchOptions.serverPort}`);
+        }
+        let args = ["-jar", this.launchOptions.jarPath, "--port", `${this.launchOptions.serverPort}`];
+        if (this.launchOptions.additionalArgs) {
+            args = [...args, ...this.launchOptions.additionalArgs];
+        }
+
+        await this.spawnProcessAsync("java", args, undefined);
+        return this.onReady;
     }
 
 

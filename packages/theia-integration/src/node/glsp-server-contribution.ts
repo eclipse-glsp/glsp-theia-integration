@@ -38,32 +38,29 @@ export interface GLSPServerContribution extends GLSPContribution {
      * @returns A 'Promise' that resolves after the server has been successfully launched and is ready to establish a client connection.
      */
     launch?(): Promise<void>
+
     /**
      * The {@link GLSPServerLaunchOptions} for this contribution.
      */
     launchOptions: GLSPServerLaunchOptions
-
-    /***
-     * Queries the contribution to determine wether a server instance is currently running.
-     * @returns `true` if a server instance is currently running.
-     */
-    isServerRunning(): boolean
 }
 export interface GLSPServerLaunchOptions {
-    /** Declares if the server can handle multiple clients.
+    /**
+     * Declares if the server can handle multiple clients.
      * A `multiClient` server only has to be started once whereas in a `singleClient` scenario a new server needs to be launched for each client.
      */
     multiClient: boolean
     /** Declares wether the  server should be launched on application start or on demand (e.g. on widget open). */
     launchOnDemand: boolean
-    /** Declares that the server contribution does not have to consider server launching. This will be done externally.
-     *  Mostly used for debug purposes.
+    /**
+     * Declares that the server contribution does not have to consider server launching. This will be done externally.
+     * Mostly used for debug purposes.
      */
     launchedExternally: boolean
 }
 
 export namespace GLSPServerLaunchOptions {
-    /** Default values for {@link GLSPServerLaunchOptions }**/
+    /** Default values for {@link GLSPServerLaunchOptions } **/
     export function createDefaultOptions(): GLSPServerLaunchOptions {
         return <GLSPServerLaunchOptions>{
             multiClient: true,
@@ -96,6 +93,7 @@ export namespace GLSPServerLaunchOptions {
         const args = process.argv.filter(a => a.startsWith(debugArgument));
         return args.length > 0;
     }
+
     /**
      * Utility function that processes the contribution launch options to determine wether the server should be launched on
      * application start.
@@ -118,7 +116,6 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
     @inject(ProcessManager) protected readonly processManager: ProcessManager;
     abstract readonly id: string;
     abstract readonly name: string;
-    protected running = false;
     launchOptions: GLSPServerLaunchOptions = GLSPServerLaunchOptions.createDefaultOptions();
 
     abstract connect(clientConnection: IConnection): void;
@@ -137,10 +134,6 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
         if (WebSocketChannelConnection.is(clientConnection)) {
             serverConnection.onClose(() => clientConnection.channel.tryClose());
         }
-    }
-
-    isServerRunning(): boolean {
-        return this.running;
     }
 
     protected spawnProcessAsync(command: string, args?: string[], options?: cp.SpawnOptions) {
