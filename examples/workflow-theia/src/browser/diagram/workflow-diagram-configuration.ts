@@ -16,52 +16,21 @@
 import "sprotty-theia/css/theia-sprotty.css";
 
 import { createWorkflowDiagramContainer } from "@eclipse-glsp-examples/workflow-glsp/lib";
-import { CommandPalette, ExternalModelSourceChangedHandler, TYPES } from "@eclipse-glsp/client";
-import { ExternalNavigateToTargetHandler } from "@eclipse-glsp/client/lib";
-import { TheiaCommandPalette } from "@eclipse-glsp/theia-integration/lib/browser";
 import {
-    connectTheiaContextMenuService,
-    TheiaContextMenuServiceFactory
-} from "@eclipse-glsp/theia-integration/lib/browser/diagram/glsp-theia-context-menu-service";
-import {
-    connectTheiaMarkerManager,
-    TheiaMarkerManager,
-    TheiaMarkerManagerFactory
-} from "@eclipse-glsp/theia-integration/lib/browser/diagram/glsp-theia-marker-manager";
-import {
-    TheiaModelSourceChangedHandler
-} from "@eclipse-glsp/theia-integration/lib/browser/theia-model-source-changed-handler";
-import { TheiaNavigateToTargetHandler } from "@eclipse-glsp/theia-integration/lib/browser/theia-navigate-to-target-handler";
-import { SelectionService } from "@theia/core";
-import { Container, inject, injectable } from "inversify";
-import { DiagramConfiguration, TheiaDiagramServer, TheiaSprottySelectionForwarder } from "sprotty-theia";
-import { TheiaContextMenuService } from "sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service";
+    GLSPTheiaDiagramConfiguration
+} from "@eclipse-glsp/theia-integration/lib/browser/diagram/glsp-theia-diagram-configuration";
+import { Container, injectable } from "inversify";
 
 import { WorkflowLanguage } from "../../common/workflow-language";
 import { WorkflowDiagramServer } from "./workflow-diagram-server";
 
 @injectable()
-export class WorkflowDiagramConfiguration implements DiagramConfiguration {
-
-    @inject(SelectionService) protected selectionService: SelectionService;
-    @inject(TheiaNavigateToTargetHandler) protected navigateToTargetHandler: TheiaNavigateToTargetHandler;
-    @inject(TheiaModelSourceChangedHandler) protected modelSourceChangedHandler: TheiaModelSourceChangedHandler;
-    @inject(TheiaContextMenuServiceFactory) protected readonly contextMenuServiceFactory: () => TheiaContextMenuService;
-    @inject(TheiaMarkerManagerFactory) protected readonly theiaMarkerManager: () => TheiaMarkerManager;
-
+export class WorkflowDiagramConfiguration extends GLSPTheiaDiagramConfiguration {
     diagramType: string = WorkflowLanguage.DiagramType;
 
-    createContainer(widgetId: string): Container {
+    doCreateContainer(widgetId: string): Container {
         const container = createWorkflowDiagramContainer(widgetId);
-        container.bind(TYPES.ModelSource).to(WorkflowDiagramServer).inSingletonScope();
-        container.bind(TheiaDiagramServer).toService(WorkflowDiagramServer);
-        container.bind(TYPES.IActionHandlerInitializer).to(TheiaSprottySelectionForwarder);
-        container.bind(SelectionService).toConstantValue(this.selectionService);
-        container.bind(ExternalNavigateToTargetHandler).toConstantValue(this.navigateToTargetHandler);
-        container.bind(ExternalModelSourceChangedHandler).toConstantValue(this.modelSourceChangedHandler);
-        container.rebind(CommandPalette).to(TheiaCommandPalette);
-        connectTheiaContextMenuService(container, this.contextMenuServiceFactory);
-        connectTheiaMarkerManager(container, this.theiaMarkerManager, this.diagramType);
+        this.configureDiagramServer(container, WorkflowDiagramServer);
         return container;
     }
 }
