@@ -13,14 +13,23 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Args, ExternalNavigateToTargetHandler } from "@eclipse-glsp/client/lib";
+import { Action, Args, IActionHandler, isNavigateToExternalTargetAction } from "@eclipse-glsp/client/lib";
 import { open, OpenerService } from "@theia/core/lib/browser/opener-service";
 import URI from "@theia/core/lib/common/uri";
 import { inject, injectable } from "inversify";
 
 @injectable()
-export class TheiaNavigateToTargetHandler extends ExternalNavigateToTargetHandler {
+export class TheiaNavigateToExternalTargetHandler implements IActionHandler {
     static JSON_OPENER_OPTIONS = 'jsonOpenerOptions';
+
+    constructor(@inject(OpenerService) protected readonly openerService: OpenerService) { }
+
+    handle(action: Action): void {
+        if (isNavigateToExternalTargetAction(action)) {
+            this.navigateTo(action.target.uri, action.target.args);
+        }
+    }
+
     /**
      * Opens the specified URI in Theia using Theia's opener service.
      *
@@ -28,10 +37,9 @@ export class TheiaNavigateToTargetHandler extends ExternalNavigateToTargetHandle
      * and merged into the opener options. This allows GLSP servers to pass additional opener options, such
      * as a selection, etc.
      */
-    @inject(OpenerService) protected readonly openerService: OpenerService;
     async navigateTo(uri: string, args?: Args): Promise<void> {
-        if (args && args[TheiaNavigateToTargetHandler.JSON_OPENER_OPTIONS]) {
-            args = { args, ...JSON.parse(args[TheiaNavigateToTargetHandler.JSON_OPENER_OPTIONS].toString()) };
+        if (args && args[TheiaNavigateToExternalTargetHandler.JSON_OPENER_OPTIONS]) {
+            args = { args, ...JSON.parse(args[TheiaNavigateToExternalTargetHandler.JSON_OPENER_OPTIONS].toString()) };
         }
         await open(this.openerService, new URI(uri), { ...args });
     }

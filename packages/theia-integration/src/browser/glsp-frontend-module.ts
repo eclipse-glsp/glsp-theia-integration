@@ -28,7 +28,6 @@ import { TheiaMarkerManager, TheiaMarkerManagerFactory } from "./diagram/glsp-th
 import { GLSPTheiaSprottyConnector } from "./diagram/glsp-theia-sprotty-connector";
 import { GLSPFrontendContribution } from "./glsp-frontend-contribution";
 import { TheiaModelSourceChangedHandler } from "./theia-model-source-changed-handler";
-import { TheiaNavigateToTargetHandler } from "./theia-navigate-to-target-handler";
 import { TheiaOpenerOptionsNavigationService } from "./theia-opener-options-navigation-service";
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -66,7 +65,6 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     });
 
     bind(GLSPDiagramContextKeyService).toSelf().inSingletonScope();
-    bind(TheiaNavigateToTargetHandler).toSelf().inSingletonScope();
     bind(TheiaOpenerOptionsNavigationService).toSelf().inSingletonScope();
     bind(TheiaModelSourceChangedHandler).toSelf().inSingletonScope();
 });
