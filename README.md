@@ -20,7 +20,7 @@ First, you need to build the Theia-Integration packages:
 yarn install
 ```
 
-Next, download a pre-built version of the Workflow Diagram Server, start the Theia application, and point your browser to [localhost:3000/](http://localhost:3000):
+Next, download a pre-built version of the Workflow Diagram Server, start the Theia application, and point your browser to [localhost:3000](http://localhost:3000):
 
 ```
 yarn download:exampleServer
@@ -28,12 +28,9 @@ cd examples/browser-app
 yarn start
 ```
 
-If you want to explore or change the Workflow Diagram Server too, you can clone, build and start the server from your IDE instead of using the pre-built version of the Workflow Diagram Server. See [`glsp-server`](https://github.com/eclipse-glsp/glsp-server#building) for instructions on building the server.
+If you want to explore or change the Workflow Diagram Server too, you can clone, build and start the [`glsp-server`](https://github.com/eclipse-glsp/glsp-server) from your IDE instead of using the pre-built version of the Workflow Diagram Server. See [`glsp-server`](https://github.com/eclipse-glsp/glsp-server#building-the-workflow-diagram-example-server) for instructions on building and running the Workflow Diagram Server example.
 
-Once both the Server and the Client packages are built, you can start both, the server and the client:
-
-- Server: in `examples/org.eclipse.glsp.example.workflow`, start `org.eclipse.glsp.example.workflow.launch.WorkflowServerLauncher.java` (Or use the included Eclipse `Start_Workflow_Example_Server.launch` launch configuration if you are using Eclipse as an IDE).
-- Client: Start the Theia application with the `debug` flag so that it'll connect to the server process you have started from your IDE:
+Once both the server is running, start the Theia application with the `debug` flag so that it'll connect to an existing server process -- the one you started from the command line or from your IDE before:
 
 ```
 cd examples/browser-app
