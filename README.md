@@ -18,24 +18,24 @@ First, you need to build the Theia-Integration packages:
 yarn install
 ```
 
-And the GLSP Server (Which includes the Workflow Diagram Server example). See [`glsp-server`](https://github.com/eclipse-glsp/glsp-server#building) for instructions.
-
-Once both the Server and the Client packages are built, you can start both:
-
-- Server: in `examples/org.eclipse.glsp.example.workflow`, start `org.eclipse.glsp.example.workflow.launch.WorkflowServerLauncher.java` (Or use the included `Start_Workflow_Example_Server.launch` Launch Configuration from Eclipse).
-- Client: 
-
-```
-cd examples/browser-app
-yarn start:debug
-```
-
-Alternatively, if you do not wish to clone, build and start the server manually, you can download a pre-built version of the server:
+Next, download a pre-built version of the Workflow Diagram Server, start the Theia application, and point your browser to [localhost:3000/](http://localhost:3000):
 
 ```
 yarn download:exampleServer
 cd examples/browser-app
 yarn start
+```
+
+If you want to explore or change the Workflow Diagram Server too, you can clone, build and start the server from your IDE. See [`glsp-server`](https://github.com/eclipse-glsp/glsp-server#building) for instructions.
+
+Once both the Server and the Client packages are built, you can start both:
+
+- Server: in `examples/org.eclipse.glsp.example.workflow`, start `org.eclipse.glsp.example.workflow.launch.WorkflowServerLauncher.java` (Or use the included Eclipse `Start_Workflow_Example_Server.launch` launch configuration if you are using Eclipse as an IDE).
+- Client: Start the Theia application with the `debug` flag so that it'll connect to the server process you have started from your IDE:
+
+```
+cd examples/browser-app
+yarn start:debug
 ```
 
 ## Where to find the sources?
@@ -45,7 +45,7 @@ In addition to this repository, the related source code can be found here:
 
 # Building
 
-For details on building the project, please see the README file in the [`theia-integration`](/packages/theia-integration/README.md) directory.
+For details on building the project, please see the [main README file](/packages/theia-integration/README.md).
 
 # More information
 For more information, please visit the [Eclipse GLSP Umbrella repository](https://github.com/eclipse-glsp/glsp) and the [Eclipse GLSP Website](https://www.eclipse.org/glsp/). If you have questions, contact us on our [spectrum chat](https://spectrum.chat/glsp/) and have a look at our [communication and support options](https://www.eclipse.org/glsp/contact/).
