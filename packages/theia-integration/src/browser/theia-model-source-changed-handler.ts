@@ -30,22 +30,23 @@ export class TheiaModelSourceChangedHandler extends ExternalModelSourceChangedHa
         if (element) {
             const widget = this.shell.findWidgetForElement(element);
             if (widget) {
-                const diagramWidget = this.getDiagramWidget(widget);
-                if (diagramWidget instanceof GLSPDiagramWidget) {
-                    return this.notifyModelSourceChangedWithWidget(diagramWidget, modelSourceName);
-                }
+                return this.notifyModelSourceChangedWithWidget(widget, modelSourceName);
             }
         }
         return [];
     }
 
-    protected async notifyModelSourceChangedWithWidget(diagramWidget: GLSPDiagramWidget, modelSourceName: string): Promise<Action[]> {
+    protected async notifyModelSourceChangedWithWidget(widget: Widget, modelSourceName: string): Promise<Action[]> {
+        const diagramWidget = this.getDiagramWidget(widget);
+        if (!(diagramWidget instanceof GLSPDiagramWidget)) {
+            return [];
+        }
         if (this.autoReload() && !diagramWidget.saveable.dirty) {
             await diagramWidget.reloadModel();
             return [];
         }
-        await this.shell.activateWidget(diagramWidget.id);
-        const reload = await this.showDialog(diagramWidget.title.label, modelSourceName);
+        await this.shell.activateWidget(widget.id);
+        const reload = await this.showDialog(widget.title.label, modelSourceName);
         if (reload === true) {
             await diagramWidget.reloadModel();
         }
