@@ -30,7 +30,7 @@ yarn start
 
 If you want to explore or change the Workflow Diagram Server too, you can clone, build and start the [`glsp-server`](https://github.com/eclipse-glsp/glsp-server) from your IDE instead of using the pre-built version of the Workflow Diagram Server. See [`glsp-server`](https://github.com/eclipse-glsp/glsp-server#building-the-workflow-diagram-example-server) for instructions on building and running the Workflow Diagram Server example.
 
-Once both the server is running, start the Theia application with the `debug` flag so that it'll connect to an existing server process -- the one you started from the command line or from your IDE before:
+Once the Workflow Diagram Server is running, start the Theia application with the `debug` flag so that it'll connect to an existing server process -- the one you started from the command line or from your IDE before:
 
 ```
 cd examples/browser-app
