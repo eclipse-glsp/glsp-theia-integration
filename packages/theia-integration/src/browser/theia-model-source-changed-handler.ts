@@ -38,7 +38,7 @@ export class TheiaModelSourceChangedHandler extends ExternalModelSourceChangedHa
 
     protected async notifyModelSourceChangedWithWidget(widget: Widget, modelSourceName: string): Promise<Action[]> {
         const diagramWidget = this.getDiagramWidget(widget);
-        if (!(diagramWidget instanceof GLSPDiagramWidget)) {
+        if (!diagramWidget) {
             return [];
         }
         if (this.autoReload() && !diagramWidget.saveable.dirty) {
