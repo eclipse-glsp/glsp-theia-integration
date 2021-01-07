@@ -25,6 +25,6 @@ const classifier = "glsp";
 
 console.log("Downloading latest version of the Workflow Example Java Server from the maven repository...");
 download({ groupId, artifactId, version, classifier, isSnapShot: true }, downloadDir, mavenRepository)
-    .then(() => console.log("Download completed. Start the server (Theia and GLSP server) using these commands: \ncd examples/browser-app\nyarn start\n\n"
+    .then(() => console.log("Download completed. Start the Theia back-end using these commands: \ncd examples/browser-app\nyarn start\n\n"
         + "After starting the server, access the following link locally in your browser to see the running example:\n"
         + "http://localhost:3000"));
