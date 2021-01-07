@@ -20,9 +20,11 @@ const downloadDir = resolve(join(__dirname));
 const mavenRepository = "https://oss.sonatype.org/content/repositories/snapshots/";
 const groupId = "org.eclipse.glsp.example";
 const artifactId = "org.eclipse.glsp.example.workflow";
-const version = "0.8.0";
+const version = "0.9.0";
 const classifier = "glsp";
 
-console.log("Download latest version of the Workflow Example Java Server from the maven repository.");
+console.log("Downloading latest version of the Workflow Example Java Server from the maven repository...");
 download({ groupId, artifactId, version, classifier, isSnapShot: true }, downloadDir, mavenRepository)
-    .then(() => console.log("Download completed."));
+    .then(() => console.log("Download completed. Start the Theia back-end using these commands: \ncd examples/browser-app\nyarn start\n\n"
+        + "After starting the Theia back-end, access the following link locally in your browser to see the running example:\n"
+        + "http://localhost:3000"));
