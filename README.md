@@ -14,7 +14,7 @@ See [our project website](https://www.eclipse.org/glsp/documentation/#workflowov
 ![Workflow Diagram](https://www.eclipse.org/glsp/images/diagramanimated.gif)
 
 ### How to start the Workflow Diagram example?
-First, you need to build the Theia-Integration packages:
+Clone this repository and build Theia-Integration packages:
 
 ```
 yarn install
@@ -28,7 +28,8 @@ cd examples/browser-app
 yarn start
 ```
 
-If you want to explore or change the Workflow Diagram Server too, you can clone, build and start the [`glsp-server`](https://github.com/eclipse-glsp/glsp-server) from your IDE instead of using the pre-built version of the Workflow Diagram Server. See [`glsp-server`](https://github.com/eclipse-glsp/glsp-server#building-the-workflow-diagram-example-server) for instructions on building and running the Workflow Diagram Server example.
+### How to start the Workflow Diagram example server from the sources
+If you want to explore or change the Workflow Diagram Server too, you can clone, build and start the [`workflow example glsp-server`](https://github.com/eclipse-glsp/glsp-server#workflow-diagram-example) from your IDE instead of using the pre-built version of the Workflow Diagram Server. See [`workflow example glsp-server`](https://github.com/eclipse-glsp/glsp-server#workflow-diagram-example) for instructions on building and running the Workflow Diagram Server example.
 
 Once the Workflow Diagram Server is running, start the Theia application with the `debug` flag so that it'll connect to an existing server process -- the one you started from the command line or from your IDE before:
 
