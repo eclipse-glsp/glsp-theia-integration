@@ -162,8 +162,8 @@
       ],
       "type": "task:manual",
       "position": {
-        "x": 950.0,
-        "y": 130.0
+        "x": 930.0,
+        "y": 150.0
       },
       "size": {
         "width": 105.5625,
@@ -332,8 +332,8 @@
       ],
       "type": "task:manual",
       "position": {
-        "x": 920.0,
-        "y": 390.0
+        "x": 930.0,
+        "y": 360.0
       },
       "size": {
         "width": 128.953125,
@@ -417,8 +417,8 @@
       ],
       "type": "task:manual",
       "position": {
-        "x": 1280.0,
-        "y": 260.0
+        "x": 1260.0,
+        "y": 250.0
       },
       "size": {
         "width": 102.359375,
@@ -502,8 +502,8 @@
       ],
       "type": "task:manual",
       "position": {
-        "x": 920.0,
-        "y": 300.0
+        "x": 930.0,
+        "y": 290.0
       },
       "size": {
         "width": 126.34375,
@@ -587,8 +587,8 @@
       ],
       "type": "task:automated",
       "position": {
-        "x": 680.0,
-        "y": 160.0
+        "x": 670.0,
+        "y": 180.0
       },
       "size": {
         "width": 116.671875,
@@ -673,7 +673,7 @@
       "type": "task:automated",
       "position": {
         "x": 930.0,
-        "y": 190.0
+        "y": 220.0
       },
       "size": {
         "width": 109.109375,
@@ -687,7 +687,7 @@
       "type": "activityNode:merge",
       "position": {
         "x": 1100.0,
-        "y": 170.0
+        "y": 190.0
       },
       "size": {
         "width": 32.0,
@@ -716,7 +716,7 @@
       "type": "activityNode:decision",
       "position": {
         "x": 840.0,
-        "y": 360.0
+        "y": 330.0
       },
       "size": {
         "width": 32.0,
@@ -738,8 +738,8 @@
       "id": "activityNode4",
       "type": "activityNode:merge",
       "position": {
-        "x": 1100.0,
-        "y": 350.0
+        "x": 1110.0,
+        "y": 330.0
       },
       "size": {
         "width": 32.0,
@@ -767,8 +767,8 @@
       "id": "b00fc494-0fa4-4448-8bf9-162c2c0865e4",
       "type": "activityNode:decision",
       "position": {
-        "x": 840.0,
-        "y": 170.0
+        "x": 830.0,
+        "y": 190.0
       },
       "size": {
         "width": 32.0,
@@ -816,7 +816,7 @@
       "type": "activityNode:join",
       "position": {
         "x": 1220.0,
-        "y": 260.0
+        "y": 250.0
       },
       "size": {
         "width": 10.0,
@@ -852,7 +852,27 @@
       "type": "edge",
       "sourceId": "bd94e44e-19f9-446e-89d4-97ca1a63c17b",
       "targetId": "task4"
+    },
+    {
+      "probability": "medium",
+      "id": "e9aa796a-aa5b-4e6d-8860-4b9c5a5b8d89",
+      "type": "edge:weighted",
+      "sourceId": "b00fc494-0fa4-4448-8bf9-162c2c0865e4",
+      "targetId": "task9"
+    },
+    {
+      "id": "f49a588c-618c-4d9f-96fc-feee776a0ead",
+      "type": "edge",
+      "sourceId": "task8",
+      "targetId": "b00fc494-0fa4-4448-8bf9-162c2c0865e4"
+    },
+    {
+      "id": "568d91e3-d5bf-464d-923e-9769a8a651f3",
+      "type": "edge",
+      "sourceId": "bb2709f5-0ff0-4438-8853-b7e934b506d7",
+      "targetId": "task8"
     }
   ],
-  "type": "graph"
+  "type": "graph",
+  "revision": 17
 }
