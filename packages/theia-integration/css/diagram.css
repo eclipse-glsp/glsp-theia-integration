@@ -36,6 +36,14 @@
     stroke: var(--theia-menu-selectionBackground);
 }
 
+.inactive .sprotty-node.selected {
+    stroke: var(--theia-editor-inactiveSelectionBackground);
+}
+
 .sprotty-resize-handle.active {
     fill: var(--theia-menu-selectionBackground);
+}
+
+.inactive .sprotty-resize-handle {
+    fill: var(--theia-tab-unfocusedInactiveForeground);
 }

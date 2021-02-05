@@ -15,6 +15,7 @@
  ********************************************************************************/
 import { EditMode, GLSPActionDispatcher } from "@eclipse-glsp/client";
 import {
+    ApplicationShell,
     FrontendApplicationContribution,
     NavigatableWidgetOptions,
     OpenHandler,
@@ -55,6 +56,9 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     @inject(GLSPDiagramContextKeyService)
     protected readonly contextKeyService: GLSPDiagramContextKeyService;
 
+    @inject(ApplicationShell)
+    protected readonly shell: ApplicationShell;
+
     abstract get fileExtensions(): string[];
 
     async doOpen(widget: DiagramWidget, options?: WidgetOpenerOptions) {
@@ -75,7 +79,9 @@ export abstract class GLSPDiagramManager extends DiagramManager {
             const widgetId = this.createWidgetId(options);
             const config = this.getDiagramConfiguration(options);
             const diContainer = config.createContainer(clientId);
-            return new GLSPDiagramWidget(options, widgetId, diContainer, this.editorPreferences, this.diagramConnector);
+            const widget = new GLSPDiagramWidget(options, widgetId, diContainer, this.editorPreferences, this.diagramConnector);
+            widget.listenToFocusState(this.shell);
+            return widget;
         }
         throw Error('DiagramWidgetFactory needs DiagramWidgetOptions but got ' + JSON.stringify(options));
     }
