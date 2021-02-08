@@ -19,6 +19,7 @@ import {
     DisposeClientSessionAction,
     EditorContextService,
     EnableToolPaletteAction,
+    FocusStateChangedAction,
     GLSP_TYPES,
     IActionDispatcher,
     ICopyPasteHandler,
@@ -31,7 +32,7 @@ import {
     TYPES
 } from "@eclipse-glsp/client";
 import { Message } from "@phosphor/messaging/lib";
-import { Saveable, SaveableSource } from "@theia/core/lib/browser";
+import { ApplicationShell, Saveable, SaveableSource } from "@theia/core/lib/browser";
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from "@theia/core/lib/common";
 import { EditorPreferences } from "@theia/editor/lib/browser";
 import { Container } from "inversify";
@@ -96,6 +97,16 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
             this.addClipboardListener(this.node, 'paste', e => this.handlePaste(e));
             this.addClipboardListener(this.node, 'cut', e => this.handleCut(e));
         }
+    }
+
+    listenToFocusState(shell: ApplicationShell) {
+        this.toDispose.push(shell.onDidChangeActiveWidget((event) => {
+            if (event.newValue === undefined || (event.newValue && event.newValue.id !== this.id)) {
+                this.actionDispatcher.dispatch(new FocusStateChangedAction(false));
+            } else if ((event.newValue && event.newValue.id === this.id)) {
+                this.actionDispatcher.dispatch(new FocusStateChangedAction(true));
+            }
+        }));
     }
 
     get diagramType(): string {

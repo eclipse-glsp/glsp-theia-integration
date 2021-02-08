@@ -30,6 +30,10 @@
     border-top: 2px solid var(--theia-focusBorder);
 }
 
+.inactive .tool-palette .palette-header {
+    border-top: 2px solid var(--theia-tab-unfocusedInactiveForeground);
+}
+
 .tool-palette .palette-header .header-icon {
     font-size: var(--theia-ui-font-size1);
     float: left;
@@ -53,6 +57,10 @@
 
 .tool-palette .palette-header .header-tools .clicked {
     background: var(--theia-inputOption-activeBackground);
+}
+
+.inactive .tool-palette .palette-header .header-tools .clicked {
+    background: var(--theia-menubar-selectionBackground);
 }
 
 .tool-palette .palette-body {
@@ -80,6 +88,11 @@
 .tool-palette .tool-button.clicked {
     background: var(--theia-menu-selectionBackground);
     color: var(--theia-menu-selectionForeground);
+}
+
+.inactive .tool-palette .tool-button.clicked {
+    background: var(--theia-list-hoverBackground);
+    color: var(--theia-titleBar-activeForeground);
 }
 
 .search-input {
