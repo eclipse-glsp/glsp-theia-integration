@@ -833,7 +833,7 @@
     "@eclipse-glsp/client" "0.9.0-next.83b3785f"
     balloon-css "^0.5.0"
 
-"@eclipse-glsp/client@0.9.0-next.83b3785f", "@eclipse-glsp/client@next":
+"@eclipse-glsp/client@0.9.0-next.83b3785f":
   version "0.9.0-next.83b3785f"
   resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.9.0-next.83b3785f.tgz#d0dc9064438ec4ada87e821526d301931f62a813"
   integrity sha512-0A9V6kQwbcsxvqA+0YXL//3MNQrM5IEa17Rpfdv3TNDOPUfkC7AAQzAIlc7RRyuwSgiBQ/DyopmF8GDb0gOi7g==
@@ -841,6 +841,23 @@
     "@eclipse-glsp/protocol" "0.9.0-next.83b3785f"
     autocompleter "5.1.0"
     sprotty next
+
+"@eclipse-glsp/client@next":
+  version "0.9.0-next.4fc0d719"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.9.0-next.4fc0d719.tgz#a24c90bf3ad56b9ecac7733e29eaae209fcfe97a"
+  integrity sha512-I6fz9WkUHPz/RTKnL2TJeTk8ajUMEpZ1LyXljhGI1JKgrzOGigdx94qIWhEqTfmGsexSs3m953YZOCdxdaPtAw==
+  dependencies:
+    "@eclipse-glsp/protocol" "0.9.0-next.4fc0d719"
+    autocompleter "5.1.0"
+    sprotty next
+
+"@eclipse-glsp/protocol@0.9.0-next.4fc0d719":
+  version "0.9.0-next.4fc0d719"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.9.0-next.4fc0d719.tgz#78fd38bb8b8f9a799602699c706af9bb8b0dbed8"
+  integrity sha512-+XV0fz80/7Z0cYj5pSfrlTdZAG4X/FRDc99yyB6fZo5XysKXvCKAL2QYmrub4MHx1xmn2u/pBHqaa5z0NEFV7Q==
+  dependencies:
+    uuid "7.0.3"
+    vscode-ws-jsonrpc "0.2.0"
 
 "@eclipse-glsp/protocol@0.9.0-next.83b3785f", "@eclipse-glsp/protocol@next":
   version "0.9.0-next.83b3785f"
