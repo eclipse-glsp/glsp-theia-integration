@@ -16,9 +16,8 @@
 import { Action, ExternalModelSourceChangedHandler, ViewerOptions } from "@eclipse-glsp/client";
 import { ApplicationShell, ConfirmDialog, Widget } from "@theia/core/lib/browser";
 import { inject, injectable } from "inversify";
-import { isDiagramWidgetContainer } from "sprotty-theia";
 
-import { GLSPDiagramWidget } from "./diagram";
+import { getDiagramWidget } from "./diagram/glsp-diagram-widget";
 
 @injectable()
 export class TheiaModelSourceChangedHandler extends ExternalModelSourceChangedHandler {
@@ -37,7 +36,7 @@ export class TheiaModelSourceChangedHandler extends ExternalModelSourceChangedHa
     }
 
     protected async notifyModelSourceChangedWithWidget(widget: Widget, modelSourceName: string): Promise<Action[]> {
-        const diagramWidget = this.getDiagramWidget(widget);
+        const diagramWidget = getDiagramWidget(widget);
         if (!diagramWidget) {
             return [];
         }
@@ -55,15 +54,6 @@ export class TheiaModelSourceChangedHandler extends ExternalModelSourceChangedHa
 
     protected autoReload(): boolean {
         return false;
-    }
-
-    protected getDiagramWidget(widget: Widget): GLSPDiagramWidget | undefined {
-        if (widget instanceof GLSPDiagramWidget) {
-            return widget as GLSPDiagramWidget;
-        } else if (isDiagramWidgetContainer(widget) && widget.diagramWidget instanceof GLSPDiagramWidget) {
-            return widget.diagramWidget as GLSPDiagramWidget;
-        }
-        return undefined;
     }
 
     protected showDialog(widgetTitle: string, modelSourceName: string): Promise<boolean | undefined> {

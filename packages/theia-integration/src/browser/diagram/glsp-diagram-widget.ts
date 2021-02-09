@@ -20,6 +20,7 @@ import {
     EditorContextService,
     EnableToolPaletteAction,
     FocusStateChangedAction,
+    FocusTracker,
     GLSP_TYPES,
     IActionDispatcher,
     ICopyPasteHandler,
@@ -32,11 +33,11 @@ import {
     TYPES
 } from "@eclipse-glsp/client";
 import { Message } from "@phosphor/messaging/lib";
-import { ApplicationShell, Saveable, SaveableSource } from "@theia/core/lib/browser";
+import { ApplicationShell, Saveable, SaveableSource, Widget } from "@theia/core/lib/browser";
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from "@theia/core/lib/common";
 import { EditorPreferences } from "@theia/editor/lib/browser";
 import { Container } from "inversify";
-import { DiagramWidget, DiagramWidgetOptions, TheiaSprottyConnector } from "sprotty-theia";
+import { DiagramWidget, DiagramWidgetOptions, isDiagramWidgetContainer, TheiaSprottyConnector } from "sprotty-theia";
 
 import { GLSPWidgetOpenerOptions, GLSPWidgetOptions } from "./glsp-diagram-manager";
 import { DirtyStateNotifier, GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
@@ -99,16 +100,6 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         }
     }
 
-    listenToFocusState(shell: ApplicationShell) {
-        this.toDispose.push(shell.onDidChangeActiveWidget((event) => {
-            if (event.newValue === undefined || (event.newValue && event.newValue.id !== this.id)) {
-                this.actionDispatcher.dispatch(new FocusStateChangedAction(false));
-            } else if ((event.newValue && event.newValue.id === this.id)) {
-                this.actionDispatcher.dispatch(new FocusStateChangedAction(true));
-            }
-        }));
-    }
-
     get diagramType(): string {
         return this.options.diagramType;
     }
@@ -138,6 +129,43 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
             this.copyPasteHandler.handlePaste(e);
         }
     }
+
+    listenToFocusState(shell: ApplicationShell): void {
+        this.toDispose.push(shell.onDidChangeActiveWidget((event) => {
+            const focusedWidget = event.newValue;
+            if (this.hasFocus && !this.isThisWidget(focusedWidget)) {
+                this.actionDispatcher.dispatch(new FocusStateChangedAction(false));
+            } else if (!this.hasFocus && this.isThisWidget(focusedWidget)) {
+                this.actionDispatcher.dispatch(new FocusStateChangedAction(true));
+            }
+        }));
+    }
+
+    protected isThisWidget(widget: Widget | null): boolean {
+        if (widget === null) return false;
+        const diagramWidget = getDiagramWidget(widget);
+        return diagramWidget !== undefined && diagramWidget.id === this.id;
+    }
+
+    get hasFocus(): boolean | undefined {
+        let focusTracker: FocusTracker | undefined;
+        if (this.diContainer.isBound(FocusTracker)) {
+            focusTracker = this.diContainer.get(FocusTracker);
+        }
+        if (focusTracker) {
+            return focusTracker.hasFocus;
+        }
+        return undefined;
+    }
+}
+
+export function getDiagramWidget(widget: Widget): GLSPDiagramWidget | undefined {
+    if (widget instanceof GLSPDiagramWidget) {
+        return widget as GLSPDiagramWidget;
+    } else if (isDiagramWidgetContainer(widget) && widget.diagramWidget instanceof GLSPDiagramWidget) {
+        return widget.diagramWidget as GLSPDiagramWidget;
+    }
+    return undefined;
 }
 
 export class SaveableGLSPModelSource implements Saveable, Disposable {
