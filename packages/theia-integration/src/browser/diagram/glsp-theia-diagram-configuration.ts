@@ -61,7 +61,9 @@ export abstract class GLSPTheiaDiagramConfiguration implements DiagramConfigurat
         container.bind(OpenerService).toConstantValue(this.openerService);
         container.bind(CommandService).toConstantValue(this.commandService);
         container.bind(ExternalModelSourceChangedHandler).toConstantValue(this.modelSourceChangedHandler);
-        container.rebind(CommandPalette).to(TheiaCommandPalette);
+        if (container.isBound(CommandPalette)) {
+            container.rebind(CommandPalette).to(TheiaCommandPalette);
+        }
 
         connectTheiaContextMenuService(container, this.contextMenuServiceFactory);
         connectTheiaMarkerManager(container, this.theiaMarkerManager, this.diagramType);
