@@ -19,9 +19,12 @@ import { ApplicationShell } from "@theia/core/lib/browser";
 import { EditorManager } from "@theia/editor/lib/browser";
 import { inject, injectable } from "inversify";
 import { ActionMessage } from "sprotty";
-import { ActionMessageReceiver } from "sprotty-theia/lib/theia/languageserver/diagram-language-client";
 
 import { GLSPClientContribution } from "../glsp-client-contribution";
+
+export interface ActionMessageReceiver {
+    onMessageReceived(message: ActionMessage): void
+}
 
 @injectable()
 export class GLSPDiagramClient {
