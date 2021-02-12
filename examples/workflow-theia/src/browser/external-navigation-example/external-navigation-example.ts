@@ -32,7 +32,7 @@ export class ExampleNavigationCommandContribution implements CommandContribution
             {
                 execute: (args) => {
                     if (this.workspaceService.workspace) {
-                        const uri = new URI(this.workspaceService.workspace.uri + '/example1.wf');
+                        const uri = new URI(this.workspaceService.workspace.resource + '/example1.wf');
                         open(this.openerService, uri, {
                             selection: { name: 'Push' }
                         });
