@@ -97,11 +97,13 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
 
 export class SetDirtyStateAction implements Action {
     static readonly KIND = 'setDirtyState';
-    constructor(public isDirty: boolean, public readonly kind = SetDirtyStateAction.KIND) { }
+    constructor(public readonly isDirty: boolean, public readonly causedBy: Action,
+        public readonly kind = SetDirtyStateAction.KIND) { }
 }
 
 export function isSetDirtyStateAction(action: Action): action is SetDirtyStateAction {
-    return SetDirtyStateAction.KIND === action.kind && ('isDirty' in action);
+    return SetDirtyStateAction.KIND === action.kind && 'isDirty' in action
+        && typeof (action['isDirty']) === 'boolean' && 'causedBy' in action;
 }
 
 export interface DirtyState {
