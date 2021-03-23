@@ -94,14 +94,23 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
         return false;
     }
 }
-
 export class SetDirtyStateAction implements Action {
     static readonly KIND = 'setDirtyState';
-    constructor(public isDirty: boolean, public readonly kind = SetDirtyStateAction.KIND) { }
+    constructor(public readonly isDirty: boolean, public readonly reason?: string,
+        public readonly kind = SetDirtyStateAction.KIND) { }
+}
+
+export namespace DirtyStateChangeReason {
+    export const OPERATION = "operation";
+    export const UNDO = "undo";
+    export const REDO = "redo";
+    export const SAVE = "save";
+    export const EXTERNAL = "external";
 }
 
 export function isSetDirtyStateAction(action: Action): action is SetDirtyStateAction {
-    return SetDirtyStateAction.KIND === action.kind && ('isDirty' in action);
+    return SetDirtyStateAction.KIND === action.kind && 'isDirty' in action
+        && typeof (action['isDirty']) === 'boolean' && 'reason' in action;
 }
 
 export interface DirtyState {
