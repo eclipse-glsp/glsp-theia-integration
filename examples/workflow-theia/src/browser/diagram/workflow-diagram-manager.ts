@@ -17,21 +17,21 @@ import {
     GLSPDiagramManager,
     GLSPNotificationManager,
     GLSPTheiaSprottyConnector
-} from "@eclipse-glsp/theia-integration/lib/browser";
-import { MessageService } from "@theia/core";
-import { WidgetManager } from "@theia/core/lib/browser";
-import { EditorManager } from "@theia/editor/lib/browser";
-import { inject, injectable } from "inversify";
-import { TheiaFileSaver } from "sprotty-theia";
+} from '@eclipse-glsp/theia-integration/lib/browser';
+import { MessageService } from '@theia/core';
+import { WidgetManager } from '@theia/core/lib/browser';
+import { EditorManager } from '@theia/editor/lib/browser';
+import { inject, injectable } from 'inversify';
+import { TheiaFileSaver } from 'sprotty-theia';
 
-import { WorkflowLanguage } from "../../common/workflow-language";
-import { WorkflowGLSPDiagramClient } from "./workflow-glsp-diagram-client";
+import { WorkflowLanguage } from '../../common/workflow-language';
+import { WorkflowGLSPDiagramClient } from './workflow-glsp-diagram-client';
 
 @injectable()
 export class WorkflowDiagramManager extends GLSPDiagramManager {
     readonly diagramType = WorkflowLanguage.DiagramType;
-    readonly iconClass = "fa fa-project-diagram";
-    readonly label = WorkflowLanguage.Label + " Editor";
+    readonly iconClass = 'fa fa-project-diagram';
+    readonly label = WorkflowLanguage.Label + ' Editor';
 
     private _diagramConnector: GLSPTheiaSprottyConnector;
 
@@ -49,10 +49,10 @@ export class WorkflowDiagramManager extends GLSPDiagramManager {
         });
     }
 
-    get fileExtensions() {
+    get fileExtensions(): string[] {
         return [WorkflowLanguage.FileExtension];
     }
-    get diagramConnector() {
+    get diagramConnector(): GLSPTheiaSprottyConnector {
         return this._diagramConnector;
     }
 }

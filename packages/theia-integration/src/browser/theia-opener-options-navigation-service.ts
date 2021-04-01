@@ -13,10 +13,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { NavigateToTargetAction, NavigationTarget } from "@eclipse-glsp/client/lib";
-import { OpenerOptions } from "@theia/core/lib/browser";
-import { Range } from "@theia/editor/lib/browser";
-import { injectable } from "inversify";
+import { NavigateToTargetAction, NavigationTarget } from '@eclipse-glsp/client/lib';
+import { OpenerOptions } from '@theia/core/lib/browser';
+import { Range } from '@theia/editor/lib/browser';
+import { injectable } from 'inversify';
 
 /**
  * Service for translating `OpenerOptions` into a `NavigateToTargetAction`.

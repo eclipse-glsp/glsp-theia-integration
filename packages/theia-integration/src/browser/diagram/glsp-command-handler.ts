@@ -13,11 +13,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action, EditorContextService } from "@eclipse-glsp/client";
-import { ApplicationShell } from "@theia/core/lib/browser";
-import { DiagramCommandHandler } from "sprotty-theia";
+import { Action, EditorContextService } from '@eclipse-glsp/client';
+import { ApplicationShell } from '@theia/core/lib/browser';
+import { DiagramCommandHandler } from 'sprotty-theia';
 
-import { GLSPDiagramWidget } from "./glsp-diagram-widget";
+import { GLSPDiagramWidget } from './glsp-diagram-widget';
 
 export interface GLSPCommand {
     actions: (context: EditorContextService) => Action[];
@@ -32,14 +32,14 @@ export class GLSPCommandHandler extends DiagramCommandHandler {
         super(shell, () => this.dispatch());
     }
 
-    protected dispatch() {
+    protected dispatch(): Promise<void> | undefined {
         return this.glspDiagramWidget
             && this.glspDiagramWidget.actionDispatcher
                 .dispatchAll(this.command.actions(this.glspDiagramWidget.editorContext));
     }
 
     get glspDiagramWidget(): GLSPDiagramWidget | undefined {
-        return this.diagramWidget instanceof GLSPDiagramWidget ? <GLSPDiagramWidget>this.diagramWidget : undefined;
+        return this.diagramWidget instanceof GLSPDiagramWidget ? this.diagramWidget as GLSPDiagramWidget : undefined;
     }
 
     isEnabled(): boolean {

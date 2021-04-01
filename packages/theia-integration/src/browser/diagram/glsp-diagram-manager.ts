@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { EditMode, GLSPActionDispatcher } from "@eclipse-glsp/client";
+import { EditMode, GLSPActionDispatcher } from '@eclipse-glsp/client';
 import {
     ApplicationShell,
     FrontendApplicationContribution,
@@ -21,27 +21,31 @@ import {
     OpenHandler,
     WidgetFactory,
     WidgetOpenerOptions
-} from "@theia/core/lib/browser";
-import URI from "@theia/core/lib/common/uri";
-import { EditorPreferences } from "@theia/editor/lib/browser";
-import { inject, injectable, interfaces } from "inversify";
-import { DiagramManager, DiagramManagerProvider, DiagramWidget, DiagramWidgetOptions } from "sprotty-theia";
+} from '@theia/core/lib/browser';
+import URI from '@theia/core/lib/common/uri';
+import { EditorPreferences } from '@theia/editor/lib/browser';
+import { inject, injectable, interfaces } from 'inversify';
+import {
+    DiagramConfiguration,
+    DiagramManager,
+    DiagramManagerProvider,
+    DiagramWidget,
+    DiagramWidgetOptions
+} from 'sprotty-theia';
 
-import { TheiaOpenerOptionsNavigationService } from "../theia-opener-options-navigation-service";
-import { GLSPDiagramContextKeyService } from "./glsp-diagram-context-key-service";
-import { GLSPDiagramWidget } from "./glsp-diagram-widget";
-import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
+import { TheiaOpenerOptionsNavigationService } from '../theia-opener-options-navigation-service';
+import { GLSPDiagramContextKeyService } from './glsp-diagram-context-key-service';
+import { GLSPDiagramWidget } from './glsp-diagram-widget';
+import { GLSPTheiaSprottyConnector } from './glsp-theia-sprotty-connector';
 
-export function registerDiagramManager(bind: interfaces.Bind, diagramManagerServiceId: interfaces.ServiceIdentifier<DiagramManager>) {
+export function registerDiagramManager(bind: interfaces.Bind, diagramManagerServiceId: interfaces.ServiceIdentifier<DiagramManager>): void {
     bind(diagramManagerServiceId).toSelf().inSingletonScope();
     bind(FrontendApplicationContribution).toService(diagramManagerServiceId);
     bind(OpenHandler).toService(diagramManagerServiceId);
     bind(WidgetFactory).toService(diagramManagerServiceId);
-    bind(DiagramManagerProvider).toProvider<DiagramManager>((context) => {
-        return () => new Promise<DiagramManager>((resolve) => {
-            resolve(context.container.get(diagramManagerServiceId));
-        });
-    });
+    bind(DiagramManagerProvider).toProvider<DiagramManager>(context => () => new Promise<DiagramManager>(resolve => {
+        resolve(context.container.get(diagramManagerServiceId));
+    }));
 }
 
 @injectable()
@@ -61,7 +65,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
 
     abstract get fileExtensions(): string[];
 
-    async doOpen(widget: DiagramWidget, options?: WidgetOpenerOptions) {
+    async doOpen(widget: DiagramWidget, options?: WidgetOpenerOptions): Promise<void> {
         await super.doOpen(widget);
         const navigations = this.diagramNavigationService.determineNavigations(widget.uri.toString(true), options);
         if (navigations.length > 0) {
@@ -87,21 +91,21 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     }
 
     protected createWidgetOptions(uri: URI, options?: GLSPWidgetOpenerOptions): DiagramWidgetOptions & GLSPWidgetOptions {
-        return <DiagramWidgetOptions & GLSPWidgetOptions>{
+        return {
             diagramType: this.diagramType,
             kind: 'navigatable',
             uri: uri.toString(true),
             iconClass: this.iconClass,
             label: uri.path.base,
             editMode: options && options.editMode ? options.editMode : EditMode.EDITABLE
-        };
+        } as DiagramWidgetOptions & GLSPWidgetOptions;
     }
 
     protected createWidgetId(options: DiagramWidgetOptions): string {
         return `${this.diagramType}:${options.uri}`;
     }
 
-    protected getDiagramConfiguration(options: DiagramWidgetOptions) {
+    protected getDiagramConfiguration(options: DiagramWidgetOptions): DiagramConfiguration {
         return this.diagramConfigurationRegistry.get(options.diagramType);
     }
 

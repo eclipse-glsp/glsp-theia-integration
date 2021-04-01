@@ -13,12 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { MenuContribution, MenuModelRegistry } from "@theia/core";
-import { CommonCommands } from "@theia/core/lib/browser";
-import { injectable, interfaces } from "inversify";
-import { TheiaSprottyContextMenu } from "sprotty-theia";
+import { MenuContribution, MenuModelRegistry } from '@theia/core';
+import { CommonCommands } from '@theia/core/lib/browser';
+import { injectable, interfaces } from 'inversify';
+import { TheiaSprottyContextMenu } from 'sprotty-theia';
 
-export function registerCopyPasteContextMenu(bind: interfaces.Bind) {
+export function registerCopyPasteContextMenu(bind: interfaces.Bind): void {
     bind(MenuContribution).to(CopyPasteMenuContribution);
 }
 

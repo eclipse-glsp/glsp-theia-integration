@@ -19,30 +19,30 @@ import {
     registerDiagramLayoutCommands,
     registerDiagramManager,
     registerMarkerNavigationCommands
-} from "@eclipse-glsp/theia-integration/lib/browser";
-import { CommandContribution, MenuContribution } from "@theia/core";
-import { KeybindingContext, KeybindingContribution } from "@theia/core/lib/browser";
-import { ContainerModule, interfaces } from "inversify";
-import { DiagramConfiguration } from "sprotty-theia";
+} from '@eclipse-glsp/theia-integration/lib/browser';
+import { CommandContribution, MenuContribution } from '@theia/core';
+import { KeybindingContext, KeybindingContribution } from '@theia/core/lib/browser';
+import { ContainerModule, interfaces } from 'inversify';
+import { DiagramConfiguration } from 'sprotty-theia';
 
-import { WorkflowDiagramConfiguration } from "./diagram/workflow-diagram-configuration";
-import { WorkflowDiagramManager } from "./diagram/workflow-diagram-manager";
-import { WorkflowDiagramReadonlyViewContribution } from "./diagram/workflow-diagram-readonly-view";
-import { WorkflowGLSPDiagramClient } from "./diagram/workflow-glsp-diagram-client";
+import { WorkflowDiagramConfiguration } from './diagram/workflow-diagram-configuration';
+import { WorkflowDiagramManager } from './diagram/workflow-diagram-manager';
+import { WorkflowDiagramReadonlyViewContribution } from './diagram/workflow-diagram-readonly-view';
+import { WorkflowGLSPDiagramClient } from './diagram/workflow-glsp-diagram-client';
 import {
     WorkflowDiagramKeybindingContext,
     WorkflowKeybindingContribution
-} from "./diagram/workflow-keybinding-contribution";
+} from './diagram/workflow-keybinding-contribution';
 import {
     WorkflowNavigationCommandContribution,
     WorkflowNavigationMenuContribution
-} from "./diagram/workflow-navigation-context-menu";
+} from './diagram/workflow-navigation-context-menu';
 import {
     WorkflowTaskEditCommandContribution,
     WorkflowTaskEditMenuContribution
-} from "./diagram/workflow-task-editing-context-menu";
-import { ExampleNavigationCommandContribution } from "./external-navigation-example/external-navigation-example";
-import { WorkflowGLSPClientContribution } from "./language/workflow-glsp-client-contribution";
+} from './diagram/workflow-task-editing-context-menu';
+import { ExampleNavigationCommandContribution } from './external-navigation-example/external-navigation-example';
+import { WorkflowGLSPClientContribution } from './language/workflow-glsp-client-contribution';
 
 export default new ContainerModule((bind: interfaces.Bind) => {
     bind(WorkflowGLSPClientContribution).toSelf().inSingletonScope();

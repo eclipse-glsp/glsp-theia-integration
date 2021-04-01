@@ -13,16 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { MaybePromise } from "@eclipse-glsp/protocol";
-import { WebSocketChannelConnection } from "@theia/core/lib/node/messaging";
-import { ProcessErrorEvent } from "@theia/process/lib/node/process";
-import { ProcessManager } from "@theia/process/lib/node/process-manager";
-import { RawProcess, RawProcessFactory } from "@theia/process/lib/node/raw-process";
-import * as cp from "child_process";
-import { inject, injectable, postConstruct } from "inversify";
-import { forward, IConnection } from "vscode-ws-jsonrpc/lib/server";
+import { MaybePromise } from '@eclipse-glsp/protocol';
+import { WebSocketChannelConnection } from '@theia/core/lib/node/messaging';
+import { ProcessErrorEvent } from '@theia/process/lib/node/process';
+import { ProcessManager } from '@theia/process/lib/node/process-manager';
+import { RawProcess, RawProcessFactory } from '@theia/process/lib/node/raw-process';
+import * as cp from 'child_process';
+import { inject, injectable, postConstruct } from 'inversify';
+import { forward, IConnection } from 'vscode-ws-jsonrpc/lib/server';
 
-import { GLSPContribution } from "../common";
+import { GLSPContribution } from '../common';
 
 export const GLSPServerContribution = Symbol.for('GLSPServerContribution');
 
@@ -31,42 +31,42 @@ export interface GLSPServerContribution extends GLSPContribution {
      * Establish a connection between the given client (connection) and the GLSP server.
      * @param clientConnection  The client (connection) which should be connected to the server
      */
-    connect(clientConnection: IConnection): MaybePromise<void>
+    connect(clientConnection: IConnection): MaybePromise<void>;
 
     /**
      * Optional function that can be used by the contribution to launch an embedded GLSP server.
      * @returns A 'Promise' that resolves after the server has been successfully launched and is ready to establish a client connection.
      */
-    launch?(): Promise<void>
+    launch?(): Promise<void>;
 
     /**
      * The {@link GLSPServerLaunchOptions} for this contribution.
      */
-    launchOptions: GLSPServerLaunchOptions
+    launchOptions: GLSPServerLaunchOptions;
 }
 export interface GLSPServerLaunchOptions {
     /**
      * Declares if the server can handle multiple clients.
      * A `multiClient` server only has to be started once whereas in a `singleClient` scenario a new server needs to be launched for each client.
      */
-    multiClient: boolean
+    multiClient: boolean;
     /** Declares wether the  server should be launched on application start or on demand (e.g. on widget open). */
-    launchOnDemand: boolean
+    launchOnDemand: boolean;
     /**
      * Declares that the server contribution does not have to consider server launching. This will be done externally.
      * Mostly used for debug purposes.
      */
-    launchedExternally: boolean
+    launchedExternally: boolean;
 }
 
 export namespace GLSPServerLaunchOptions {
     /** Default values for {@link GLSPServerLaunchOptions } **/
     export function createDefaultOptions(): GLSPServerLaunchOptions {
-        return <GLSPServerLaunchOptions>{
+        return {
             multiClient: true,
             launchOnDemand: false,
             launchedExternally: inDebugMode()
-        };
+        } as GLSPServerLaunchOptions;
     }
 
     /**
@@ -75,14 +75,15 @@ export namespace GLSPServerLaunchOptions {
      * @param options (partial) launch options that should be extended with default values (if necessary).
      */
     export function configure(options?: Partial<GLSPServerLaunchOptions>): GLSPServerLaunchOptions {
-        return options ?
-            <GLSPServerLaunchOptions>{
+        return options
+            ? {
                 ...createDefaultOptions(),
                 ...options
-            } : createDefaultOptions();
+            } as GLSPServerLaunchOptions
+            : createDefaultOptions();
     }
 
-    export const debugArgument = "--debug";
+    export const debugArgument = '--debug';
 
     /**
      * Utility function which specifies if the Theia application has been started in debug mode.
@@ -121,7 +122,7 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
     abstract connect(clientConnection: IConnection): void;
 
     @postConstruct()
-    protected initialize() {
+    protected initialize(): void {
         if (this.createLaunchOptions) {
             this.launchOptions = GLSPServerLaunchOptions.configure(this.createLaunchOptions());
         }
@@ -136,7 +137,7 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
         }
     }
 
-    protected spawnProcessAsync(command: string, args?: string[], options?: cp.SpawnOptions) {
+    protected spawnProcessAsync(command: string, args?: string[], options?: cp.SpawnOptions): Promise<RawProcess> {
         const rawProcess = this.processFactory({ command, args, options });
         rawProcess.errorStream.on('data', this.processLogError.bind(this));
         rawProcess.outputStream.on('data', this.processLogInfo.bind(this));

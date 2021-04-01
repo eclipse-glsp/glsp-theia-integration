@@ -13,11 +13,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action, ExternalModelSourceChangedHandler, ViewerOptions } from "@eclipse-glsp/client";
-import { ApplicationShell, ConfirmDialog, Widget } from "@theia/core/lib/browser";
-import { inject, injectable } from "inversify";
+import { Action, ExternalModelSourceChangedHandler, ViewerOptions } from '@eclipse-glsp/client';
+import { ApplicationShell, ConfirmDialog, Widget } from '@theia/core/lib/browser';
+import { inject, injectable } from 'inversify';
 
-import { getDiagramWidget } from "./diagram/glsp-diagram-widget";
+import { getDiagramWidget } from './diagram/glsp-diagram-widget';
 
 @injectable()
 export class TheiaModelSourceChangedHandler extends ExternalModelSourceChangedHandler {

@@ -13,17 +13,17 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { GLSPClient } from "@eclipse-glsp/protocol";
-import { CommandRegistry } from "@theia/core";
-import { ApplicationShell } from "@theia/core/lib/browser";
-import { EditorManager } from "@theia/editor/lib/browser";
-import { inject, injectable } from "inversify";
-import { ActionMessage } from "sprotty";
+import { GLSPClient } from '@eclipse-glsp/protocol';
+import { CommandRegistry } from '@theia/core';
+import { ApplicationShell } from '@theia/core/lib/browser';
+import { EditorManager } from '@theia/editor/lib/browser';
+import { inject, injectable } from 'inversify';
+import { ActionMessage } from 'sprotty';
 
-import { GLSPClientContribution } from "../glsp-client-contribution";
+import { GLSPClientContribution } from '../glsp-client-contribution';
 
 export interface ActionMessageReceiver {
-    onMessageReceived(message: ActionMessage): void
+    onMessageReceived(message: ActionMessage): void;
 }
 
 @injectable()
@@ -41,12 +41,12 @@ export class GLSPDiagramClient {
             .catch(err => console.error(err));
     }
 
-    sendThroughLsp(message: ActionMessage) {
+    sendThroughLsp(message: ActionMessage): void {
         this.glspClientContribution.glspClient
             .then(client => client.sendActionMessage(message));
     }
 
-    protected onMessageReceived(message: ActionMessage) {
+    protected onMessageReceived(message: ActionMessage): void {
         this.actionMessageReceivers.forEach(client => client.onMessageReceived(message));
     }
 
@@ -54,15 +54,15 @@ export class GLSPDiagramClient {
         return this.glspClientContribution.glspClient;
     }
 
-    didClose(_clientId: string) {
+    didClose(_clientId: string): void {
         // this.glspClient.then(gc => gc.stop())
     }
 
-    connect(client: ActionMessageReceiver) {
+    connect(client: ActionMessageReceiver): void {
         this.actionMessageReceivers.push(client);
     }
 
-    disconnect(client: ActionMessageReceiver) {
+    disconnect(client: ActionMessageReceiver): void {
         const index = this.actionMessageReceivers.indexOf(client);
         if (index >= 0) {
             this.actionMessageReceivers.splice(index);

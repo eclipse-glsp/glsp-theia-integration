@@ -13,14 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { bindContributionProvider, ConnectionHandler, ILogger, JsonRpcConnectionHandler } from "@theia/core/lib/common";
-import { MessagingService } from "@theia/core/lib/node/messaging/messaging-service";
-import { ContainerModule } from "inversify";
+import { bindContributionProvider, ConnectionHandler, ILogger, JsonRpcConnectionHandler } from '@theia/core/lib/common';
+import { MessagingService } from '@theia/core/lib/node/messaging/messaging-service';
+import { ContainerModule } from 'inversify';
 
-import { GLSPContribution } from "../common";
-import { GLSPBackendContribution } from "./glsp-backend-contribution";
-import { GLSPServerContribution } from "./glsp-server-contribution";
-
+import { GLSPContribution } from '../common';
+import { GLSPBackendContribution } from './glsp-backend-contribution';
+import { GLSPServerContribution } from './glsp-server-contribution';
 
 export default new ContainerModule(bind => {
     bind(GLSPBackendContribution).toSelf().inSingletonScope();

@@ -19,22 +19,22 @@ import {
     ExternalModelSourceChangedHandler,
     NavigateToExternalTargetAction,
     TYPES
-} from "@eclipse-glsp/client";
-import { CommandService, SelectionService } from "@theia/core";
-import { OpenerService } from "@theia/core/lib/browser";
-import { Container, inject, injectable } from "inversify";
+} from '@eclipse-glsp/client';
+import { CommandService, SelectionService } from '@theia/core';
+import { OpenerService } from '@theia/core/lib/browser';
+import { Container, inject, injectable } from 'inversify';
 import {
     DiagramConfiguration,
     TheiaContextMenuService,
     TheiaDiagramServer,
     TheiaSprottySelectionForwarder
-} from "sprotty-theia";
+} from 'sprotty-theia';
 
-import { TheiaCommandPalette } from "../theia-command-palette";
-import { TheiaModelSourceChangedHandler } from "../theia-model-source-changed-handler";
-import { TheiaNavigateToExternalTargetHandler } from "../theia-navigate-to-external-target-handler";
-import { connectTheiaContextMenuService, TheiaContextMenuServiceFactory } from "./glsp-theia-context-menu-service";
-import { connectTheiaMarkerManager, TheiaMarkerManager, TheiaMarkerManagerFactory } from "./glsp-theia-marker-manager";
+import { TheiaCommandPalette } from '../theia-command-palette';
+import { TheiaModelSourceChangedHandler } from '../theia-model-source-changed-handler';
+import { TheiaNavigateToExternalTargetHandler } from '../theia-navigate-to-external-target-handler';
+import { connectTheiaContextMenuService, TheiaContextMenuServiceFactory } from './glsp-theia-context-menu-service';
+import { connectTheiaMarkerManager, TheiaMarkerManager, TheiaMarkerManagerFactory } from './glsp-theia-marker-manager';
 
 @injectable()
 export abstract class GLSPTheiaDiagramConfiguration implements DiagramConfiguration {

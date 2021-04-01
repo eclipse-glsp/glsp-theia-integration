@@ -31,27 +31,28 @@ import {
     SaveModelAction,
     SetEditModeAction,
     TYPES
-} from "@eclipse-glsp/client";
-import { Message } from "@phosphor/messaging/lib";
-import { ApplicationShell, Saveable, SaveableSource, Widget } from "@theia/core/lib/browser";
-import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from "@theia/core/lib/common";
-import { EditorPreferences } from "@theia/editor/lib/browser";
-import { Container } from "inversify";
-import { DiagramWidget, DiagramWidgetOptions, isDiagramWidgetContainer, TheiaSprottyConnector } from "sprotty-theia";
+} from '@eclipse-glsp/client';
+import { Message } from '@phosphor/messaging/lib';
+import { ApplicationShell, Saveable, SaveableSource, Widget } from '@theia/core/lib/browser';
+import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from '@theia/core/lib/common';
+import { EditorPreferences } from '@theia/editor/lib/browser';
+import { Container } from 'inversify';
+import { DiagramWidget, DiagramWidgetOptions, isDiagramWidgetContainer, TheiaSprottyConnector } from 'sprotty-theia';
 
-import { GLSPWidgetOpenerOptions, GLSPWidgetOptions } from "./glsp-diagram-manager";
-import { DirtyStateNotifier, GLSPTheiaDiagramServer } from "./glsp-theia-diagram-server";
+import { GLSPWidgetOpenerOptions, GLSPWidgetOptions } from './glsp-diagram-manager';
+import { DirtyStateNotifier, GLSPTheiaDiagramServer } from './glsp-theia-diagram-server';
 
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
     protected copyPasteHandler?: ICopyPasteHandler;
-    public saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
+    public saveable: SaveableGLSPModelSource;
     protected options: DiagramWidgetOptions & GLSPWidgetOptions;
     protected requestModelOptions: Args;
 
     constructor(options: DiagramWidgetOptions & GLSPWidgetOpenerOptions, readonly widgetId: string, readonly diContainer: Container,
         readonly editorPreferences: EditorPreferences, readonly connector?: TheiaSprottyConnector) {
         super(options, widgetId, diContainer, connector);
+        this.saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
         this.updateSaveable();
         this.title.caption = this.uri.path.toString();
         const prefUpdater = editorPreferences.onPreferenceChanged(() => this.updateSaveable());
@@ -60,21 +61,24 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         this.toDispose.push(Disposable.create(() => this.actionDispatcher.dispatch(new DisposeClientSessionAction(this.widgetId))));
     }
 
-    protected updateSaveable() {
+    protected updateSaveable(): void {
         this.saveable.autoSave = this.editorPreferences['editor.autoSave'];
         this.saveable.autoSaveDelay = this.editorPreferences['editor.autoSaveDelay'];
     }
 
-    protected initializeSprotty() {
+    protected initializeSprotty(): void {
         const modelSource = this.diContainer.get<ModelSource>(TYPES.ModelSource);
-        if (modelSource instanceof DiagramServer)
+        if (modelSource instanceof DiagramServer) {
             modelSource.clientId = this.id;
-        if (modelSource instanceof GLSPTheiaDiagramServer && this.connector)
+        }
+        if (modelSource instanceof GLSPTheiaDiagramServer && this.connector) {
             this.connector.connect(modelSource);
+        }
 
         this.disposed.connect(() => {
-            if (modelSource instanceof GLSPTheiaDiagramServer && this.connector)
+            if (modelSource instanceof GLSPTheiaDiagramServer && this.connector) {
                 this.connector.disconnect(modelSource);
+            }
         });
 
         this.actionDispatcher.dispatch(new InitializeClientSessionAction(this.widgetId));
@@ -112,26 +116,26 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         return this.actionDispatcher.dispatch(new RequestModelAction(this.requestModelOptions));
     }
 
-    handleCopy(e: ClipboardEvent) {
+    handleCopy(e: ClipboardEvent): void {
         if (this.copyPasteHandler) {
             this.copyPasteHandler.handleCopy(e);
         }
     }
 
-    handleCut(e: ClipboardEvent) {
+    handleCut(e: ClipboardEvent): void {
         if (this.copyPasteHandler) {
             this.copyPasteHandler.handleCut(e);
         }
     }
 
-    handlePaste(e: ClipboardEvent) {
+    handlePaste(e: ClipboardEvent): void {
         if (this.copyPasteHandler) {
             this.copyPasteHandler.handlePaste(e);
         }
     }
 
     listenToFocusState(shell: ApplicationShell): void {
-        this.toDispose.push(shell.onDidChangeActiveWidget((event) => {
+        this.toDispose.push(shell.onDidChangeActiveWidget(event => {
             const focusedWidget = event.newValue;
             if (this.hasFocus && !this.isThisWidget(focusedWidget)) {
                 this.actionDispatcher.dispatch(new FocusStateChangedAction(false));
@@ -142,7 +146,10 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     protected isThisWidget(widget: Widget | null): boolean {
-        if (widget === null) return false;
+        // eslint-disable-next-line no-null/no-null
+        if (widget === null) {
+            return false;
+        }
         const diagramWidget = getDiagramWidget(widget);
         return diagramWidget !== undefined && diagramWidget.id === this.id;
     }
@@ -169,16 +176,16 @@ export function getDiagramWidget(widget: Widget): GLSPDiagramWidget | undefined 
 }
 
 export class SaveableGLSPModelSource implements Saveable, Disposable {
-    isAutoSave: "on" | "off" = "on";
-    autoSaveDelay: number = 500;
+    isAutoSave: 'on' | 'off' = 'on';
+    autoSaveDelay = 500;
 
     private autoSaveJobs = new DisposableCollection();
-    private isDirty: boolean = false;
+    private isDirty = false;
     readonly dirtyChangedEmitter: Emitter<void> = new Emitter<void>();
 
     constructor(readonly actionDispatcher: IActionDispatcher, readonly modelSource: ModelSource) {
         if (DirtyStateNotifier.is(this.modelSource)) {
-            this.modelSource.onDirtyStateChange((dirtyState) => this.dirty = dirtyState.isDirty);
+            this.modelSource.onDirtyStateChange(dirtyState => this.dirty = dirtyState.isDirty);
         }
     }
 
@@ -203,7 +210,7 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
         this.scheduleAutoSave();
     }
 
-    set autoSave(isAutoSave: "on" | "off") {
+    set autoSave(isAutoSave: 'on' | 'off') {
         this.isAutoSave = isAutoSave;
         if (this.shouldAutoSave) {
             this.scheduleAutoSave();
@@ -212,11 +219,11 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
         }
     }
 
-    get autoSave(): "on" | "off" {
+    get autoSave(): 'on' | 'off' {
         return this.isAutoSave;
     }
 
-    protected scheduleAutoSave() {
+    protected scheduleAutoSave(): void {
         if (this.shouldAutoSave) {
             this.autoSaveJobs.dispose();
             const autoSaveJob = window.setTimeout(() => this.doAutoSave(), this.autoSaveDelay);
@@ -225,7 +232,7 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
         }
     }
 
-    protected doAutoSave() {
+    protected doAutoSave(): void {
         if (this.shouldAutoSave) {
             this.save();
         }

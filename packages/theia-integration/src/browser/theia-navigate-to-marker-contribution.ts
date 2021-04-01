@@ -13,16 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { collectIssueMarkers, NavigateToMarkerAction } from "@eclipse-glsp/client/lib";
-import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from "@theia/core";
-import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from "@theia/core/lib/browser";
-import { inject, injectable, interfaces } from "inversify";
-import { DiagramKeybindingContext } from "sprotty-theia";
+import { collectIssueMarkers, NavigateToMarkerAction } from '@eclipse-glsp/client/lib';
+import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from '@theia/core';
+import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
+import { inject, injectable, interfaces } from 'inversify';
+import { DiagramKeybindingContext } from 'sprotty-theia';
 
-import { GLSPCommandHandler } from "./diagram/glsp-command-handler";
-import { GLSPContextMenu } from "./diagram/glsp-theia-context-menu-service";
+import { GLSPCommandHandler } from './diagram/glsp-command-handler';
+import { GLSPContextMenu } from './diagram/glsp-theia-context-menu-service';
 
-export function registerMarkerNavigationCommands(bind: interfaces.Bind) {
+export function registerMarkerNavigationCommands(bind: interfaces.Bind): void {
     bind(CommandContribution).to(NavigateToMarkerCommandContribution);
     bind(MenuContribution).to(NavigateToMarkerMenuContribution);
     bind(KeybindingContribution).to(NavigateToMarkerKeybindingContribution);
@@ -58,7 +58,7 @@ export class NavigateToMarkerMenuContribution implements MenuContribution {
     static readonly NAVIGATION = GLSPContextMenu.MENU_PATH.concat('navigate');
 
     registerMenus(menus: MenuModelRegistry): void {
-        menus.registerSubmenu(NavigateToMarkerMenuContribution.NAVIGATION, "Go to");
+        menus.registerSubmenu(NavigateToMarkerMenuContribution.NAVIGATION, 'Go to');
         menus.registerMenuAction(NavigateToMarkerMenuContribution.NAVIGATION.concat('m'), { commandId: NavigateToMarkerCommand.NEXT_MARKER, label: 'Next Marker' });
         menus.registerMenuAction(NavigateToMarkerMenuContribution.NAVIGATION.concat('m'), { commandId: NavigateToMarkerCommand.PREVIOUS_MARKER, label: 'Previous Marker' });
     }

@@ -13,9 +13,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Message, MessageOptions } from "@theia/core/lib/common";
-import { NotificationManager } from "@theia/messages/lib/browser/notifications-manager";
-import { Md5 } from "ts-md5";
+import { Message, MessageOptions } from '@theia/core/lib/common';
+import { NotificationManager } from '@theia/messages/lib/browser/notifications-manager';
+import { Md5 } from 'ts-md5';
 
 export class GLSPNotificationManager extends NotificationManager {
     public getMessageId(message: Message): string {

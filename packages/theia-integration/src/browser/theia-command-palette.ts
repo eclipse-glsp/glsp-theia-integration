@@ -13,9 +13,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import "../../css/command-palette.css";
+import '../../css/command-palette.css';
 
-import { CommandPalette } from "sprotty";
+import { CommandPalette } from 'sprotty';
 
 export class TheiaCommandPalette extends CommandPalette {
     protected loadingIndicatorClasses = ['loading', 'fa', 'fa-spinner', 'fa-pulse', 'fa-3x', 'fa-fw'];

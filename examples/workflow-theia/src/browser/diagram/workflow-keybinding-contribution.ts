@@ -13,12 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { GLSPDiagramWidget } from "@eclipse-glsp/theia-integration/lib/browser";
-import { ApplicationShell, KeybindingContext, KeybindingContribution, KeybindingRegistry } from "@theia/core/lib/browser";
-import { inject, injectable } from "inversify";
+import { GLSPDiagramWidget } from '@eclipse-glsp/theia-integration/lib/browser';
+import { ApplicationShell, KeybindingContext, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
+import { inject, injectable } from 'inversify';
 
-import { WorkflowLanguage } from "../../common/workflow-language";
-import { WorkflowNavigationCommands } from "./workflow-navigation-context-menu";
+import { WorkflowLanguage } from '../../common/workflow-language';
+import { WorkflowNavigationCommands } from './workflow-navigation-context-menu';
 
 @injectable()
 export class WorkflowDiagramKeybindingContext implements KeybindingContext {
