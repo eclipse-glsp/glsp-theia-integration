@@ -13,11 +13,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { CommandContribution, CommandRegistry } from "@theia/core";
-import { open, OpenerService } from "@theia/core/lib/browser/opener-service";
-import URI from "@theia/core/lib/common/uri";
-import { WorkspaceService } from "@theia/workspace/lib/browser/workspace-service";
-import { inject, injectable } from "inversify";
+import { CommandContribution, CommandRegistry } from '@theia/core';
+import { open, OpenerService } from '@theia/core/lib/browser/opener-service';
+import URI from '@theia/core/lib/common/uri';
+import { WorkspaceService } from '@theia/workspace/lib/browser/workspace-service';
+import { inject, injectable } from 'inversify';
 
 @injectable()
 export class ExampleNavigationCommandContribution implements CommandContribution {
@@ -30,7 +30,7 @@ export class ExampleNavigationCommandContribution implements CommandContribution
                 label: 'Open example1.wf task "Push"'
             },
             {
-                execute: (args) => {
+                execute: args => {
                     if (this.workspaceService.workspace) {
                         const uri = new URI(this.workspaceService.workspace.resource + '/example1.wf');
                         open(this.openerService, uri, {

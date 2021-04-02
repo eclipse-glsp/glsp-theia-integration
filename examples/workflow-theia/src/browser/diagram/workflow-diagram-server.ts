@@ -13,10 +13,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ApplyTaskEditOperation } from "@eclipse-glsp-examples/workflow-glsp/lib/direct-task-editing/direct-task-editor";
-import { ActionHandlerRegistry } from "@eclipse-glsp/client";
-import { GLSPTheiaDiagramServer } from "@eclipse-glsp/theia-integration/lib/browser";
-import { injectable } from "inversify";
+import { ApplyTaskEditOperation } from '@eclipse-glsp-examples/workflow-glsp/lib/direct-task-editing/direct-task-editor';
+import { ActionHandlerRegistry } from '@eclipse-glsp/client';
+import { GLSPTheiaDiagramServer } from '@eclipse-glsp/theia-integration/lib/browser';
+import { injectable } from 'inversify';
 
 @injectable()
 export class WorkflowDiagramServer extends GLSPTheiaDiagramServer {

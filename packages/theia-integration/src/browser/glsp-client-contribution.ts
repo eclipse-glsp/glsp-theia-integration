@@ -13,10 +13,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import "../../css/decoration.css";
-import "../../css/diagram.css";
-import "../../css/theia-dialogs.css";
-import "../../css/tool-palette.css";
+import '../../css/decoration.css';
+import '../../css/diagram.css';
+import '../../css/theia-dialogs.css';
+import '../../css/tool-palette.css';
 
 import {
     ApplicationIdProvider,
@@ -24,17 +24,17 @@ import {
     ConnectionProvider,
     GLSPClient,
     InitializeParameters
-} from "@eclipse-glsp/protocol";
-import { Disposable, DisposableCollection, MaybePromise, MessageService } from "@theia/core";
-import { FrontendApplication, WebSocketConnectionProvider } from "@theia/core/lib/browser";
-import { Deferred } from "@theia/core/lib/common/promise-util";
-import { WorkspaceService } from "@theia/workspace/lib/browser";
-import { inject, injectable, multiInject } from "inversify";
-import { DiagramManagerProvider } from "sprotty-theia";
-import { MessageConnection } from "vscode-jsonrpc";
+} from '@eclipse-glsp/protocol';
+import { Disposable, DisposableCollection, MaybePromise, MessageService } from '@theia/core';
+import { FrontendApplication, WebSocketConnectionProvider } from '@theia/core/lib/browser';
+import { Deferred } from '@theia/core/lib/common/promise-util';
+import { WorkspaceService } from '@theia/workspace/lib/browser';
+import { inject, injectable, multiInject } from 'inversify';
+import { DiagramManagerProvider } from 'sprotty-theia';
+import { MessageConnection } from 'vscode-jsonrpc';
 
-import { GLSPContribution } from "../common";
-import { TheiaJsonrpcGLSPClient } from "./theia-jsonrpc-glsp-client";
+import { GLSPContribution } from '../common';
+import { TheiaJsonrpcGLSPClient } from './theia-jsonrpc-glsp-client';
 
 export const GLSPClientContribution = Symbol.for('GLSPClientContribution');
 
@@ -83,7 +83,8 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         if (activationPromises.length !== 0) {
             return Promise.all([
                 this.ready,
-                Promise.race(activationPromises.map(p => new Promise(async resolve => {
+                // eslint-disable-next-line no-async-promise-executor
+                Promise.race(activationPromises.map(p => new Promise<void>(async resolve => {
                     try {
                         await p;
                         resolve();
@@ -97,16 +98,12 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     }
 
     protected waitForOpenDiagrams(): Promise<any> {
-        return Promise.race(this.diagramManagerProviders.map(diagramManagerProvider => {
-            return diagramManagerProvider().then(diagramManager => {
-                return new Promise<void>((resolve) => {
-                    const disposable = diagramManager.onCreated((widget) => {
-                        disposable.dispose();
-                        resolve();
-                    });
-                });
+        return Promise.race(this.diagramManagerProviders.map(diagramManagerProvider => diagramManagerProvider().then(diagramManager => new Promise<void>(resolve => {
+            const disposable = diagramManager.onCreated(widget => {
+                disposable.dispose();
+                resolve();
             });
-        }));
+        }))));
     }
 
     activate(): Disposable {
@@ -114,6 +111,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
             if (!this._glspClient) {
                 this._glspClient = this.createGLSPCLient(() => this.deferredConnection.promise);
             }
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             const toStop = new DisposableCollection(Disposable.create(() => { })); // mark as not disposed
             this.toDeactivate.push(toStop);
             this.doActivate(this.toDeactivate)
@@ -213,7 +211,6 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         }, this.messageService);
     }
 
-
     protected get workspaceContains(): string[] {
         return [];
     }
@@ -221,6 +218,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     protected async waitForItemInWorkspace(): Promise<any> {
         const doesContain = await this.workspaceService.containsSome(this.workspaceContains);
         if (!doesContain) {
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             return new Promise(resolve => { });
         }
         return doesContain;

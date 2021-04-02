@@ -13,12 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ContributionProvider, ILogger } from "@theia/core/lib/common";
-import { MessagingService } from "@theia/core/lib/node/messaging/messaging-service";
-import { inject, injectable, named } from "inversify";
+import { ContributionProvider, ILogger } from '@theia/core/lib/common';
+import { MessagingService } from '@theia/core/lib/node/messaging/messaging-service';
+import { inject, injectable, named } from 'inversify';
 
-import { GLSPContribution } from "../common";
-import { GLSPServerContribution, GLSPServerLaunchOptions } from "./glsp-server-contribution";
+import { GLSPContribution } from '../common';
+import { GLSPServerContribution, GLSPServerLaunchOptions } from './glsp-server-contribution';
 
 @injectable()
 export class GLSPBackendContribution implements MessagingService.Contribution, GLSPContribution.Service {
@@ -28,7 +28,7 @@ export class GLSPBackendContribution implements MessagingService.Contribution, G
     @inject(ContributionProvider) @named(GLSPServerContribution)
     protected readonly contributors: ContributionProvider<GLSPServerContribution>;
 
-    protected nextId: number = 1;
+    protected nextId = 1;
     protected readonly sessions = new Map<string, any>();
 
     async create(_contributionId: string, startParameters: any): Promise<string> {
@@ -54,7 +54,7 @@ export class GLSPBackendContribution implements MessagingService.Contribution, G
         }
     }
 
-    protected forward(service: MessagingService, path: string, contribution: GLSPServerContribution) {
+    protected forward(service: MessagingService, path: string, contribution: GLSPServerContribution): void {
         service.forward(path, async ({ id }: { id: string }, connection) => {
             try {
                 connection.onClose(() => this.destroy(id));

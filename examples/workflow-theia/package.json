@@ -19,17 +19,16 @@
     "@eclipse-glsp/theia-integration": "0.9.0"
   },
   "devDependencies": {
-    "rimraf": "^2.6.1",
-    "tslint": "^5.5.0",
-    "typescript": "^3.9.2",
     "mvn-artifact-download": "5.1.0",
-    "ts-node": "9.0.0"
+    "rimraf": "^2.6.1",
+    "ts-node": "9.0.0",
+    "typescript": "^3.9.2"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
     "clean": "rimraf lib",
     "build": "tsc && yarn run lint",
-    "lint": "tslint -c ../../configs/tslint.json --project ./tsconfig.json",
+    "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "watch": "tsc -w"
   },
   "publishConfig": {

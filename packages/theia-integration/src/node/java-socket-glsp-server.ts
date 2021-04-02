@@ -13,31 +13,31 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import * as fs from "fs";
-import { injectable, postConstruct } from "inversify";
-import * as net from "net";
-import { createSocketConnection, IConnection } from "vscode-ws-jsonrpc/lib/server";
+import * as fs from 'fs';
+import { injectable, postConstruct } from 'inversify';
+import * as net from 'net';
+import { createSocketConnection, IConnection } from 'vscode-ws-jsonrpc/lib/server';
 
-import { BaseGLSPServerContribution, GLSPServerLaunchOptions } from "./glsp-server-contribution";
+import { BaseGLSPServerContribution, GLSPServerLaunchOptions } from './glsp-server-contribution';
 
-export const START_UP_COMPLETE_MSG = "[GLSP-Server]:Startup completed";
+export const START_UP_COMPLETE_MSG = '[GLSP-Server]:Startup completed';
 export interface JavaSocketServerLaunchOptions extends GLSPServerLaunchOptions {
     /** Path to the location of the jar file that should be launched as process */
-    jarPath: string,
+    jarPath: string;
     /** Port on which the server should listen for new client connections */
-    serverPort: number,
+    serverPort: number;
     /** Additional arguments that should be passed when starting the server process. */
-    additionalArgs?: string[]
+    additionalArgs?: string[];
 }
 
 export namespace JavaSocketServerLaunchOptions {
     /** Default values for {@link JavaGLSPServerLaunchOptions }**/
     export function createDefaultOptions(): JavaSocketServerLaunchOptions {
-        return <JavaSocketServerLaunchOptions>{
+        return {
             ...GLSPServerLaunchOptions.createDefaultOptions(),
-            jarPath: "",
+            jarPath: '',
             serverPort: NaN
-        };
+        } as JavaSocketServerLaunchOptions;
     }
 
     /**
@@ -46,11 +46,12 @@ export namespace JavaSocketServerLaunchOptions {
     * @param options (partial) launch options that should be extended with default values (if necessary)
     */
     export function configure(options?: Partial<JavaSocketServerLaunchOptions>): JavaSocketServerLaunchOptions {
-        return options ?
-            <JavaSocketServerLaunchOptions>{
+        return options
+            ? {
                 ...createDefaultOptions(),
                 ...options
-            } : createDefaultOptions();
+            } as JavaSocketServerLaunchOptions
+            : createDefaultOptions();
     }
 }
 
@@ -62,11 +63,12 @@ export namespace JavaSocketServerLaunchOptions {
 export abstract class JavaSocketServerContribution extends BaseGLSPServerContribution {
 
     protected resolveReady: (value?: void | PromiseLike<void> | undefined) => void;
+    // eslint-disable-next-line no-invalid-this
     onReady: Promise<void> = new Promise(resolve => this.resolveReady = resolve);
     launchOptions: JavaSocketServerLaunchOptions;
 
     @postConstruct()
-    protected initialize() {
+    protected initialize(): void {
         if (this.createLaunchOptions) {
             this.launchOptions = JavaSocketServerLaunchOptions.configure(this.createLaunchOptions());
         }
@@ -84,15 +86,14 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
         if (isNaN(this.launchOptions.serverPort)) {
             throw new Error(`Could not launch GLSP Server. The given server port is not a number: ${this.launchOptions.serverPort}`);
         }
-        let args = ["-jar", this.launchOptions.jarPath, "--port", `${this.launchOptions.serverPort}`];
+        let args = ['-jar', this.launchOptions.jarPath, '--port', `${this.launchOptions.serverPort}`];
         if (this.launchOptions.additionalArgs) {
             args = [...args, ...this.launchOptions.additionalArgs];
         }
 
-        await this.spawnProcessAsync("java", args, undefined);
+        await this.spawnProcessAsync('java', args, undefined);
         return this.onReady;
     }
-
 
     protected processLogInfo(data: string | Buffer): void {
         if (data) {
@@ -107,7 +108,7 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
         // Override console logging of errors. To avoid a polluted client console.
     }
 
-    protected connectToSocketServer(clientConnection: IConnection) {
+    protected connectToSocketServer(clientConnection: IConnection): void {
         if (isNaN(this.launchOptions.serverPort)) {
             throw new Error(`Could not connect to to GLSP Server. The given server port is not a number: ${this.launchOptions.serverPort}`);
         }

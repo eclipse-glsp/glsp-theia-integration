@@ -13,16 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import "sprotty-theia/css/theia-sprotty.css";
+import 'sprotty-theia/css/theia-sprotty.css';
 
-import { createWorkflowDiagramContainer } from "@eclipse-glsp-examples/workflow-glsp/lib";
+import { createWorkflowDiagramContainer } from '@eclipse-glsp-examples/workflow-glsp/lib';
 import {
     GLSPTheiaDiagramConfiguration
-} from "@eclipse-glsp/theia-integration/lib/browser/diagram/glsp-theia-diagram-configuration";
-import { Container, injectable } from "inversify";
+} from '@eclipse-glsp/theia-integration/lib/browser/diagram/glsp-theia-diagram-configuration';
+import { Container, injectable } from 'inversify';
 
-import { WorkflowLanguage } from "../../common/workflow-language";
-import { WorkflowDiagramServer } from "./workflow-diagram-server";
+import { WorkflowLanguage } from '../../common/workflow-language';
+import { WorkflowDiagramServer } from './workflow-diagram-server';
 
 @injectable()
 export class WorkflowDiagramConfiguration extends GLSPTheiaDiagramConfiguration {

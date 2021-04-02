@@ -21,7 +21,7 @@ export interface GLSPContribution {
 
 export namespace GLSPContribution {
     export const servicePath = '/services/glsp';
-    export function getPath(contribution: GLSPContribution, sessionId: string = ':id'): string {
+    export function getPath(contribution: GLSPContribution, sessionId = ':id'): string {
         return servicePath + '/' + contribution.id + '/' + sessionId;
     }
     export const Service = Symbol('GLSPContributionService');

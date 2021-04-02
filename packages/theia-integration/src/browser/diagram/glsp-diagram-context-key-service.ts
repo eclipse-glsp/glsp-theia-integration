@@ -23,14 +23,14 @@ import {
     isNotUndefined,
     SModelElement,
     SModelRoot
-} from "@eclipse-glsp/client";
-import { SelectionService } from "@eclipse-glsp/client/lib/features/select/selection-service";
-import { ApplicationShell } from "@theia/core/lib/browser";
-import { ContextKey, ContextKeyService } from "@theia/core/lib/browser/context-key-service";
-import { inject, injectable, postConstruct } from "inversify";
-import { isDiagramWidgetContainer } from "sprotty-theia";
+} from '@eclipse-glsp/client';
+import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
+import { ApplicationShell } from '@theia/core/lib/browser';
+import { ContextKey, ContextKeyService } from '@theia/core/lib/browser/context-key-service';
+import { inject, injectable, postConstruct } from 'inversify';
+import { isDiagramWidgetContainer } from 'sprotty-theia';
 
-import { GLSPDiagramWidget } from "./glsp-diagram-widget";
+import { GLSPDiagramWidget } from './glsp-diagram-widget';
 
 @injectable()
 export abstract class AbstractGLSPDiagramContextKeyService {
@@ -45,10 +45,12 @@ export abstract class AbstractGLSPDiagramContextKeyService {
     protected currentEditorContextService: EditorContextService | undefined;
 
     protected readonly selectionChangeListener = {
+        // eslint-disable-next-line no-invalid-this
         selectionChanged: (root: Readonly<SModelRoot>, selectedElements: string[]) => this.updateSelectionContextKeys(root, selectedElements)
     };
 
-    protected readonly editModeChangeListener = <EditModeListener>{ editModeChanged: (oldValue, newValue) => this.doUpdateEditModeContextKeys(newValue) };
+    // eslint-disable-next-line no-invalid-this
+    protected readonly editModeChangeListener = { editModeChanged: (oldValue, newValue) => this.doUpdateEditModeContextKeys(newValue) } as EditModeListener;
 
     @postConstruct()
     protected init(): void {
@@ -57,7 +59,7 @@ export abstract class AbstractGLSPDiagramContextKeyService {
         this.shell.activeChanged.connect(() => this.updateContextKeys());
     }
 
-    protected updateContextKeys() {
+    protected updateContextKeys(): void {
         if (this.currentSelectionService) {
             this.currentSelectionService.deregister(this.selectionChangeListener);
         }
@@ -78,7 +80,7 @@ export abstract class AbstractGLSPDiagramContextKeyService {
         }
     }
 
-    protected updateSelectionContextKeys(root: Readonly<SModelRoot>, selectedElementIds: string[]) {
+    protected updateSelectionContextKeys(root: Readonly<SModelRoot>, selectedElementIds: string[]): void {
         if (selectedElementIds.length < 1) {
             this.doResetSelectionContextKeys();
             return;
@@ -94,7 +96,7 @@ export abstract class AbstractGLSPDiagramContextKeyService {
         return glspDiagramWidget.diContainer.get(EditorContextService);
     }
 
-    protected getDiagramWidget() {
+    protected getDiagramWidget(): GLSPDiagramWidget | undefined {
         const widget = (this.shell.activeWidget || this.shell.currentWidget);
         if (widget instanceof GLSPDiagramWidget) {
             return widget as GLSPDiagramWidget;
@@ -104,7 +106,7 @@ export abstract class AbstractGLSPDiagramContextKeyService {
         return undefined;
     }
 
-    protected resetContextKeys() {
+    protected resetContextKeys(): void {
         this.doResetStaticContextKeys();
         this.doResetSelectionContextKeys();
         this.doResetEditModeContextKeys();
@@ -161,7 +163,7 @@ export class GLSPDiagramContextKeyService extends AbstractGLSPDiagramContextKeyS
         return this._glspEditorIsReadonly;
     }
 
-    protected registerContextKeys() {
+    protected registerContextKeys(): void {
         this._glspEditorFocus = this.contextKeyService.createKey<boolean>('glspEditorFocus', false);
         this._glspEditorDiagramType = this.contextKeyService.createKey<string>('glspEditorDiagramType', undefined);
         this._glspEditorHasSelection = this.contextKeyService.createKey<boolean>('glspEditorHasSelection', false);

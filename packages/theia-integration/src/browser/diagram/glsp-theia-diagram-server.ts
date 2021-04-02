@@ -24,12 +24,12 @@ import {
     ServerMessageAction,
     SetEditModeAction,
     SourceUriAware
-} from "@eclipse-glsp/client";
-import { Emitter, Event } from "@theia/core/lib/common";
-import { injectable } from "inversify";
-import { TheiaDiagramServer } from "sprotty-theia";
+} from '@eclipse-glsp/client';
+import { Emitter, Event } from '@theia/core/lib/common';
+import { injectable } from 'inversify';
+import { TheiaDiagramServer } from 'sprotty-theia';
 
-import { GLSPTheiaSprottyConnector } from "./glsp-theia-sprotty-connector";
+import { GLSPTheiaSprottyConnector } from './glsp-theia-sprotty-connector';
 
 const receivedFromServerProperty = '__receivedFromServer';
 
@@ -55,7 +55,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
         return this.dirtyStateChangeEmitter.event;
     }
 
-    protected setDirty(dirty: boolean) {
+    protected setDirty(dirty: boolean): void {
         if (dirty !== this.dirtyState.isDirty) {
             this.dirtyState = { isDirty: dirty };
             this.dirtyStateChangeEmitter.fire(this.dirtyState);
@@ -90,7 +90,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
     }
 
     protected handleServerMessageAction(status: ServerMessageAction): boolean {
-        (<GLSPTheiaSprottyConnector>this.connector).showMessage(this.clientId, status);
+        (this.connector as GLSPTheiaSprottyConnector).showMessage(this.clientId, status);
         return false;
     }
 }
@@ -101,11 +101,11 @@ export class SetDirtyStateAction implements Action {
 }
 
 export namespace DirtyStateChangeReason {
-    export const OPERATION = "operation";
-    export const UNDO = "undo";
-    export const REDO = "redo";
-    export const SAVE = "save";
-    export const EXTERNAL = "external";
+    export const OPERATION = 'operation';
+    export const UNDO = 'undo';
+    export const REDO = 'redo';
+    export const SAVE = 'save';
+    export const EXTERNAL = 'external';
 }
 
 export function isSetDirtyStateAction(action: Action): action is SetDirtyStateAction {

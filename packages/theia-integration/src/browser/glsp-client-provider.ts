@@ -13,16 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { GLSPClient } from "@eclipse-glsp/protocol";
-import { ContributionProvider } from "@theia/core";
-import { inject, injectable, named } from "inversify";
+import { GLSPClient } from '@eclipse-glsp/protocol';
+import { ContributionProvider } from '@theia/core';
+import { inject, injectable, named } from 'inversify';
 
-import { GLSPClientContribution } from "./glsp-client-contribution";
+import { GLSPClientContribution } from './glsp-client-contribution';
 
 export const GLSPClientProvider = Symbol.for('GLSPClientProvider');
 
 export interface GLSPClientProvider {
-    getLanguageClient(languageId: string): Promise<GLSPClient | undefined>
+    getLanguageClient(languageId: string): Promise<GLSPClient | undefined>;
 }
 
 @injectable()

@@ -13,12 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { GLSP_TYPES, IActionDispatcher, TYPES } from "@eclipse-glsp/client";
-import { Container } from "inversify";
+import { GLSP_TYPES, IActionDispatcher, TYPES } from '@eclipse-glsp/client';
+import { Container } from 'inversify';
 import {
     TheiaContextMenuService,
     TheiaSprottyContextMenu
-} from "sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service";
+} from 'sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service';
 
 export const TheiaContextMenuServiceFactory = Symbol('TheiaContextMenuServiceFactory');
 
@@ -26,7 +26,7 @@ export namespace GLSPContextMenu {
     export const MENU_PATH = TheiaSprottyContextMenu.CONTEXT_MENU;
 }
 
-export function connectTheiaContextMenuService(container: Container, contextMenuServiceFactory: () => TheiaContextMenuService) {
+export function connectTheiaContextMenuService(container: Container, contextMenuServiceFactory: () => TheiaContextMenuService): void {
     const contextMenuService = contextMenuServiceFactory();
     container.bind(GLSP_TYPES.IContextMenuService).toConstantValue(contextMenuService);
     if (contextMenuService instanceof TheiaContextMenuService) {

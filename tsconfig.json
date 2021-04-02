@@ -10,12 +10,7 @@
       "@eclipse/theia-integration": [
         "theia-integration/src/*"
       ]
-    },
-    "plugins": [
-      {
-        "name": "tslint-language-service"
-      }
-    ]
+    }
   },
   "include": [
     "theia-integration/src",

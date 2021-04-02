@@ -13,17 +13,17 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ExternalMarkerManager, IActionDispatcher, Marker, MarkerKind, TYPES } from "@eclipse-glsp/client/lib";
-import URI from "@theia/core/lib/common/uri";
-import { ProblemManager } from "@theia/markers/lib/browser/problem/problem-manager";
-import { Container, inject, injectable, optional, postConstruct } from "inversify";
-import { Diagnostic } from "vscode-languageserver-types";
+import { ExternalMarkerManager, IActionDispatcher, Marker, MarkerKind, TYPES } from '@eclipse-glsp/client/lib';
+import URI from '@theia/core/lib/common/uri';
+import { ProblemManager } from '@theia/markers/lib/browser/problem/problem-manager';
+import { Container, inject, injectable, optional, postConstruct } from 'inversify';
+import { Diagnostic } from 'vscode-languageserver-types';
 
-import { SelectionWithElementIds } from "../theia-opener-options-navigation-service";
+import { SelectionWithElementIds } from '../theia-opener-options-navigation-service';
 
 export const TheiaMarkerManagerFactory = Symbol('TheiaMarkerManagerFactory');
 
-export function connectTheiaMarkerManager(container: Container, markerManagerFactory: () => ExternalMarkerManager, languageLabel: string) {
+export function connectTheiaMarkerManager(container: Container, markerManagerFactory: () => ExternalMarkerManager, languageLabel: string): void {
     const markerManager = markerManagerFactory();
     if (markerManager instanceof ExternalMarkerManager) {
         if (container.isBound(ExternalMarkerManager)) {
@@ -38,12 +38,24 @@ export function connectTheiaMarkerManager(container: Container, markerManagerFac
 
 class DiagnosticMarkers {
     protected diagnotic2marker = new Map<Diagnostic, Marker>();
-    get size() { return this.diagnotic2marker.size; }
-    all() { return this.diagnotic2marker.values(); }
-    marker(diagnostic: Diagnostic) { return this.diagnotic2marker.get(diagnostic); }
-    add(diagnostic: Diagnostic, marker: Marker) { return this.diagnotic2marker.set(diagnostic, marker); }
-    delete(diagnostic: Diagnostic) { return this.diagnotic2marker.delete(diagnostic); }
-    clear() { return this.diagnotic2marker.clear(); }
+    get size(): number {
+        return this.diagnotic2marker.size;
+    }
+    all(): IterableIterator<Marker> {
+        return this.diagnotic2marker.values();
+    }
+    marker(diagnostic: Diagnostic): Marker | undefined {
+        return this.diagnotic2marker.get(diagnostic);
+    }
+    add(diagnostic: Diagnostic, marker: Marker): Map<Diagnostic, Marker> {
+        return this.diagnotic2marker.set(diagnostic, marker);
+    }
+    delete(diagnostic: Diagnostic): boolean {
+        return this.diagnotic2marker.delete(diagnostic);
+    }
+    clear(): void {
+        return this.diagnotic2marker.clear();
+    }
 }
 
 @injectable()
@@ -53,7 +65,7 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
 
     protected uri2markers = new Map<URI, DiagnosticMarkers>();
 
-    protected markers(uri: URI) {
+    protected markers(uri: URI): DiagnosticMarkers {
         const marker = this.uri2markers.get(uri);
         if (marker === undefined) {
             const newMarker = new DiagnosticMarkers();
@@ -64,7 +76,7 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
     }
 
     @postConstruct()
-    protected initialize() {
+    protected initialize(): void {
         if (this.problemManager) {
             this.problemManager.onDidChangeMarkers(uri => this.refreshMarker(uri));
         }
@@ -92,7 +104,7 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
         }
     }
 
-    setMarkers(markers: Marker[], sourceUri?: string) {
+    setMarkers(markers: Marker[], sourceUri?: string): void {
         if (this.problemManager === undefined) {
             return;
         }

@@ -20,31 +20,31 @@ import {
     remove,
     ServerMessageAction,
     ServerStatusAction
-} from "@eclipse-glsp/client";
-import { GLSPClient } from "@eclipse-glsp/protocol";
-import { MessageService } from "@theia/core";
-import { ConfirmDialog, WidgetManager } from "@theia/core/lib/browser";
-import { Message, MessageType } from "@theia/core/lib/common";
-import { EditorManager } from "@theia/editor/lib/browser";
-import { DiagramManager, DiagramWidget, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from "sprotty-theia";
+} from '@eclipse-glsp/client';
+import { GLSPClient } from '@eclipse-glsp/protocol';
+import { MessageService } from '@theia/core';
+import { ConfirmDialog, WidgetManager } from '@theia/core/lib/browser';
+import { Message, MessageType } from '@theia/core/lib/common';
+import { EditorManager } from '@theia/editor/lib/browser';
+import { DiagramManager, DiagramWidget, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from 'sprotty-theia';
 
-import { GLSPDiagramClient } from "./glsp-diagram-client";
-import { GLSPMessageOptions, GLSPNotificationManager } from "./glsp-notification-manager";
+import { GLSPDiagramClient } from './glsp-diagram-client';
+import { GLSPMessageOptions, GLSPNotificationManager } from './glsp-notification-manager';
 
 export interface GLSPTheiaSprottyConnectorServices {
-    readonly diagramClient: GLSPDiagramClient,
-    readonly fileSaver: TheiaFileSaver,
-    readonly editorManager: EditorManager,
-    readonly widgetManager: WidgetManager,
-    readonly diagramManager: DiagramManager,
-    readonly messageService: MessageService,
-    readonly notificationManager: GLSPNotificationManager
+    readonly diagramClient: GLSPDiagramClient;
+    readonly fileSaver: TheiaFileSaver;
+    readonly editorManager: EditorManager;
+    readonly widgetManager: WidgetManager;
+    readonly diagramManager: DiagramManager;
+    readonly messageService: MessageService;
+    readonly notificationManager: GLSPNotificationManager;
 }
 
 const SHOW_DETAILS_LABEL = 'Show details';
 
 export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPTheiaSprottyConnectorServices {
-    private servers: Map<String, TheiaDiagramServer> = new Map;
+    private servers: Map<string, TheiaDiagramServer> = new Map;
     private widgetMessages: Map<string, string[]> = new Map;
     private widgetStatusTimeouts: Map<string, number> = new Map;
 
@@ -61,12 +61,12 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         this.diagramClient.connect(this);
     }
 
-    connect(diagramServer: TheiaDiagramServer) {
+    connect(diagramServer: TheiaDiagramServer): void {
         this.servers.set(diagramServer.clientId, diagramServer);
         diagramServer.connect(this);
     }
 
-    disconnect(diagramServer: TheiaDiagramServer) {
+    disconnect(diagramServer: TheiaDiagramServer): void {
         this.servers.delete(diagramServer.clientId);
         diagramServer.disconnect();
         this.diagramClient.didClose(diagramServer.clientId);
@@ -86,7 +86,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         }
     }
 
-    protected clearWidgetStatus(widgetId: string) {
+    protected clearWidgetStatus(widgetId: string): void {
         // any status but FATAL, ERROR, WARNING or INFO will lead to a clear of the status
         this.showWidgetStatus(widgetId, { kind: ServerStatusAction.KIND, message: '', severity: 'CLEAR' });
     }
@@ -123,17 +123,17 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         }
     }
 
-    protected clearServerMessages(widgetId: string) {
+    protected clearServerMessages(widgetId: string): void {
         const widgetMessages = Array.from(this.widgetMessages.get(widgetId) || []);
         widgetMessages.forEach(messageId => this.clearServerMessage(widgetId, messageId));
     }
 
-    protected clearServerMessage(widgetId: string, messageId: string) {
+    protected clearServerMessage(widgetId: string, messageId: string): void {
         remove(this.widgetMessages.get(widgetId) || [], messageId);
         this.notificationManager.clear(messageId);
     }
 
-    protected showServerMessage(widgetId: string, action: ServerMessageAction) {
+    protected showServerMessage(widgetId: string, action: ServerMessageAction): void {
         const widget = this.widgetManager.getWidgets(this.diagramManager.id).find(w => w.id === widgetId);
         const uri = widget instanceof DiagramWidget ? widget.uri.toString() : '';
 
@@ -167,13 +167,13 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         }
     }
 
-    protected addServerMessage(widgetId: string, messageId: string) {
+    protected addServerMessage(widgetId: string, messageId: string): void {
         const widgetMessages = this.widgetMessages.get(widgetId) || [];
         widgetMessages.push(messageId);
         this.widgetMessages.set(widgetId, widgetMessages);
     }
 
-    protected showDetailsOrClearMessage(result: string | undefined, text: string, details: string, onClose: (value?: string) => void) {
+    protected showDetailsOrClearMessage(result: string | undefined, text: string, details: string, onClose: (value?: string) => void): void {
         if (result === SHOW_DETAILS_LABEL) {
             showDialog(text, details).then(() => onClose());
         } else {
@@ -181,7 +181,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         }
     }
 
-    protected toMessageType(severity: string) {
+    protected toMessageType(severity: string): MessageType.Error | MessageType.Warning | MessageType.Info | MessageType.Log {
         switch (severity) {
             case 'ERROR':
                 return MessageType.Error;
@@ -193,15 +193,15 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         return MessageType.Log;
     }
 
-    protected isClear(severity: string) {
+    protected isClear(severity: string): boolean {
         return severity === 'NONE';
     }
 
-    createMessageId(message: Message) {
+    createMessageId(message: Message): string {
         return this.notificationManager.getMessageId(message);
     }
 
-    sendMessage(message: ActionMessage) {
+    sendMessage(message: ActionMessage): void {
         this.diagramClient.sendThroughLsp(message);
     }
 
@@ -217,7 +217,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
     }
 }
 
-export function showDialog(title: string, msg: string) {
+export function showDialog(title: string, msg: string): Promise<boolean | undefined> {
     const wrappedMsg = wrapMessage(msg);
     return new ConfirmDialog({ title, msg: wrappedMsg }).open();
 }
@@ -227,7 +227,7 @@ export function showDialog(title: string, msg: string) {
  * scrollable div.
  * @param msg
  */
-function wrapMessage(msg: string) {
+function wrapMessage(msg: string): HTMLDivElement {
     const scrollDiv = document.createElement('div');
     scrollDiv.className = 'scroll-div';
     const pre = document.createElement('pre');
