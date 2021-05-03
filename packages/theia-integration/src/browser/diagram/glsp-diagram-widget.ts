@@ -29,6 +29,7 @@ import {
     RequestModelAction,
     RequestTypeHintsAction,
     SaveModelAction,
+    SelectAction,
     SetEditModeAction,
     TYPES
 } from '@eclipse-glsp/client';
@@ -104,6 +105,16 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         }
     }
 
+    protected onCloseRequest(msg: Message): void {
+        super.onCloseRequest(msg);
+        this.clearGlobalSelection();
+    }
+
+    protected onActivateRequest(msg: Message): void {
+        super.onActivateRequest(msg);
+        this.updateGlobalSelection();
+    }
+
     get diagramType(): string {
         return this.options.diagramType;
     }
@@ -163,6 +174,19 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
             return focusTracker.hasFocus;
         }
         return undefined;
+    }
+
+    protected async getSelectedElementIds(): Promise<string[]> {
+        const editorContextService = this.diContainer.get(EditorContextService);
+        return editorContextService.selectedElements.map(element => element.id);
+    }
+
+    protected async updateGlobalSelection(): Promise<void> {
+        this.getSelectedElementIds().then((prevSelection: string[]) => this.actionDispatcher.dispatch(new SelectAction(prevSelection)));
+    }
+
+    protected async clearGlobalSelection(): Promise<void> {
+        this.actionDispatcher.dispatch(new SelectAction());
     }
 }
 

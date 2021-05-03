@@ -23,3 +23,4 @@ export * from './glsp-theia-sprotty-connector';
 export * from './glsp-notification-manager';
 export * from './glsp-theia-context-menu-service';
 export * from './glsp-diagram-context-key-service';
+export * from './glsp-theia-selection-forwarder';
