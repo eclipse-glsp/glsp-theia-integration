@@ -879,27 +879,27 @@
     "@babel/helper-validator-identifier" "^7.14.0"
     to-fast-properties "^2.0.0"
 
-"@eclipse-glsp-examples/workflow-glsp@next":
-  version "0.9.0-next.5982d333"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.9.0-next.5982d333.tgz#4755b93ff8b58f32a2f16fe15fe687086ecdf149"
-  integrity sha512-mIqRmTYrwD5hTFZI7iDRrbzwPyBTTc7344lzu06bpeYSy0zBTuTmxxe7dZloJte1dhelWKn981lfLPX+RkPCSA==
+"@eclipse-glsp-examples/workflow-glsp@^0.9.0-next.a088c7ff":
+  version "0.9.0-next.a088c7ff"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.9.0-next.a088c7ff.tgz#623af1b19be9d311a84db70fcf035256e1d075ce"
+  integrity sha512-1mDdBBEWUhIM9CQvVBtifWa81PFYJhj5YFXdh2hmH5Rj+8kyWpoIDAP/MGpUvUpdRyR3FcAQemc6m6rtw3+FfQ==
   dependencies:
-    "@eclipse-glsp/client" "0.9.0-next.5982d333"
+    "@eclipse-glsp/client" "0.9.0-next.a088c7ff"
     balloon-css "^0.5.0"
 
-"@eclipse-glsp/client@0.9.0-next.5982d333", "@eclipse-glsp/client@next":
-  version "0.9.0-next.5982d333"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.9.0-next.5982d333.tgz#c167614b935aeb787d969d918c1b0d5b406efeb3"
-  integrity sha512-5aTBwdB8oFrORsFSVSEh8J/SdeYtoPx/uzsjMElz7LFYxsqASKm6nO4kaGvtIQQZJN6LVQr7vnpM9GSu0fd3lQ==
+"@eclipse-glsp/client@0.9.0-next.a088c7ff", "@eclipse-glsp/client@^0.9.0-next.a088c7ff":
+  version "0.9.0-next.a088c7ff"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.9.0-next.a088c7ff.tgz#386dd2c923ed726941342df09a67fc78bb13c825"
+  integrity sha512-bD/Gm9ipzijo2hxgdvpwKa8JvbuGngHWjhPXJdajCb+uRn/yl4rqn30vg5Nxh1eyWnl1MxtolcZhB7Ybz6LZHQ==
   dependencies:
-    "@eclipse-glsp/protocol" "0.9.0-next.5982d333"
+    "@eclipse-glsp/protocol" "0.9.0-next.a088c7ff"
     autocompleter "5.1.0"
     sprotty next
 
-"@eclipse-glsp/protocol@0.9.0-next.5982d333", "@eclipse-glsp/protocol@next":
-  version "0.9.0-next.5982d333"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.9.0-next.5982d333.tgz#1a1dcff5bd43e93ce2dd364d55a5a713592e370a"
-  integrity sha512-WuVKUl3326rl9zg/0xYZlLtbo0hxHo3cLyLw4pZSyMazYhriU1y41GpYq8yzeS7ityyuIC2ipXbcVEP9E18BLw==
+"@eclipse-glsp/protocol@0.9.0-next.a088c7ff", "@eclipse-glsp/protocol@^0.9.0-next.a088c7ff":
+  version "0.9.0-next.a088c7ff"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.9.0-next.a088c7ff.tgz#f132e722fbf39652f6fa7d7cfd30d27981ff5134"
+  integrity sha512-JocTijTMGJToVIk8LsnjD2Fw7+3Lz34rSPdxrWR0tUhEFV+waGt0XyiKO1WG7no8rgyJaK75INFRvm3xUgeT2g==
   dependencies:
     uuid "7.0.3"
     vscode-ws-jsonrpc "0.2.0"
@@ -12074,7 +12074,7 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-sprotty-theia@next:
+sprotty-theia@^0.10.0-next.f26a7d7:
   version "0.10.0-next.f26a7d7"
   resolved "https://registry.yarnpkg.com/sprotty-theia/-/sprotty-theia-0.10.0-next.f26a7d7.tgz#9d8334b35b264cf9fb1dd0f2b6fd606c5eb59ea0"
   integrity sha512-FHQuuDKKCr+1SSvK8YKIVYEKX5hpZO84KGYbUQnJ0yuGAr/C2A9L7MjCmHk16mUa1B3wDv5ABeatHPTpsl+5jw==
