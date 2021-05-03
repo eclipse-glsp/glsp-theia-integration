@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import {
+ import {
     Args,
     DiagramServer,
     DisposeClientSessionAction,
@@ -37,6 +37,7 @@ import { ApplicationShell, Saveable, SaveableSource, Widget } from '@theia/core/
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from '@theia/core/lib/common';
 import { EditorPreferences } from '@theia/editor/lib/browser';
 import { Container } from 'inversify';
+import { pickBy } from 'lodash';
 import { DiagramWidget, DiagramWidgetOptions, isDiagramWidgetContainer, TheiaSprottyConnector } from 'sprotty-theia';
 
 import { GLSPWidgetOpenerOptions, GLSPWidgetOptions } from './glsp-diagram-manager';
@@ -82,10 +83,11 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         });
 
         this.actionDispatcher.dispatch(new InitializeClientSessionAction(this.widgetId));
-
+        // Filter options to only contain defined primitive values
+        const definedOptions: any = pickBy(this.options, v => v !== undefined && typeof v !== 'object');
         this.requestModelOptions = {
             sourceUri: this.uri.path.toString(),
-            ... this.options
+            ...definedOptions
         };
         this.actionDispatcher.dispatch(new RequestModelAction(this.requestModelOptions));
         this.actionDispatcher.dispatch(new RequestTypeHintsAction(this.options.diagramType));
