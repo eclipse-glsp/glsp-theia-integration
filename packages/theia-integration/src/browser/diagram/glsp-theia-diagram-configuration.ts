@@ -23,18 +23,14 @@ import {
 import { CommandService, SelectionService } from '@theia/core';
 import { OpenerService } from '@theia/core/lib/browser';
 import { Container, inject, injectable } from 'inversify';
-import {
-    DiagramConfiguration,
-    TheiaContextMenuService,
-    TheiaDiagramServer,
-    TheiaSprottySelectionForwarder
-} from 'sprotty-theia';
+import { DiagramConfiguration, TheiaContextMenuService, TheiaDiagramServer } from 'sprotty-theia';
 
 import { TheiaCommandPalette } from '../theia-command-palette';
 import { TheiaModelSourceChangedHandler } from '../theia-model-source-changed-handler';
 import { TheiaNavigateToExternalTargetHandler } from '../theia-navigate-to-external-target-handler';
 import { connectTheiaContextMenuService, TheiaContextMenuServiceFactory } from './glsp-theia-context-menu-service';
 import { connectTheiaMarkerManager, TheiaMarkerManager, TheiaMarkerManagerFactory } from './glsp-theia-marker-manager';
+import { GlspTheiaSelectionForwarder } from './glsp-theia-selection-forwarder';
 
 @injectable()
 export abstract class GLSPTheiaDiagramConfiguration implements DiagramConfiguration {
@@ -56,7 +52,7 @@ export abstract class GLSPTheiaDiagramConfiguration implements DiagramConfigurat
     abstract doCreateContainer(widgetId: string): Container;
 
     protected initializeContainer(container: Container): void {
-        container.bind(TYPES.IActionHandlerInitializer).to(TheiaSprottySelectionForwarder);
+        container.bind(TYPES.IActionHandlerInitializer).to(GlspTheiaSelectionForwarder);
         container.bind(SelectionService).toConstantValue(this.selectionService);
         container.bind(OpenerService).toConstantValue(this.openerService);
         container.bind(CommandService).toConstantValue(this.commandService);
