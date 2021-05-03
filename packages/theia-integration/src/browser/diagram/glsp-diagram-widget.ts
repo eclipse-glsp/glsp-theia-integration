@@ -29,12 +29,14 @@ import {
     RequestModelAction,
     RequestTypeHintsAction,
     SaveModelAction,
+    SelectAction,
     SetEditModeAction,
     TYPES
 } from '@eclipse-glsp/client';
 import { Message } from '@phosphor/messaging/lib';
 import { ApplicationShell, Saveable, SaveableSource, Widget } from '@theia/core/lib/browser';
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from '@theia/core/lib/common';
+import { SelectionService } from '@theia/core/lib/common/selection-service';
 import { EditorPreferences } from '@theia/editor/lib/browser';
 import { Container } from 'inversify';
 import { DiagramWidget, DiagramWidgetOptions, isDiagramWidgetContainer, TheiaSprottyConnector } from 'sprotty-theia';
@@ -50,7 +52,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     protected requestModelOptions: Args;
 
     constructor(options: DiagramWidgetOptions & GLSPWidgetOpenerOptions, readonly widgetId: string, readonly diContainer: Container,
-        readonly editorPreferences: EditorPreferences, readonly connector?: TheiaSprottyConnector) {
+        readonly editorPreferences: EditorPreferences, readonly theiaSelectionService: SelectionService, readonly connector?: TheiaSprottyConnector) {
         super(options, widgetId, diContainer, connector);
         this.saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
         this.updateSaveable();
@@ -102,6 +104,16 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
             this.addClipboardListener(this.node, 'paste', e => this.handlePaste(e));
             this.addClipboardListener(this.node, 'cut', e => this.handleCut(e));
         }
+    }
+
+    protected onCloseRequest(msg: Message): void {
+        super.onCloseRequest(msg);
+        this.clearGlobalSelection();
+    }
+
+    protected onActivateRequest(msg: Message): void {
+        super.onActivateRequest(msg);
+        this.updateGlobalSelection();
     }
 
     get diagramType(): string {
@@ -163,6 +175,19 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
             return focusTracker.hasFocus;
         }
         return undefined;
+    }
+
+    protected async getSelectedElementIds(): Promise<string[]> {
+        const editorContextService = this.diContainer.get(EditorContextService);
+        return editorContextService.selectedElements.map(element => element.id);
+    }
+
+    protected async updateGlobalSelection(): Promise<void> {
+        this.getSelectedElementIds().then((currentSelection: string[]) => this.actionDispatcher.dispatch(new SelectAction(currentSelection)));
+    }
+
+    protected async clearGlobalSelection(): Promise<void> {
+        this.theiaSelectionService.selection = undefined;
     }
 }
 
