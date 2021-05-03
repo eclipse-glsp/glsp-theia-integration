@@ -5,6 +5,10 @@
       "name": "Push",
       "taskType": "manual",
       "id": "task0",
+      "cssClasses": [
+        "task",
+        "manual"
+      ],
       "children": [
         {
           "id": "task0_header",
@@ -84,12 +88,22 @@
         "width": 101.90625,
         "height": 52.0
       },
-      "layout": "vbox"
+      "layout": "vbox",
+      "args": {
+        "radiusBottomLeft": 5.0,
+        "radiusTopLeft": 5.0,
+        "radiusTopRight": 5.0,
+        "radiusBottomRight": 5.0
+      }
     },
     {
       "name": "ManualTask1",
       "taskType": "manual",
       "id": "task1",
+      "cssClasses": [
+        "task",
+        "manual"
+      ],
       "children": [
         {
           "id": "task1_header",
@@ -169,12 +183,22 @@
         "width": 105.5625,
         "height": 52.0
       },
-      "layout": "vbox"
+      "layout": "vbox",
+      "args": {
+        "radiusBottomLeft": 5.0,
+        "radiusTopLeft": 5.0,
+        "radiusTopRight": 5.0,
+        "radiusBottomRight": 5.0
+      }
     },
     {
       "name": "ManualTask2",
       "taskType": "manual",
       "id": "task2",
+      "cssClasses": [
+        "task",
+        "manual"
+      ],
       "children": [
         {
           "id": "task2_header",
@@ -254,12 +278,22 @@
         "width": 115.21875,
         "height": 52.0
       },
-      "layout": "vbox"
+      "layout": "vbox",
+      "args": {
+        "radiusBottomLeft": 5.0,
+        "radiusTopLeft": 5.0,
+        "radiusTopRight": 5.0,
+        "radiusBottomRight": 5.0
+      }
     },
     {
       "name": "ManualTask3",
       "taskType": "manual",
       "id": "task3",
+      "cssClasses": [
+        "task",
+        "manual"
+      ],
       "children": [
         {
           "id": "task3_header",
@@ -339,12 +373,22 @@
         "width": 128.953125,
         "height": 52.0
       },
-      "layout": "vbox"
+      "layout": "vbox",
+      "args": {
+        "radiusBottomLeft": 5.0,
+        "radiusTopLeft": 5.0,
+        "radiusTopRight": 5.0,
+        "radiusBottomRight": 5.0
+      }
     },
     {
       "name": "ManualTask4",
       "taskType": "manual",
       "id": "task4",
+      "cssClasses": [
+        "task",
+        "manual"
+      ],
       "children": [
         {
           "id": "task4_header",
@@ -424,12 +468,22 @@
         "width": 102.359375,
         "height": 52.0
       },
-      "layout": "vbox"
+      "layout": "vbox",
+      "args": {
+        "radiusBottomLeft": 5.0,
+        "radiusTopLeft": 5.0,
+        "radiusTopRight": 5.0,
+        "radiusBottomRight": 5.0
+      }
     },
     {
       "name": "ManualTask6",
       "taskType": "manual",
       "id": "task6",
+      "cssClasses": [
+        "task",
+        "manual"
+      ],
       "children": [
         {
           "id": "task6_header",
@@ -509,12 +563,22 @@
         "width": 126.34375,
         "height": 52.0
       },
-      "layout": "vbox"
+      "layout": "vbox",
+      "args": {
+        "radiusBottomLeft": 5.0,
+        "radiusTopLeft": 5.0,
+        "radiusTopRight": 5.0,
+        "radiusBottomRight": 5.0
+      }
     },
     {
       "name": "AutomatedTask8",
       "taskType": "automated",
       "id": "task8",
+      "cssClasses": [
+        "task",
+        "automated"
+      ],
       "children": [
         {
           "id": "task8_header",
@@ -594,12 +658,22 @@
         "width": 116.671875,
         "height": 52.0
       },
-      "layout": "vbox"
+      "layout": "vbox",
+      "args": {
+        "radiusBottomLeft": 5.0,
+        "radiusTopLeft": 5.0,
+        "radiusTopRight": 5.0,
+        "radiusBottomRight": 5.0
+      }
     },
     {
       "name": "AutomatedTask9",
       "taskType": "automated",
       "id": "task9",
+      "cssClasses": [
+        "task",
+        "automated"
+      ],
       "children": [
         {
           "id": "task9_header",
@@ -679,7 +753,13 @@
         "width": 109.109375,
         "height": 52.0
       },
-      "layout": "vbox"
+      "layout": "vbox",
+      "args": {
+        "radiusBottomLeft": 5.0,
+        "radiusTopLeft": 5.0,
+        "radiusTopRight": 5.0,
+        "radiusBottomRight": 5.0
+      }
     },
     {
       "nodeType": "mergeNode",
@@ -781,6 +861,9 @@
     },
     {
       "id": "69d7d698-c5ce-4e85-be06-d9bd9357322d",
+      "cssClasses": [
+        "medium"
+      ],
       "type": "edge:weighted",
       "sourceId": "b00fc494-0fa4-4448-8bf9-162c2c0865e4",
       "targetId": "task1"
@@ -788,6 +871,9 @@
     {
       "nodeType": "forkNode",
       "id": "bb2709f5-0ff0-4438-8853-b7e934b506d7",
+      "cssClasses": [
+        "forkOrJoin"
+      ],
       "type": "activityNode:fork",
       "position": {
         "x": 590.0,
@@ -813,6 +899,9 @@
     {
       "nodeType": "joinNode",
       "id": "bd94e44e-19f9-446e-89d4-97ca1a63c17b",
+      "cssClasses": [
+        "forkOrJoin"
+      ],
       "type": "activityNode:join",
       "position": {
         "x": 1220.0,
@@ -825,12 +914,18 @@
     },
     {
       "id": "2f57af4e-2960-496e-992d-03c8b021d81a",
+      "cssClasses": [
+        "medium"
+      ],
       "type": "edge:weighted",
       "sourceId": "activityNode2",
       "targetId": "task6"
     },
     {
       "id": "2c7427b0-9743-4bfb-b04c-078ba98f8d7e",
+      "cssClasses": [
+        "medium"
+      ],
       "type": "edge:weighted",
       "sourceId": "activityNode2",
       "targetId": "task3"
@@ -854,8 +949,10 @@
       "targetId": "task4"
     },
     {
-      "probability": "medium",
       "id": "e9aa796a-aa5b-4e6d-8860-4b9c5a5b8d89",
+      "cssClasses": [
+        "medium"
+      ],
       "type": "edge:weighted",
       "sourceId": "b00fc494-0fa4-4448-8bf9-162c2c0865e4",
       "targetId": "task9"
@@ -874,5 +971,5 @@
     }
   ],
   "type": "graph",
-  "revision": 17
+  "revision": 18
 }
