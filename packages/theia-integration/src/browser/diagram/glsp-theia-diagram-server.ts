@@ -110,7 +110,7 @@ export namespace DirtyStateChangeReason {
 
 export function isSetDirtyStateAction(action: Action): action is SetDirtyStateAction {
     return SetDirtyStateAction.KIND === action.kind && 'isDirty' in action
-        && typeof (action['isDirty']) === 'boolean' && 'reason' in action;
+        && typeof (action['isDirty']) === 'boolean';
 }
 
 export interface DirtyState {
