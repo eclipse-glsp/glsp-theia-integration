@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,15 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export * from './glsp-command-handler';
-export * from './glsp-diagram-client';
-export * from './glsp-diagram-layout-commands';
-export * from './glsp-diagram-manager';
-export * from './glsp-diagram-widget';
-export * from './glsp-theia-diagram-server';
-export * from './glsp-theia-sprotty-connector';
-export * from './glsp-notification-manager';
-export * from './glsp-theia-context-menu-service';
-export * from './glsp-diagram-context-key-service';
-export * from './glsp-theia-selection-forwarder';
-export * from './glsp-selection-data-service';
+import { injectable } from 'inversify';
+
+export interface GlspSelectionData {
+    selectionDataMap: Map<string, any>;
+}
+
+@injectable()
+export abstract class GlspSelectionDataService {
+    abstract getSelectionData(selectedElementIds: string[]): Promise<GlspSelectionData>;
+}

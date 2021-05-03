@@ -22,6 +22,7 @@ import {
     WidgetFactory,
     WidgetOpenerOptions
 } from '@theia/core/lib/browser';
+import { SelectionService } from '@theia/core/lib/common/selection-service';
 import URI from '@theia/core/lib/common/uri';
 import { EditorPreferences } from '@theia/editor/lib/browser';
 import { inject, injectable, interfaces } from 'inversify';
@@ -63,6 +64,9 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     @inject(ApplicationShell)
     protected readonly shell: ApplicationShell;
 
+    @inject(SelectionService)
+    theiaSelectionService: SelectionService;
+
     abstract get fileExtensions(): string[];
 
     async doOpen(widget: DiagramWidget, options?: WidgetOpenerOptions): Promise<void> {
@@ -83,7 +87,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
             const widgetId = this.createWidgetId(options);
             const config = this.getDiagramConfiguration(options);
             const diContainer = config.createContainer(clientId);
-            const widget = new GLSPDiagramWidget(options, widgetId, diContainer, this.editorPreferences, this.diagramConnector);
+            const widget = new GLSPDiagramWidget(options, widgetId, diContainer, this.editorPreferences, this.theiaSelectionService, this.diagramConnector);
             widget.listenToFocusState(this.shell);
             return widget;
         }
