@@ -880,26 +880,26 @@
     to-fast-properties "^2.0.0"
 
 "@eclipse-glsp-examples/workflow-glsp@next":
-  version "0.9.0-next.313fd011"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.9.0-next.313fd011.tgz#7ed7c7a35ec1a492e35df6820dd8f3f9838beccd"
-  integrity sha512-a/P83nPjDK2XrM850nBHhvP7ELvMJV3GGrJaBA0+V8AK+b+6V/a3dOzz0wTcFIJ6hEmleGNsMJmGU0Uy3VpQGQ==
+  version "0.9.0-next.a7a9a2e5"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.9.0-next.a7a9a2e5.tgz#1079b8a140ba7d62abe6971d2f897281a8295503"
+  integrity sha512-DdV+xCmFl9bxQ5d5H4W/PzRypqAAx8/eMl7gDmXroYhZ8/kWIxBE4ltfB1g9+UOwLn5z4J6QwsPF0WuUWhBSzA==
   dependencies:
-    "@eclipse-glsp/client" "0.9.0-next.313fd011"
+    "@eclipse-glsp/client" "0.9.0-next.a7a9a2e5"
     balloon-css "^0.5.0"
 
-"@eclipse-glsp/client@0.9.0-next.313fd011", "@eclipse-glsp/client@next":
-  version "0.9.0-next.313fd011"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.9.0-next.313fd011.tgz#63f2a340fc26f6454582591d8c2dda4d3a99ede1"
-  integrity sha512-LzeuJWeLBeGSVeEj3wKkQe45F+eGtkP3iRrstCVDqzwI3hqyhvsUBKTJYl/MFxG3uXLnGwTtauSWVKz36MTmAg==
+"@eclipse-glsp/client@0.9.0-next.a7a9a2e5", "@eclipse-glsp/client@next":
+  version "0.9.0-next.a7a9a2e5"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.9.0-next.a7a9a2e5.tgz#2fbafdfcc7fd097dea36ef89206d3a10a608ee88"
+  integrity sha512-6iDfLITL18ZMt0hU7nkvFyw3gXpK68WRsRXh5iRyQuh8QzgPb+3l0+waO1o2kQA8OYqWjlbZCIV/chMZviGJDw==
   dependencies:
-    "@eclipse-glsp/protocol" "0.9.0-next.313fd011"
+    "@eclipse-glsp/protocol" "0.9.0-next.a7a9a2e5"
     autocompleter "5.1.0"
-    sprotty "^0.10.0-next.0bb1094"
+    sprotty next
 
-"@eclipse-glsp/protocol@0.9.0-next.313fd011", "@eclipse-glsp/protocol@next":
-  version "0.9.0-next.313fd011"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.9.0-next.313fd011.tgz#636354893a086779c44ddbee043edd8a6fa6bba4"
-  integrity sha512-R4T9KtS8wxa7+naOmlyHmwiWytgy2rN4TXGke6uy0AyM8GIL4W+wItchHd1fLPdjo3Z3cTwsZNnGiVrG4Y9Vlg==
+"@eclipse-glsp/protocol@0.9.0-next.a7a9a2e5", "@eclipse-glsp/protocol@next":
+  version "0.9.0-next.a7a9a2e5"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.9.0-next.a7a9a2e5.tgz#615ee7c0372506d40218827121b7fbc25cc6dc87"
+  integrity sha512-OLkldEHMXv1Jmd4+/K8Zi797qQRlwKX8hYmf/ydESwAQEbsHlOnKHmDo6prP7aD5sAcDTo/6DsQeW2OV2c0vow==
   dependencies:
     uuid "7.0.3"
     vscode-ws-jsonrpc "0.2.0"
@@ -2531,7 +2531,7 @@ array-ify@^1.0.0:
   resolved "https://registry.yarnpkg.com/array-ify/-/array-ify-1.0.0.tgz#9e528762b4a9066ad163a6962a364418e9626ece"
   integrity sha1-nlKHYrSpBmrRY6aWKjZEGOlibs4=
 
-array-includes@^3.1.1:
+array-includes@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/array-includes/-/array-includes-3.1.3.tgz#c7f619b382ad2afaf5326cddfdc0afc61af7690a"
   integrity sha512-gcem1KlBU7c9rB+Rq8/3PPKsK2kjqeEBa3bD5kkQo4nYlOHQCJqIJFqBXDEfwaRuYTT4E+FxA9xez7Gf/e3Q7A==
@@ -2569,7 +2569,7 @@ array-unique@^0.3.2:
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
   integrity sha1-qJS3XUvE9s1nnvMkSp/Y9Gri1Cg=
 
-array.prototype.flat@^1.2.3:
+array.prototype.flat@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/array.prototype.flat/-/array.prototype.flat-1.2.4.tgz#6ef638b43312bd401b4c6199fdec7e2dc9e9a123"
   integrity sha512-4470Xi3GAPAjZqFcljX2xzckv1qeKPizoNkiS0+O4IoPR2ZNpcjE0pkhdihlDouK+x6QOast26B4Q/O9DJnwSg==
@@ -4502,10 +4502,13 @@ constants-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/constants-browserify/-/constants-browserify-1.0.0.tgz#c20b96d8c617748aaf1c16021760cd27fcb8cb75"
   integrity sha1-wguW2MYXdIqvHBYCF2DNJ/y4y3U=
 
-contains-path@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/contains-path/-/contains-path-0.1.0.tgz#fe8cf184ff6670b6baef01a9d4861a5cbec4120a"
-  integrity sha1-/ozxhP9mcLa67wGp1IYaXL7EEgo=
+contains-path@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/contains-path/-/contains-path-1.0.0.tgz#3458b332185603e8eed18f518d4a10888a3abc91"
+  integrity sha1-NFizMhhWA+ju0Y9RjUoQiIo6vJE=
+  dependencies:
+    normalize-path "^2.1.1"
+    path-starts-with "^1.0.0"
 
 content-disposition@0.5.3:
   version "0.5.3"
@@ -5075,7 +5078,7 @@ debug@4, debug@4.3.1, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1:
   dependencies:
     ms "2.1.2"
 
-debug@^3.1.0:
+debug@^3.1.0, debug@^3.2.7:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.7.tgz#72580b7e9145fb39b6676f9c5e5fb100b934179a"
   integrity sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==
@@ -5376,13 +5379,12 @@ dir-glob@^2.0.0, dir-glob@^2.2.2:
   dependencies:
     path-type "^3.0.0"
 
-doctrine@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-1.5.0.tgz#379dce730f6166f76cefa4e6707a159b02c5a6fa"
-  integrity sha1-N53Ocw9hZvds76TmcHoVmwLFpvo=
+doctrine@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-2.1.0.tgz#5cd01fc101621b42c4cd7f5d1a66243716d3f39d"
+  integrity sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==
   dependencies:
     esutils "^2.0.2"
-    isarray "^1.0.0"
 
 doctrine@^3.0.0:
   version "3.0.0"
@@ -5675,12 +5677,12 @@ eslint-import-resolver-node@^0.3.4:
     debug "^2.6.9"
     resolve "^1.13.1"
 
-eslint-module-utils@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/eslint-module-utils/-/eslint-module-utils-2.6.0.tgz#579ebd094f56af7797d19c9866c9c9486629bfa6"
-  integrity sha512-6j9xxegbqe8/kZY8cYpcp0xhbK0EgJlg3g9mib3/miLaExuuwc3n5UEfSnU6hWMbT0FAYVvDbL9RrRgpUeQIvA==
+eslint-module-utils@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/eslint-module-utils/-/eslint-module-utils-2.6.1.tgz#b51be1e473dd0de1c5ea638e22429c2490ea8233"
+  integrity sha512-ZXI9B8cxAJIH4nfkhTwcRTEAnrVfobYqwjWy/QMCZ8rHkZHFjf9yO4BzpiF9kCSfNlMG54eKigISHpX0+AaT4A==
   dependencies:
-    debug "^2.6.9"
+    debug "^3.2.7"
     pkg-dir "^2.0.0"
 
 eslint-plugin-header@^3.0.0:
@@ -5689,22 +5691,25 @@ eslint-plugin-header@^3.0.0:
   integrity sha512-9vlKxuJ4qf793CmeeSrZUvVClw6amtpghq3CuWcB5cUNnWHQhgcqy5eF8oVKFk1G3Y/CbchGfEaw3wiIJaNmVg==
 
 eslint-plugin-import@^2.20.0:
-  version "2.22.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.22.1.tgz#0896c7e6a0cf44109a2d97b95903c2bb689d7702"
-  integrity sha512-8K7JjINHOpH64ozkAhpT3sd+FswIZTfMZTjdx052pnWrgRCVfp8op9tbjpAk3DdUeI/Ba4C8OjdC0r90erHEOw==
+  version "2.23.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.23.0.tgz#557160f501e4beaefb768fb4165d36eb2a4e543a"
+  integrity sha512-W5v1f7Cbam6BwbSSKtN6+yoUAms07ozbqAEhLOtf5erEqRv7w67PeZuAuBThaUkzdq2GfBx/5GBvxF+NWJshrQ==
   dependencies:
-    array-includes "^3.1.1"
-    array.prototype.flat "^1.2.3"
-    contains-path "^0.1.0"
+    array-includes "^3.1.3"
+    array.prototype.flat "^1.2.4"
+    contains-path "^1.0.0"
     debug "^2.6.9"
-    doctrine "1.5.0"
+    doctrine "^2.1.0"
     eslint-import-resolver-node "^0.3.4"
-    eslint-module-utils "^2.6.0"
+    eslint-module-utils "^2.6.1"
+    find-up "^2.0.0"
     has "^1.0.3"
+    is-core-module "^2.4.0"
     minimatch "^3.0.4"
-    object.values "^1.1.1"
-    read-pkg-up "^2.0.0"
-    resolve "^1.17.0"
+    object.values "^1.1.3"
+    pkg-up "^2.0.0"
+    read-pkg-up "^3.0.0"
+    resolve "^1.20.0"
     tsconfig-paths "^3.9.0"
 
 eslint-plugin-no-null@^1.0.2:
@@ -7529,11 +7534,6 @@ invariant@^2.2.2:
   dependencies:
     loose-envify "^1.0.0"
 
-inversify@5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/inversify/-/inversify-5.0.1.tgz#500d709b1434896ce5a0d58915c4a4210e34fb6e"
-  integrity sha512-Ieh06s48WnEYGcqHepdsJUIJUXpwH5o5vodAX+DK2JA/gjy4EbEcQZxw+uFfzysmKjiLXGYwNG3qDZsKVMcINQ==
-
 inversify@^5.0.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/inversify/-/inversify-5.1.1.tgz#6fbd668c591337404e005a1946bfe0d802c08730"
@@ -7626,7 +7626,7 @@ is-ci@^1.0.10:
   dependencies:
     ci-info "^1.5.0"
 
-is-core-module@^2.2.0:
+is-core-module@^2.2.0, is-core-module@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.4.0.tgz#8e9fc8e15027b011418026e98f0e6f4d86305cc1"
   integrity sha512-6A2fkfq1rfeQZjxrZJGerpLCTHRNEBiSgnu0+obeJpEPZRUooHgsizvzv0ZjJwOz3iWIHdJtVWJ/tmPr3D21/A==
@@ -9561,9 +9561,9 @@ node-libs-browser@^2.2.1:
     vm-browserify "^1.0.1"
 
 node-releases@^1.1.71:
-  version "1.1.71"
-  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.71.tgz#cb1334b179896b1c89ecfdd4b725fb7bbdfc7dbb"
-  integrity sha512-zR6HoT6LrLCRBwukmrVbHv0EpEQjksO6GmFcZQQuCAy139BEsoVKPYnf3jongYW83fAa1torLGYwxxky/p28sg==
+  version "1.1.72"
+  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.72.tgz#14802ab6b1039a79a0c7d662b610a5bbd76eacbe"
+  integrity sha512-LLUo+PpH3dU6XizX3iVoubUNheF/owjXCZZ5yACDxNnPtgFuludV1ZL3ayK1kVep42Rmm0+R9/Y60NQbZ2bifw==
 
 nomnom@^1.8.1:
   version "1.8.1"
@@ -9777,7 +9777,7 @@ object.pick@^1.3.0:
   dependencies:
     isobject "^3.0.1"
 
-object.values@^1.1.1:
+object.values@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/object.values/-/object.values-1.1.3.tgz#eaa8b1e17589f02f698db093f7c62ee1699742ee"
   integrity sha512-nkF6PfDB9alkOUxpf1HNm/QlkeW3SReqL5WXeBLpEJJnlPSvRaDQpW3gQTksTN3fgJX4hL42RzKyOin6ff3tyw==
@@ -10207,6 +10207,13 @@ path-parse@^1.0.6:
   resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
   integrity sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
 
+path-starts-with@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/path-starts-with/-/path-starts-with-1.0.0.tgz#b28243015e8b138de572682ac52da42e646ad84e"
+  integrity sha1-soJDAV6LE43lcmgqxS2kLmRq2E4=
+  dependencies:
+    normalize-path "^2.1.1"
+
 path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
@@ -10318,6 +10325,13 @@ pkg-dir@^4.1.0, pkg-dir@^4.2.0:
   integrity sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==
   dependencies:
     find-up "^4.0.0"
+
+pkg-up@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/pkg-up/-/pkg-up-2.0.0.tgz#c819ac728059a461cab1c3889a2be3c49a004d7f"
+  integrity sha1-yBmscoBZpGHKscOImivjxJoATX8=
+  dependencies:
+    find-up "^2.1.0"
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
@@ -11462,7 +11476,7 @@ resolve-url@^0.2.1:
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
 
-resolve@^1.1.6, resolve@^1.10.0, resolve@^1.13.1, resolve@^1.14.2, resolve@^1.17.0:
+resolve@^1.1.6, resolve@^1.10.0, resolve@^1.13.1, resolve@^1.14.2, resolve@^1.20.0:
   version "1.20.0"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.20.0.tgz#629a013fb3f70755d6f0b7935cc1c2c5378b1975"
   integrity sha512-wENBPt4ySzg4ybFQW2TT1zMQucPK95HSh/nq2CFTZVOGut2+pQvSsgtda4d26YrYcr067wjbmzOG8byDPBX63A==
@@ -12101,18 +12115,6 @@ sprotty-theia@next:
     "@theia/filesystem" "^1.0.0"
     "@theia/monaco" "^1.0.0"
     sprotty next
-
-sprotty@^0.10.0-next.0bb1094:
-  version "0.10.0-next.f1f7550"
-  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.10.0-next.f1f7550.tgz#57228c28510c7d5eede42ff1634627d5963c3968"
-  integrity sha512-VdxiMbzq5QZzX5lCY68gb0rEiSDzEpYVUbhgAQnaOViFYWYI6Elm7Hg6aKnu70MSWKpmGcrDNnYL4ax1wpiwqg==
-  dependencies:
-    autocompleter "5.1.0"
-    file-saver "2.0.2"
-    inversify "5.0.1"
-    snabbdom "0.7.3"
-    snabbdom-jsx "0.4.2"
-    snabbdom-virtualize "0.7.0"
 
 sprotty@next:
   version "0.10.0-next.0e06051"
