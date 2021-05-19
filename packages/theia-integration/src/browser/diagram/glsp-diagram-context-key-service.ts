@@ -27,7 +27,7 @@ import {
 import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { ApplicationShell } from '@theia/core/lib/browser';
 import { ContextKey, ContextKeyService } from '@theia/core/lib/browser/context-key-service';
-import { inject, injectable, postConstruct } from 'inversify';
+import { inject, injectable, postConstruct } from '@theia/core/shared/inversify';
 import { isDiagramWidgetContainer } from 'sprotty-theia';
 
 import { GLSPDiagramWidget } from './glsp-diagram-widget';

@@ -15,7 +15,7 @@
  ********************************************************************************/
 import { MenuContribution, MenuModelRegistry } from '@theia/core';
 import { CommonCommands } from '@theia/core/lib/browser';
-import { injectable, interfaces } from 'inversify';
+import { injectable, interfaces } from '@theia/core/shared/inversify';
 import { TheiaSprottyContextMenu } from 'sprotty-theia';
 
 export function registerCopyPasteContextMenu(bind: interfaces.Bind): void {

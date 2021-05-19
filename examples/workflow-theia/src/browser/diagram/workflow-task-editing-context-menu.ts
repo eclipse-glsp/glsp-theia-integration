@@ -19,7 +19,7 @@ import { SetUIExtensionVisibilityAction } from '@eclipse-glsp/client';
 import { GLSPCommandHandler, GLSPContextMenu } from '@eclipse-glsp/theia-integration/lib/browser';
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from '@theia/core';
 import { ApplicationShell } from '@theia/core/lib/browser';
-import { inject, injectable } from 'inversify';
+import { inject, injectable } from '@theia/core/shared/inversify';
 
 export namespace WorkflowTaskEditingCommands {
     export const EDIT_TASK = 'glsp-workflow-edit-task';

@@ -10,11 +10,13 @@
     "test": "yarn",
     "prepare": "lerna run prepare",
     "watch": "lerna run --parallel watch",
+    "build": "yarn install --ignore-scripts && lerna run build",
+    "lint": "lerna run lint --",
     "rebuild:browser": "theia rebuild:browser",
-    "publish": "yarn && yarn publish:latest",
     "publish:latest": "lerna publish",
     "publish:next": "lerna publish --exact --canary=next --npm-tag=next --yes",
     "upgrade:next": "yarn upgrade -p \"sprotty-theia|@eclipse-glsp.*\" --next ",
+    "build:ci": "lerna run build:ci",
     "download:exampleServer": "ts-node examples/workflow-theia/server/download.ts"
   },
   "devDependencies": {

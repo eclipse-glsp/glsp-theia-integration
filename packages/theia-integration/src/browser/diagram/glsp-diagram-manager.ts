@@ -24,8 +24,8 @@ import {
 } from '@theia/core/lib/browser';
 import { SelectionService } from '@theia/core/lib/common/selection-service';
 import URI from '@theia/core/lib/common/uri';
+import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
 import { EditorPreferences } from '@theia/editor/lib/browser';
-import { inject, injectable, interfaces } from 'inversify';
 import {
     DiagramConfiguration,
     DiagramManager,

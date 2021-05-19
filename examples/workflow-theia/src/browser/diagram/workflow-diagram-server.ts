@@ -16,7 +16,7 @@
 import { ApplyTaskEditOperation } from '@eclipse-glsp-examples/workflow-glsp/lib/direct-task-editing/direct-task-editor';
 import { ActionHandlerRegistry } from '@eclipse-glsp/client';
 import { GLSPTheiaDiagramServer } from '@eclipse-glsp/theia-integration/lib/browser';
-import { injectable } from 'inversify';
+import { injectable } from '@theia/core/shared/inversify';
 
 @injectable()
 export class WorkflowDiagramServer extends GLSPTheiaDiagramServer {

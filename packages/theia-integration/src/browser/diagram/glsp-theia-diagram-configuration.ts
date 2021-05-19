@@ -22,7 +22,7 @@ import {
 } from '@eclipse-glsp/client';
 import { CommandService, SelectionService } from '@theia/core';
 import { OpenerService } from '@theia/core/lib/browser';
-import { Container, inject, injectable } from 'inversify';
+import { Container, inject, injectable } from '@theia/core/shared/inversify';
 import { DiagramConfiguration, TheiaContextMenuService, TheiaDiagramServer } from 'sprotty-theia';
 
 import { TheiaCommandPalette } from '../theia-command-palette';

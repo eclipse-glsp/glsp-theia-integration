@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { GLSP_TYPES, IActionDispatcher, TYPES } from '@eclipse-glsp/client';
-import { Container } from 'inversify';
+import { Container } from '@theia/core/shared/inversify';
 import {
     TheiaContextMenuService,
     TheiaSprottyContextMenu

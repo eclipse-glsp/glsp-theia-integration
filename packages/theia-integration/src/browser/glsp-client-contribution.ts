@@ -28,8 +28,8 @@ import {
 import { Disposable, DisposableCollection, MaybePromise, MessageService } from '@theia/core';
 import { FrontendApplication, WebSocketConnectionProvider } from '@theia/core/lib/browser';
 import { Deferred } from '@theia/core/lib/common/promise-util';
+import { inject, injectable, multiInject } from '@theia/core/shared/inversify';
 import { WorkspaceService } from '@theia/workspace/lib/browser';
-import { inject, injectable, multiInject } from 'inversify';
 import { DiagramManagerProvider } from 'sprotty-theia';
 import { MessageConnection } from 'vscode-jsonrpc';
 

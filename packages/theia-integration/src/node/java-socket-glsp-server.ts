@@ -13,8 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { injectable, postConstruct } from '@theia/core/shared/inversify';
 import * as fs from 'fs';
-import { injectable, postConstruct } from 'inversify';
 import * as net from 'net';
 import { createSocketConnection, IConnection } from 'vscode-ws-jsonrpc/lib/server';
 

@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { inject, injectable, optional } from 'inversify';
+import { inject, injectable, optional } from '@theia/core/shared/inversify';
 import { Action, SelectAction } from 'sprotty';
 import { isSprottySelection, SprottySelection, TheiaSprottySelectionForwarder } from 'sprotty-theia';
 

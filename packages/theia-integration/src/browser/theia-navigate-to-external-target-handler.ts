@@ -16,7 +16,7 @@
 import { Action, Args, IActionHandler, isNavigateToExternalTargetAction } from '@eclipse-glsp/client/lib';
 import { open, OpenerService } from '@theia/core/lib/browser/opener-service';
 import URI from '@theia/core/lib/common/uri';
-import { inject, injectable } from 'inversify';
+import { inject, injectable } from '@theia/core/shared/inversify';
 
 @injectable()
 export class TheiaNavigateToExternalTargetHandler implements IActionHandler {

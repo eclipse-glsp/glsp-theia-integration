@@ -26,8 +26,8 @@ import {
 import { OpenerService } from '@theia/core/lib/browser';
 import URI from '@theia/core/lib/common/uri';
 import { UriAwareCommandHandler } from '@theia/core/lib/common/uri-command-handler';
+import { inject, injectable } from '@theia/core/shared/inversify';
 import { NavigatorContextMenu } from '@theia/navigator/lib/browser/navigator-contribution';
-import { inject, injectable } from 'inversify';
 
 export const OPEN_READONLY_DIAGRAM_VIEW: Command = {
     id: 'workflow.open.readonly',
