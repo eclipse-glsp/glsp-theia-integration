@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
- import {
+import {
     Args,
     DiagramServer,
     DisposeClientSessionAction,
@@ -151,7 +151,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     listenToFocusState(shell: ApplicationShell): void {
         this.toDispose.push(shell.onDidChangeActiveWidget(event => {
             const focusedWidget = event.newValue;
-            if (this.hasFocus && !this.isThisWidget(focusedWidget)) {
+            if (this.hasFocus && focusedWidget && !this.isThisWidget(focusedWidget)) {
                 this.actionDispatcher.dispatch(new FocusStateChangedAction(false));
             } else if (!this.hasFocus && this.isThisWidget(focusedWidget)) {
                 this.actionDispatcher.dispatch(new FocusStateChangedAction(true));
