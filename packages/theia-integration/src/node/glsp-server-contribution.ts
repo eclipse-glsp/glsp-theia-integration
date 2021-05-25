@@ -15,11 +15,11 @@
  ********************************************************************************/
 import { MaybePromise } from '@eclipse-glsp/protocol';
 import { WebSocketChannelConnection } from '@theia/core/lib/node/messaging';
+import { inject, injectable, postConstruct } from '@theia/core/shared/inversify';
 import { ProcessErrorEvent } from '@theia/process/lib/node/process';
 import { ProcessManager } from '@theia/process/lib/node/process-manager';
 import { RawProcess, RawProcessFactory } from '@theia/process/lib/node/raw-process';
 import * as cp from 'child_process';
-import { inject, injectable, postConstruct } from 'inversify';
 import { forward, IConnection } from 'vscode-ws-jsonrpc/lib/server';
 
 import { GLSPContribution } from '../common';

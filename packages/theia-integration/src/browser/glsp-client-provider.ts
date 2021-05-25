@@ -15,7 +15,7 @@
  ********************************************************************************/
 import { GLSPClient } from '@eclipse-glsp/protocol';
 import { ContributionProvider } from '@theia/core';
-import { inject, injectable, named } from 'inversify';
+import { inject, injectable, named } from '@theia/core/shared/inversify';
 
 import { GLSPClientContribution } from './glsp-client-contribution';
 

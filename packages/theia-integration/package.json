@@ -17,15 +17,22 @@
     "glsp",
     "diagram editor"
   ],
-  "homepage": "https://www.eclipse.org/glsp",
-  "bugs": "https://github.com/eclipse-glsp/glsp-theia-integration/issues",
   "author": {
-    "name": "EclipseSource"
+    "name": "Eclipse GLSP"
   },
+  "homepage": "https://www.eclipse.org/glsp/",
   "repository": {
     "type": "git",
     "url": "https://github.com/eclipse-glsp/glsp-theia-integration.git"
   },
+  "bugs": "https://github.com/eclipse-glsp/glsp/issues",
+  "contributors": [
+    {
+      "name": "Tobias Ortmayr",
+      "email": "tortmayr@eclipsesource.com",
+      "url": "https://www.eclipsesource.com"
+    }
+  ],
   "files": [
     "lib",
     "src",
@@ -42,10 +49,11 @@
     "typescript": "^3.9.2"
   },
   "scripts": {
-    "prepare": "yarn run clean && yarn run build",
+    "prepare": "yarn  clean && yarn  build",
     "clean": "rimraf lib",
-    "build": "tsc && yarn run lint",
+    "build": "tsc",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
+    "build:ci": "yarn clean && yarn build -o eslint.xml -f checkstyle",
     "watch": "tsc -w"
   },
   "theiaExtensions": [

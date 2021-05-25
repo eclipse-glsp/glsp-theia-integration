@@ -22,7 +22,7 @@ import {
 } from '@eclipse-glsp/theia-integration/lib/browser';
 import { CommandContribution, MenuContribution } from '@theia/core';
 import { KeybindingContext, KeybindingContribution } from '@theia/core/lib/browser';
-import { ContainerModule, interfaces } from 'inversify';
+import { ContainerModule, interfaces } from '@theia/core/shared/inversify';
 import { DiagramConfiguration } from 'sprotty-theia';
 
 import { WorkflowDiagramConfiguration } from './diagram/workflow-diagram-configuration';

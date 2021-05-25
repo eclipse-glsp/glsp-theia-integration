@@ -37,8 +37,8 @@ import { Message } from '@phosphor/messaging/lib';
 import { ApplicationShell, Saveable, SaveableSource, Widget } from '@theia/core/lib/browser';
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from '@theia/core/lib/common';
 import { SelectionService } from '@theia/core/lib/common/selection-service';
+import { Container } from '@theia/core/shared/inversify';
 import { EditorPreferences } from '@theia/editor/lib/browser';
-import { Container } from 'inversify';
 import { pickBy } from 'lodash';
 import { DiagramWidget, DiagramWidgetOptions, isDiagramWidgetContainer, TheiaSprottyConnector } from 'sprotty-theia';
 
@@ -159,9 +159,9 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         }));
     }
 
-    protected isThisWidget(widget: Widget | null): boolean {
+    protected isThisWidget(widget?: Widget | null): boolean {
         // eslint-disable-next-line no-null/no-null
-        if (widget === null) {
+        if (!widget || widget === null) {
             return false;
         }
         const diagramWidget = getDiagramWidget(widget);

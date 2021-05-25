@@ -15,7 +15,7 @@
  ********************************************************************************/
 import { bindContributionProvider, ConnectionHandler, ILogger, JsonRpcConnectionHandler } from '@theia/core/lib/common';
 import { MessagingService } from '@theia/core/lib/node/messaging/messaging-service';
-import { ContainerModule } from 'inversify';
+import { ContainerModule } from '@theia/core/shared/inversify';
 
 import { GLSPContribution } from '../common';
 import { GLSPBackendContribution } from './glsp-backend-contribution';

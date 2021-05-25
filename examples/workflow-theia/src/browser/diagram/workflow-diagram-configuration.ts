@@ -19,7 +19,7 @@ import { createWorkflowDiagramContainer } from '@eclipse-glsp-examples/workflow-
 import {
     GLSPTheiaDiagramConfiguration
 } from '@eclipse-glsp/theia-integration/lib/browser/diagram/glsp-theia-diagram-configuration';
-import { Container, injectable } from 'inversify';
+import { Container, injectable } from '@theia/core/shared/inversify';
 
 import { WorkflowLanguage } from '../../common/workflow-language';
 import { WorkflowDiagramServer } from './workflow-diagram-server';

@@ -46,21 +46,49 @@ pipeline {
     }
     
     stages {
-        stage('Build package') {
+        stage('Build') {
             steps {
                 timeout(30) {
                     container('node') {
-                        sh "yarn install --ignore-engines"
+                        sh "yarn build"
+                    }
+                }
+            }
+        }
+
+        stage('Codechecks (ESLint)'){
+            steps {
+                container('node') {
+                    timeout(30){
+                        sh "yarn lint -o eslint.xml -f checkstyle"                      
                     }
                 }
             }
         }
 
         stage('Deploy (master only)') {
-            when { branch 'master'}
+            when { 
+                allOf {
+                    branch 'master'
+                    expression {  
+                      /* Only trigger the deployment job if the changeset contains changes in 
+                      the `packages` or `examples/workflow-theia` directory */
+                      sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep --quiet "^packages\\|examples/workflow-theia"') == 0
+                    }
+                }
+            }
             steps {
                 build job: 'deploy-npm-glsp-theia-integration', wait: false
             }
+        }
+    }
+
+    post {
+        always {
+            // Record & publish ESLint issues
+            recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, 
+            tools: [esLint(pattern: 'node_modules/**/*/eslint.xml')], 
+            qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
         }
     }
 }

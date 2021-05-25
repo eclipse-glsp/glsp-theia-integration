@@ -15,7 +15,7 @@
  ********************************************************************************/
 import { GLSPDiagramWidget } from '@eclipse-glsp/theia-integration/lib/browser';
 import { ApplicationShell, KeybindingContext, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
-import { inject, injectable } from 'inversify';
+import { inject, injectable } from '@theia/core/shared/inversify';
 
 import { WorkflowLanguage } from '../../common/workflow-language';
 import { WorkflowNavigationCommands } from './workflow-navigation-context-menu';

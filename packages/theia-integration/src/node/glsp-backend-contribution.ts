@@ -15,7 +15,7 @@
  ********************************************************************************/
 import { ContributionProvider, ILogger } from '@theia/core/lib/common';
 import { MessagingService } from '@theia/core/lib/node/messaging/messaging-service';
-import { inject, injectable, named } from 'inversify';
+import { inject, injectable, named } from '@theia/core/shared/inversify';
 
 import { GLSPContribution } from '../common';
 import { GLSPServerContribution, GLSPServerLaunchOptions } from './glsp-server-contribution';

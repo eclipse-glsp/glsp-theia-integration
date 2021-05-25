@@ -16,8 +16,8 @@
 import { GLSPClient } from '@eclipse-glsp/protocol';
 import { CommandRegistry } from '@theia/core';
 import { ApplicationShell } from '@theia/core/lib/browser';
+import { inject, injectable } from '@theia/core/shared/inversify';
 import { EditorManager } from '@theia/editor/lib/browser';
-import { inject, injectable } from 'inversify';
 import { ActionMessage } from 'sprotty';
 
 import { GLSPClientContribution } from '../glsp-client-contribution';

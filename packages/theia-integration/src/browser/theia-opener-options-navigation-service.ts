@@ -15,8 +15,8 @@
  ********************************************************************************/
 import { NavigateToTargetAction, NavigationTarget } from '@eclipse-glsp/client/lib';
 import { OpenerOptions } from '@theia/core/lib/browser';
+import { injectable } from '@theia/core/shared/inversify';
 import { Range } from '@theia/editor/lib/browser';
-import { injectable } from 'inversify';
 
 /**
  * Service for translating `OpenerOptions` into a `NavigateToTargetAction`.

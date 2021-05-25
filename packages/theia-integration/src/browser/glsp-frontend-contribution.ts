@@ -15,7 +15,7 @@
  ********************************************************************************/
 import { ContributionProvider } from '@theia/core';
 import { FrontendApplication, FrontendApplicationContribution } from '@theia/core/lib/browser';
-import { inject, injectable, named } from 'inversify';
+import { inject, injectable, named } from '@theia/core/shared/inversify';
 
 import { GLSPClientContribution } from './glsp-client-contribution';
 

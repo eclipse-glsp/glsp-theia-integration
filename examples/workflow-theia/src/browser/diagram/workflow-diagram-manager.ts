@@ -20,8 +20,8 @@ import {
 } from '@eclipse-glsp/theia-integration/lib/browser';
 import { MessageService } from '@theia/core';
 import { WidgetManager } from '@theia/core/lib/browser';
+import { inject, injectable } from '@theia/core/shared/inversify';
 import { EditorManager } from '@theia/editor/lib/browser';
-import { inject, injectable } from 'inversify';
 import { TheiaFileSaver } from 'sprotty-theia';
 
 import { WorkflowLanguage } from '../../common/workflow-language';

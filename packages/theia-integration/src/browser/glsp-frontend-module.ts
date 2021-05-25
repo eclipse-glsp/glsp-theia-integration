@@ -15,8 +15,8 @@
  ********************************************************************************/
 import { bindContributionProvider } from '@theia/core';
 import { FrontendApplicationContribution, WebSocketConnectionProvider } from '@theia/core/lib/browser';
+import { ContainerModule } from '@theia/core/shared/inversify';
 import { NotificationManager } from '@theia/messages/lib/browser/notifications-manager';
-import { ContainerModule } from 'inversify';
 import { TheiaContextMenuService } from 'sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service';
 
 import { GLSPClientContribution, GLSPClientProvider, GLSPClientProviderImpl } from '.';

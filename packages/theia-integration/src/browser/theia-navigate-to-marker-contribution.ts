@@ -16,7 +16,7 @@
 import { collectIssueMarkers, NavigateToMarkerAction } from '@eclipse-glsp/client/lib';
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from '@theia/core';
 import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
-import { inject, injectable, interfaces } from 'inversify';
+import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
 import { DiagramKeybindingContext } from 'sprotty-theia';
 
 import { GLSPCommandHandler } from './diagram/glsp-command-handler';

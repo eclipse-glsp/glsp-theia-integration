@@ -15,7 +15,7 @@
  ********************************************************************************/
 import { Action, ExternalModelSourceChangedHandler, ViewerOptions } from '@eclipse-glsp/client';
 import { ApplicationShell, ConfirmDialog, Widget } from '@theia/core/lib/browser';
-import { inject, injectable } from 'inversify';
+import { inject, injectable } from '@theia/core/shared/inversify';
 
 import { getDiagramWidget } from './diagram/glsp-diagram-widget';
 
