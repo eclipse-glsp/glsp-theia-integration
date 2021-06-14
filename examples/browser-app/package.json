@@ -1,8 +1,9 @@
 {
   "private": true,
   "name": "browser-app",
-  "version": "0.9.0",
+  "version": "0.9.0-RC01",
   "dependencies": {
+    "@eclipse-glsp-examples/workflow-theia": "0.9.0-RC01",
     "@theia/core": "^1.0.0",
     "@theia/editor": "^1.0.0",
     "@theia/filesystem": "^1.0.0",
@@ -13,8 +14,7 @@
     "@theia/preferences": "^1.0.0",
     "@theia/process": "^1.0.0",
     "@theia/terminal": "^1.0.0",
-    "@theia/workspace": "^1.0.0",
-    "@eclipse-glsp-examples/workflow-theia": "0.9.0"
+    "@theia/workspace": "^1.0.0"
   },
   "devDependencies": {
     "@theia/cli": "^1.0.0"
