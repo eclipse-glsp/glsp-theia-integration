@@ -902,7 +902,7 @@
     autocompleter "5.1.0"
     sprotty next
 
-"@eclipse-glsp/protocol@0.9.0-next.e4ef6900", "@eclipse-glsp/protocol@next":
+"@eclipse-glsp/protocol@0.9.0-next.e4ef6900":
   version "0.9.0-next.e4ef6900"
   resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.9.0-next.e4ef6900.tgz#30f013822aaabc654bb7a683c9a5f67925f430e0"
   integrity sha512-rrWx52TywBMH6iCCCDhMt9zU/OF/OT3f1mVjggzkHBWCfGXc9ITShokxGsSVY9hoLN1Ap+JgdIEXTXaQLlbYvA==
