@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2020 EclipseSource and others.
+ * Copyright (c) 2019-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -16,7 +16,6 @@
 import {
     Args,
     DiagramServer,
-    DisposeClientSessionAction,
     EditorContextService,
     EnableToolPaletteAction,
     FocusStateChangedAction,
@@ -24,7 +23,6 @@ import {
     GLSP_TYPES,
     IActionDispatcher,
     ICopyPasteHandler,
-    InitializeClientSessionAction,
     ModelSource,
     RequestModelAction,
     RequestTypeHintsAction,
@@ -40,10 +38,11 @@ import { SelectionService } from '@theia/core/lib/common/selection-service';
 import { Container } from '@theia/core/shared/inversify';
 import { EditorPreferences } from '@theia/editor/lib/browser';
 import { pickBy } from 'lodash';
-import { DiagramWidget, DiagramWidgetOptions, isDiagramWidgetContainer, TheiaSprottyConnector } from 'sprotty-theia';
+import { DiagramWidget, DiagramWidgetOptions, isDiagramWidgetContainer } from 'sprotty-theia';
 
 import { GLSPWidgetOpenerOptions, GLSPWidgetOptions } from './glsp-diagram-manager';
 import { DirtyStateNotifier, GLSPTheiaDiagramServer } from './glsp-theia-diagram-server';
+import { TheiaGLSPConnector } from './theia-glsp-connector';
 
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
@@ -53,7 +52,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     protected requestModelOptions: Args;
 
     constructor(options: DiagramWidgetOptions & GLSPWidgetOpenerOptions, readonly widgetId: string, readonly diContainer: Container,
-        readonly editorPreferences: EditorPreferences, readonly theiaSelectionService: SelectionService, readonly connector?: TheiaSprottyConnector) {
+        readonly editorPreferences: EditorPreferences, readonly theiaSelectionService: SelectionService, readonly connector: TheiaGLSPConnector) {
         super(options, widgetId, diContainer, connector);
         this.saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
         this.updateSaveable();
@@ -61,7 +60,6 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         const prefUpdater = editorPreferences.onPreferenceChanged(() => this.updateSaveable());
         this.toDispose.push(prefUpdater);
         this.toDispose.push(this.saveable);
-        this.toDispose.push(Disposable.create(() => this.actionDispatcher.dispatch(new DisposeClientSessionAction(this.widgetId))));
     }
 
     protected updateSaveable(): void {
@@ -74,23 +72,27 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         if (modelSource instanceof DiagramServer) {
             modelSource.clientId = this.id;
         }
-        if (modelSource instanceof GLSPTheiaDiagramServer && this.connector) {
+        if (modelSource instanceof GLSPTheiaDiagramServer) {
             this.connector.connect(modelSource);
         }
 
         this.disposed.connect(() => {
-            if (modelSource instanceof GLSPTheiaDiagramServer && this.connector) {
+            if (modelSource instanceof GLSPTheiaDiagramServer) {
                 this.connector.disconnect(modelSource);
             }
         });
 
-        this.actionDispatcher.dispatch(new InitializeClientSessionAction(this.widgetId));
         // Filter options to only contain defined primitive values
         const definedOptions: any = pickBy(this.options, v => v !== undefined && typeof v !== 'object');
         this.requestModelOptions = {
             sourceUri: this.uri.path.toString(),
             ...definedOptions
         };
+
+        this.dispatchInitialActions();
+    }
+
+    protected dispatchInitialActions(): void {
         this.actionDispatcher.dispatch(new RequestModelAction(this.requestModelOptions));
         this.actionDispatcher.dispatch(new RequestTypeHintsAction(this.options.diagramType));
         this.actionDispatcher.dispatch(new EnableToolPaletteAction());

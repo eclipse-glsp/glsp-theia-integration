@@ -26,32 +26,23 @@ import {
     SourceUriAware
 } from '@eclipse-glsp/client';
 import { Emitter, Event } from '@theia/core/lib/common';
-import { inject, injectable, postConstruct } from '@theia/core/shared/inversify';
+import { injectable } from '@theia/core/shared/inversify';
 import { TheiaDiagramServer } from 'sprotty-theia';
 
-import { TheiaGLSPConnector } from './theia-glsp-connector';
+import { isTheiaGLSPConnector, TheiaGLSPConnector } from './theia-glsp-connector';
 
 const receivedFromServerProperty = '__receivedFromServer';
 
 @injectable()
 export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyStateNotifier, SourceUriAware {
 
-    @inject(TheiaGLSPConnector) protected readonly theiaConnector: TheiaGLSPConnector;
-
     readonly dirtyStateChangeEmitter: Emitter<DirtyState> = new Emitter<DirtyState>();
 
     protected dirtyState: DirtyState = { isDirty: false };
 
-    @postConstruct()
-    protected postConstruct(): void {
-        this.connect(this.theiaConnector);
-    }
-
     initialize(registry: ActionHandlerRegistry): void {
-        registry.register(SetDirtyStateAction.KIND, this);
-        registry.register(ServerMessageAction.KIND, this);
-        registry.register(ExportSvgAction.KIND, this);
         registerDefaultGLSPServerActions(registry, this);
+        registry.register(SetDirtyStateAction.KIND, this);
     }
 
     public getSourceURI(): string {
@@ -97,8 +88,18 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
     }
 
     protected handleServerMessageAction(status: ServerMessageAction): boolean {
-        this.theiaConnector.showMessage(this.clientId, status);
+        this.connector.showMessage(this.clientId, status);
         return false;
+    }
+
+    get connector(): TheiaGLSPConnector {
+        if (!this._connector) {
+            throw Error('TheiaDiagramServer is not connected.');
+        }
+        if (!isTheiaGLSPConnector(this._connector)) {
+            throw new Error('Connector needs to be a instance of "TheiaGLSPConnector');
+        }
+        return this._connector;
     }
 }
 export class SetDirtyStateAction implements Action {

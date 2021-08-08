@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ContainerContext, GLSPTheiaFrontendModule } from '@eclipse-glsp/theia-integration';
+import { ContainerContext, GLSPClientContribution, GLSPTheiaFrontendModule } from '@eclipse-glsp/theia-integration';
 import { CommandContribution, MenuContribution } from '@theia/core';
 import { KeybindingContext, KeybindingContribution } from '@theia/core/lib/browser';
 import { DiagramConfiguration } from 'sprotty-theia';
@@ -34,6 +34,7 @@ import {
     WorkflowTaskEditMenuContribution
 } from './diagram/workflow-task-editing-context-menu';
 import { ExampleNavigationCommandContribution } from './external-navigation-example/external-navigation-example';
+import { WorkflowGLSPClientContribution } from './workflow-glsp-client-contribution';
 
 export class WorkflowTheiaFrontendModule extends GLSPTheiaFrontendModule {
     protected enableCopyPaste = true;
@@ -59,6 +60,10 @@ export class WorkflowTheiaFrontendModule extends GLSPTheiaFrontendModule {
         context.bind(WorkflowDiagramReadonlyViewContribution).toSelf().inSingletonScope();
         context.bind(MenuContribution).toService(WorkflowDiagramReadonlyViewContribution);
         context.bind(CommandContribution).toService(WorkflowDiagramReadonlyViewContribution);
+    }
+
+    bindGLSPClientContribution(context: ContainerContext): void {
+        context.bind(GLSPClientContribution).to(WorkflowGLSPClientContribution);
     }
 
 }

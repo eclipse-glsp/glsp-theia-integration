@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { InstanceRegistry, ServerMessageAction } from '@eclipse-glsp/client';
+import { InitializeResult } from '@eclipse-glsp/protocol';
 import { injectable, multiInject, optional } from '@theia/core/shared/inversify';
 import { TheiaSprottyConnector } from 'sprotty-theia';
 
@@ -22,7 +23,14 @@ export const TheiaGLSPConnector = Symbol('TheiaGLSPConnector');
 export interface TheiaGLSPConnector extends TheiaSprottyConnector {
     readonly diagramType: string;
     readonly diagramManagerId: string;
+    readonly initializeResult: Promise<InitializeResult>;
     showMessage(widgetId: string, action: ServerMessageAction): void;
+}
+
+export function isTheiaGLSPConnector(connector?: TheiaSprottyConnector): connector is TheiaGLSPConnector {
+    return connector !== undefined && 'diagramType' in connector && typeof connector['diagramType'] === 'string'
+        && 'diagramManagerId' in connector && typeof connector['diagramManagerId'] === 'string' &&
+        'showMessage' in connector && typeof connector['showMessage'] === 'function';
 }
 
 @injectable()

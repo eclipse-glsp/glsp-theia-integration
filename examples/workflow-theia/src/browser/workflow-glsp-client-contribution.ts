@@ -13,22 +13,27 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import 'sprotty-theia/css/theia-sprotty.css';
+import { Args } from '@eclipse-glsp/client';
+import { MaybePromise } from '@eclipse-glsp/protocol';
+import { BaseGLSPClientContribution } from '@eclipse-glsp/theia-integration/lib/browser';
+import { injectable } from '@theia/core/shared/inversify';
 
-import { createWorkflowDiagramContainer } from '@eclipse-glsp-examples/workflow-glsp/lib';
-import { configureDiagramServer, GLSPDiagramConfiguration } from '@eclipse-glsp/theia-integration';
-import { Container, injectable } from '@theia/core/shared/inversify';
+import { WorkflowLanguage } from '../common/workflow-language';
 
-import { WorkflowLanguage } from '../../common/workflow-language';
-import { WorkflowDiagramServer } from './workflow-diagram-server';
+export interface WorkflowInitializeOptions {
+    timestamp: Date;
+    message: string;
+}
 
 @injectable()
-export class WorkflowDiagramConfiguration extends GLSPDiagramConfiguration {
-    diagramType: string = WorkflowLanguage.diagramType;
+export class WorkflowGLSPClientContribution extends BaseGLSPClientContribution {
+    readonly id = WorkflowLanguage.contributionId;
+    readonly fileExtensions = WorkflowLanguage.fileExtensions;
 
-    doCreateContainer(widgetId: string): Container {
-        const container = createWorkflowDiagramContainer(widgetId);
-        configureDiagramServer(container, WorkflowDiagramServer);
-        return container;
+    protected createInitializeOptions(): MaybePromise<Args | undefined> {
+        return {
+            ['timestamp']: new Date().toString(),
+            ['message']: 'Custom Options Available'
+        };
     }
 }

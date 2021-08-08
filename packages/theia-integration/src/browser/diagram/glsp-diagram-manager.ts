@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { EditMode, GLSPActionDispatcher } from '@eclipse-glsp/client';
+import { configureServerActions, EditMode, GLSPActionDispatcher } from '@eclipse-glsp/client';
 import {
     ApplicationShell,
     FrontendApplicationContribution,
@@ -81,8 +81,11 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     protected _diagramConnector: TheiaGLSPConnector;
 
     @postConstruct()
-    protected initialize(): void {
-        this.connectorProvider(this.diagramType).then(connector => this._diagramConnector = connector);
+    protected async initialize(): Promise<void> {
+        this._diagramConnector = await this.connectorProvider(this.diagramType);
+        if (!this._diagramConnector) {
+            throw new Error(`No diagram connector is registered for diagramType: ${this.diagramType}!`);
+        }
     }
 
     async doOpen(widget: DiagramWidget, options?: WidgetOpenerOptions): Promise<void> {
@@ -103,6 +106,8 @@ export abstract class GLSPDiagramManager extends DiagramManager {
             const widgetId = this.createWidgetId(options);
             const config = this.getDiagramConfiguration(options);
             const diContainer = config.createContainer(clientId);
+            const initializeResult = await this.diagramConnector.initializeResult;
+            await configureServerActions(initializeResult, this.diagramType, diContainer);
             const widget = new GLSPDiagramWidget(options, widgetId, diContainer, this.editorPreferences, this.theiaSelectionService, this.diagramConnector);
             widget.listenToFocusState(this.shell);
             return widget;
@@ -138,7 +143,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         return 0;
     }
 
-    get diagramConnector(): TheiaGLSPConnector | undefined {
+    get diagramConnector(): TheiaGLSPConnector {
         return this._diagramConnector;
     }
 
