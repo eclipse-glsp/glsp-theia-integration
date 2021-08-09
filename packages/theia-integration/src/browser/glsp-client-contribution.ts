@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (C) 2017-2020 TypeFox and others.
+ * Copyright (C) 2017-2021 TypeFox and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -50,8 +50,6 @@ export interface GLSPClientContribution extends GLSPContribution {
 export abstract class BaseGLSPClientContribution implements GLSPClientContribution {
 
     abstract readonly id: string;
-    abstract readonly name: string;
-    abstract readonly fileExtensions: string[];
 
     protected _glspClient: GLSPClient | undefined;
 
@@ -141,7 +139,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         this.ready.then(client => client.initializeServer(parameters)
             .then(success => {
                 if (!success) {
-                    this.messageService.error(`Failed to initialize ${this.name} glsp server with ${JSON.stringify(parameters)}`, 'Retry')
+                    this.messageService.error(`Failed to initialize ${this.id} glsp server with ${JSON.stringify(parameters)}`, 'Retry')
                         .then(retry => {
                             if (retry) {
                                 this.initialize();
@@ -205,10 +203,10 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
 
     protected createGLSPCLient(connectionProvider: ConnectionProvider): GLSPClient {
         return new TheiaJsonrpcGLSPClient({
-            name: this.name,
             id: this.id,
-            connectionProvider
-        }, this.messageService);
+            connectionProvider,
+            messageService: this.messageService
+        });
     }
 
     protected get workspaceContains(): string[] {
@@ -224,3 +222,4 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         return doesContain;
     }
 }
+

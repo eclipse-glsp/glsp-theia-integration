@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2020 EclipseSource and others.
+ * Copyright (c) 2019-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -22,43 +22,56 @@ import {
     ServerStatusAction
 } from '@eclipse-glsp/client';
 import { GLSPClient } from '@eclipse-glsp/protocol';
-import { MessageService } from '@theia/core';
+import { ContributionProvider, MessageService } from '@theia/core';
 import { ConfirmDialog, WidgetManager } from '@theia/core/lib/browser';
 import { Message, MessageType } from '@theia/core/lib/common';
+import { inject, injectable, named, postConstruct } from '@theia/core/shared/inversify';
 import { EditorManager } from '@theia/editor/lib/browser';
-import { DiagramManager, DiagramWidget, TheiaDiagramServer, TheiaFileSaver, TheiaSprottyConnector } from 'sprotty-theia';
+import { DiagramWidget, TheiaDiagramServer, TheiaFileSaver } from 'sprotty-theia';
 
-import { GLSPDiagramClient } from './glsp-diagram-client';
+import { GLSPClientContribution } from '../glsp-client-contribution';
+import { deriveDiagramManagerId } from './glsp-diagram-manager';
 import { GLSPMessageOptions, GLSPNotificationManager } from './glsp-notification-manager';
-
-export interface GLSPTheiaSprottyConnectorServices {
-    readonly diagramClient: GLSPDiagramClient;
-    readonly fileSaver: TheiaFileSaver;
-    readonly editorManager: EditorManager;
-    readonly widgetManager: WidgetManager;
-    readonly diagramManager: DiagramManager;
-    readonly messageService: MessageService;
-    readonly notificationManager: GLSPNotificationManager;
-}
+import { TheiaGLSPConnector } from './theia-glsp-connector';
 
 const SHOW_DETAILS_LABEL = 'Show details';
 
-export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPTheiaSprottyConnectorServices {
+@injectable()
+export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
+    @inject(TheiaFileSaver)
+    protected readonly fileSaver: TheiaFileSaver;
+
+    @inject(EditorManager)
+    protected readonly editorManager: EditorManager;
+
+    @inject(WidgetManager)
+    protected readonly widgetManager: WidgetManager;
+
+    @inject(MessageService)
+    protected readonly messageService: MessageService;
+
+    @inject(GLSPNotificationManager)
+    protected readonly notificationManager: GLSPNotificationManager;
+
+    @inject(ContributionProvider) @named(GLSPClientContribution)
+    protected readonly clientContributions: ContributionProvider<GLSPClientContribution>;
+
     private servers: Map<string, TheiaDiagramServer> = new Map;
     private widgetMessages: Map<string, string[]> = new Map;
     private widgetStatusTimeouts: Map<string, number> = new Map;
 
-    readonly diagramClient: GLSPDiagramClient;
-    readonly fileSaver: TheiaFileSaver;
-    readonly editorManager: EditorManager;
-    readonly widgetManager: WidgetManager;
-    readonly diagramManager: DiagramManager;
-    readonly messageService: MessageService;
-    readonly notificationManager: GLSPNotificationManager;
+    abstract readonly diagramType: string;
+    abstract readonly contributionId: string;
+    protected glspClientContribution: GLSPClientContribution;
 
-    constructor(services: GLSPTheiaSprottyConnectorServices) {
-        Object.assign(this, services);
-        this.diagramClient.connect(this);
+    @postConstruct()
+    protected initialize(): void {
+        const contributions = this.clientContributions.getContributions().filter(contribution => contribution.id === this.contributionId);
+        if (contributions.length === 0) {
+            throw new Error(`Could not retrieve GLSP client contribution with id '${this.contributionId}}'`);
+        }
+        this.glspClientContribution = contributions[0];
+        this.glspClientContribution.glspClient.then(client => client.onActionMessage(this.onMessageReceived.bind(this)));
     }
 
     connect(diagramServer: TheiaDiagramServer): void {
@@ -69,7 +82,6 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
     disconnect(diagramServer: TheiaDiagramServer): void {
         this.servers.delete(diagramServer.clientId);
         diagramServer.disconnect();
-        this.diagramClient.didClose(diagramServer.clientId);
     }
 
     save(uri: string, action: ExportSvgAction): void {
@@ -100,7 +112,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         }
 
         // update status
-        const widget = this.widgetManager.getWidgets(this.diagramManager.id).find(w => w.id === widgetId);
+        const widget = this.widgetManager.getWidgets(this.diagramManagerId).find(w => w.id === widgetId);
         if (widget instanceof DiagramWidget) {
             widget.setStatus(status);
         }
@@ -134,7 +146,7 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
     }
 
     protected showServerMessage(widgetId: string, action: ServerMessageAction): void {
-        const widget = this.widgetManager.getWidgets(this.diagramManager.id).find(w => w.id === widgetId);
+        const widget = this.widgetManager.getWidgets(this.diagramManagerId).find(w => w.id === widgetId);
         const uri = widget instanceof DiagramWidget ? widget.uri.toString() : '';
 
         const type = this.toMessageType(action.severity);
@@ -202,11 +214,11 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
     }
 
     sendMessage(message: ActionMessage): void {
-        this.diagramClient.sendThroughLsp(message);
+        this.glspClientContribution.glspClient.then(client => client.sendActionMessage(message));
     }
 
     getGLSPClient(): Promise<GLSPClient> {
-        return this.diagramClient.glspClient;
+        return this.glspClientContribution.glspClient;
     }
 
     onMessageReceived(message: ActionMessage): void {
@@ -214,6 +226,10 @@ export class GLSPTheiaSprottyConnector implements TheiaSprottyConnector, GLSPThe
         if (diagramServer) {
             diagramServer.messageReceived(message);
         }
+    }
+
+    get diagramManagerId(): string {
+        return deriveDiagramManagerId(this.diagramType);
     }
 }
 

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019 EclipseSource and others.
+ * Copyright (c) 2019-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,13 +15,15 @@
  ********************************************************************************/
 
 export * from 'sprotty-theia';
+export * from './copy-paste-context-menu-contribution';
 export * from './diagram';
 export * from './glsp-client-contribution';
 export * from './glsp-client-provider';
 export * from './glsp-frontend-contribution';
+export * from './glsp-theia-container-module';
 export * from './theia-command-palette';
-export * from './theia-copy-paste-context-menu-contribution';
-export * from './theia-navigate-to-marker-contribution';
-export * from './theia-navigate-to-external-target-handler';
-export * from './theia-opener-options-navigation-service';
 export * from './theia-model-source-changed-handler';
+export * from './theia-navigate-to-external-target-handler';
+export * from './theia-navigate-to-marker-contribution';
+export * from './theia-opener-options-navigation-service';
+

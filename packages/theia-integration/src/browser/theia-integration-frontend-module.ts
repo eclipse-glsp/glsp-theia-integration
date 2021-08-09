@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2020 EclipseSource and others.
+ * Copyright (c) 2019-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,27 +15,24 @@
  ********************************************************************************/
 import { bindContributionProvider } from '@theia/core';
 import { FrontendApplicationContribution, WebSocketConnectionProvider } from '@theia/core/lib/browser';
-import { ContainerModule } from '@theia/core/shared/inversify';
+import { ContainerModule, interfaces } from '@theia/core/shared/inversify';
 import { NotificationManager } from '@theia/messages/lib/browser/notifications-manager';
 import { TheiaContextMenuService } from 'sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service';
 
-import { GLSPClientContribution, GLSPClientProvider, GLSPClientProviderImpl } from '.';
 import { GLSPContribution } from '../common';
 import { GLSPDiagramContextKeyService } from './diagram/glsp-diagram-context-key-service';
+import { TheiaGLSPConnectorProvider } from './diagram/glsp-diagram-manager';
 import { GLSPNotificationManager } from './diagram/glsp-notification-manager';
-import { TheiaContextMenuServiceFactory } from './diagram/glsp-theia-context-menu-service';
-import { TheiaMarkerManager, TheiaMarkerManagerFactory } from './diagram/glsp-theia-marker-manager';
-import { GLSPTheiaSprottyConnector } from './diagram/glsp-theia-sprotty-connector';
+import { TheiaContextMenuServiceFactory } from './diagram/theia-context-menu-service';
+import { TheiaGLSPConnector, TheiaGLSPConnectorRegistry } from './diagram/theia-glsp-connector';
+import { TheiaMarkerManager, TheiaMarkerManagerFactory } from './diagram/theia-marker-manager';
+import { GLSPClientContribution } from './glsp-client-contribution';
+import { GLSPClientProvider, GLSPClientProviderImpl } from './glsp-client-provider';
 import { GLSPFrontendContribution } from './glsp-frontend-contribution';
 import { TheiaModelSourceChangedHandler } from './theia-model-source-changed-handler';
 import { TheiaOpenerOptionsNavigationService } from './theia-opener-options-navigation-service';
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
-
-    bind(GLSPContribution.Service).toDynamicValue(({ container }) =>
-        WebSocketConnectionProvider.createProxy(container, GLSPContribution.servicePath)
-    ).inSingletonScope();
-
     bindContributionProvider(bind, GLSPClientContribution);
     bind(GLSPFrontendContribution).toSelf().inSingletonScope();
     bind(FrontendApplicationContribution).toService(GLSPFrontendContribution);
@@ -43,13 +40,9 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(GLSPClientProviderImpl).toSelf().inSingletonScope();
     bind(GLSPClientProvider).toService(GLSPClientProviderImpl);
 
-    bind(GLSPTheiaSprottyConnector).toSelf().inSingletonScope();
-
-    bind(TheiaContextMenuServiceFactory).toFactory(context => () => {
-        const container = context.container.createChild();
-        container.bind(TheiaContextMenuService).toSelf().inSingletonScope();
-        return container.get(TheiaContextMenuService);
-    });
+    bind(GLSPContribution.Service).toDynamicValue(({ container }) =>
+        WebSocketConnectionProvider.createProxy(container, GLSPContribution.servicePath)
+    ).inSingletonScope();
 
     bind(GLSPNotificationManager).toSelf().inSingletonScope();
     if (isBound(NotificationManager)) {
@@ -58,13 +51,31 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
         bind(NotificationManager).toService(GLSPNotificationManager);
     }
 
+    bind(GLSPDiagramContextKeyService).toSelf().inSingletonScope();
+    bind(TheiaOpenerOptionsNavigationService).toSelf().inSingletonScope();
+    bind(TheiaModelSourceChangedHandler).toSelf().inSingletonScope();
+
+    bind(TheiaContextMenuServiceFactory).toFactory(context => () => {
+        const container = context.container.createChild();
+        container.bind(TheiaContextMenuService).toSelf().inSingletonScope();
+        return container.get(TheiaContextMenuService);
+    });
+
     bind(TheiaMarkerManagerFactory).toFactory(context => () => {
         const container = context.container.createChild();
         container.bind(TheiaMarkerManager).toSelf().inSingletonScope();
         return container.get(TheiaMarkerManager);
     });
 
-    bind(GLSPDiagramContextKeyService).toSelf().inSingletonScope();
-    bind(TheiaOpenerOptionsNavigationService).toSelf().inSingletonScope();
-    bind(TheiaModelSourceChangedHandler).toSelf().inSingletonScope();
+    bind(TheiaGLSPConnectorProvider).toProvider(theiaGLSPConnectorProviderCreator);
+    bind(TheiaGLSPConnectorRegistry).toSelf().inSingletonScope();
+
 });
+
+const theiaGLSPConnectorProviderCreator: interfaces.ProviderCreator<TheiaGLSPConnector> =
+    (context: interfaces.Context) => (diagramType: string) => new Promise<TheiaGLSPConnector>(resolve => {
+        const registry = context.container.get(TheiaGLSPConnectorRegistry);
+        const connector = registry.get(diagramType);
+        resolve(connector);
+    });
+

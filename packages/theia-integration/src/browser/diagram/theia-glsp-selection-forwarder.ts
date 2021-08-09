@@ -28,7 +28,7 @@ export function isGlspSelection(selection?: any): selection is GlspSelection {
 }
 
 @injectable()
-export class GlspTheiaSelectionForwarder extends TheiaSprottySelectionForwarder {
+export class TheiaGLSPSelectionForwarder extends TheiaSprottySelectionForwarder {
 
     @inject(GlspSelectionDataService) @optional() protected readonly selectionDataService?: GlspSelectionDataService;
 

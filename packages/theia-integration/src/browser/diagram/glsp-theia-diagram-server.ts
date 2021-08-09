@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019 EclipseSource and others.
+ * Copyright (c) 2019-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -26,19 +26,26 @@ import {
     SourceUriAware
 } from '@eclipse-glsp/client';
 import { Emitter, Event } from '@theia/core/lib/common';
-import { injectable } from '@theia/core/shared/inversify';
+import { inject, injectable, postConstruct } from '@theia/core/shared/inversify';
 import { TheiaDiagramServer } from 'sprotty-theia';
 
-import { GLSPTheiaSprottyConnector } from './glsp-theia-sprotty-connector';
+import { TheiaGLSPConnector } from './theia-glsp-connector';
 
 const receivedFromServerProperty = '__receivedFromServer';
 
 @injectable()
 export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyStateNotifier, SourceUriAware {
 
+    @inject(TheiaGLSPConnector) protected readonly theiaConnector: TheiaGLSPConnector;
+
     readonly dirtyStateChangeEmitter: Emitter<DirtyState> = new Emitter<DirtyState>();
 
     protected dirtyState: DirtyState = { isDirty: false };
+
+    @postConstruct()
+    protected postConstruct(): void {
+        this.connect(this.theiaConnector);
+    }
 
     initialize(registry: ActionHandlerRegistry): void {
         registry.register(SetDirtyStateAction.KIND, this);
@@ -90,7 +97,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
     }
 
     protected handleServerMessageAction(status: ServerMessageAction): boolean {
-        (this.connector as GLSPTheiaSprottyConnector).showMessage(this.clientId, status);
+        this.theiaConnector.showMessage(this.clientId, status);
         return false;
     }
 }

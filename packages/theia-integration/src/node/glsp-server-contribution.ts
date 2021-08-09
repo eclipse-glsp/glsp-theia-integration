@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (C) 2017-2020 TypeFox and others.
+ * Copyright (C) 2017-2021 TypeFox and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -116,7 +116,6 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
     @inject(RawProcessFactory) protected readonly processFactory: RawProcessFactory;
     @inject(ProcessManager) protected readonly processManager: ProcessManager;
     abstract readonly id: string;
-    abstract readonly name: string;
     launchOptions: GLSPServerLaunchOptions = GLSPServerLaunchOptions.createDefaultOptions();
 
     abstract connect(clientConnection: IConnection): void;
@@ -163,13 +162,13 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
 
     protected processLogError(data: string | Buffer): void {
         if (data) {
-            console.error(`${this.name}: ${data}`);
+            console.error(`${this.id}: ${data}`);
         }
     }
 
     protected processLogInfo(data: string | Buffer): void {
         if (data) {
-            console.info(`${this.name}: ${data}`);
+            console.info(`${this.id}: ${data}`);
         }
     }
 }

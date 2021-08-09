@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2020 EclipseSource and others.
+ * Copyright (c) 2019-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -24,7 +24,7 @@ import {
 } from '@theia/core/lib/browser';
 import { SelectionService } from '@theia/core/lib/common/selection-service';
 import URI from '@theia/core/lib/common/uri';
-import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
+import { inject, injectable, interfaces, postConstruct } from '@theia/core/shared/inversify';
 import { EditorPreferences } from '@theia/editor/lib/browser';
 import {
     DiagramConfiguration,
@@ -37,18 +37,24 @@ import {
 import { TheiaOpenerOptionsNavigationService } from '../theia-opener-options-navigation-service';
 import { GLSPDiagramContextKeyService } from './glsp-diagram-context-key-service';
 import { GLSPDiagramWidget } from './glsp-diagram-widget';
-import { GLSPTheiaSprottyConnector } from './glsp-theia-sprotty-connector';
+import { TheiaGLSPConnector } from './theia-glsp-connector';
 
-export function registerDiagramManager(bind: interfaces.Bind, diagramManagerServiceId: interfaces.ServiceIdentifier<DiagramManager>): void {
-    bind(diagramManagerServiceId).toSelf().inSingletonScope();
+export function registerDiagramManager(bind: interfaces.Bind, diagramManagerServiceId: interfaces.ServiceIdentifier<DiagramManager>, bindToSelf = true): void {
+    if (bindToSelf) {
+        bind(diagramManagerServiceId).toSelf().inSingletonScope();
+    }
+    bind(DiagramManager).toService(diagramManagerServiceId);
     bind(FrontendApplicationContribution).toService(diagramManagerServiceId);
     bind(OpenHandler).toService(diagramManagerServiceId);
     bind(WidgetFactory).toService(diagramManagerServiceId);
     bind(DiagramManagerProvider).toProvider<DiagramManager>(context => () => new Promise<DiagramManager>(resolve => {
         resolve(context.container.get(diagramManagerServiceId));
     }));
-}
 
+}
+export const TheiaGLSPConnectorProvider = Symbol('TheiaGLSPConnectorProvider');
+
+export type TheiaGLSPConnectorProvider = (diagramType: string) => Promise<TheiaGLSPConnector>;
 @injectable()
 export abstract class GLSPDiagramManager extends DiagramManager {
 
@@ -67,7 +73,17 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     @inject(SelectionService)
     theiaSelectionService: SelectionService;
 
+    @inject(TheiaGLSPConnectorProvider)
+    protected readonly connectorProvider: TheiaGLSPConnectorProvider;
+
     abstract get fileExtensions(): string[];
+
+    protected _diagramConnector: TheiaGLSPConnector;
+
+    @postConstruct()
+    protected initialize(): void {
+        this.connectorProvider(this.diagramType).then(connector => this._diagramConnector = connector);
+    }
 
     async doOpen(widget: DiagramWidget, options?: WidgetOpenerOptions): Promise<void> {
         await super.doOpen(widget);
@@ -122,15 +138,27 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         return 0;
     }
 
-    get diagramConnector(): GLSPTheiaSprottyConnector | undefined {
-        return undefined;
+    get diagramConnector(): TheiaGLSPConnector | undefined {
+        return this._diagramConnector;
     }
-}
 
+    get id(): string {
+        return deriveDiagramManagerId(this.diagramType);
+    }
+
+    get iconClass(): string {
+        return 'fa fa-project-diagram';
+    }
+
+}
 export interface GLSPWidgetOpenerOptions extends WidgetOpenerOptions {
     editMode?: string;
 }
 
 export interface GLSPWidgetOptions extends NavigatableWidgetOptions {
     editMode: string;
+}
+
+export function deriveDiagramManagerId(diagramType: string): string {
+    return diagramType + '-diagram-manager';
 }

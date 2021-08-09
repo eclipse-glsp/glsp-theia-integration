@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -17,6 +17,11 @@ import { Message, MessageOptions } from '@theia/core/lib/common';
 import { NotificationManager } from '@theia/messages/lib/browser/notifications-manager';
 import { Md5 } from 'ts-md5';
 
+/**
+ *  A customized notification manager that can properly handle GLSP messages.
+ *  For GLSP messages the file uri needs to be considered when generating the message id
+ *  to derive the editor widget for which this message is intended.
+ */
 export class GLSPNotificationManager extends NotificationManager {
     public getMessageId(message: Message): string {
         const options = message.options;

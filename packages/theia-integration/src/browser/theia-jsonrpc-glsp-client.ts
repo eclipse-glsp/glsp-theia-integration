@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -19,27 +19,41 @@ import { Message } from 'vscode-jsonrpc';
 
 export class TheiaJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
 
-    constructor(options: JsonrpcGLSPClient.Options, protected readonly messageService: MessageService) {
+    protected messageService: MessageService;
+
+    constructor(options: TheiaJsonrpcGLSPClient.Options) {
         super(options);
+        this.messageService = options.messageService;
     }
 
     protected handleConnectionError(error: Error, message: Message, count: number): void {
         super.handleConnectionError(error, message, count);
-        this.messageService.error(`Connection the ${this.name} glsp server is erroring. Shutting down server.`);
+        this.messageService.error(`Connection the ${this.id} glsp server is erroring. Shutting down server.`);
     }
 
     protected handleConnectionClosed(): void {
         if (this.state !== ClientState.Stopping && this.state !== ClientState.Stopped) {
-            this.messageService.error(`Connection to the ${this.name} glsp server got closed. Server will not be restarted.`);
+            this.messageService.error(`Connection to the ${this.id} glsp server got closed. Server will not be restarted.`);
         }
         super.handleConnectionClosed();
     }
 
     protected checkConnectionState(): boolean {
         if (this.state === ClientState.ServerError) {
-            this.messageService.error(`Could not establish connection to ${this.name} glsp server. Maybe the server has been shutdown due to a previous error.`);
+            this.messageService.error(`Could not establish connection to ${this.id} glsp server. Maybe the server has been shutdown due to a previous error.`);
         }
         return super.checkConnectionState();
     }
 
+}
+
+// eslint-disable-next-line no-redeclare
+export namespace TheiaJsonrpcGLSPClient {
+    export interface Options extends JsonrpcGLSPClient.Options {
+        messageService: MessageService;
+    }
+
+    export function isOptions(object: any): object is Options {
+        return JsonrpcGLSPClient.isOptions(object) && 'messageService' in object;
+    }
 }

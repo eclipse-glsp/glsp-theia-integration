@@ -13,12 +13,22 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { GLSPDiagramLanguage } from '@eclipse-glsp/theia-integration/lib/common';
+import { InstanceRegistry, ServerMessageAction } from '@eclipse-glsp/client';
+import { injectable, multiInject, optional } from '@theia/core/shared/inversify';
+import { TheiaSprottyConnector } from 'sprotty-theia';
 
-export const WorkflowLanguage: GLSPDiagramLanguage = {
-    contributionId: 'workflow',
-    label: 'Workflow diagram',
-    diagramType: 'workflow-diagram',
-    fileExtensions: ['.wf'],
-    iconClass: 'fa fa-project-diagram'
-};
+export const TheiaGLSPConnector = Symbol('TheiaGLSPConnector');
+
+export interface TheiaGLSPConnector extends TheiaSprottyConnector {
+    readonly diagramType: string;
+    readonly diagramManagerId: string;
+    showMessage(widgetId: string, action: ServerMessageAction): void;
+}
+
+@injectable()
+export class TheiaGLSPConnectorRegistry extends InstanceRegistry<TheiaGLSPConnector> {
+    constructor(@multiInject(TheiaGLSPConnector) @optional() connectors: TheiaGLSPConnector[]) {
+        super();
+        connectors.forEach(connector => this.register(connector.diagramType, connector));
+    }
+}
