@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { EditMode } from '@eclipse-glsp/client';
-import { GLSPWidgetOpenerOptions } from '@eclipse-glsp/theia-integration/lib/browser';
+import { GLSPWidgetOpenerOptions } from '@eclipse-glsp/theia-integration';
 import {
     Command,
     CommandContribution,

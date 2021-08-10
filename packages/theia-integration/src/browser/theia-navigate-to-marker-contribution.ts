@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -19,8 +19,7 @@ import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from '@t
 import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
 import { DiagramKeybindingContext } from 'sprotty-theia';
 
-import { GLSPCommandHandler } from './diagram/glsp-command-handler';
-import { GLSPContextMenu } from './diagram/glsp-theia-context-menu-service';
+import { GLSPCommandHandler, GLSPContextMenu } from './diagram';
 
 export function registerMarkerNavigationCommands(bind: interfaces.Bind): void {
     bind(CommandContribution).to(NavigateToMarkerCommandContribution);

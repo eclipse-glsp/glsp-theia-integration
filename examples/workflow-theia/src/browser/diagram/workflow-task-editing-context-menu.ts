@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -16,7 +16,7 @@
 import { TaskEditor } from '@eclipse-glsp-examples/workflow-glsp/lib/direct-task-editing/direct-task-editor';
 import { isTaskNode } from '@eclipse-glsp-examples/workflow-glsp/lib/model';
 import { SetUIExtensionVisibilityAction } from '@eclipse-glsp/client';
-import { GLSPCommandHandler, GLSPContextMenu } from '@eclipse-glsp/theia-integration/lib/browser';
+import { GLSPCommandHandler, GLSPContextMenu } from '@eclipse-glsp/theia-integration';
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from '@theia/core';
 import { ApplicationShell } from '@theia/core/lib/browser';
 import { inject, injectable } from '@theia/core/shared/inversify';

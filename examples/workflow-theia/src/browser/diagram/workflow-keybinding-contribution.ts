@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { GLSPDiagramWidget } from '@eclipse-glsp/theia-integration/lib/browser';
+import { GLSPDiagramWidget } from '@eclipse-glsp/theia-integration';
 import { ApplicationShell, KeybindingContext, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
 import { inject, injectable } from '@theia/core/shared/inversify';
 
@@ -27,7 +27,7 @@ export class WorkflowDiagramKeybindingContext implements KeybindingContext {
     @inject(ApplicationShell) protected readonly shell: ApplicationShell;
     isEnabled(): boolean {
         return this.shell.activeWidget instanceof GLSPDiagramWidget
-            && this.shell.activeWidget.diagramType === WorkflowLanguage.DiagramType;
+            && this.shell.activeWidget.diagramType === WorkflowLanguage.diagramType;
     }
 }
 

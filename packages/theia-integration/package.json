@@ -57,13 +57,12 @@
   },
   "theiaExtensions": [
     {
-      "frontend": "lib/browser/glsp-frontend-module",
-      "backend": "lib/node/glsp-backend-module"
+      "frontend": "lib/browser/theia-integration-frontend-module",
+      "backend": "lib/node/theia-integration-backend-module"
     }
   ],
   "publishConfig": {
     "access": "public"
   },
-  "main": "lib/index",
-  "types": "lib/index"
+  "main": "lib/browser/index"
 }

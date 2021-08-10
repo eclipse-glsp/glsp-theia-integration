@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -28,18 +28,20 @@ import { DiagramConfiguration, TheiaContextMenuService, TheiaDiagramServer } fro
 import { TheiaCommandPalette } from '../theia-command-palette';
 import { TheiaModelSourceChangedHandler } from '../theia-model-source-changed-handler';
 import { TheiaNavigateToExternalTargetHandler } from '../theia-navigate-to-external-target-handler';
-import { connectTheiaContextMenuService, TheiaContextMenuServiceFactory } from './glsp-theia-context-menu-service';
-import { connectTheiaMarkerManager, TheiaMarkerManager, TheiaMarkerManagerFactory } from './glsp-theia-marker-manager';
-import { GlspTheiaSelectionForwarder } from './glsp-theia-selection-forwarder';
+import { connectTheiaContextMenuService, TheiaContextMenuServiceFactory } from './theia-context-menu-service';
+import { TheiaGLSPConnector, TheiaGLSPConnectorRegistry } from './theia-glsp-connector';
+import { TheiaGLSPSelectionForwarder } from './theia-glsp-selection-forwarder';
+import { connectTheiaMarkerManager, TheiaMarkerManager, TheiaMarkerManagerFactory } from './theia-marker-manager';
 
 @injectable()
-export abstract class GLSPTheiaDiagramConfiguration implements DiagramConfiguration {
+export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
     @inject(SelectionService) protected selectionService: SelectionService;
     @inject(OpenerService) protected openerService: OpenerService;
     @inject(CommandService) protected readonly commandService: CommandService;
     @inject(TheiaModelSourceChangedHandler) protected modelSourceChangedHandler: TheiaModelSourceChangedHandler;
     @inject(TheiaContextMenuServiceFactory) protected readonly contextMenuServiceFactory: () => TheiaContextMenuService;
     @inject(TheiaMarkerManagerFactory) protected readonly theiaMarkerManager: () => TheiaMarkerManager;
+    @inject(TheiaGLSPConnectorRegistry) protected readonly connectorRegistry: TheiaGLSPConnectorRegistry;
 
     abstract readonly diagramType: string;
 
@@ -52,7 +54,8 @@ export abstract class GLSPTheiaDiagramConfiguration implements DiagramConfigurat
     abstract doCreateContainer(widgetId: string): Container;
 
     protected initializeContainer(container: Container): void {
-        container.bind(TYPES.IActionHandlerInitializer).to(GlspTheiaSelectionForwarder);
+        container.bind(TheiaGLSPConnector).toConstantValue(this.connectorRegistry.get(this.diagramType));
+        container.bind(TYPES.IActionHandlerInitializer).to(TheiaGLSPSelectionForwarder);
         container.bind(SelectionService).toConstantValue(this.selectionService);
         container.bind(OpenerService).toConstantValue(this.openerService);
         container.bind(CommandService).toConstantValue(this.commandService);
@@ -71,3 +74,4 @@ export abstract class GLSPTheiaDiagramConfiguration implements DiagramConfigurat
         container.bind(TheiaDiagramServer).toService(server);
     }
 }
+

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2020 EclipseSource and others.
+ * Copyright (c) 2019-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -27,8 +27,7 @@ export const JAR_FILE = resolve(join(SERVER_DIR, 'org.eclipse.glsp.example.workf
 
 @injectable()
 export class WorkflowGLServerContribution extends JavaSocketServerContribution {
-    readonly id = WorkflowLanguage.Id;
-    readonly name = WorkflowLanguage.Name;
+    readonly id = WorkflowLanguage.contributionId;
 
     createLaunchOptions(): Partial<JavaSocketServerLaunchOptions> {
         return {

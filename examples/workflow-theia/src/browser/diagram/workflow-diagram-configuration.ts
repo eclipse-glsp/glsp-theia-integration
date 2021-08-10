@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019 EclipseSource and others.
+ * Copyright (c) 2019-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -16,17 +16,15 @@
 import 'sprotty-theia/css/theia-sprotty.css';
 
 import { createWorkflowDiagramContainer } from '@eclipse-glsp-examples/workflow-glsp/lib';
-import {
-    GLSPTheiaDiagramConfiguration
-} from '@eclipse-glsp/theia-integration/lib/browser/diagram/glsp-theia-diagram-configuration';
+import { GLSPDiagramConfiguration } from '@eclipse-glsp/theia-integration';
 import { Container, injectable } from '@theia/core/shared/inversify';
 
 import { WorkflowLanguage } from '../../common/workflow-language';
 import { WorkflowDiagramServer } from './workflow-diagram-server';
 
 @injectable()
-export class WorkflowDiagramConfiguration extends GLSPTheiaDiagramConfiguration {
-    diagramType: string = WorkflowLanguage.DiagramType;
+export class WorkflowDiagramConfiguration extends GLSPDiagramConfiguration {
+    diagramType: string = WorkflowLanguage.diagramType;
 
     doCreateContainer(widgetId: string): Container {
         const container = createWorkflowDiagramContainer(widgetId);
