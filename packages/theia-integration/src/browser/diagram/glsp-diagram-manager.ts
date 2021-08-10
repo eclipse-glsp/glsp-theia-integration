@@ -50,8 +50,8 @@ export function registerDiagramManager(bind: interfaces.Bind, diagramManagerServ
     bind(DiagramManagerProvider).toProvider<DiagramManager>(context => () => new Promise<DiagramManager>(resolve => {
         resolve(context.container.get(diagramManagerServiceId));
     }));
-
 }
+
 export const TheiaGLSPConnectorProvider = Symbol('TheiaGLSPConnectorProvider');
 
 export type TheiaGLSPConnectorProvider = (diagramType: string) => Promise<TheiaGLSPConnector>;
@@ -149,8 +149,8 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     get iconClass(): string {
         return 'fa fa-project-diagram';
     }
-
 }
+
 export interface GLSPWidgetOpenerOptions extends WidgetOpenerOptions {
     editMode?: string;
 }

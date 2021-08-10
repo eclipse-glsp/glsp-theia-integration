@@ -169,7 +169,6 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
     configureDiagramLayoutCommands(context: ContainerContext): void {
         if (this.enableLayoutCommands) {
             registerDiagramLayoutCommands(context.bind);
-
         }
     }
 
@@ -183,7 +182,6 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
     configureCopyPasteContextMenu(context: ContainerContext): void {
         if (this.enableCopyPaste) {
             registerCopyPasteContextMenu(context.bind);
-
         }
     }
 
@@ -197,7 +195,6 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
     configureMarkerNavigationCommands(context: ContainerContext): void {
         if (this.enableMarkerNavigationCommands) {
             registerMarkerNavigationCommands(context.bind);
-
         }
     }
 }
@@ -302,4 +299,3 @@ class ConfigurableGLSPClientContribution extends BaseGLSPClientContribution {
         this.initialize();
     }
 }
-
