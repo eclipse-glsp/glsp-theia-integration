@@ -47,6 +47,7 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
 
     createContainer(widgetId: string): Container {
         const container = this.doCreateContainer(widgetId);
+
         this.initializeContainer(container);
         return container;
     }
@@ -69,9 +70,11 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
         configureActionHandler(container, NavigateToExternalTargetAction.KIND, TheiaNavigateToExternalTargetHandler);
     }
 
-    protected configureDiagramServer<T>(container: Container, server: { new(...args: any[]): T }): void {
-        container.bind(TYPES.ModelSource).to(server).inSingletonScope();
-        container.bind(TheiaDiagramServer).toService(server);
-    }
+}
+
+export function configureDiagramServer<T>(container: Container, server: { new(...args: any[]): T }): void {
+    container.bind(server).toSelf().inSingletonScope();
+    container.bind(TYPES.ModelSource).toService(server);
+    container.bind(TheiaDiagramServer).toService(server);
 }
 

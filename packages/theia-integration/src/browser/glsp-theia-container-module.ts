@@ -253,9 +253,9 @@ class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
         this.initialize();
     }
 
-    protected initialize(): void {
+    protected async initialize(): Promise<void> {
         if (this._diagramType) {
-            super.initialize();
+            return super.initialize();
         }
     }
 
@@ -277,7 +277,7 @@ class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
 
 /**
  * Internal class that is used in {@link GLSPTheiaFrontendModule.bindGLSPClientContribution} to
- * bind a default implementation for {@link GLSPClientContribution}. A custom {@link GLSPClientContribution} connector should
+ * bind a default implementation for {@link GLSPClientContribution}. A custom {@link GLSPClientContribution}  should
  * never extend this class. Use {@link BaseGLSPClientContribution} instead.
  */
 @injectable()
@@ -296,6 +296,5 @@ class ConfigurableGLSPClientContribution extends BaseGLSPClientContribution {
             throw new Error(`A value for id has already been set. Cannot set new value'${value}'`);
         }
         this._id = value;
-        this.initialize();
     }
 }

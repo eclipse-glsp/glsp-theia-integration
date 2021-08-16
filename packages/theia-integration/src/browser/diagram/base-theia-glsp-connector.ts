@@ -21,7 +21,7 @@ import {
     ServerMessageAction,
     ServerStatusAction
 } from '@eclipse-glsp/client';
-import { GLSPClient } from '@eclipse-glsp/protocol';
+import { GLSPClient, InitializeResult } from '@eclipse-glsp/protocol';
 import { ContributionProvider, MessageService } from '@theia/core';
 import { ConfirmDialog, WidgetManager } from '@theia/core/lib/browser';
 import { Message, MessageType } from '@theia/core/lib/common';
@@ -76,11 +76,13 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
 
     connect(diagramServer: TheiaDiagramServer): void {
         this.servers.set(diagramServer.clientId, diagramServer);
+        this.glspClient.then(client => client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType: this.diagramType }));
         diagramServer.connect(this);
     }
 
     disconnect(diagramServer: TheiaDiagramServer): void {
         this.servers.delete(diagramServer.clientId);
+        this.glspClient.then(client => client.disposeClientSession({ clientSessionId: diagramServer.clientId }));
         diagramServer.disconnect();
     }
 
@@ -214,11 +216,15 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
     }
 
     sendMessage(message: ActionMessage): void {
-        this.glspClientContribution.glspClient.then(client => client.sendActionMessage(message));
+        this.glspClient.then(client => client.sendActionMessage(message));
     }
 
-    getGLSPClient(): Promise<GLSPClient> {
+    get glspClient(): Promise<GLSPClient> {
         return this.glspClientContribution.glspClient;
+    }
+
+    get initializeResult(): Promise<InitializeResult> {
+        return this.glspClientContribution.initializeResult;
     }
 
     onMessageReceived(message: ActionMessage): void {
