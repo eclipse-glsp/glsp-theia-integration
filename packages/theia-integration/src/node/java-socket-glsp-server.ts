@@ -24,8 +24,8 @@ export const START_UP_COMPLETE_MSG = '[GLSP-Server]:Startup completed';
 export interface JavaSocketServerLaunchOptions extends GLSPServerLaunchOptions {
     /** Path to the location of the jar file that should be launched as process */
     jarPath: string;
-    /** Port on which the server should listen for new client connections */
-    serverPort: number;
+    /** Socket connection options for new client connections */
+    socketConnectionOptions: net.TcpSocketConnectOpts;
     /** Additional arguments that should be passed when starting the server process. */
     additionalArgs?: string[];
 }
@@ -36,7 +36,9 @@ export namespace JavaSocketServerLaunchOptions {
         return {
             ...GLSPServerLaunchOptions.createDefaultOptions(),
             jarPath: '',
-            serverPort: NaN
+            socketConnectionOptions: {
+                port: NaN
+            }
         } as JavaSocketServerLaunchOptions;
     }
 
@@ -79,14 +81,15 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
     connect(clientConnection: IConnection): void {
         this.connectToSocketServer(clientConnection);
     }
+
     async launch(): Promise<void> {
         if (!fs.existsSync(this.launchOptions.jarPath)) {
-            throw Error(`Could not launch GLSP server. The given jar path is not valid: ${this.launchOptions.jarPath}`);
+            throw new Error(`Could not launch GLSP server. The given jar path is not valid: ${this.launchOptions.jarPath}`);
         }
-        if (isNaN(this.launchOptions.serverPort)) {
-            throw new Error(`Could not launch GLSP Server. The given server port is not a number: ${this.launchOptions.serverPort}`);
+        if (isNaN(this.launchOptions.socketConnectionOptions.port)) {
+            throw new Error(`Could not launch GLSP Server. The given server port is not a number: ${this.launchOptions.socketConnectionOptions.port}`);
         }
-        let args = ['-jar', this.launchOptions.jarPath, '--port', `${this.launchOptions.serverPort}`];
+        let args = ['-jar', this.launchOptions.jarPath, '--port', `${this.launchOptions.socketConnectionOptions.port}`];
         if (this.launchOptions.additionalArgs) {
             args = [...args, ...this.launchOptions.additionalArgs];
         }
@@ -109,15 +112,14 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
     }
 
     protected connectToSocketServer(clientConnection: IConnection): void {
-        if (isNaN(this.launchOptions.serverPort)) {
-            throw new Error(`Could not connect to to GLSP Server. The given server port is not a number: ${this.launchOptions.serverPort}`);
+        if (isNaN(this.launchOptions.socketConnectionOptions.port)) {
+            throw new Error(`Could not connect to to GLSP Server. The given server port is not a number: ${this.launchOptions.socketConnectionOptions.port}`);
         }
         const socket = new net.Socket();
         const serverConnection = createSocketConnection(socket, socket, () => {
             socket.destroy();
         });
         this.forward(clientConnection, serverConnection);
-        socket.connect(this.launchOptions.serverPort);
+        socket.connect(this.launchOptions.socketConnectionOptions);
     }
 }
-
