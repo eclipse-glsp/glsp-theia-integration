@@ -35,7 +35,9 @@ export class WorkflowGLServerContribution extends JavaSocketServerContribution {
             additionalArgs: ['--consoleLog', 'false',
                 '--fileLog', 'true',
                 '--logDir', SERVER_DIR],
-            serverPort: getPort(PORT_ARG_KEY, DEFAULT_PORT)
+            socketConnectionOptions: {
+                port: getPort(PORT_ARG_KEY, DEFAULT_PORT)
+            }
         };
     }
 }
