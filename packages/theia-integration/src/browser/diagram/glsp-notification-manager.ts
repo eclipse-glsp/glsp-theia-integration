@@ -15,6 +15,7 @@
  ********************************************************************************/
 import { Message, MessageOptions } from '@theia/core/lib/common';
 import { NotificationManager } from '@theia/messages/lib/browser/notifications-manager';
+import { injectable } from 'inversify';
 import { Md5 } from 'ts-md5';
 
 /**
@@ -22,6 +23,7 @@ import { Md5 } from 'ts-md5';
  *  For GLSP messages the file uri needs to be considered when generating the message id
  *  to derive the editor widget for which this message is intended.
  */
+@injectable()
 export class GLSPNotificationManager extends NotificationManager {
     public getMessageId(message: Message): string {
         const options = message.options;
