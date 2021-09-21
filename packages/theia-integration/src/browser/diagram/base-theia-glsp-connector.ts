@@ -168,15 +168,15 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
         switch (message.type) {
             case MessageType.Error:
                 this.addServerMessage(widgetId, messageId);
-                this.messageService.error(message.text, message.options, ...message.actions).then(onClose);
+                this.messageService.error(message.text, message.options, ...message.actions ? message.actions : []).then(onClose);
                 break;
             case MessageType.Warning:
                 this.addServerMessage(widgetId, messageId);
-                this.messageService.warn(message.text, message.options, ...message.actions).then(onClose);
+                this.messageService.warn(message.text, message.options, ...message.actions ? message.actions : []).then(onClose);
                 break;
             case MessageType.Info:
                 this.addServerMessage(widgetId, messageId);
-                this.messageService.info(message.text, message.options, ...message.actions).then(onClose);
+                this.messageService.info(message.text, message.options, ...message.actions ? message.actions : []).then(onClose);
                 break;
         }
     }
