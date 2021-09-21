@@ -886,26 +886,26 @@
   integrity sha512-6nFkfkmSeV/rqSaS4oWHgmpnYw194f6hmWF5is6b0J1naJZoiD0NTc9AiUwPHvWsowkjuHErCZT1wa0jg+BLIA==
 
 "@eclipse-glsp-examples/workflow-glsp@next":
-  version "0.9.0-next.9793bf31"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.9.0-next.9793bf31.tgz#91ea09f4821ec440bd432cbc510dbe402e7d1613"
-  integrity sha512-+cxRB4AXh+RiULkyQyZEf1zF7cVP8Dcb8IaqpX0eHOZ0JPeUf1/LPcD7eLIDycOkXzF/fpCRojcFnP590SEBOw==
+  version "0.9.0-next.c5944e10"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.9.0-next.c5944e10.tgz#b058ab3837df0b221c1eb141621b810f97948737"
+  integrity sha512-DjptF70m/cSVbJiqcYjfUkS8vQYQdupZB5d2wiMLXePd32Wyn87o9an3ZkbnhkUmtpuuOMLF+2HXCJzzZxC0nw==
   dependencies:
-    "@eclipse-glsp/client" "0.9.0-next.9793bf31"
+    "@eclipse-glsp/client" "0.9.0-next.c5944e10"
     balloon-css "^0.5.0"
 
-"@eclipse-glsp/client@0.9.0-next.9793bf31", "@eclipse-glsp/client@next":
-  version "0.9.0-next.9793bf31"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.9.0-next.9793bf31.tgz#804c376a0be40f7cbe70fb2d49d5ecdc5f7248c5"
-  integrity sha512-7b773X5NUIQaIGQ9PQDEByoF2bJOtXDJaaPpNIQuG86XfWhPAwujGU/g2Y7rt40qBf2/IOLrsUcBFAPvRxs4Jw==
+"@eclipse-glsp/client@0.9.0-next.c5944e10", "@eclipse-glsp/client@next":
+  version "0.9.0-next.c5944e10"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.9.0-next.c5944e10.tgz#0675155c1a6fbe64c1cdce2f7b136e723db0428e"
+  integrity sha512-2VG1w50FOK3x6YeK68R+YuLNL0LTVbXGDTAQJlYCyZiEocYjDNqg0incQGnn9N5JCfHuBLtUgV8jMiRbKr/Hcg==
   dependencies:
-    "@eclipse-glsp/protocol" "0.9.0-next.9793bf31"
+    "@eclipse-glsp/protocol" "0.9.0-next.c5944e10"
     autocompleter "5.1.0"
     sprotty next
 
-"@eclipse-glsp/protocol@0.9.0-next.9793bf31":
-  version "0.9.0-next.9793bf31"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.9.0-next.9793bf31.tgz#7ce3573e58ee420a4ab628ecda61b0fe0626c1bd"
-  integrity sha512-MgjEhUkd/8garjG1VzHRjsK2PkXkwnIHV1bv+mplSpdubxkei4C08ZjyD9StEZaxqrzyHIiLn1RuXL4k5AKt1Q==
+"@eclipse-glsp/protocol@0.9.0-next.c5944e10":
+  version "0.9.0-next.c5944e10"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.9.0-next.c5944e10.tgz#1b30ed60453325c28cda5fa54be1561d9f41e30c"
+  integrity sha512-GbIoRQYub3EkvxQuUWYzqcKFcsMcKdvGrEgJyfQpOkUP9aPDisD1b0KpausHfTcIQwUm6Ul5d5BEscM3d3tkFQ==
   dependencies:
     uuid "7.0.3"
     vscode-ws-jsonrpc "0.2.0"
@@ -1447,9 +1447,9 @@
   integrity sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==
 
 "@types/chai@^4.2.7":
-  version "4.2.21"
-  resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.2.21.tgz#9f35a5643129df132cf3b5c1ec64046ea1af0650"
-  integrity sha512-yd+9qKmJxm496BOV9CMNaey8TWsikaZOwMRwPHQIjcOJM9oV+fi9ZMNw3JsVnbEEbo2gRTDnGEBv8pjyn67hNg==
+  version "4.2.22"
+  resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.2.22.tgz#47020d7e4cf19194d43b5202f35f75bd2ad35ce7"
+  integrity sha512-tFfcE+DSTzWAgifkjik9AySNqIyNoYwmR+uecPwwD/XRNfvOjmC/FjCxpiUGDkDVDphPfCUecSQVFw+lN3M3kQ==
 
 "@types/connect@*":
   version "3.4.35"
@@ -3047,14 +3047,14 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30001258"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001258.tgz#a6de3ef3f89a5826bccdbf7674cbf5c081b86265"
-  integrity sha512-2Gc5901CmVN8HEswe3qJup7Mx34TrPsN+PKV9T7/5UUEEZxdsotLZDXYdWKvHBHsvVCGe9+39txJnfOkkW33qw==
+  version "1.0.30001259"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001259.tgz#3e9dd631f9cc7c3d1134136390ad4442a8f93652"
+  integrity sha512-DoMAaVY4zsMKnppJ0D+JBg5eZ30L4SUFKlRemv2xiybzPo1wY0fd4EyGeHUjNxZVcPLAKHz6XXMya3MId9bl5w==
 
 caniuse-lite@^1.0.30001254:
-  version "1.0.30001258"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001258.tgz#b604eed80cc54a578e4bf5a02ae3ed49f869d252"
-  integrity sha512-RBByOG6xWXUp0CR2/WU2amXz3stjKpSl5J1xU49F1n2OxD//uBZO4wCKUiG+QMGf7CHGfDDcqoKriomoGVxTeA==
+  version "1.0.30001259"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001259.tgz#ae21691d3da9c4be6144403ac40f71d9f6efd790"
+  integrity sha512-V7mQTFhjITxuk9zBpI6nYsiTXhcPe05l+364nZjK7MFK/E7ibvYBSAXr4YcA6oPR8j3ZLM/LN+lUqUVAQEUZFg==
 
 capture-stack-trace@^1.0.0:
   version "1.0.1"
@@ -4323,9 +4323,9 @@ electron-rebuild@^1.8.6:
     yargs "^14.2.0"
 
 electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.830:
-  version "1.3.843"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.843.tgz#671489bd2f59fd49b76adddc1aa02c88cd38a5c0"
-  integrity sha512-OWEwAbzaVd1Lk9MohVw8LxMXFlnYd9oYTYxfX8KS++kLLjDfbovLOcEEXwRhG612dqGQ6+44SZvim0GXuBRiKg==
+  version "1.3.845"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.845.tgz#326d3be3ee5d2c065f689119d441c997f9fd41d8"
+  integrity sha512-y0RorqmExFDI4RjLEC6j365bIT5UAXf9WIRcknvSFHVhbC/dRnCgJnPA3DUUW6SCC85QGKEafgqcHJ6uPdEP1Q==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -7288,9 +7288,11 @@ node-environment-flags@1.0.6:
     semver "^5.7.0"
 
 node-fetch@^2.6.0, node-fetch@^2.6.1:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.2.tgz#986996818b73785e47b1965cc34eb093a1d464d0"
-  integrity sha512-aLoxToI6RfZ+0NOjmWAgn9+LEd30YCkJKFSyWacNZdEKTit/ZMcKjGkTRo8uWEsnIb/hfKecNPEbln02PdWbcA==
+  version "2.6.4"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.4.tgz#7f1d13b8f9ff0c1a994dc6f73c69f7d652c7ace2"
+  integrity sha512-aD1fO+xtLiSCc9vuD+sYMxpIuQyhHscGSkBEo2o5LTV/3bTEAYvdUii29n8LlO5uLCmWdGP7uVUVXFo5SRdkLA==
+  dependencies:
+    whatwg-url "^5.0.0"
 
 node-gyp@^6.0.1:
   version "6.1.0"
@@ -7310,9 +7312,9 @@ node-gyp@^6.0.1:
     which "^1.3.1"
 
 node-releases@^1.1.75:
-  version "1.1.75"
-  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.75.tgz#6dd8c876b9897a1b8e5a02de26afa79bb54ebbfe"
-  integrity sha512-Qe5OUajvqrqDSy6wrWFmMwfJ0jVgwiw4T3KqmbTcZ62qW0gQkheXYhcFM1+lOVcGUoRxcEcfyvFMAnDgaF1VWw==
+  version "1.1.76"
+  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.76.tgz#df245b062b0cafbd5282ab6792f7dccc2d97f36e"
+  integrity sha512-9/IECtNr8dXNmPWmFXepT0/7o5eolGesHUa3mtr0KlgnCvnZxwh2qensKL42JJY2vQKC3nIBXetFAqR+PW1CmA==
 
 noop-logger@^0.1.1:
   version "0.1.1"
@@ -9762,9 +9764,9 @@ terser-webpack-plugin@^5.1.3:
     terser "^5.7.2"
 
 terser@^5.7.2:
-  version "5.8.0"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-5.8.0.tgz#c6d352f91aed85cc6171ccb5e84655b77521d947"
-  integrity sha512-f0JH+6yMpneYcRJN314lZrSwu9eKkUFEHLN/kNy8ceh8gaRiLgFPJqrB9HsXjhEGdv4e/ekjTOFxIlL6xlma8A==
+  version "5.9.0"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-5.9.0.tgz#47d6e629a522963240f2b55fcaa3c99083d2c351"
+  integrity sha512-h5hxa23sCdpzcye/7b8YqbE5OwKca/ni0RQz1uRX3tGh8haaGHqcuSqbGRybuAKNdntZ0mDgFNXPJ48xQ2RXKQ==
   dependencies:
     commander "^2.20.0"
     source-map "~0.7.2"
@@ -9839,6 +9841,11 @@ tough-cookie@~2.5.0:
   dependencies:
     psl "^1.1.28"
     punycode "^2.1.1"
+
+tr46@~0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
+  integrity sha1-gYT9NH2snNwYWZLzpmIuFLnZq2o=
 
 trash@^6.1.1:
   version "6.1.1"
@@ -10277,6 +10284,11 @@ webdriverio@6.12.1:
     serialize-error "^8.0.0"
     webdriver "6.12.1"
 
+webidl-conversions@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz#24534275e2a7bc6be7bc86611cc16ae0a5654871"
+  integrity sha1-JFNCdeKnvGvnvIZhHMFq4KVlSHE=
+
 webpack-cli@4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-4.7.0.tgz#3195a777f1f802ecda732f6c95d24c0004bc5a35"
@@ -10346,6 +10358,14 @@ webpack@^5.48.0:
     terser-webpack-plugin "^5.1.3"
     watchpack "^2.2.0"
     webpack-sources "^3.2.0"
+
+whatwg-url@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-5.0.0.tgz#966454e8765462e37644d3626f6742ce8b70965d"
+  integrity sha1-lmRU6HZUYuN2RNNib2dCzotwll0=
+  dependencies:
+    tr46 "~0.0.3"
+    webidl-conversions "^3.0.0"
 
 whet.extend@~0.9.9:
   version "0.9.9"
