@@ -14,7 +14,6 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { ContainerModule, injectable, interfaces } from '@theia/core/shared/inversify';
-
 import { GLSPDiagramLanguage } from '../common/glsp-diagram-language';
 import { registerCopyPasteContextMenu } from './copy-paste-context-menu-contribution';
 import { BaseTheiaGLSPConnector } from './diagram/base-theia-glsp-connector';

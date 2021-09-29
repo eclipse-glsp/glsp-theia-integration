@@ -21,14 +21,13 @@ import {
     ServerMessageAction,
     ServerStatusAction
 } from '@eclipse-glsp/client';
-import { GLSPClient, InitializeResult } from '@eclipse-glsp/protocol';
+import { Args, GLSPClient, InitializeResult } from '@eclipse-glsp/protocol';
 import { ContributionProvider, MessageService } from '@theia/core';
 import { ConfirmDialog, WidgetManager } from '@theia/core/lib/browser';
 import { Message, MessageType } from '@theia/core/lib/common';
 import { inject, injectable, named, postConstruct } from '@theia/core/shared/inversify';
 import { EditorManager } from '@theia/editor/lib/browser';
 import { DiagramWidget, TheiaDiagramServer, TheiaFileSaver } from 'sprotty-theia';
-
 import { GLSPClientContribution } from '../glsp-client-contribution';
 import { deriveDiagramManagerId } from './glsp-diagram-manager';
 import { GLSPMessageOptions, GLSPNotificationManager } from './glsp-notification-manager';
@@ -78,15 +77,32 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
     connect(diagramServer: TheiaDiagramServer): void {
         this.servers.set(diagramServer.clientId, diagramServer);
         this.glspClient.then(client =>
-            client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType: this.diagramType })
+            client.initializeClientSession({
+                clientSessionId: diagramServer.clientId,
+                diagramType: this.diagramType,
+                args: this.initializeClientSessionArgs(diagramServer)
+            })
         );
         diagramServer.connect(this);
     }
 
+    initializeClientSessionArgs(_diagramServer: TheiaDiagramServer): Args | undefined {
+        return undefined;
+    }
+
     disconnect(diagramServer: TheiaDiagramServer): void {
         this.servers.delete(diagramServer.clientId);
-        this.glspClient.then(client => client.disposeClientSession({ clientSessionId: diagramServer.clientId }));
+        this.glspClient.then(client =>
+            client.disposeClientSession({
+                clientSessionId: diagramServer.clientId,
+                args: this.disposeClientSessionArgs(diagramServer)
+            })
+        );
         diagramServer.disconnect();
+    }
+
+    disposeClientSessionArgs(_diagramServer: TheiaDiagramServer): Args | undefined {
+        return undefined;
     }
 
     save(uri: string, action: ExportSvgAction): void {
