@@ -40,9 +40,9 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(GLSPClientProviderImpl).toSelf().inSingletonScope();
     bind(GLSPClientProvider).toService(GLSPClientProviderImpl);
 
-    bind(GLSPContribution.Service).toDynamicValue(({ container }) =>
-        WebSocketConnectionProvider.createProxy(container, GLSPContribution.servicePath)
-    ).inSingletonScope();
+    bind(GLSPContribution.Service)
+        .toDynamicValue(({ container }) => WebSocketConnectionProvider.createProxy(container, GLSPContribution.servicePath))
+        .inSingletonScope();
 
     bind(GLSPNotificationManager).toSelf().inSingletonScope();
     if (isBound(NotificationManager)) {
@@ -69,13 +69,12 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
 
     bind(TheiaGLSPConnectorProvider).toProvider(theiaGLSPConnectorProviderCreator);
     bind(TheiaGLSPConnectorRegistry).toSelf().inSingletonScope();
-
 });
 
 const theiaGLSPConnectorProviderCreator: interfaces.ProviderCreator<TheiaGLSPConnector> =
-    (context: interfaces.Context) => (diagramType: string) => new Promise<TheiaGLSPConnector>(resolve => {
-        const registry = context.container.get(TheiaGLSPConnectorRegistry);
-        const connector = registry.get(diagramType);
-        resolve(connector);
-    });
-
+    (context: interfaces.Context) => (diagramType: string) =>
+        new Promise<TheiaGLSPConnector>(resolve => {
+            const registry = context.container.get(TheiaGLSPConnectorRegistry);
+            const connector = registry.get(diagramType);
+            resolve(connector);
+        });

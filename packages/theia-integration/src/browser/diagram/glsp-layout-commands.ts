@@ -128,7 +128,6 @@ export namespace GLSPLayoutMenus {
 
 @injectable()
 export class GLSPLayoutMenuContribution implements MenuContribution {
-
     registerMenus(registry: MenuModelRegistry): void {
         registry.registerSubmenu(GLSPLayoutMenus.RESIZE_MENU, 'Resize');
         registry.registerMenuAction(GLSPLayoutMenus.RESIZE_WIDTH_GROUP, {
@@ -274,51 +273,156 @@ export class GLSPLayoutMenuContribution implements MenuContribution {
 
 @injectable()
 export class GLSPLayoutCommandContribution implements CommandContribution {
-    constructor(@inject(ApplicationShell) protected readonly shell: ApplicationShell) {
+    constructor(@inject(ApplicationShell) protected readonly shell: ApplicationShell) {}
+
+    registerResize(
+        registry: CommandRegistry,
+        id: string,
+        label: string,
+        dimension: ResizeDimension,
+        f: (...values: number[]) => number
+    ): void {
+        registry.registerCommand(
+            {
+                id: id,
+                category: 'Diagram',
+                label: 'Resize to ' + label
+            },
+            new GLSPCommandHandler(this.shell, {
+                actions: () => [new ResizeElementsAction([], dimension, f)],
+                isEnabled: context => !context.isReadonly && context.get().selectedElementIds.length > 1
+            })
+        );
     }
 
-    registerResize(registry: CommandRegistry, id: string, label: string, dimension: ResizeDimension, f: (...values: number[]) => number): void {
-        registry.registerCommand({
-            id: id,
-            category: 'Diagram',
-            label: 'Resize to ' + label
-        }, new GLSPCommandHandler(this.shell, {
-            actions: () => [new ResizeElementsAction([], dimension, f)],
-            isEnabled: context => !context.isReadonly && context.get().selectedElementIds.length > 1
-        }));
-    }
-
-    registerAlign(registry: CommandRegistry, id: string, label: string, alignment: Alignment, f: (elements: BoundsAwareModelElement[]) => BoundsAwareModelElement[]): void {
-        registry.registerCommand({
-            id: id,
-            category: 'Diagram',
-            label: 'Align ' + label
-        }, new GLSPCommandHandler(this.shell, {
-            actions: () => [new AlignElementsAction([], alignment, f)],
-            isEnabled: context => !context.isReadonly && context.get().selectedElementIds.length > 1
-        }));
+    registerAlign(
+        registry: CommandRegistry,
+        id: string,
+        label: string,
+        alignment: Alignment,
+        f: (elements: BoundsAwareModelElement[]) => BoundsAwareModelElement[]
+    ): void {
+        registry.registerCommand(
+            {
+                id: id,
+                category: 'Diagram',
+                label: 'Align ' + label
+            },
+            new GLSPCommandHandler(this.shell, {
+                actions: () => [new AlignElementsAction([], alignment, f)],
+                isEnabled: context => !context.isReadonly && context.get().selectedElementIds.length > 1
+            })
+        );
     }
 
     registerCommands(reg: CommandRegistry): void {
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_WIDTH_MIN, GLSPLayoutCommands.RESIZE_WIDTH_MIN_LABEL, ResizeDimension.Width, Reduce.min);
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_WIDTH_MAX, GLSPLayoutCommands.RESIZE_WIDTH_MAX_LABEL, ResizeDimension.Width, Reduce.max);
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_WIDTH_AVG, GLSPLayoutCommands.RESIZE_WIDTH_AVG_LABEL, ResizeDimension.Width, Reduce.avg);
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_WIDTH_FIRST, GLSPLayoutCommands.RESIZE_WIDTH_FIRST_LABEL, ResizeDimension.Width, Reduce.first);
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_WIDTH_LAST, GLSPLayoutCommands.RESIZE_WIDTH_LAST_LABEL, ResizeDimension.Width, Reduce.last);
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_WIDTH_MIN,
+            GLSPLayoutCommands.RESIZE_WIDTH_MIN_LABEL,
+            ResizeDimension.Width,
+            Reduce.min
+        );
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_WIDTH_MAX,
+            GLSPLayoutCommands.RESIZE_WIDTH_MAX_LABEL,
+            ResizeDimension.Width,
+            Reduce.max
+        );
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_WIDTH_AVG,
+            GLSPLayoutCommands.RESIZE_WIDTH_AVG_LABEL,
+            ResizeDimension.Width,
+            Reduce.avg
+        );
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_WIDTH_FIRST,
+            GLSPLayoutCommands.RESIZE_WIDTH_FIRST_LABEL,
+            ResizeDimension.Width,
+            Reduce.first
+        );
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_WIDTH_LAST,
+            GLSPLayoutCommands.RESIZE_WIDTH_LAST_LABEL,
+            ResizeDimension.Width,
+            Reduce.last
+        );
 
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_HEIGHT_MIN, GLSPLayoutCommands.RESIZE_HEIGHT_MIN_LABEL, ResizeDimension.Height, Reduce.min);
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_HEIGHT_MAX, GLSPLayoutCommands.RESIZE_HEIGHT_MAX_LABEL, ResizeDimension.Height, Reduce.max);
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_HEIGHT_AVG, GLSPLayoutCommands.RESIZE_HEIGHT_AVG_LABEL, ResizeDimension.Height, Reduce.avg);
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_HEIGHT_FIRST, GLSPLayoutCommands.RESIZE_HEIGHT_FIRST_LABEL, ResizeDimension.Height, Reduce.first);
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_HEIGHT_LAST, GLSPLayoutCommands.RESIZE_HEIGHT_LAST_LABEL, ResizeDimension.Height, Reduce.last);
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_HEIGHT_MIN,
+            GLSPLayoutCommands.RESIZE_HEIGHT_MIN_LABEL,
+            ResizeDimension.Height,
+            Reduce.min
+        );
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_HEIGHT_MAX,
+            GLSPLayoutCommands.RESIZE_HEIGHT_MAX_LABEL,
+            ResizeDimension.Height,
+            Reduce.max
+        );
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_HEIGHT_AVG,
+            GLSPLayoutCommands.RESIZE_HEIGHT_AVG_LABEL,
+            ResizeDimension.Height,
+            Reduce.avg
+        );
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_HEIGHT_FIRST,
+            GLSPLayoutCommands.RESIZE_HEIGHT_FIRST_LABEL,
+            ResizeDimension.Height,
+            Reduce.first
+        );
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_HEIGHT_LAST,
+            GLSPLayoutCommands.RESIZE_HEIGHT_LAST_LABEL,
+            ResizeDimension.Height,
+            Reduce.last
+        );
 
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_MIN, GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_MIN_LBL, ResizeDimension.Width_And_Height, Reduce.min);
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_MAX, GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_MAX_LBL, ResizeDimension.Width_And_Height, Reduce.max);
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_AVG, GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_AVG_LBL, ResizeDimension.Width_And_Height, Reduce.avg);
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_FIRST, GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_FIRST_LBL,
-            ResizeDimension.Width_And_Height, Reduce.first);
-        this.registerResize(reg, GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_LAST, GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_LAST_LBL,
-            ResizeDimension.Width_And_Height, Reduce.last);
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_MIN,
+            GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_MIN_LBL,
+            ResizeDimension.Width_And_Height,
+            Reduce.min
+        );
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_MAX,
+            GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_MAX_LBL,
+            ResizeDimension.Width_And_Height,
+            Reduce.max
+        );
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_AVG,
+            GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_AVG_LBL,
+            ResizeDimension.Width_And_Height,
+            Reduce.avg
+        );
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_FIRST,
+            GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_FIRST_LBL,
+            ResizeDimension.Width_And_Height,
+            Reduce.first
+        );
+        this.registerResize(
+            reg,
+            GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_LAST,
+            GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_LAST_LBL,
+            ResizeDimension.Width_And_Height,
+            Reduce.last
+        );
 
         this.registerAlign(reg, GLSPLayoutCommands.ALIGN_LEFT, GLSPLayoutCommands.ALIGN_LEFT_LABEL, Alignment.Left, Select.all);
         this.registerAlign(reg, GLSPLayoutCommands.ALIGN_CENTER, GLSPLayoutCommands.ALIGN_CENTER_LABEL, Alignment.Center, Select.all);
@@ -327,26 +431,79 @@ export class GLSPLayoutCommandContribution implements CommandContribution {
         this.registerAlign(reg, GLSPLayoutCommands.ALIGN_MIDDLE, GLSPLayoutCommands.ALIGN_MIDDLE_LABEL, Alignment.Middle, Select.all);
         this.registerAlign(reg, GLSPLayoutCommands.ALIGN_BOTTOM, GLSPLayoutCommands.ALIGN_BOTTOM_LABEL, Alignment.Bottom, Select.all);
 
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_LEFT_FIRST, GLSPLayoutCommands.ALIGN_LEFT_FIRST_LABEL, Alignment.Left, Select.first);
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_CENTER_FIRST, GLSPLayoutCommands.ALIGN_CENTER_FIRST_LABEL, Alignment.Center, Select.first);
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_RIGHT_FIRST, GLSPLayoutCommands.ALIGN_RIGHT_FIRST_LABEL, Alignment.Right, Select.first);
+        this.registerAlign(
+            reg,
+            GLSPLayoutCommands.ALIGN_LEFT_FIRST,
+            GLSPLayoutCommands.ALIGN_LEFT_FIRST_LABEL,
+            Alignment.Left,
+            Select.first
+        );
+        this.registerAlign(
+            reg,
+            GLSPLayoutCommands.ALIGN_CENTER_FIRST,
+            GLSPLayoutCommands.ALIGN_CENTER_FIRST_LABEL,
+            Alignment.Center,
+            Select.first
+        );
+        this.registerAlign(
+            reg,
+            GLSPLayoutCommands.ALIGN_RIGHT_FIRST,
+            GLSPLayoutCommands.ALIGN_RIGHT_FIRST_LABEL,
+            Alignment.Right,
+            Select.first
+        );
         this.registerAlign(reg, GLSPLayoutCommands.ALIGN_TOP_FIRST, GLSPLayoutCommands.ALIGN_TOP_FIRST_LABEL, Alignment.Top, Select.first);
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_MIDDLE_FIRST, GLSPLayoutCommands.ALIGN_MIDDLE_FIRST_LABEL, Alignment.Middle, Select.first);
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_BOTTOM_FIRST, GLSPLayoutCommands.ALIGN_BOTTOM_FIRST_LABEL, Alignment.Bottom, Select.first);
+        this.registerAlign(
+            reg,
+            GLSPLayoutCommands.ALIGN_MIDDLE_FIRST,
+            GLSPLayoutCommands.ALIGN_MIDDLE_FIRST_LABEL,
+            Alignment.Middle,
+            Select.first
+        );
+        this.registerAlign(
+            reg,
+            GLSPLayoutCommands.ALIGN_BOTTOM_FIRST,
+            GLSPLayoutCommands.ALIGN_BOTTOM_FIRST_LABEL,
+            Alignment.Bottom,
+            Select.first
+        );
 
         this.registerAlign(reg, GLSPLayoutCommands.ALIGN_LEFT_LAST, GLSPLayoutCommands.ALIGN_LEFT_LAST_LABEL, Alignment.Left, Select.last);
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_CENTER_LAST, GLSPLayoutCommands.ALIGN_CENTER_LAST_LABEL, Alignment.Center, Select.last);
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_RIGHT_LAST, GLSPLayoutCommands.ALIGN_RIGHT_LAST_LABEL, Alignment.Right, Select.last);
+        this.registerAlign(
+            reg,
+            GLSPLayoutCommands.ALIGN_CENTER_LAST,
+            GLSPLayoutCommands.ALIGN_CENTER_LAST_LABEL,
+            Alignment.Center,
+            Select.last
+        );
+        this.registerAlign(
+            reg,
+            GLSPLayoutCommands.ALIGN_RIGHT_LAST,
+            GLSPLayoutCommands.ALIGN_RIGHT_LAST_LABEL,
+            Alignment.Right,
+            Select.last
+        );
         this.registerAlign(reg, GLSPLayoutCommands.ALIGN_TOP_LAST, GLSPLayoutCommands.ALIGN_TOP_LAST_LABEL, Alignment.Top, Select.last);
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_MIDDLE_LAST, GLSPLayoutCommands.ALIGN_MIDDLE_LAST_LABEL, Alignment.Middle, Select.last);
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_BOTTOM_LAST, GLSPLayoutCommands.ALIGN_BOTTOM_LAST_LABEL, Alignment.Bottom, Select.last);
+        this.registerAlign(
+            reg,
+            GLSPLayoutCommands.ALIGN_MIDDLE_LAST,
+            GLSPLayoutCommands.ALIGN_MIDDLE_LAST_LABEL,
+            Alignment.Middle,
+            Select.last
+        );
+        this.registerAlign(
+            reg,
+            GLSPLayoutCommands.ALIGN_BOTTOM_LAST,
+            GLSPLayoutCommands.ALIGN_BOTTOM_LAST_LABEL,
+            Alignment.Bottom,
+            Select.last
+        );
     }
 }
 
 @injectable()
 export class GLSPLayoutKeybindingContribution implements KeybindingContribution {
-
-    constructor(@inject(DiagramKeybindingContext) protected readonly diagramKeybindingContext: DiagramKeybindingContext) { }
+    constructor(@inject(DiagramKeybindingContext) protected readonly diagramKeybindingContext: DiagramKeybindingContext) {}
 
     registerKeybindings(registry: KeybindingRegistry): void {
         registry.registerKeybinding({

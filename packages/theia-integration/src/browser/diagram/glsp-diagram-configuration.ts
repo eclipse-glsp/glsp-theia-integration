@@ -69,12 +69,10 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
         connectTheiaMarkerManager(container, this.theiaMarkerManager, this.diagramType);
         configureActionHandler(container, NavigateToExternalTargetAction.KIND, TheiaNavigateToExternalTargetHandler);
     }
-
 }
 
-export function configureDiagramServer<T>(container: Container, server: { new(...args: any[]): T }): void {
+export function configureDiagramServer<T>(container: Container, server: { new (...args: any[]): T }): void {
     container.bind(server).toSelf().inSingletonScope();
     container.bind(TYPES.ModelSource).toService(server);
     container.bind(TheiaDiagramServer).toService(server);
 }
-

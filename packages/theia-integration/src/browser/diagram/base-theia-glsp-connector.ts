@@ -53,12 +53,13 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
     @inject(GLSPNotificationManager)
     protected readonly notificationManager: GLSPNotificationManager;
 
-    @inject(ContributionProvider) @named(GLSPClientContribution)
+    @inject(ContributionProvider)
+    @named(GLSPClientContribution)
     protected readonly clientContributions: ContributionProvider<GLSPClientContribution>;
 
-    private servers: Map<string, TheiaDiagramServer> = new Map;
-    private widgetMessages: Map<string, string[]> = new Map;
-    private widgetStatusTimeouts: Map<string, number> = new Map;
+    private servers: Map<string, TheiaDiagramServer> = new Map();
+    private widgetMessages: Map<string, string[]> = new Map();
+    private widgetStatusTimeouts: Map<string, number> = new Map();
 
     abstract readonly diagramType: string;
     abstract readonly contributionId: string;
@@ -76,7 +77,9 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
 
     connect(diagramServer: TheiaDiagramServer): void {
         this.servers.set(diagramServer.clientId, diagramServer);
-        this.glspClient.then(client => client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType: this.diagramType }));
+        this.glspClient.then(client =>
+            client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType: this.diagramType })
+        );
         diagramServer.connect(this);
     }
 
@@ -168,15 +171,15 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
         switch (message.type) {
             case MessageType.Error:
                 this.addServerMessage(widgetId, messageId);
-                this.messageService.error(message.text, message.options, ...message.actions ? message.actions : []).then(onClose);
+                this.messageService.error(message.text, message.options, ...(message.actions ? message.actions : [])).then(onClose);
                 break;
             case MessageType.Warning:
                 this.addServerMessage(widgetId, messageId);
-                this.messageService.warn(message.text, message.options, ...message.actions ? message.actions : []).then(onClose);
+                this.messageService.warn(message.text, message.options, ...(message.actions ? message.actions : [])).then(onClose);
                 break;
             case MessageType.Info:
                 this.addServerMessage(widgetId, messageId);
-                this.messageService.info(message.text, message.options, ...message.actions ? message.actions : []).then(onClose);
+                this.messageService.info(message.text, message.options, ...(message.actions ? message.actions : [])).then(onClose);
                 break;
         }
     }
@@ -187,7 +190,12 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
         this.widgetMessages.set(widgetId, widgetMessages);
     }
 
-    protected showDetailsOrClearMessage(result: string | undefined, text: string, details: string, onClose: (value?: string) => void): void {
+    protected showDetailsOrClearMessage(
+        result: string | undefined,
+        text: string,
+        details: string,
+        onClose: (value?: string) => void
+    ): void {
         if (result === SHOW_DETAILS_LABEL) {
             showDialog(text, details).then(() => onClose());
         } else {

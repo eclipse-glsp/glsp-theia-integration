@@ -26,20 +26,18 @@ import { SelectionService } from '@theia/core/lib/common/selection-service';
 import URI from '@theia/core/lib/common/uri';
 import { inject, injectable, interfaces, postConstruct } from '@theia/core/shared/inversify';
 import { EditorPreferences } from '@theia/editor/lib/browser';
-import {
-    DiagramConfiguration,
-    DiagramManager,
-    DiagramManagerProvider,
-    DiagramWidget,
-    DiagramWidgetOptions
-} from 'sprotty-theia';
+import { DiagramConfiguration, DiagramManager, DiagramManagerProvider, DiagramWidget, DiagramWidgetOptions } from 'sprotty-theia';
 
 import { TheiaOpenerOptionsNavigationService } from '../theia-opener-options-navigation-service';
 import { GLSPDiagramContextKeyService } from './glsp-diagram-context-key-service';
 import { GLSPDiagramWidget } from './glsp-diagram-widget';
 import { TheiaGLSPConnector } from './theia-glsp-connector';
 
-export function registerDiagramManager(bind: interfaces.Bind, diagramManagerServiceId: interfaces.ServiceIdentifier<DiagramManager>, bindToSelf = true): void {
+export function registerDiagramManager(
+    bind: interfaces.Bind,
+    diagramManagerServiceId: interfaces.ServiceIdentifier<DiagramManager>,
+    bindToSelf = true
+): void {
     if (bindToSelf) {
         bind(diagramManagerServiceId).toSelf().inSingletonScope();
     }
@@ -47,9 +45,12 @@ export function registerDiagramManager(bind: interfaces.Bind, diagramManagerServ
     bind(FrontendApplicationContribution).toService(diagramManagerServiceId);
     bind(OpenHandler).toService(diagramManagerServiceId);
     bind(WidgetFactory).toService(diagramManagerServiceId);
-    bind(DiagramManagerProvider).toProvider<DiagramManager>(context => () => new Promise<DiagramManager>(resolve => {
-        resolve(context.container.get(diagramManagerServiceId));
-    }));
+    bind(DiagramManagerProvider).toProvider<DiagramManager>(
+        context => () =>
+            new Promise<DiagramManager>(resolve => {
+                resolve(context.container.get(diagramManagerServiceId));
+            })
+    );
 }
 
 export const TheiaGLSPConnectorProvider = Symbol('TheiaGLSPConnectorProvider');
@@ -57,7 +58,6 @@ export const TheiaGLSPConnectorProvider = Symbol('TheiaGLSPConnectorProvider');
 export type TheiaGLSPConnectorProvider = (diagramType: string) => Promise<TheiaGLSPConnector>;
 @injectable()
 export abstract class GLSPDiagramManager extends DiagramManager {
-
     @inject(EditorPreferences)
     protected readonly editorPreferences: EditorPreferences;
 
@@ -108,7 +108,14 @@ export abstract class GLSPDiagramManager extends DiagramManager {
             const diContainer = config.createContainer(clientId);
             const initializeResult = await this.diagramConnector.initializeResult;
             await configureServerActions(initializeResult, this.diagramType, diContainer);
-            const widget = new GLSPDiagramWidget(options, widgetId, diContainer, this.editorPreferences, this.theiaSelectionService, this.diagramConnector);
+            const widget = new GLSPDiagramWidget(
+                options,
+                widgetId,
+                diContainer,
+                this.editorPreferences,
+                this.theiaSelectionService,
+                this.diagramConnector
+            );
             widget.listenToFocusState(this.shell);
             return widget;
         }

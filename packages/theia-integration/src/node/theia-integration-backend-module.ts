@@ -27,14 +27,17 @@ export default new ContainerModule(bind => {
     bind(GLSPContribution.Service).toService(GLSPBackendContribution);
     bindContributionProvider(bind, GLSPServerContribution);
 
-    bind(ConnectionHandler).toDynamicValue(ctx =>
-        new JsonRpcConnectionHandler(GLSPContribution.servicePath, () =>
-            ctx.container.get(GLSPContribution.Service)
+    bind(ConnectionHandler)
+        .toDynamicValue(
+            ctx => new JsonRpcConnectionHandler(GLSPContribution.servicePath, () => ctx.container.get(GLSPContribution.Service))
         )
-    ).inSingletonScope();
+        .inSingletonScope();
 
-    bind(ILogger).toDynamicValue(ctx => {
-        const logger = ctx.container.get<ILogger>(ILogger);
-        return logger.child('glsp');
-    }).inSingletonScope().whenTargetNamed('glsp');
+    bind(ILogger)
+        .toDynamicValue(ctx => {
+            const logger = ctx.container.get<ILogger>(ILogger);
+            return logger.child('glsp');
+        })
+        .inSingletonScope()
+        .whenTargetNamed('glsp');
 });

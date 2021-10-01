@@ -37,13 +37,15 @@ export class NavigateToMarkerCommandContribution implements CommandContribution 
     @inject(ApplicationShell) protected readonly shell: ApplicationShell;
 
     registerCommands(commands: CommandRegistry): void {
-        commands.registerCommand({ id: NavigateToMarkerCommand.NEXT_MARKER, label: 'Go to Next Marker', category: 'Diagram' },
+        commands.registerCommand(
+            { id: NavigateToMarkerCommand.NEXT_MARKER, label: 'Go to Next Marker', category: 'Diagram' },
             new GLSPCommandHandler(this.shell, {
                 actions: () => [new NavigateToMarkerAction('next')],
                 isEnabled: context => collectIssueMarkers(context.modelRoot).length > 0
             })
         );
-        commands.registerCommand({ id: NavigateToMarkerCommand.PREVIOUS_MARKER, label: 'Go to Previous Marker', category: 'Diagram' },
+        commands.registerCommand(
+            { id: NavigateToMarkerCommand.PREVIOUS_MARKER, label: 'Go to Previous Marker', category: 'Diagram' },
             new GLSPCommandHandler(this.shell, {
                 actions: () => [new NavigateToMarkerAction('previous')],
                 isEnabled: context => collectIssueMarkers(context.modelRoot).length > 0
@@ -58,8 +60,14 @@ export class NavigateToMarkerMenuContribution implements MenuContribution {
 
     registerMenus(menus: MenuModelRegistry): void {
         menus.registerSubmenu(NavigateToMarkerMenuContribution.NAVIGATION, 'Go to');
-        menus.registerMenuAction(NavigateToMarkerMenuContribution.NAVIGATION.concat('m'), { commandId: NavigateToMarkerCommand.NEXT_MARKER, label: 'Next Marker' });
-        menus.registerMenuAction(NavigateToMarkerMenuContribution.NAVIGATION.concat('m'), { commandId: NavigateToMarkerCommand.PREVIOUS_MARKER, label: 'Previous Marker' });
+        menus.registerMenuAction(NavigateToMarkerMenuContribution.NAVIGATION.concat('m'), {
+            commandId: NavigateToMarkerCommand.NEXT_MARKER,
+            label: 'Next Marker'
+        });
+        menus.registerMenuAction(NavigateToMarkerMenuContribution.NAVIGATION.concat('m'), {
+            commandId: NavigateToMarkerCommand.PREVIOUS_MARKER,
+            label: 'Previous Marker'
+        });
     }
 }
 

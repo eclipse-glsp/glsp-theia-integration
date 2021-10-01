@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -27,36 +27,41 @@ export interface GLSPCommand {
 }
 
 export class GLSPCommandHandler extends DiagramCommandHandler {
-
     constructor(shell: ApplicationShell, protected readonly command: GLSPCommand) {
         super(shell, () => this.dispatch());
     }
 
     protected dispatch(): Promise<void> | undefined {
-        return this.glspDiagramWidget
-            && this.glspDiagramWidget.actionDispatcher
-                .dispatchAll(this.command.actions(this.glspDiagramWidget.editorContext));
+        return (
+            this.glspDiagramWidget &&
+            this.glspDiagramWidget.actionDispatcher.dispatchAll(this.command.actions(this.glspDiagramWidget.editorContext))
+        );
     }
 
     get glspDiagramWidget(): GLSPDiagramWidget | undefined {
-        return this.diagramWidget instanceof GLSPDiagramWidget ? this.diagramWidget as GLSPDiagramWidget : undefined;
+        return this.diagramWidget instanceof GLSPDiagramWidget ? (this.diagramWidget as GLSPDiagramWidget) : undefined;
     }
 
     isEnabled(): boolean {
-        return super.isEnabled()
-            && this.glspDiagramWidget !== undefined
-            && (this.command.isEnabled === undefined || this.command.isEnabled(this.glspDiagramWidget.editorContext));
+        return (
+            super.isEnabled() &&
+            this.glspDiagramWidget !== undefined &&
+            (this.command.isEnabled === undefined || this.command.isEnabled(this.glspDiagramWidget.editorContext))
+        );
     }
 
     isVisible(): boolean {
-        return this.glspDiagramWidget !== undefined
-            && (this.command.isVisible === undefined || this.command.isVisible(this.glspDiagramWidget.editorContext));
+        return (
+            this.glspDiagramWidget !== undefined &&
+            (this.command.isVisible === undefined || this.command.isVisible(this.glspDiagramWidget.editorContext))
+        );
     }
 
     isToggled(): boolean {
-        return this.glspDiagramWidget !== undefined
-            && this.command.isToggled !== undefined
-            && this.command.isToggled(this.glspDiagramWidget.editorContext);
+        return (
+            this.glspDiagramWidget !== undefined &&
+            this.command.isToggled !== undefined &&
+            this.command.isToggled(this.glspDiagramWidget.editorContext)
+        );
     }
-
 }

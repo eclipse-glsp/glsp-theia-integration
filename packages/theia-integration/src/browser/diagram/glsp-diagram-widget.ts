@@ -45,14 +45,19 @@ import { DirtyStateNotifier, GLSPTheiaDiagramServer } from './glsp-theia-diagram
 import { TheiaGLSPConnector } from './theia-glsp-connector';
 
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
-
     protected copyPasteHandler?: ICopyPasteHandler;
     public saveable: SaveableGLSPModelSource;
     protected options: DiagramWidgetOptions & GLSPWidgetOptions;
     protected requestModelOptions: Args;
 
-    constructor(options: DiagramWidgetOptions & GLSPWidgetOpenerOptions, readonly widgetId: string, readonly diContainer: Container,
-        readonly editorPreferences: EditorPreferences, readonly theiaSelectionService: SelectionService, readonly connector: TheiaGLSPConnector) {
+    constructor(
+        options: DiagramWidgetOptions & GLSPWidgetOpenerOptions,
+        readonly widgetId: string,
+        readonly diContainer: Container,
+        readonly editorPreferences: EditorPreferences,
+        readonly theiaSelectionService: SelectionService,
+        readonly connector: TheiaGLSPConnector
+    ) {
         super(options, widgetId, diContainer, connector);
         this.saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
         this.updateSaveable();
@@ -151,14 +156,16 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     listenToFocusState(shell: ApplicationShell): void {
-        this.toDispose.push(shell.onDidChangeActiveWidget(event => {
-            const focusedWidget = event.newValue;
-            if (this.hasFocus && focusedWidget && !this.isThisWidget(focusedWidget)) {
-                this.actionDispatcher.dispatch(new FocusStateChangedAction(false));
-            } else if (!this.hasFocus && this.isThisWidget(focusedWidget)) {
-                this.actionDispatcher.dispatch(new FocusStateChangedAction(true));
-            }
-        }));
+        this.toDispose.push(
+            shell.onDidChangeActiveWidget(event => {
+                const focusedWidget = event.newValue;
+                if (this.hasFocus && focusedWidget && !this.isThisWidget(focusedWidget)) {
+                    this.actionDispatcher.dispatch(new FocusStateChangedAction(false));
+                } else if (!this.hasFocus && this.isThisWidget(focusedWidget)) {
+                    this.actionDispatcher.dispatch(new FocusStateChangedAction(true));
+                }
+            })
+        );
     }
 
     protected isThisWidget(widget?: Widget | null): boolean {
@@ -187,7 +194,9 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     protected async updateGlobalSelection(): Promise<void> {
-        this.getSelectedElementIds().then((currentSelection: string[]) => this.actionDispatcher.dispatch(new SelectAction(currentSelection)));
+        this.getSelectedElementIds().then((currentSelection: string[]) =>
+            this.actionDispatcher.dispatch(new SelectAction(currentSelection))
+        );
     }
 
     protected async clearGlobalSelection(): Promise<void> {
@@ -214,7 +223,7 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
 
     constructor(readonly actionDispatcher: IActionDispatcher, readonly modelSource: ModelSource) {
         if (DirtyStateNotifier.is(this.modelSource)) {
-            this.modelSource.onDirtyStateChange(dirtyState => this.dirty = dirtyState.isDirty);
+            this.modelSource.onDirtyStateChange(dirtyState => (this.dirty = dirtyState.isDirty));
         }
     }
 

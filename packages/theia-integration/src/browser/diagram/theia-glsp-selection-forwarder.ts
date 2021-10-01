@@ -29,18 +29,18 @@ export function isGlspSelection(selection?: any): selection is GlspSelection {
 
 @injectable()
 export class TheiaGLSPSelectionForwarder extends TheiaSprottySelectionForwarder {
-
     @inject(GlspSelectionDataService) @optional() protected readonly selectionDataService?: GlspSelectionDataService;
 
     handle(action: Action): void {
         if (action instanceof SelectAction && this.selectionDataService) {
-            this.selectionDataService.getSelectionData(action.selectedElementsIDs).then((additionalSelectionData: any) =>
-                this.selectionService.selection = {
-                    selectedElementsIDs: action.selectedElementsIDs,
-                    additionalSelectionData: additionalSelectionData,
-                    widgetId: this.viewerOptions.baseDiv,
-                    sourceUri: this.sourceUri
-                } as GlspSelection
+            this.selectionDataService.getSelectionData(action.selectedElementsIDs).then(
+                (additionalSelectionData: any) =>
+                    (this.selectionService.selection = {
+                        selectedElementsIDs: action.selectedElementsIDs,
+                        additionalSelectionData: additionalSelectionData,
+                        widgetId: this.viewerOptions.baseDiv,
+                        sourceUri: this.sourceUri
+                    } as GlspSelection)
             );
         } else {
             super.handle(action);
