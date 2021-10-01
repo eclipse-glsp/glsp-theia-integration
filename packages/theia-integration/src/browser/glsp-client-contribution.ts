@@ -35,8 +35,6 @@ import '../../css/tool-palette.css';
 import { GLSPContribution } from '../common';
 import { TheiaJsonrpcGLSPClient } from './theia-jsonrpc-glsp-client';
 
-
-
 export const GLSPClientContribution = Symbol.for('GLSPClientContribution');
 
 export interface GLSPClientContribution extends GLSPContribution {
