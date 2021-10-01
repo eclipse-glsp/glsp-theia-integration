@@ -35,7 +35,6 @@ const receivedFromServerProperty = '__receivedFromServer';
 
 @injectable()
 export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyStateNotifier, SourceUriAware {
-
     readonly dirtyStateChangeEmitter: Emitter<DirtyState> = new Emitter<DirtyState>();
 
     protected dirtyState: DirtyState = { isDirty: false };
@@ -104,8 +103,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
 }
 export class SetDirtyStateAction implements Action {
     static readonly KIND = 'setDirtyState';
-    constructor(public readonly isDirty: boolean, public readonly reason?: string,
-        public readonly kind = SetDirtyStateAction.KIND) { }
+    constructor(public readonly isDirty: boolean, public readonly reason?: string, public readonly kind = SetDirtyStateAction.KIND) {}
 }
 
 export namespace DirtyStateChangeReason {
@@ -117,8 +115,7 @@ export namespace DirtyStateChangeReason {
 }
 
 export function isSetDirtyStateAction(action: Action): action is SetDirtyStateAction {
-    return SetDirtyStateAction.KIND === action.kind && 'isDirty' in action
-        && typeof (action['isDirty']) === 'boolean';
+    return SetDirtyStateAction.KIND === action.kind && 'isDirty' in action && typeof action['isDirty'] === 'boolean';
 }
 
 export interface DirtyState {
@@ -131,6 +128,6 @@ export interface DirtyStateNotifier {
 
 export namespace DirtyStateNotifier {
     export function is(arg: any): arg is DirtyStateNotifier {
-        return !!arg && ('onDirtyStateChange' in arg);
+        return !!arg && 'onDirtyStateChange' in arg;
     }
 }

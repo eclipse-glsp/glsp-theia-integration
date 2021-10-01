@@ -26,4 +26,3 @@ export * from './theia-model-source-changed-handler';
 export * from './theia-navigate-to-external-target-handler';
 export * from './theia-navigate-to-marker-contribution';
 export * from './theia-opener-options-navigation-service';
-

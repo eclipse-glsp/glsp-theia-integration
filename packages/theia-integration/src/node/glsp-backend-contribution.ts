@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (C) 2018-2020 TypeFox and others.
+ * Copyright (C) 2018-2021 TypeFox and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -22,10 +22,12 @@ import { GLSPServerContribution, GLSPServerLaunchOptions } from './glsp-server-c
 
 @injectable()
 export class GLSPBackendContribution implements MessagingService.Contribution, GLSPContribution.Service {
-    @inject(ILogger) @named('glsp')
+    @inject(ILogger)
+    @named('glsp')
     protected readonly logger: ILogger;
 
-    @inject(ContributionProvider) @named(GLSPServerContribution)
+    @inject(ContributionProvider)
+    @named(GLSPServerContribution)
     protected readonly contributors: ContributionProvider<GLSPServerContribution>;
 
     protected nextId = 1;

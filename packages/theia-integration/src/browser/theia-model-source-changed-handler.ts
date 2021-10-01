@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -21,7 +21,6 @@ import { getDiagramWidget } from './diagram/glsp-diagram-widget';
 
 @injectable()
 export class TheiaModelSourceChangedHandler extends ExternalModelSourceChangedHandler {
-
     @inject(ApplicationShell) protected readonly shell: ApplicationShell;
 
     async notifyModelSourceChange(modelSourceName: string, options: ViewerOptions): Promise<Action[]> {

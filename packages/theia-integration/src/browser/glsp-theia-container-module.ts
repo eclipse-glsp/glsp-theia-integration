@@ -40,7 +40,6 @@ export interface ContainerContext {
  *  to implement a theia GLSP diagram language integration.
  */
 export abstract class GLSPTheiaFrontendModule extends ContainerModule {
-
     protected abstract diagramLanguage: GLSPDiagramLanguage;
 
     protected enableLayoutCommands = true;
@@ -138,11 +137,14 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
      */
     configureDiagramManager(context: ContainerContext): void {
         const diagramManagerServiceId = Symbol(`DiagramManager_${this.diagramLanguage.diagramType}`);
-        context.bind(diagramManagerServiceId).toDynamicValue(dynamicContext => {
-            const manager = dynamicContext.container.resolve(ConfigurableGLSPDiagramManager);
-            manager.doConfigure(this.diagramLanguage);
-            return manager;
-        }).inSingletonScope();
+        context
+            .bind(diagramManagerServiceId)
+            .toDynamicValue(dynamicContext => {
+                const manager = dynamicContext.container.resolve(ConfigurableGLSPDiagramManager);
+                manager.doConfigure(this.diagramLanguage);
+                return manager;
+            })
+            .inSingletonScope();
         registerDiagramManager(context.bind, diagramManagerServiceId, false);
     }
 

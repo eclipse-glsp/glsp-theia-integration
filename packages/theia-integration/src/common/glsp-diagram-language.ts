@@ -34,4 +34,3 @@ export interface GLSPDiagramLanguage {
      */
     readonly diagramManagerId?: string;
 }
-

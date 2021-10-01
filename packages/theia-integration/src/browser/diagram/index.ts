@@ -26,4 +26,3 @@ export * from './glsp-theia-diagram-server';
 export * from './theia-context-menu-service';
 export * from './theia-glsp-connector';
 export * from './theia-glsp-selection-forwarder';
-

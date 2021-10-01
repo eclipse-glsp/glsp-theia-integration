@@ -76,10 +76,10 @@ export namespace GLSPServerLaunchOptions {
      */
     export function configure(options?: Partial<GLSPServerLaunchOptions>): GLSPServerLaunchOptions {
         return options
-            ? {
-                ...createDefaultOptions(),
-                ...options
-            } as GLSPServerLaunchOptions
+            ? ({
+                  ...createDefaultOptions(),
+                  ...options
+              } as GLSPServerLaunchOptions)
             : createDefaultOptions();
     }
 
@@ -102,7 +102,11 @@ export namespace GLSPServerLaunchOptions {
      * @returns `true` if the server should be launched on application start.
      */
     export function shouldLaunchOnApplicationStart(contribution: GLSPServerContribution): boolean {
-        return contribution.launch !== undefined && !contribution.launchOptions.launchOnDemand && !contribution.launchOptions.launchedExternally;
+        return (
+            contribution.launch !== undefined &&
+            !contribution.launchOptions.launchOnDemand &&
+            !contribution.launchOptions.launchedExternally
+        );
     }
 }
 
@@ -112,7 +116,6 @@ export namespace GLSPServerLaunchOptions {
  */
 @injectable()
 export abstract class BaseGLSPServerContribution implements GLSPServerContribution {
-
     @inject(RawProcessFactory) protected readonly processFactory: RawProcessFactory;
     @inject(ProcessManager) protected readonly processManager: ProcessManager;
     abstract readonly id: string;

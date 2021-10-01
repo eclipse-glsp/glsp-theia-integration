@@ -13,11 +13,6 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import '../../css/decoration.css';
-import '../../css/diagram.css';
-import '../../css/theia-dialogs.css';
-import '../../css/tool-palette.css';
-
 import {
     ApplicationIdProvider,
     Args,
@@ -33,7 +28,10 @@ import { FrontendApplication, WebSocketConnectionProvider } from '@theia/core/li
 import { inject, injectable, multiInject } from '@theia/core/shared/inversify';
 import { WorkspaceService } from '@theia/workspace/lib/browser';
 import { DiagramManagerProvider } from 'sprotty-theia';
-
+import '../../css/decoration.css';
+import '../../css/diagram.css';
+import '../../css/theia-dialogs.css';
+import '../../css/tool-palette.css';
 import { GLSPContribution } from '../common';
 import { TheiaJsonrpcGLSPClient } from './theia-jsonrpc-glsp-client';
 
@@ -50,7 +48,6 @@ export interface GLSPClientContribution extends GLSPContribution {
 
 @injectable()
 export abstract class BaseGLSPClientContribution implements GLSPClientContribution {
-
     abstract readonly id: string;
 
     protected _glspClient: GLSPClient | undefined;
@@ -91,15 +88,20 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         if (activationPromises.length !== 0) {
             return Promise.all([
                 this.ready,
-                // eslint-disable-next-line no-async-promise-executor
-                Promise.race(activationPromises.map(p => new Promise<void>(async resolve => {
-                    try {
-                        await p;
-                        resolve();
-                    } catch (e) {
-                        console.error(e);
-                    }
-                })))
+                Promise.race(
+                    activationPromises.map(
+                        p =>
+                            // eslint-disable-next-line no-async-promise-executor
+                            new Promise<void>(async resolve => {
+                                try {
+                                    await p;
+                                    resolve();
+                                } catch (e) {
+                                    console.error(e);
+                                }
+                            })
+                    )
+                )
             ]);
         }
         return this.ready;
@@ -108,7 +110,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     activate(): Disposable {
         if (this.toDeactivate.disposed) {
             // eslint-disable-next-line @typescript-eslint/no-empty-function
-            this.toDeactivate.push(new DisposableCollection(Disposable.create(() => { })));// mark as not disposed
+            this.toDeactivate.push(new DisposableCollection(Disposable.create(() => { }))); // mark as not disposed
             this.doActivate(this.toDeactivate);
         }
         return this.toDeactivate;
@@ -120,33 +122,34 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
 
     protected async doActivate(toStop: DisposableCollection): Promise<void> {
         try {
-            this.connectionProvider.listen({
-                path: GLSPContribution.getPath(this),
-                onConnection: messageConnection => {
-                    if (toStop.disposed) {
-                        messageConnection.dispose();
-                        return;
-                    }
-                    const languageClient = this.createGLSPCLient(messageConnection);
-                    this.onWillStart(languageClient);
-                    toStop.pushAll([
-                        messageConnection,
-                        Disposable.create(() => {
-                            languageClient.shutdownServer();
-                            languageClient.stop();
+            this.connectionProvider.listen(
+                {
+                    path: GLSPContribution.getPath(this),
+                    onConnection: messageConnection => {
+                        if (toStop.disposed) {
+                            messageConnection.dispose();
+                            return;
                         }
-                        )
-                    ]);
-                }
-            }, { reconnecting: false });
+                        const languageClient = this.createGLSPCLient(messageConnection);
+                        this.onWillStart(languageClient);
+                        toStop.pushAll([
+                            messageConnection,
+                            Disposable.create(() => {
+                                languageClient.shutdownServer();
+                                languageClient.stop();
+                            })
+                        ]);
+                    }
+                },
+                { reconnecting: false }
+            );
         } catch (e) {
             console.error(e);
         }
     }
 
     get running(): boolean {
-        return !this.toDeactivate.disposed && this._glspClient !== undefined
-            && this._glspClient.currentState === ClientState.Running;
+        return !this.toDeactivate.disposed && this._glspClient !== undefined && this._glspClient.currentState === ClientState.Running;
     }
 
     protected async onWillStart(languageClient: GLSPClient): Promise<void> {
@@ -186,9 +189,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     }
 
     protected waitForReady(): void {
-        this.ready = new Promise<GLSPClient>(resolve =>
-            this.resolveReady = resolve
-        );
+        this.ready = new Promise<GLSPClient>(resolve => (this.resolveReady = resolve));
     }
 
     protected createGLSPCLient(connectionProvider: ConnectionProvider): GLSPClient {
@@ -212,4 +213,3 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         return doesContain;
     }
 }
-

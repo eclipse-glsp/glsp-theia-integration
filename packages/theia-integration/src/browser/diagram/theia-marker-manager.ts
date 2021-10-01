@@ -23,7 +23,11 @@ import { SelectionWithElementIds } from '../theia-opener-options-navigation-serv
 
 export const TheiaMarkerManagerFactory = Symbol('TheiaMarkerManagerFactory');
 
-export function connectTheiaMarkerManager(container: Container, markerManagerFactory: () => ExternalMarkerManager, languageLabel: string): void {
+export function connectTheiaMarkerManager(
+    container: Container,
+    markerManagerFactory: () => ExternalMarkerManager,
+    languageLabel: string
+): void {
     const markerManager = markerManagerFactory();
     if (markerManager instanceof ExternalMarkerManager) {
         if (container.isBound(ExternalMarkerManager)) {
@@ -60,7 +64,6 @@ class DiagnosticMarkers {
 
 @injectable()
 export class TheiaMarkerManager extends ExternalMarkerManager {
-
     @inject(ProblemManager) @optional() protected readonly problemManager?: ProblemManager;
 
     protected uri2markers = new Map<URI, DiagnosticMarkers>();
@@ -110,7 +113,11 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
         }
         const uri = new URI(sourceUri);
         this.markers(uri).clear();
-        this.problemManager.setMarkers(uri, this.languageLabel, markers.map(marker => this.createDiagnostic(uri, marker)));
+        this.problemManager.setMarkers(
+            uri,
+            this.languageLabel,
+            markers.map(marker => this.createDiagnostic(uri, marker))
+        );
     }
 
     protected createDiagnostic(uri: URI, marker: Marker): Diagnostic {
@@ -122,10 +129,14 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
 
     protected toSeverity(kind: string): 1 | 2 | 3 | 4 | undefined {
         switch (kind) {
-            case MarkerKind.ERROR: return 1;
-            case MarkerKind.WARNING: return 2;
-            case MarkerKind.INFO: return 3;
-            default: return undefined;
+            case MarkerKind.ERROR:
+                return 1;
+            case MarkerKind.WARNING:
+                return 2;
+            case MarkerKind.INFO:
+                return 3;
+            default:
+                return undefined;
         }
     }
 }

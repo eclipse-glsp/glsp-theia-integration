@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -43,16 +43,16 @@ export namespace JavaSocketServerLaunchOptions {
     }
 
     /**
-    * Utility function to partially set the launch options. Default values (from 'defaultOptions') are used for
-    * options that are not specified.
-    * @param options (partial) launch options that should be extended with default values (if necessary)
-    */
+     * Utility function to partially set the launch options. Default values (from 'defaultOptions') are used for
+     * options that are not specified.
+     * @param options (partial) launch options that should be extended with default values (if necessary)
+     */
     export function configure(options?: Partial<JavaSocketServerLaunchOptions>): JavaSocketServerLaunchOptions {
         return options
-            ? {
-                ...createDefaultOptions(),
-                ...options
-            } as JavaSocketServerLaunchOptions
+            ? ({
+                  ...createDefaultOptions(),
+                  ...options
+              } as JavaSocketServerLaunchOptions)
             : createDefaultOptions();
     }
 }
@@ -63,10 +63,9 @@ export namespace JavaSocketServerLaunchOptions {
  **/
 @injectable()
 export abstract class JavaSocketServerContribution extends BaseGLSPServerContribution {
-
     protected resolveReady: (value?: void | PromiseLike<void> | undefined) => void;
     // eslint-disable-next-line no-invalid-this
-    onReady: Promise<void> = new Promise(resolve => this.resolveReady = resolve);
+    onReady: Promise<void> = new Promise(resolve => (this.resolveReady = resolve));
     launchOptions: JavaSocketServerLaunchOptions;
 
     @postConstruct()
@@ -87,7 +86,9 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
             throw new Error(`Could not launch GLSP server. The given jar path is not valid: ${this.launchOptions.jarPath}`);
         }
         if (isNaN(this.launchOptions.socketConnectionOptions.port)) {
-            throw new Error(`Could not launch GLSP Server. The given server port is not a number: ${this.launchOptions.socketConnectionOptions.port}`);
+            throw new Error(
+                `Could not launch GLSP Server. The given server port is not a number: ${this.launchOptions.socketConnectionOptions.port}`
+            );
         }
         let args = ['-jar', this.launchOptions.jarPath, '--port', `${this.launchOptions.socketConnectionOptions.port}`];
         if (this.launchOptions.additionalArgs) {
@@ -113,7 +114,9 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
 
     protected connectToSocketServer(clientConnection: IConnection): void {
         if (isNaN(this.launchOptions.socketConnectionOptions.port)) {
-            throw new Error(`Could not connect to to GLSP Server. The given server port is not a number: ${this.launchOptions.socketConnectionOptions.port}`);
+            throw new Error(
+                `Could not connect to to GLSP Server. The given server port is not a number: ${this.launchOptions.socketConnectionOptions.port}`
+            );
         }
         const socket = new net.Socket();
         const serverConnection = createSocketConnection(socket, socket, () => {

@@ -16,4 +16,3 @@
 export * from './glsp-backend-contribution';
 export * from './glsp-server-contribution';
 export * from './java-socket-glsp-server';
-

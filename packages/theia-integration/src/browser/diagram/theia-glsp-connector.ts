@@ -28,9 +28,15 @@ export interface TheiaGLSPConnector extends TheiaSprottyConnector {
 }
 
 export function isTheiaGLSPConnector(connector?: TheiaSprottyConnector): connector is TheiaGLSPConnector {
-    return connector !== undefined && 'diagramType' in connector && typeof connector['diagramType'] === 'string'
-        && 'diagramManagerId' in connector && typeof connector['diagramManagerId'] === 'string' &&
-        'showMessage' in connector && typeof connector['showMessage'] === 'function';
+    return (
+        connector !== undefined &&
+        'diagramType' in connector &&
+        typeof connector['diagramType'] === 'string' &&
+        'diagramManagerId' in connector &&
+        typeof connector['diagramManagerId'] === 'string' &&
+        'showMessage' in connector &&
+        typeof connector['showMessage'] === 'function'
+    );
 }
 
 @injectable()

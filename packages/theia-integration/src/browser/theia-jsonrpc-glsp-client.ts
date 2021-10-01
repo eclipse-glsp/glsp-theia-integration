@@ -18,7 +18,6 @@ import { MessageService } from '@theia/core/';
 import { Message } from 'vscode-jsonrpc';
 
 export class TheiaJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
-
     protected messageService: MessageService;
 
     constructor(options: TheiaJsonrpcGLSPClient.Options) {
@@ -40,11 +39,12 @@ export class TheiaJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
 
     protected checkConnectionState(): boolean {
         if (this.state === ClientState.ServerError) {
-            this.messageService.error(`Could not establish connection to ${this.id} glsp server. Maybe the server has been shutdown due to a previous error.`);
+            this.messageService.error(
+                `Could not establish connection to ${this.id} glsp server. Maybe the server has been shutdown due to a previous error.`
+            );
         }
         return super.checkConnectionState();
     }
-
 }
 
 // eslint-disable-next-line no-redeclare

@@ -15,10 +15,7 @@
  ********************************************************************************/
 import { GLSP_TYPES, IActionDispatcher, TYPES } from '@eclipse-glsp/client';
 import { Container } from '@theia/core/shared/inversify';
-import {
-    TheiaContextMenuService,
-    TheiaSprottyContextMenu
-} from 'sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service';
+import { TheiaContextMenuService, TheiaSprottyContextMenu } from 'sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service';
 
 export const TheiaContextMenuServiceFactory = Symbol('TheiaContextMenuServiceFactory');
 

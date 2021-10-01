@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -22,7 +22,7 @@ import { inject, injectable } from '@theia/core/shared/inversify';
 export class TheiaNavigateToExternalTargetHandler implements IActionHandler {
     static JSON_OPENER_OPTIONS = 'jsonOpenerOptions';
 
-    constructor(@inject(OpenerService) protected readonly openerService: OpenerService) { }
+    constructor(@inject(OpenerService) protected readonly openerService: OpenerService) {}
 
     handle(action: Action): void {
         if (isNavigateToExternalTargetAction(action)) {
