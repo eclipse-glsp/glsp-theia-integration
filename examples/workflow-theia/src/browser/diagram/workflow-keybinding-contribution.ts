@@ -26,8 +26,7 @@ export class WorkflowDiagramKeybindingContext implements KeybindingContext {
     id = WorkflowDiagramKeybindingContext.ID;
     @inject(ApplicationShell) protected readonly shell: ApplicationShell;
     isEnabled(): boolean {
-        return this.shell.activeWidget instanceof GLSPDiagramWidget
-            && this.shell.activeWidget.diagramType === WorkflowLanguage.diagramType;
+        return this.shell.activeWidget instanceof GLSPDiagramWidget && this.shell.activeWidget.diagramType === WorkflowLanguage.diagramType;
     }
 }
 

@@ -29,7 +29,8 @@ export namespace WorkflowTaskEditingCommands {
 export class WorkflowTaskEditCommandContribution implements CommandContribution {
     @inject(ApplicationShell) protected readonly shell: ApplicationShell;
     registerCommands(commands: CommandRegistry): void {
-        commands.registerCommand({ id: WorkflowTaskEditingCommands.EDIT_TASK, label: 'Direct Edit Task' },
+        commands.registerCommand(
+            { id: WorkflowTaskEditingCommands.EDIT_TASK, label: 'Direct Edit Task' },
             new GLSPCommandHandler(this.shell, {
                 actions: context => [new SetUIExtensionVisibilityAction(TaskEditor.ID, true, [context.selectedElements[0].id])],
                 isEnabled: context => !context.isReadonly && context.selectedElements.filter(isTaskNode).length === 1

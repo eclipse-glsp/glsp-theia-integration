@@ -31,7 +31,6 @@ import { inject, injectable, postConstruct } from '@theia/core/shared/inversify'
 import { isDiagramWidgetContainer } from 'sprotty-theia';
 import { GLSPDiagramWidget } from './glsp-diagram-widget';
 
-
 @injectable()
 export abstract class AbstractGLSPDiagramContextKeyService {
     @inject(ApplicationShell)

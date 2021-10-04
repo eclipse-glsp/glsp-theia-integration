@@ -15,14 +15,7 @@
  ********************************************************************************/
 import { EditMode } from '@eclipse-glsp/client';
 import { GLSPWidgetOpenerOptions } from '@eclipse-glsp/theia-integration';
-import {
-    Command,
-    CommandContribution,
-    CommandRegistry,
-    MenuContribution,
-    MenuModelRegistry,
-    SelectionService
-} from '@theia/core';
+import { Command, CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, SelectionService } from '@theia/core';
 import { OpenerService } from '@theia/core/lib/browser';
 import URI from '@theia/core/lib/common/uri';
 import { UriAwareCommandHandler } from '@theia/core/lib/common/uri-command-handler';
@@ -34,7 +27,6 @@ export const OPEN_READONLY_DIAGRAM_VIEW: Command = {
     label: 'Open in Workflow Diagram Readonly View',
     category: '2_additional',
     iconClass: 'fa fa-project-diagram'
-
 };
 @injectable()
 export class WorkflowDiagramReadonlyViewContribution implements CommandContribution, MenuContribution {
@@ -49,14 +41,17 @@ export class WorkflowDiagramReadonlyViewContribution implements CommandContribut
     }
 
     registerCommands(registry: CommandRegistry): void {
-        registry.registerCommand(OPEN_READONLY_DIAGRAM_VIEW, new UriAwareCommandHandler(this.selectionService, {
-            execute: async (uri: URI) => {
-                const openerOptions: GLSPWidgetOpenerOptions = { editMode: EditMode.READONLY };
-                const opener = await this.openerService.getOpener(uri, openerOptions);
-                await opener.open(uri, openerOptions);
-            },
-            isVisible: uri => uri.toString().endsWith('.wf'),
-            isEnabled: uri => uri.toString().endsWith('.wf')
-        }));
+        registry.registerCommand(
+            OPEN_READONLY_DIAGRAM_VIEW,
+            new UriAwareCommandHandler(this.selectionService, {
+                execute: async (uri: URI) => {
+                    const openerOptions: GLSPWidgetOpenerOptions = { editMode: EditMode.READONLY };
+                    const opener = await this.openerService.getOpener(uri, openerOptions);
+                    await opener.open(uri, openerOptions);
+                },
+                isVisible: uri => uri.toString().endsWith('.wf'),
+                isEnabled: uri => uri.toString().endsWith('.wf')
+            })
+        );
     }
 }
