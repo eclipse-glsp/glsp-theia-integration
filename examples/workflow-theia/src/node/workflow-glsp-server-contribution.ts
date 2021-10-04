@@ -32,9 +32,7 @@ export class WorkflowGLServerContribution extends JavaSocketServerContribution {
     createLaunchOptions(): Partial<JavaSocketServerLaunchOptions> {
         return {
             jarPath: JAR_FILE,
-            additionalArgs: ['--consoleLog', 'false',
-                '--fileLog', 'true',
-                '--logDir', SERVER_DIR],
+            additionalArgs: ['--consoleLog', 'false', '--fileLog', 'true', '--logDir', SERVER_DIR],
             socketConnectionOptions: {
                 port: getPort(PORT_ARG_KEY, DEFAULT_PORT)
             }

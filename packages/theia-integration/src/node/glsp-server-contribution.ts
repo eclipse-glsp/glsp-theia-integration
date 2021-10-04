@@ -13,6 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+/* eslint-disable indent */
+
 import { MaybePromise } from '@eclipse-glsp/protocol';
 import { WebSocketChannelConnection } from '@theia/core/lib/node/messaging';
 import { inject, injectable, postConstruct } from '@theia/core/shared/inversify';
@@ -21,7 +23,6 @@ import { ProcessManager } from '@theia/process/lib/node/process-manager';
 import { RawProcess, RawProcessFactory } from '@theia/process/lib/node/raw-process';
 import * as cp from 'child_process';
 import { forward, IConnection } from 'vscode-ws-jsonrpc/lib/server';
-
 import { GLSPContribution } from '../common';
 
 export const GLSPServerContribution = Symbol.for('GLSPServerContribution');
@@ -47,7 +48,8 @@ export interface GLSPServerContribution extends GLSPContribution {
 export interface GLSPServerLaunchOptions {
     /**
      * Declares if the server can handle multiple clients.
-     * A `multiClient` server only has to be started once whereas in a `singleClient` scenario a new server needs to be launched for each client.
+     * A `multiClient` server only has to be started once whereas in a `singleClient` scenario a new server needs to be launched for each
+     * client.
      */
     multiClient: boolean;
     /** Declares wether the  server should be launched on application start or on demand (e.g. on widget open). */

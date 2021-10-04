@@ -21,18 +21,9 @@ import { DiagramConfiguration } from 'sprotty-theia';
 import { WorkflowLanguage } from '../common/workflow-language';
 import { WorkflowDiagramConfiguration } from './diagram/workflow-diagram-configuration';
 import { WorkflowDiagramReadonlyViewContribution } from './diagram/workflow-diagram-readonly-view';
-import {
-    WorkflowDiagramKeybindingContext,
-    WorkflowKeybindingContribution
-} from './diagram/workflow-keybinding-contribution';
-import {
-    WorkflowNavigationCommandContribution,
-    WorkflowNavigationMenuContribution
-} from './diagram/workflow-navigation-context-menu';
-import {
-    WorkflowTaskEditCommandContribution,
-    WorkflowTaskEditMenuContribution
-} from './diagram/workflow-task-editing-context-menu';
+import { WorkflowDiagramKeybindingContext, WorkflowKeybindingContribution } from './diagram/workflow-keybinding-contribution';
+import { WorkflowNavigationCommandContribution, WorkflowNavigationMenuContribution } from './diagram/workflow-navigation-context-menu';
+import { WorkflowTaskEditCommandContribution, WorkflowTaskEditMenuContribution } from './diagram/workflow-task-editing-context-menu';
 import { ExampleNavigationCommandContribution } from './external-navigation-example/external-navigation-example';
 import { WorkflowGLSPClientContribution } from './workflow-glsp-client-contribution';
 
@@ -65,8 +56,6 @@ export class WorkflowTheiaFrontendModule extends GLSPTheiaFrontendModule {
     bindGLSPClientContribution(context: ContainerContext): void {
         context.bind(GLSPClientContribution).to(WorkflowGLSPClientContribution);
     }
-
 }
 
 export default new WorkflowTheiaFrontendModule();
-

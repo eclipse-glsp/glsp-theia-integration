@@ -17,7 +17,6 @@ import { injectable, postConstruct } from '@theia/core/shared/inversify';
 import * as fs from 'fs';
 import * as net from 'net';
 import { createSocketConnection, IConnection } from 'vscode-ws-jsonrpc/lib/server';
-
 import { BaseGLSPServerContribution, GLSPServerLaunchOptions } from './glsp-server-contribution';
 
 export const START_UP_COMPLETE_MSG = '[GLSP-Server]:Startup completed';
@@ -115,6 +114,7 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
     protected connectToSocketServer(clientConnection: IConnection): void {
         if (isNaN(this.launchOptions.socketConnectionOptions.port)) {
             throw new Error(
+                // eslint-disable-next-line max-len
                 `Could not connect to to GLSP Server. The given server port is not a number: ${this.launchOptions.socketConnectionOptions.port}`
             );
         }

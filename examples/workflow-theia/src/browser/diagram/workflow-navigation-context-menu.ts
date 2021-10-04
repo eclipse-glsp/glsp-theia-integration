@@ -30,19 +30,22 @@ export namespace WorkflowNavigationCommands {
 export class WorkflowNavigationCommandContribution implements CommandContribution {
     @inject(ApplicationShell) protected readonly shell: ApplicationShell;
     registerCommands(commands: CommandRegistry): void {
-        commands.registerCommand({ id: WorkflowNavigationCommands.NEXT_NODE, label: 'Go to Next Node' },
+        commands.registerCommand(
+            { id: WorkflowNavigationCommands.NEXT_NODE, label: 'Go to Next Node' },
             new GLSPCommandHandler(this.shell, {
                 actions: () => [new NavigateAction('next')],
                 isEnabled: context => context.selectedElements.filter(isTaskNode).length === 1
             })
         );
-        commands.registerCommand({ id: WorkflowNavigationCommands.PREVIOUS_NODE, label: 'Go to Previous Node' },
+        commands.registerCommand(
+            { id: WorkflowNavigationCommands.PREVIOUS_NODE, label: 'Go to Previous Node' },
             new GLSPCommandHandler(this.shell, {
                 actions: () => [new NavigateAction('previous')],
                 isEnabled: context => context.selectedElements.filter(isTaskNode).length === 1
             })
         );
-        commands.registerCommand({ id: WorkflowNavigationCommands.DOCUMENTATION, label: 'Go to Documentation' },
+        commands.registerCommand(
+            { id: WorkflowNavigationCommands.DOCUMENTATION, label: 'Go to Documentation' },
             new GLSPCommandHandler(this.shell, {
                 actions: () => [new NavigateAction('documentation')],
                 isEnabled: context => context.selectedElements.filter(isTaskNode).length === 1
@@ -55,8 +58,17 @@ export class WorkflowNavigationCommandContribution implements CommandContributio
 export class WorkflowNavigationMenuContribution implements MenuContribution {
     static readonly NAVIGATION = GLSPContextMenu.MENU_PATH.concat('navigate');
     registerMenus(menus: MenuModelRegistry): void {
-        menus.registerMenuAction(WorkflowNavigationMenuContribution.NAVIGATION.concat('n'), { commandId: WorkflowNavigationCommands.NEXT_NODE, label: 'Next node' });
-        menus.registerMenuAction(WorkflowNavigationMenuContribution.NAVIGATION.concat('n'), { commandId: WorkflowNavigationCommands.PREVIOUS_NODE, label: 'Previous node' });
-        menus.registerMenuAction(WorkflowNavigationMenuContribution.NAVIGATION.concat('z'), { commandId: WorkflowNavigationCommands.DOCUMENTATION, label: 'Documentation' });
+        menus.registerMenuAction(WorkflowNavigationMenuContribution.NAVIGATION.concat('n'), {
+            commandId: WorkflowNavigationCommands.NEXT_NODE,
+            label: 'Next node'
+        });
+        menus.registerMenuAction(WorkflowNavigationMenuContribution.NAVIGATION.concat('n'), {
+            commandId: WorkflowNavigationCommands.PREVIOUS_NODE,
+            label: 'Previous node'
+        });
+        menus.registerMenuAction(WorkflowNavigationMenuContribution.NAVIGATION.concat('z'), {
+            commandId: WorkflowNavigationCommands.DOCUMENTATION,
+            label: 'Documentation'
+        });
     }
 }

@@ -110,7 +110,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     activate(): Disposable {
         if (this.toDeactivate.disposed) {
             // eslint-disable-next-line @typescript-eslint/no-empty-function
-            this.toDeactivate.push(new DisposableCollection(Disposable.create(() => { }))); // mark as not disposed
+            this.toDeactivate.push(new DisposableCollection(Disposable.create(() => {}))); // mark as not disposed
             this.doActivate(this.toDeactivate);
         }
         return this.toDeactivate;
@@ -208,7 +208,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         const doesContain = await this.workspaceService.containsSome(this.workspaceContains);
         if (!doesContain) {
             // eslint-disable-next-line @typescript-eslint/no-empty-function
-            return new Promise(resolve => { });
+            return new Promise(resolve => {});
         }
         return doesContain;
     }
