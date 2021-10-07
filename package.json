@@ -24,7 +24,7 @@
     "@wdio/mocha-framework": "^6.0.13",
     "@wdio/selenium-standalone-service": "^6.0.12",
     "@wdio/sync": "^6.0.14",
-    "@eclipse-glsp/config": "0.9.0-next.0e05932b",
+    "@eclipse-glsp/config": "0.9.0-next.a3910f6a",
     "lerna": "^2.2.0",
     "typescript": "^3.9.2"
   },
