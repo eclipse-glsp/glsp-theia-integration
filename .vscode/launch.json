@@ -83,9 +83,7 @@
         "group": "Browser launch configurations",
         "order": 2
       },
-      "runtimeArgs": [
-        "--incognito"
-      ]
+      "runtimeArgs": ["--incognito"]
     }
   ]
 }

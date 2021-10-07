@@ -12,10 +12,7 @@
         "reveal": "always",
         "panel": "new"
       },
-      "problemMatcher": [
-        "$tsc",
-        "$eslint-stylish"
-      ]
+      "problemMatcher": ["$tsc", "$eslint-stylish"]
     },
     {
       "label": "[Theia] Watch all",
@@ -26,9 +23,7 @@
         "reveal": "always",
         "panel": "new"
       },
-      "problemMatcher": [
-        "$tsc-watch"
-      ]
+      "problemMatcher": ["$tsc-watch"]
     },
     {
       "label": "[Theia] Start Workflow Theia Backend Example",
@@ -76,15 +71,11 @@
       },
       "linux": {
         "command": "./configs/local-linking.sh",
-        "args": [
-          "${workspaceFolder}/../"
-        ]
+        "args": ["${workspaceFolder}/../"]
       },
       "osx": {
         "command": "./configs/local-linking.sh",
-        "args": [
-          "${workspaceFolder}/../"
-        ]
+        "args": ["${workspaceFolder}/../"]
       },
       "problemMatcher": []
     },
@@ -100,17 +91,11 @@
       },
       "linux": {
         "command": "./configs/local-linking.sh",
-        "args": [
-          "${workspaceFolder}/../",
-          "--unlink"
-        ]
+        "args": ["${workspaceFolder}/../", "--unlink"]
       },
       "osx": {
         "command": "./configs/local-linking.sh",
-        "args": [
-          "${workspaceFolder}/../",
-          "--unlink"
-        ]
+        "args": ["${workspaceFolder}/../", "--unlink"]
       },
       "problemMatcher": []
     }
