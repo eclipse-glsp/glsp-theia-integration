@@ -21,7 +21,6 @@ export * from './glsp-client-contribution';
 export * from './glsp-client-provider';
 export * from './glsp-frontend-contribution';
 export * from './glsp-theia-container-module';
-export * from './theia-command-palette';
 export * from './theia-model-source-changed-handler';
 export * from './theia-navigate-to-external-target-handler';
 export * from './theia-navigate-to-marker-contribution';

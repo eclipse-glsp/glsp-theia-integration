@@ -28,6 +28,9 @@ import { FrontendApplication, WebSocketConnectionProvider } from '@theia/core/li
 import { inject, injectable, multiInject } from '@theia/core/shared/inversify';
 import { WorkspaceService } from '@theia/workspace/lib/browser';
 import { DiagramManagerProvider } from 'sprotty-theia';
+import 'sprotty-theia/css/theia-sprotty.css';
+import 'sprotty/css/sprotty.css';
+import '../../css/command-palette.css';
 import '../../css/decoration.css';
 import '../../css/diagram.css';
 import '../../css/theia-dialogs.css';

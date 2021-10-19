@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { ContainerModule, injectable, interfaces } from '@theia/core/shared/inversify';
+import { codiconCSSString } from 'sprotty';
 import { GLSPDiagramLanguage } from '../common/glsp-diagram-language';
 import { registerCopyPasteContextMenu } from './copy-paste-context-menu-contribution';
 import { BaseTheiaGLSPConnector } from './diagram/base-theia-glsp-connector';
@@ -244,12 +245,14 @@ class ConfigurableTheiaGLSPConnector extends BaseTheiaGLSPConnector {
 @injectable()
 class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
     private _diagramType?: string;
+    private _label: string;
     private _fileExtensions: string[] = [];
-    private _iconClass = 'fa fa-project-diagram';
+    private _iconClass = codiconCSSString('type-hierarchy-sub');
 
     public doConfigure(diagramLanguage: GLSPDiagramLanguage): void {
         this._fileExtensions = diagramLanguage.fileExtensions;
         this._diagramType = diagramLanguage.diagramType;
+        this._label = diagramLanguage.label;
         this._iconClass = diagramLanguage.iconClass || this._iconClass;
         this.initialize();
     }
@@ -269,6 +272,10 @@ class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
             throw new Error('No diagramType has been set for this ConfigurableGLSPDiagramManager');
         }
         return this._diagramType;
+    }
+
+    get label(): string {
+        return this._label;
     }
 
     get iconClass(): string {

@@ -17,8 +17,8 @@ import { GLSPDiagramLanguage } from '@eclipse-glsp/theia-integration/lib/common'
 
 export const WorkflowLanguage: GLSPDiagramLanguage = {
     contributionId: 'workflow',
-    label: 'Workflow diagram',
+    label: 'Workflow Diagram',
     diagramType: 'workflow-diagram',
     fileExtensions: ['.wf'],
-    iconClass: 'fa fa-project-diagram'
+    iconClass: 'codicon codicon-type-hierarchy-sub'
 };

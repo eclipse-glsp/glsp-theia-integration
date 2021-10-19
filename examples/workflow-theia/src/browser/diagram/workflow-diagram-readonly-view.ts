@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { EditMode } from '@eclipse-glsp/client';
+import { codiconCSSString, EditMode } from '@eclipse-glsp/client';
 import { GLSPWidgetOpenerOptions } from '@eclipse-glsp/theia-integration';
 import { Command, CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, SelectionService } from '@theia/core';
 import { OpenerService } from '@theia/core/lib/browser';
@@ -26,7 +26,7 @@ export const OPEN_READONLY_DIAGRAM_VIEW: Command = {
     id: 'workflow.open.readonly',
     label: 'Open in Workflow Diagram Readonly View',
     category: '2_additional',
-    iconClass: 'fa fa-project-diagram'
+    iconClass: codiconCSSString('type-hierarchy-sub')
 };
 @injectable()
 export class WorkflowDiagramReadonlyViewContribution implements CommandContribution, MenuContribution {
