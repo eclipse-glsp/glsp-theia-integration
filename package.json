@@ -19,12 +19,12 @@
     "download:exampleServer": "ts-node examples/workflow-theia/server/download.ts"
   },
   "devDependencies": {
+    "@eclipse-glsp/config": "0.9.0-next.a3910f6a",
     "@wdio/cli": "^6.0.14",
     "@wdio/local-runner": "^6.0.14",
     "@wdio/mocha-framework": "^6.0.13",
     "@wdio/selenium-standalone-service": "^6.0.12",
     "@wdio/sync": "^6.0.14",
-    "@eclipse-glsp/config": "0.9.0-next.a3910f6a",
     "lerna": "^2.2.0",
     "typescript": "^3.9.2"
   },

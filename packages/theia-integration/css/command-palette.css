@@ -25,20 +25,21 @@
 
 .command-palette.validation .validation-decorator {
     position: absolute;
-    padding-left: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px;
     border-radius: 5px 5px 0px 0px;
     color: white;
-    /* indent second line for icon */
-    padding-left: 25px;
-    text-indent: -10px;
+    display: flex;
+    align-items: flex-start;
     /* let error decoration fade in */
     -webkit-animation: fadein 0.3s;
     -moz-animation: fadein 0.3s;
     -ms-animation: fadein 0.3s;
     -o-animation: fadein 0.3s;
     animation: fadein 0.3s;
+}
+
+.command-palette.validation .validation-decorator span {
+    margin-right: 5px;
 }
 
 .command-palette.validation.error input,

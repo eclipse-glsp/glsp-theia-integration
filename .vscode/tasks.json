@@ -98,6 +98,16 @@
         "args": ["${workspaceFolder}/../", "--unlink"]
       },
       "problemMatcher": []
+    },
+    {
+      "label": "[Theia] Open Workflow Theia example (Chrome)",
+      "type": "shell",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "command": "google-chrome 127.0.0.1:3000"
     }
   ]
 }

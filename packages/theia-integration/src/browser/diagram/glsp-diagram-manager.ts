@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { configureServerActions, EditMode, GLSPActionDispatcher } from '@eclipse-glsp/client';
+import { codiconCSSString, configureServerActions, EditMode, GLSPActionDispatcher } from '@eclipse-glsp/client';
 import {
     ApplicationShell,
     FrontendApplicationContribution,
@@ -27,7 +27,6 @@ import URI from '@theia/core/lib/common/uri';
 import { inject, injectable, interfaces, postConstruct } from '@theia/core/shared/inversify';
 import { EditorPreferences } from '@theia/editor/lib/browser';
 import { DiagramConfiguration, DiagramManager, DiagramManagerProvider, DiagramWidget, DiagramWidgetOptions } from 'sprotty-theia';
-
 import { TheiaOpenerOptionsNavigationService } from '../theia-opener-options-navigation-service';
 import { GLSPDiagramContextKeyService } from './glsp-diagram-context-key-service';
 import { GLSPDiagramWidget } from './glsp-diagram-widget';
@@ -159,7 +158,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     }
 
     get iconClass(): string {
-        return 'fa fa-project-diagram';
+        return codiconCSSString('type-hierarchy-sub');
     }
 }
 

@@ -22,9 +22,8 @@ import {
     ServerStatusAction
 } from '@eclipse-glsp/client';
 import { Args, GLSPClient, InitializeResult } from '@eclipse-glsp/protocol';
-import { ContributionProvider, MessageService } from '@theia/core';
+import { ContributionProvider, Message, MessageService, MessageType } from '@theia/core';
 import { ConfirmDialog, WidgetManager } from '@theia/core/lib/browser';
-import { Message, MessageType } from '@theia/core/lib/common';
 import { inject, injectable, named, postConstruct } from '@theia/core/shared/inversify';
 import { EditorManager } from '@theia/editor/lib/browser';
 import { DiagramWidget, TheiaDiagramServer, TheiaFileSaver } from 'sprotty-theia';

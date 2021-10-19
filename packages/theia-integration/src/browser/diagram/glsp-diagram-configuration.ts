@@ -13,19 +13,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import {
-    CommandPalette,
-    configureActionHandler,
-    ExternalModelSourceChangedHandler,
-    NavigateToExternalTargetAction,
-    TYPES
-} from '@eclipse-glsp/client';
+import { configureActionHandler, ExternalModelSourceChangedHandler, NavigateToExternalTargetAction, TYPES } from '@eclipse-glsp/client';
 import { CommandService, SelectionService } from '@theia/core';
 import { OpenerService } from '@theia/core/lib/browser';
 import { Container, inject, injectable } from '@theia/core/shared/inversify';
 import { DiagramConfiguration, TheiaContextMenuService, TheiaDiagramServer } from 'sprotty-theia';
-
-import { TheiaCommandPalette } from '../theia-command-palette';
 import { TheiaModelSourceChangedHandler } from '../theia-model-source-changed-handler';
 import { TheiaNavigateToExternalTargetHandler } from '../theia-navigate-to-external-target-handler';
 import { connectTheiaContextMenuService, TheiaContextMenuServiceFactory } from './theia-context-menu-service';
@@ -61,9 +53,6 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
         container.bind(OpenerService).toConstantValue(this.openerService);
         container.bind(CommandService).toConstantValue(this.commandService);
         container.bind(ExternalModelSourceChangedHandler).toConstantValue(this.modelSourceChangedHandler);
-        if (container.isBound(CommandPalette)) {
-            container.rebind(CommandPalette).to(TheiaCommandPalette);
-        }
 
         connectTheiaContextMenuService(container, this.contextMenuServiceFactory);
         connectTheiaMarkerManager(container, this.theiaMarkerManager, this.diagramType);
