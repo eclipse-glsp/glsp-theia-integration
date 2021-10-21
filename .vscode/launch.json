@@ -75,10 +75,8 @@
       "request": "launch",
       "name": "Launch Workflow Browser Frontend",
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}",
-      "sourceMapPathOverrides": {
-        "./src/*": "${workspaceFolder}/src/*"
-      },
+      "sourceMaps": true,
+      "webRoot": "${workspaceRoot}/examples/browser-app",
       "presentation": {
         "group": "Browser launch configurations",
         "order": 2
