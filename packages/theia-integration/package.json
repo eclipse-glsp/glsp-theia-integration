@@ -41,7 +41,7 @@
   "dependencies": {
     "@eclipse-glsp/client": "next",
     "@theia/messages": "^1.0.0",
-    "sprotty-theia": "next"
+    "sprotty-theia": "0.10.0"
   },
   "devDependencies": {
     "rimraf": "^2.6.1",

@@ -13,10 +13,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { Action, isSelectAction } from '@eclipse-glsp/client';
 import { inject, injectable, optional } from '@theia/core/shared/inversify';
-import { Action, SelectAction } from 'sprotty';
 import { isSprottySelection, SprottySelection, TheiaSprottySelectionForwarder } from 'sprotty-theia';
-
 import { GlspSelectionData, GlspSelectionDataService } from './glsp-selection-data-service';
 
 export interface GlspSelection extends SprottySelection {
@@ -32,7 +31,7 @@ export class TheiaGLSPSelectionForwarder extends TheiaSprottySelectionForwarder 
     @inject(GlspSelectionDataService) @optional() protected readonly selectionDataService?: GlspSelectionDataService;
 
     handle(action: Action): void {
-        if (action instanceof SelectAction && this.selectionDataService) {
+        if (isSelectAction(action) && this.selectionDataService) {
             this.selectionDataService.getSelectionData(action.selectedElementsIDs).then(
                 (additionalSelectionData: any) =>
                     (this.selectionService.selection = {

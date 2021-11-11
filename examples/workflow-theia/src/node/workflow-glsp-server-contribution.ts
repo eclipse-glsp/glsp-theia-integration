@@ -17,7 +17,6 @@ import { getPort } from '@eclipse-glsp/protocol';
 import { JavaSocketServerContribution, JavaSocketServerLaunchOptions } from '@eclipse-glsp/theia-integration/lib/node';
 import { injectable } from '@theia/core/shared/inversify';
 import { join, resolve } from 'path';
-
 import { WorkflowLanguage } from '../common/workflow-language';
 
 export const DEFAULT_PORT = 5007;

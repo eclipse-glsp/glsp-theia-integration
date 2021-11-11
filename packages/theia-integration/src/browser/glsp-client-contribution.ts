@@ -22,7 +22,7 @@ import {
     InitializeParameters,
     InitializeResult,
     MaybePromise
-} from '@eclipse-glsp/protocol';
+} from '@eclipse-glsp/client';
 import { Disposable, DisposableCollection, MessageService } from '@theia/core';
 import { FrontendApplication, WebSocketConnectionProvider } from '@theia/core/lib/browser';
 import { inject, injectable, multiInject } from '@theia/core/shared/inversify';

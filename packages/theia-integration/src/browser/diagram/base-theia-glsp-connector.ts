@@ -15,13 +15,15 @@
  ********************************************************************************/
 import {
     ActionMessage,
+    Args,
     ExportSvgAction,
+    GLSPClient,
+    InitializeResult,
     isGLSPServerStatusAction,
     remove,
     ServerMessageAction,
     ServerStatusAction
 } from '@eclipse-glsp/client';
-import { Args, GLSPClient, InitializeResult } from '@eclipse-glsp/protocol';
 import { ContributionProvider, Message, MessageService, MessageType } from '@theia/core';
 import { ConfirmDialog, WidgetManager } from '@theia/core/lib/browser';
 import { inject, injectable, named, postConstruct } from '@theia/core/shared/inversify';
