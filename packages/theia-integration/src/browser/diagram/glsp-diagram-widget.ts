@@ -39,7 +39,6 @@ import { Container } from '@theia/core/shared/inversify';
 import { EditorPreferences } from '@theia/editor/lib/browser';
 import { pickBy } from 'lodash';
 import { DiagramWidget, DiagramWidgetOptions, isDiagramWidgetContainer } from 'sprotty-theia';
-
 import { GLSPWidgetOpenerOptions, GLSPWidgetOptions } from './glsp-diagram-manager';
 import { DirtyStateNotifier, GLSPTheiaDiagramServer } from './glsp-theia-diagram-server';
 import { TheiaGLSPConnector } from './theia-glsp-connector';
@@ -99,7 +98,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
     protected dispatchInitialActions(): void {
         this.actionDispatcher.dispatch(new RequestModelAction(this.requestModelOptions));
-        this.actionDispatcher.dispatch(new RequestTypeHintsAction(this.options.diagramType));
+        this.actionDispatcher.dispatch(new RequestTypeHintsAction());
         this.actionDispatcher.dispatch(new EnableToolPaletteAction());
         this.actionDispatcher.dispatch(new SetEditModeAction(this.options.editMode));
     }

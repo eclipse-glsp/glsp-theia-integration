@@ -13,11 +13,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Args } from '@eclipse-glsp/client';
-import { MaybePromise } from '@eclipse-glsp/protocol';
+import { Args, MaybePromise } from '@eclipse-glsp/client';
 import { BaseGLSPClientContribution } from '@eclipse-glsp/theia-integration/lib/browser';
 import { injectable } from '@theia/core/shared/inversify';
-
 import { WorkflowLanguage } from '../common/workflow-language';
 
 export interface WorkflowInitializeOptions {

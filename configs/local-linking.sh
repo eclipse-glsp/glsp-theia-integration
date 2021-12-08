@@ -17,8 +17,9 @@ function linkClient(){
     cd ../protocol || exit
     yarn $1
     cd $2/glsp-client ||exit
-    yarn $1 sprotty
     yarn install --force
+    cd node_modules/sprotty || exit
+    yarn $1
 }
 
 #### MAIN Script
@@ -39,29 +40,16 @@ fi
 
 if [[ "$2" != "--unlink" ]]; then
     echo "--- Start linking all necessary packages --- "
-    cd $baseDir/glsp-theia-integration || exit
-    yarn install
-    # Link local sprotty module so that glsp-client can reuse (to avoid DI issues)
-    cd node_modules/sprotty|| exit
-    yarn link
     # Link client
     linkClient link $baseDir
     cd $baseDir/glsp-theia-integration || exit
-    yarn link @eclipse-glsp/client
-    yarn link @eclipse-glsp/protocol
-    yarn link @eclipse-glsp-examples/workflow-glsp
+    yarn link sprotty @eclipse-glsp/client  @eclipse-glsp/protocol @eclipse-glsp-examples/workflow-glsp
     yarn install --force
     echo "--- LINKING SUCCESSFULL --- "
 else
     echo "--- Start unlinking all previously linked packages --- "
-    cd $baseDir/glsp-theia-integration/node_modules/sprotty || exit
-    yarn unlink
-    cd ../..
-    yarn unlink @eclipse-glsp/client
-    yarn unlink @eclipse-glsp/protocol
-    yarn unlink @eclipse-glsp-examples/workflow-glsp
-    linkClient unlink $baseDir
-    cd $baseDir/glsp-theia-integration
+    yarn unlink sprotty @eclipse-glsp/client  @eclipse-glsp/protocol  @eclipse-glsp-examples/workflow-glsp
     yarn install --force
+    linkClient unlink $baseDir
     echo "--- UNLINKING SUCCESSFULL --- "
 fi
