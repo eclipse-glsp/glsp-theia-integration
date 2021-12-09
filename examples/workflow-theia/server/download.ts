@@ -17,7 +17,7 @@ import download from 'mvn-artifact-download';
 import { join, resolve } from 'path';
 
 const downloadDir = resolve(join(__dirname));
-const mavenRepository = 'https://oss.sonatype.org/content/repositories/snapshots/';
+const mavenRepository = 'https://oss.sonatype.org/content/groups/public/';
 const groupId = 'org.eclipse.glsp.example';
 const artifactId = 'org.eclipse.glsp.example.workflow';
 const version = '0.9.0';
