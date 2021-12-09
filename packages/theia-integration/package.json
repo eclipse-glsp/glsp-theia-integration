@@ -39,7 +39,7 @@
     "css"
   ],
   "dependencies": {
-    "@eclipse-glsp/client": "next",
+    "@eclipse-glsp/client": "0.9.0",
     "@theia/messages": "^1.0.0",
     "sprotty-theia": "0.10.0"
   },

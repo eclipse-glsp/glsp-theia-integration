@@ -6,7 +6,7 @@ This project is built with `yarn` and is available from npm via [@eclipse-glsp-e
 
 ## Theia Version compatibility
 
-This package is currently only compatible with Theia up to Version 1.4.0.
+This package is currently compatible with Theia 1.20.0. Newer 1.xx versions should work as well, unless a breaking change has been published.
 
 ## More information
 

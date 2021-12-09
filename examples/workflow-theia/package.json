@@ -28,7 +28,7 @@
     "server"
   ],
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-glsp": "next",
+    "@eclipse-glsp-examples/workflow-glsp": "0.9.0",
     "@eclipse-glsp/theia-integration": "0.9.0"
   },
   "devDependencies": {

@@ -24,7 +24,7 @@ const version = '0.9.0';
 const classifier = 'glsp';
 
 console.log('Downloading latest version of the Workflow Example Java Server from the maven repository...');
-download({ groupId, artifactId, version, classifier, isSnapShot: true }, downloadDir, mavenRepository).then(() =>
+download({ groupId, artifactId, version, classifier, isSnapShot: false }, downloadDir, mavenRepository).then(() =>
     console.log(
         'Download completed. Start the Theia back-end using these commands: \ncd examples/browser-app\nyarn start\n\n' +
             'After starting the Theia back-end, access the following link locally in your browser to see the running example:\n' +
