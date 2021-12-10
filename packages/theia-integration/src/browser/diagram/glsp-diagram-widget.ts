@@ -20,16 +20,20 @@ import {
     EnableToolPaletteAction,
     FocusStateChangedAction,
     FocusTracker,
+    GLSPActionDispatcher,
     GLSP_TYPES,
     IActionDispatcher,
     ICopyPasteHandler,
+    isViewport,
     ModelSource,
     RequestModelAction,
     RequestTypeHintsAction,
     SaveModelAction,
     SelectAction,
     SetEditModeAction,
-    TYPES
+    SetViewportAction,
+    TYPES,
+    Viewport
 } from '@eclipse-glsp/client';
 import { Message } from '@phosphor/messaging/lib';
 import { ApplicationShell, Saveable, SaveableSource, Widget } from '@theia/core/lib/browser';
@@ -201,6 +205,39 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     protected async clearGlobalSelection(): Promise<void> {
         this.theiaSelectionService.selection = undefined;
     }
+
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    storeState(): object {
+        let viewportData = {};
+        if (isViewport(this.editorContext.modelRoot)) {
+            viewportData = <ViewportDataContainer>{
+                elementId: this.editorContext.modelRoot.id,
+                viewportData: {
+                    scroll: this.editorContext.modelRoot.scroll,
+                    zoom: this.editorContext.modelRoot.zoom
+                }
+            };
+        }
+        return { ...super.storeState(), ...viewportData };
+    }
+
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    restoreState(oldState: object): void {
+        super.restoreState(oldState);
+        if (isViewportDataContainer(oldState) && this.actionDispatcher instanceof GLSPActionDispatcher) {
+            const restoreViewportAction = new SetViewportAction(oldState.elementId, oldState.viewportData, true);
+            this.actionDispatcher.onceModelInitialized().then(() => this.actionDispatcher.dispatch(restoreViewportAction));
+        }
+    }
+}
+
+interface ViewportDataContainer {
+    readonly elementId: string;
+    readonly viewportData: Viewport;
+}
+
+function isViewportDataContainer(obj: any | undefined): obj is ViewportDataContainer {
+    return obj !== undefined && obj['elementId'] !== undefined && obj['viewportData'] !== undefined;
 }
 
 export function getDiagramWidget(widget: Widget): GLSPDiagramWidget | undefined {
