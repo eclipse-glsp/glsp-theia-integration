@@ -19,6 +19,7 @@ import {
     FrontendApplicationContribution,
     NavigatableWidgetOptions,
     OpenHandler,
+    StorageService,
     WidgetFactory,
     WidgetOpenerOptions
 } from '@theia/core/lib/browser';
@@ -59,6 +60,9 @@ export type TheiaGLSPConnectorProvider = (diagramType: string) => Promise<TheiaG
 export abstract class GLSPDiagramManager extends DiagramManager {
     @inject(EditorPreferences)
     protected readonly editorPreferences: EditorPreferences;
+
+    @inject(StorageService)
+    protected readonly storage: StorageService;
 
     @inject(TheiaOpenerOptionsNavigationService)
     protected readonly diagramNavigationService: TheiaOpenerOptionsNavigationService;
@@ -112,6 +116,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
                 widgetId,
                 diContainer,
                 this.editorPreferences,
+                this.storage,
                 this.theiaSelectionService,
                 this.diagramConnector
             );
