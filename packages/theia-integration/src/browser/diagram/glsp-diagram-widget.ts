@@ -20,19 +20,23 @@ import {
     EnableToolPaletteAction,
     FocusStateChangedAction,
     FocusTracker,
+    GLSPActionDispatcher,
     GLSP_TYPES,
     IActionDispatcher,
     ICopyPasteHandler,
+    isViewport,
     ModelSource,
     RequestModelAction,
     RequestTypeHintsAction,
     SaveModelAction,
     SelectAction,
     SetEditModeAction,
-    TYPES
+    SetViewportAction,
+    TYPES,
+    Viewport
 } from '@eclipse-glsp/client';
 import { Message } from '@phosphor/messaging/lib';
-import { ApplicationShell, Saveable, SaveableSource, Widget } from '@theia/core/lib/browser';
+import { ApplicationShell, Saveable, SaveableSource, StorageService, Widget } from '@theia/core/lib/browser';
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from '@theia/core/lib/common';
 import { SelectionService } from '@theia/core/lib/common/selection-service';
 import { Container } from '@theia/core/shared/inversify';
@@ -48,12 +52,14 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     public saveable: SaveableGLSPModelSource;
     protected options: DiagramWidgetOptions & GLSPWidgetOptions;
     protected requestModelOptions: Args;
+    protected storeViewportStateOnClose = true;
 
     constructor(
         options: DiagramWidgetOptions & GLSPWidgetOpenerOptions,
         readonly widgetId: string,
         readonly diContainer: Container,
         readonly editorPreferences: EditorPreferences,
+        readonly storage: StorageService,
         readonly theiaSelectionService: SelectionService,
         readonly connector: TheiaGLSPConnector
     ) {
@@ -112,6 +118,12 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
             this.addClipboardListener(this.node, 'paste', e => this.handlePaste(e));
             this.addClipboardListener(this.node, 'cut', e => this.handleCut(e));
         }
+        this.restoreViewportDataFromStorageService();
+    }
+
+    protected onBeforeDetach(msg: Message): void {
+        this.storeViewportDataInStorageService();
+        super.onBeforeDetach(msg);
     }
 
     protected onCloseRequest(msg: Message): void {
@@ -201,6 +213,80 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     protected async clearGlobalSelection(): Promise<void> {
         this.theiaSelectionService.selection = undefined;
     }
+
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    storeState(): object {
+        // the viewport is stored in the application layout
+        // so there is no need to keep it in the storage
+        this.removeViewportDataFromStorageService();
+        return { ...super.storeState(), ...this.getViewportData() };
+    }
+
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    restoreState(oldState: object): void {
+        super.restoreState(oldState);
+        if (isViewportDataContainer(oldState)) {
+            this.setViewportData(oldState);
+        }
+    }
+
+    protected storeViewportDataInStorageService(): void {
+        if (!this.storeViewportStateOnClose) {
+            return;
+        }
+        const viewportData = this.getViewportData();
+        if (viewportData) {
+            this.storage.setData<ViewportDataContainer>(this.viewportStorageId, viewportData);
+        }
+    }
+
+    protected async restoreViewportDataFromStorageService(): Promise<void> {
+        if (!this.storeViewportStateOnClose) {
+            return;
+        }
+        const viewportData = await this.storage.getData<ViewportDataContainer>(this.viewportStorageId);
+        if (viewportData) {
+            this.setViewportData(viewportData);
+        }
+    }
+
+    protected async removeViewportDataFromStorageService(): Promise<void> {
+        return this.storage.setData<ViewportDataContainer | undefined>(this.viewportStorageId, undefined);
+    }
+
+    protected get viewportStorageId(): string {
+        return this.options.diagramType + ':' + this.options.uri;
+    }
+
+    protected getViewportData(): ViewportDataContainer | undefined {
+        let viewportData = undefined;
+        if (isViewport(this.editorContext.modelRoot)) {
+            viewportData = <ViewportDataContainer>{
+                elementId: this.editorContext.modelRoot.id,
+                viewportData: {
+                    scroll: this.editorContext.modelRoot.scroll,
+                    zoom: this.editorContext.modelRoot.zoom
+                }
+            };
+        }
+        return viewportData;
+    }
+
+    protected async setViewportData(viewportData: ViewportDataContainer): Promise<void> {
+        if (this.actionDispatcher instanceof GLSPActionDispatcher) {
+            const restoreViewportAction = new SetViewportAction(viewportData.elementId, viewportData.viewportData, true);
+            return this.actionDispatcher.onceModelInitialized().then(() => this.actionDispatcher.dispatch(restoreViewportAction));
+        }
+    }
+}
+
+interface ViewportDataContainer {
+    readonly elementId: string;
+    readonly viewportData: Viewport;
+}
+
+function isViewportDataContainer(obj: any | undefined): obj is ViewportDataContainer {
+    return obj !== undefined && obj['elementId'] !== undefined && obj['viewportData'] !== undefined;
 }
 
 export function getDiagramWidget(widget: Widget): GLSPDiagramWidget | undefined {
