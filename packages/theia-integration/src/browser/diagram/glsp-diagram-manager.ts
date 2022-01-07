@@ -92,6 +92,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     }
 
     async doOpen(widget: DiagramWidget, options?: WidgetOpenerOptions): Promise<void> {
+        const widgetWasAttached = widget.isAttached;
         await super.doOpen(widget);
         const navigations = this.diagramNavigationService.determineNavigations(widget.uri.toString(true), options);
         if (navigations.length > 0) {
@@ -100,6 +101,8 @@ export abstract class GLSPDiagramManager extends DiagramManager {
             } else {
                 widget.actionDispatcher.dispatchAll(navigations);
             }
+        } else if (!widgetWasAttached && widget instanceof GLSPDiagramWidget) {
+            widget.restoreViewportDataFromStorageService();
         }
     }
 
