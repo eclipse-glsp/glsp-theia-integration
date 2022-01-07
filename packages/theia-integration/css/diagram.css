@@ -28,11 +28,17 @@
     stroke: var(--theia-editor-foreground);
 }
 
-.sprotty-edge.arrow {
+.sprotty-edge .arrow {
     fill: var(--theia-editor-foreground);
 }
 
-.sprotty-node.selected {
+.sprotty-node.selected,
+.sprotty-edge.selected {
+    stroke: var(--theia-menu-selectionBackground);
+}
+
+.sprotty-edge.selected .arrow {
+    fill: var(--theia-menu-selectionBackground);
     stroke: var(--theia-menu-selectionBackground);
 }
 
@@ -40,10 +46,33 @@
     stroke: var(--theia-editor-inactiveSelectionBackground);
 }
 
-.sprotty-resize-handle.active {
+.sprotty-resize-handle.selected,
+.sprotty-resize-handle.active,
+.sprotty-edge > .sprotty-routing-handle.selected,
+.sprotty-edge > .sprotty-routing-handle.mouseover {
     fill: var(--theia-menu-selectionBackground);
 }
 
-.inactive .sprotty-resize-handle {
+.inactive .sprotty-resize-handle,
+.inactive .sprotty-routing-handle {
     fill: var(--theia-tab-unfocusedInactiveForeground);
+}
+
+.sprotty-node.mouseover:not(.selected),
+.sprotty-edge.mouseover:not(.selected) {
+    stroke: var(--theia-editor-foreground);
+}
+
+.sprotty-edge.mouseover:not(.selected) .arrow {
+    fill: var(--theia-editor-foreground);
+    stroke: var(--theia-editor-foreground);
+}
+
+.sprotty-popup {
+    padding: 0px;
+    border-radius: 2px;
+    box-shadow: 0px 1px 6px var(--theia-widget-shadow);
+    background-color: var(--theia-editorHoverWidget-background);
+    color: var(--theia-editorHoverWidget-foreground);
+    border: 1px solid var(--theia-editorHoverWidget-border);
 }
