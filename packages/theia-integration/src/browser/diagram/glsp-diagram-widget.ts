@@ -118,7 +118,6 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
             this.addClipboardListener(this.node, 'paste', e => this.handlePaste(e));
             this.addClipboardListener(this.node, 'cut', e => this.handleCut(e));
         }
-        this.restoreViewportDataFromStorageService();
     }
 
     protected onBeforeDetach(msg: Message): void {
@@ -240,7 +239,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         }
     }
 
-    protected async restoreViewportDataFromStorageService(): Promise<void> {
+    async restoreViewportDataFromStorageService(): Promise<void> {
         if (!this.storeViewportStateOnClose) {
             return;
         }
