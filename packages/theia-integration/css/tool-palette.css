@@ -37,7 +37,7 @@
 }
 
 .inactive .tool-palette .palette-header {
-    border-top: 2px solid var(--theia-tab-unfocusedInactiveForeground);
+    border-top: 1px solid var(--theia-tab-unfocusedInactiveForeground);
 }
 
 .tool-palette .palette-header .header-icon {
