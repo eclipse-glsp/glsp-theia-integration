@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -34,12 +34,12 @@
 
 .sprotty-node.selected,
 .sprotty-edge.selected {
-    stroke: var(--theia-menu-selectionBackground);
+    stroke: var(--theia-focusBorder);
 }
 
 .sprotty-edge.selected .arrow {
-    fill: var(--theia-menu-selectionBackground);
-    stroke: var(--theia-menu-selectionBackground);
+    fill: var(--theia-focusBorder);
+    stroke: var(--theia-focusBorder);
 }
 
 .inactive .sprotty-node.selected {
@@ -50,7 +50,7 @@
 .sprotty-resize-handle.active,
 .sprotty-edge > .sprotty-routing-handle.selected,
 .sprotty-edge > .sprotty-routing-handle.mouseover {
-    fill: var(--theia-menu-selectionBackground);
+    fill: var(--theia-focusBorder);
 }
 
 .inactive .sprotty-resize-handle,
