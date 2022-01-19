@@ -57,7 +57,7 @@ export abstract class AbstractGLSPDiagramContextKeyService {
     protected init(): void {
         this.registerContextKeys();
         this.updateContextKeys();
-        this.shell.activeChanged.connect(() => this.updateContextKeys());
+        this.shell.onDidChangeActiveWidget(() => this.updateContextKeys());
     }
 
     protected updateContextKeys(): void {
