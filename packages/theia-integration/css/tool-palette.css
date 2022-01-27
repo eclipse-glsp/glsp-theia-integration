@@ -20,6 +20,10 @@
     width: 210px;
 }
 
+.tool-group {
+    background-color: unset;
+}
+
 .tool-palette .palette-header {
     background: var(--theia-titleBar-activeBackground);
     color: var(--theia-titleBar-activeForeground);
