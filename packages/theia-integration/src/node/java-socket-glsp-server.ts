@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -65,16 +65,16 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
     protected resolveReady: (value?: void | PromiseLike<void> | undefined) => void;
     // eslint-disable-next-line no-invalid-this
     onReady: Promise<void> = new Promise(resolve => (this.resolveReady = resolve));
-    launchOptions: JavaSocketServerLaunchOptions;
+    override launchOptions: JavaSocketServerLaunchOptions;
 
     @postConstruct()
-    protected initialize(): void {
+    protected override initialize(): void {
         if (this.createLaunchOptions) {
             this.launchOptions = JavaSocketServerLaunchOptions.configure(this.createLaunchOptions());
         }
     }
 
-    abstract createLaunchOptions(): Partial<JavaSocketServerLaunchOptions>;
+    abstract override createLaunchOptions(): Partial<JavaSocketServerLaunchOptions>;
 
     connect(clientConnection: IConnection): void {
         this.connectToSocketServer(clientConnection);
@@ -98,7 +98,7 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
         return this.onReady;
     }
 
-    protected processLogInfo(data: string | Buffer): void {
+    protected override processLogInfo(data: string | Buffer): void {
         if (data) {
             const message = data.toString();
             if (message.startsWith(START_UP_COMPLETE_MSG)) {
@@ -107,7 +107,7 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
         }
     }
 
-    protected processLogError(data: string | Buffer): void {
+    protected override processLogError(data: string | Buffer): void {
         // Override console logging of errors. To avoid a polluted client console.
     }
 

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2021 EclipseSource and others.
+ * Copyright (c) 2021-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -30,7 +30,7 @@ export function isGlspSelection(selection?: any): selection is GlspSelection {
 export class TheiaGLSPSelectionForwarder extends TheiaSprottySelectionForwarder {
     @inject(GlspSelectionDataService) @optional() protected readonly selectionDataService?: GlspSelectionDataService;
 
-    handle(action: Action): void {
+    override handle(action: Action): void {
         if (isSelectAction(action) && this.selectionDataService) {
             this.selectionDataService.getSelectionData(action.selectedElementsIDs).then(
                 (additionalSelectionData: any) =>

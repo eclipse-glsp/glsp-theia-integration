@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2021 EclipseSource and others.
+ * Copyright (c) 2019-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -50,18 +50,18 @@ import { TheiaGLSPConnector } from './theia-glsp-connector';
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     protected copyPasteHandler?: ICopyPasteHandler;
     public saveable: SaveableGLSPModelSource;
-    protected options: DiagramWidgetOptions & GLSPWidgetOptions;
+    protected override options: DiagramWidgetOptions & GLSPWidgetOptions;
     protected requestModelOptions: Args;
     protected storeViewportStateOnClose = true;
 
     constructor(
         options: DiagramWidgetOptions & GLSPWidgetOpenerOptions,
-        readonly widgetId: string,
-        readonly diContainer: Container,
+        override readonly widgetId: string,
+        override readonly diContainer: Container,
         readonly editorPreferences: EditorPreferences,
         readonly storage: StorageService,
         readonly theiaSelectionService: SelectionService,
-        readonly connector: TheiaGLSPConnector
+        override readonly connector: TheiaGLSPConnector
     ) {
         super(options, widgetId, diContainer, connector);
         this.saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
@@ -77,7 +77,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         this.saveable.autoSaveDelay = this.editorPreferences['editor.autoSaveDelay'];
     }
 
-    protected initializeSprotty(): void {
+    protected override initializeSprotty(): void {
         const modelSource = this.diContainer.get<ModelSource>(TYPES.ModelSource);
         if (modelSource instanceof DiagramServer) {
             modelSource.clientId = this.id;
@@ -109,7 +109,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         this.actionDispatcher.dispatch(new SetEditModeAction(this.options.editMode));
     }
 
-    protected onAfterAttach(msg: Message): void {
+    protected override onAfterAttach(msg: Message): void {
         super.onAfterAttach(msg);
         this.node.dataset['uri'] = this.uri.toString();
         if (this.diContainer.isBound(GLSP_TYPES.ICopyPasteHandler)) {
@@ -120,17 +120,17 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         }
     }
 
-    protected onBeforeDetach(msg: Message): void {
+    protected override onBeforeDetach(msg: Message): void {
         this.storeViewportDataInStorageService();
         super.onBeforeDetach(msg);
     }
 
-    protected onCloseRequest(msg: Message): void {
+    protected override onCloseRequest(msg: Message): void {
         super.onCloseRequest(msg);
         this.clearGlobalSelection();
     }
 
-    protected onActivateRequest(msg: Message): void {
+    protected override onActivateRequest(msg: Message): void {
         super.onActivateRequest(msg);
         this.updateGlobalSelection();
     }
@@ -214,7 +214,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    storeState(): object {
+    override storeState(): object {
         // the viewport is stored in the application layout
         // so there is no need to keep it in the storage
         this.removeViewportDataFromStorageService();
@@ -222,7 +222,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    restoreState(oldState: object): void {
+    override restoreState(oldState: object): void {
         super.restoreState(oldState);
         if (isViewportDataContainer(oldState)) {
             this.setViewportData(oldState);

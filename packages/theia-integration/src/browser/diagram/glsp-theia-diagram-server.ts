@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2021 EclipseSource and others.
+ * Copyright (c) 2019-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -19,16 +19,17 @@ import {
     ComputedBoundsAction,
     ExportSvgAction,
     isServerMessageAction,
+    isSetDirtyStateAction,
     isSetEditModeAction,
     registerDefaultGLSPServerActions,
     ServerMessageAction,
+    SetDirtyStateAction,
     SetEditModeAction,
     SourceUriAware
 } from '@eclipse-glsp/client';
 import { Emitter, Event } from '@theia/core/lib/common';
 import { injectable } from '@theia/core/shared/inversify';
 import { TheiaDiagramServer } from 'sprotty-theia';
-
 import { isTheiaGLSPConnector, TheiaGLSPConnector } from './theia-glsp-connector';
 
 const receivedFromServerProperty = '__receivedFromServer';
@@ -39,7 +40,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
 
     protected dirtyState: DirtyState = { isDirty: false };
 
-    initialize(registry: ActionHandlerRegistry): void {
+    override initialize(registry: ActionHandlerRegistry): void {
         registerDefaultGLSPServerActions(registry, this);
         registry.register(SetDirtyStateAction.KIND, this);
     }
@@ -59,7 +60,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
         }
     }
 
-    handleLocally(action: Action): boolean {
+    override handleLocally(action: Action): boolean {
         if (isSetDirtyStateAction(action)) {
             this.setDirty(action.isDirty);
             return false;
@@ -73,12 +74,12 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
         return super.handleLocally(action);
     }
 
-    handleExportSvgAction(action: ExportSvgAction): boolean {
+    override handleExportSvgAction(action: ExportSvgAction): boolean {
         this.connector.save(this.sourceUri, action);
         return false;
     }
 
-    protected handleComputedBounds(_action: ComputedBoundsAction): boolean {
+    protected override handleComputedBounds(_action: ComputedBoundsAction): boolean {
         return true;
     }
 
@@ -91,7 +92,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
         return false;
     }
 
-    get connector(): TheiaGLSPConnector {
+    override get connector(): TheiaGLSPConnector {
         if (!this._connector) {
             throw Error('TheiaDiagramServer is not connected.');
         }
@@ -101,23 +102,6 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
         return this._connector;
     }
 }
-export class SetDirtyStateAction implements Action {
-    static readonly KIND = 'setDirtyState';
-    constructor(public readonly isDirty: boolean, public readonly reason?: string, public readonly kind = SetDirtyStateAction.KIND) {}
-}
-
-export namespace DirtyStateChangeReason {
-    export const OPERATION = 'operation';
-    export const UNDO = 'undo';
-    export const REDO = 'redo';
-    export const SAVE = 'save';
-    export const EXTERNAL = 'external';
-}
-
-export function isSetDirtyStateAction(action: Action): action is SetDirtyStateAction {
-    return SetDirtyStateAction.KIND === action.kind && 'isDirty' in action && typeof action['isDirty'] === 'boolean';
-}
-
 export interface DirtyState {
     isDirty: boolean;
 }

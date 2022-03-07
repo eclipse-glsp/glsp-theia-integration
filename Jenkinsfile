@@ -50,6 +50,7 @@ pipeline {
             steps {
                 timeout(30) {
                     container('node') {
+                        sh "yarn install:only"
                         sh "yarn build"
                     }
                 }

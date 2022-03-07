@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -16,7 +16,6 @@
 import { Action, EditorContextService } from '@eclipse-glsp/client';
 import { ApplicationShell } from '@theia/core/lib/browser';
 import { DiagramCommandHandler } from 'sprotty-theia';
-
 import { GLSPDiagramWidget } from './glsp-diagram-widget';
 
 export interface GLSPCommand {
@@ -42,7 +41,7 @@ export class GLSPCommandHandler extends DiagramCommandHandler {
         return this.diagramWidget instanceof GLSPDiagramWidget ? (this.diagramWidget as GLSPDiagramWidget) : undefined;
     }
 
-    isEnabled(): boolean {
+    override isEnabled(): boolean {
         return (
             super.isEnabled() &&
             this.glspDiagramWidget !== undefined &&
