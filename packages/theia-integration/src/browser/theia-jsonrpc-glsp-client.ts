@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -25,19 +25,19 @@ export class TheiaJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
         this.messageService = options.messageService;
     }
 
-    protected handleConnectionError(error: Error, message: Message, count: number): void {
+    protected override handleConnectionError(error: Error, message: Message, count: number): void {
         super.handleConnectionError(error, message, count);
         this.messageService.error(`Connection the ${this.id} glsp server is erroring. Shutting down server.`);
     }
 
-    protected handleConnectionClosed(): void {
+    protected override handleConnectionClosed(): void {
         if (this.state !== ClientState.Stopping && this.state !== ClientState.Stopped) {
             this.messageService.error(`Connection to the ${this.id} glsp server got closed. Server will not be restarted.`);
         }
         super.handleConnectionClosed();
     }
 
-    protected checkConnectionState(): boolean {
+    protected override checkConnectionState(): boolean {
         if (this.state === ClientState.ServerError) {
             this.messageService.error(
                 `Could not establish connection to ${this.id} glsp server. Maybe the server has been shutdown due to a previous error.`

@@ -20,6 +20,10 @@
       "name": "Eclipse GLSP Project",
       "email": "glsp-dev@eclipse.org",
       "url": "https://projects.eclipse.org/projects/ecd.glsp"
+    },
+    {
+      "name": "STMicroelectronics",
+      "url": "https://www.st.com/"
     }
   ],
   "files": [
@@ -32,14 +36,11 @@
     "@eclipse-glsp/theia-integration": "0.9.0"
   },
   "devDependencies": {
-    "mvn-artifact-download": "5.1.0",
-    "rimraf": "^2.6.1",
-    "ts-node": "9.0.0",
-    "typescript": "^3.9.2"
+    "mvn-artifact-download": "5.1.0"
   },
   "scripts": {
     "prepare": "yarn  clean && yarn  build && yarn lint",
-    "clean": "rimraf lib",
+    "clean": "rimraf lib tsconfig.tsbuildinfo",
     "build": "tsc",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "build:ci": "yarn clean && yarn build -o eslint.xml -f checkstyle",

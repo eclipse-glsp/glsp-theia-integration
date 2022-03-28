@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -65,16 +65,16 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
     protected resolveReady: (value?: void | PromiseLike<void> | undefined) => void;
     // eslint-disable-next-line no-invalid-this
     onReady: Promise<void> = new Promise(resolve => (this.resolveReady = resolve));
-    launchOptions: JavaSocketServerLaunchOptions;
+    override launchOptions: JavaSocketServerLaunchOptions;
 
     @postConstruct()
-    protected initialize(): void {
+    protected override initialize(): void {
         if (this.createLaunchOptions) {
             this.launchOptions = JavaSocketServerLaunchOptions.configure(this.createLaunchOptions());
         }
     }
 
-    abstract createLaunchOptions(): Partial<JavaSocketServerLaunchOptions>;
+    abstract override createLaunchOptions(): Partial<JavaSocketServerLaunchOptions>;
 
     connect(clientConnection: IConnection): void {
         this.connectToSocketServer(clientConnection);
@@ -98,7 +98,7 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
         return this.onReady;
     }
 
-    protected processLogInfo(data: string | Buffer): void {
+    protected override processLogInfo(data: string | Buffer): void {
         if (data) {
             const message = data.toString();
             if (message.startsWith(START_UP_COMPLETE_MSG)) {
@@ -107,7 +107,7 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
         }
     }
 
-    protected processLogError(data: string | Buffer): void {
+    protected override processLogError(data: string | Buffer): void {
         // Override console logging of errors. To avoid a polluted client console.
     }
 
@@ -125,4 +125,18 @@ export abstract class JavaSocketServerContribution extends BaseGLSPServerContrib
         this.forward(clientConnection, serverConnection);
         socket.connect(this.launchOptions.socketConnectionOptions);
     }
+}
+
+/**
+ * Utility function to parse a server port that is defined via command line arg.
+ * @param argsKey Name/Key of the commandLine arg
+ * @param defaultPort Default port that should be returned if no (valid) port was passed via CLI
+ */
+export function getPort(argsKey: string, defaultPort?: number): number {
+    argsKey = `--${argsKey.replace('--', '').replace('=', '')}=`;
+    const args = process.argv.filter(a => a.startsWith(argsKey));
+    if (args.length > 0) {
+        return Number.parseInt(args[0].substring(argsKey.length), 10);
+    }
+    return defaultPort ? defaultPort : NaN;
 }

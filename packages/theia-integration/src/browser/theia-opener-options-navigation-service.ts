@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -45,7 +45,7 @@ export class TheiaOpenerOptionsNavigationService {
                 }
             });
             if (SelectionWithElementIds.is(selection)) {
-                NavigationTarget.setElementIds(navigationTarget, selection.elementIds);
+                NavigationTarget.setElementIds(navigationTarget, ...selection.elementIds);
             }
             if (Range.is(selection)) {
                 NavigationTarget.setTextPosition(navigationTarget, {
@@ -53,7 +53,7 @@ export class TheiaOpenerOptionsNavigationService {
                     character: selection.start.character
                 });
             }
-            return [new NavigateToTargetAction(navigationTarget)];
+            return [NavigateToTargetAction.create(navigationTarget)];
         }
         return [];
     }

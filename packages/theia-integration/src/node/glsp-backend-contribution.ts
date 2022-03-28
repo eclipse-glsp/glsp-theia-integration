@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (C) 2018-2021 TypeFox and others.
+ * Copyright (C) 2018-2022 TypeFox and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -16,7 +16,6 @@
 import { ContributionProvider, ILogger } from '@theia/core/lib/common';
 import { MessagingService } from '@theia/core/lib/node/messaging/messaging-service';
 import { inject, injectable, named } from '@theia/core/shared/inversify';
-
 import { GLSPContribution } from '../common';
 import { GLSPServerContribution, GLSPServerLaunchOptions } from './glsp-server-contribution';
 
@@ -57,9 +56,9 @@ export class GLSPBackendContribution implements MessagingService.Contribution, G
     }
 
     protected forward(service: MessagingService, path: string, contribution: GLSPServerContribution): void {
-        service.forward(path, async ({ id }: { id: string }, connection) => {
+        service.forward(path, async (params, connection) => {
             try {
-                connection.onClose(() => this.destroy(id));
+                connection.onClose(() => this.destroy(params.id));
                 await contribution.connect(connection);
             } catch (e) {
                 this.logger.error(`Error occurred while starting GLSP contribution. ${path}.`, e);
