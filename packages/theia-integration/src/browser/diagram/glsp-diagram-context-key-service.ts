@@ -18,11 +18,11 @@ import {
     EditModeListener,
     EditorContextService,
     getElements,
-    GLSP_TYPES,
     isDeletable,
     isMoveable,
     SModelElement,
-    SModelRoot
+    SModelRoot,
+    TYPES
 } from '@eclipse-glsp/client';
 import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { ApplicationShell } from '@theia/core/lib/browser';
@@ -93,7 +93,7 @@ export abstract class AbstractGLSPDiagramContextKeyService {
     }
 
     protected getSelectionService(glspDiagramWidget: GLSPDiagramWidget): SelectionService {
-        return glspDiagramWidget.diContainer.get(GLSP_TYPES.SelectionService);
+        return glspDiagramWidget.diContainer.get(TYPES.SelectionService);
     }
 
     protected getEditorContextService(glspDiagramWidget: GLSPDiagramWidget): EditorContextService {

@@ -21,7 +21,6 @@ import {
     FocusStateChangedAction,
     FocusTracker,
     GLSPActionDispatcher,
-    GLSP_TYPES,
     IActionDispatcher,
     ICopyPasteHandler,
     isViewport,
@@ -112,8 +111,8 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     protected override onAfterAttach(msg: Message): void {
         super.onAfterAttach(msg);
         this.node.dataset['uri'] = this.uri.toString();
-        if (this.diContainer.isBound(GLSP_TYPES.ICopyPasteHandler)) {
-            this.copyPasteHandler = this.diContainer.get<ICopyPasteHandler>(GLSP_TYPES.ICopyPasteHandler);
+        if (this.diContainer.isBound(TYPES.ICopyPasteHandler)) {
+            this.copyPasteHandler = this.diContainer.get<ICopyPasteHandler>(TYPES.ICopyPasteHandler);
             this.addClipboardListener(this.node, 'copy', e => this.handleCopy(e));
             this.addClipboardListener(this.node, 'paste', e => this.handlePaste(e));
             this.addClipboardListener(this.node, 'cut', e => this.handleCut(e));

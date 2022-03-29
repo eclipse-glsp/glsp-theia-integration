@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { GLSP_TYPES, IActionDispatcher, TYPES } from '@eclipse-glsp/client';
+import { IActionDispatcher, TYPES } from '@eclipse-glsp/client';
 import { Container } from '@theia/core/shared/inversify';
 import { TheiaContextMenuService, TheiaSprottyContextMenu } from 'sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service';
 
@@ -25,7 +25,7 @@ export namespace GLSPContextMenu {
 
 export function connectTheiaContextMenuService(container: Container, contextMenuServiceFactory: () => TheiaContextMenuService): void {
     const contextMenuService = contextMenuServiceFactory();
-    container.bind(GLSP_TYPES.IContextMenuService).toConstantValue(contextMenuService);
+    container.bind(TYPES.IContextMenuService).toConstantValue(contextMenuService);
     if (contextMenuService instanceof TheiaContextMenuService) {
         contextMenuService.connect(container.get<IActionDispatcher>(TYPES.IActionDispatcher));
     }
