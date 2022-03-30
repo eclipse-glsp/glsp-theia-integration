@@ -3,14 +3,13 @@
   "name": "parent",
   "version": "0.8.0",
   "engines": {
-    "yarn": ">=1.7.0 <2.x.x",
+    "yarn": ">=1.7.0 <2",
     "node": ">=12.14.1"
   },
   "scripts": {
-    "test": "yarn",
     "prepare": "lerna run prepare",
     "watch": "lerna run --parallel watch",
-    "build": "yarn install --ignore-scripts && lerna run build",
+    "build": "lerna run build",
     "lint": "lerna run lint --",
     "rebuild:browser": "theia rebuild:browser",
     "publish:prepare": "lerna version minor --exact --ignore-scripts --yes --no-push",
@@ -20,14 +19,11 @@
     "download:exampleServer": "ts-node examples/workflow-theia/server/download.ts"
   },
   "devDependencies": {
-    "@eclipse-glsp/config": "0.9.0",
-    "@wdio/cli": "^6.0.14",
-    "@wdio/local-runner": "^6.0.14",
-    "@wdio/mocha-framework": "^6.0.13",
-    "@wdio/selenium-standalone-service": "^6.0.12",
-    "@wdio/sync": "^6.0.14",
+    "@eclipse-glsp/config": "next",
+    "@types/node": "12.x",
     "lerna": "^4.0.0",
-    "typescript": "^3.9.2"
+    "rimraf": "^3.0.2",
+    "typescript": "~4.5.5"
   },
   "workspaces": [
     "packages/theia-integration",

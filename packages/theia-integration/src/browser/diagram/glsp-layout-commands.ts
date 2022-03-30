@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2021 EclipseSource and others.
+ * Copyright (c) 2019-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -28,7 +28,6 @@ import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegist
 import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
 import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
 import { DiagramKeybindingContext, DiagramMenus } from 'sprotty-theia';
-
 import { GLSPCommandHandler } from './glsp-command-handler';
 
 export function registerDiagramLayoutCommands(bind: interfaces.Bind): void {
@@ -280,7 +279,7 @@ export class GLSPLayoutCommandContribution implements CommandContribution {
         id: string,
         label: string,
         dimension: ResizeDimension,
-        f: (...values: number[]) => number
+        reductionFunction: (...values: number[]) => number
     ): void {
         registry.registerCommand(
             {
@@ -289,7 +288,7 @@ export class GLSPLayoutCommandContribution implements CommandContribution {
                 label: 'Resize to ' + label
             },
             new GLSPCommandHandler(this.shell, {
-                actions: () => [new ResizeElementsAction([], dimension, f)],
+                actions: () => [ResizeElementsAction.create({ dimension, reductionFunction })],
                 isEnabled: context => !context.isReadonly && context.get().selectedElementIds.length > 1
             })
         );
@@ -300,7 +299,7 @@ export class GLSPLayoutCommandContribution implements CommandContribution {
         id: string,
         label: string,
         alignment: Alignment,
-        f: (elements: BoundsAwareModelElement[]) => BoundsAwareModelElement[]
+        selectionFunction: (elements: BoundsAwareModelElement[]) => BoundsAwareModelElement[]
     ): void {
         registry.registerCommand(
             {
@@ -309,7 +308,7 @@ export class GLSPLayoutCommandContribution implements CommandContribution {
                 label: 'Align ' + label
             },
             new GLSPCommandHandler(this.shell, {
-                actions: () => [new AlignElementsAction([], alignment, f)],
+                actions: () => [AlignElementsAction.create({ alignment, selectionFunction })],
                 isEnabled: context => !context.isReadonly && context.get().selectedElementIds.length > 1
             })
         );

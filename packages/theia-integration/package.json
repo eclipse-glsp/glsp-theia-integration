@@ -41,15 +41,11 @@
   "dependencies": {
     "@eclipse-glsp/client": "next",
     "@theia/messages": "^1.0.0",
-    "sprotty-theia": "0.10.0"
-  },
-  "devDependencies": {
-    "rimraf": "^2.6.1",
-    "typescript": "^3.9.2"
+    "sprotty-theia": "next"
   },
   "scripts": {
     "prepare": "yarn  clean && yarn  build",
-    "clean": "rimraf lib",
+    "clean": "rimraf lib tsconfig.tsbuildinfo",
     "build": "tsc",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
     "build:ci": "yarn clean && yarn build -o eslint.xml -f checkstyle",

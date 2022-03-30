@@ -12,7 +12,7 @@ yarn-error.log
 
 examples/browser-app/**
 !examples/browser-app/package.json
-
+!examples/browser-app/webpack.config.js
 examples/**/server/**
 !examples/**/server/download.ts
-
+tsconfig.tsbuildinfo

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2021 EclipseSource and others.
+ * Copyright (c) 2021-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action, isSelectAction } from '@eclipse-glsp/client';
+import { Action, SelectAction } from '@eclipse-glsp/client';
 import { inject, injectable, optional } from '@theia/core/shared/inversify';
 import { isSprottySelection, SprottySelection, TheiaSprottySelectionForwarder } from 'sprotty-theia';
 import { GlspSelectionData, GlspSelectionDataService } from './glsp-selection-data-service';
@@ -30,8 +30,8 @@ export function isGlspSelection(selection?: any): selection is GlspSelection {
 export class TheiaGLSPSelectionForwarder extends TheiaSprottySelectionForwarder {
     @inject(GlspSelectionDataService) @optional() protected readonly selectionDataService?: GlspSelectionDataService;
 
-    handle(action: Action): void {
-        if (isSelectAction(action) && this.selectionDataService) {
+    override handle(action: Action): void {
+        if (SelectAction.is(action) && this.selectionDataService) {
             this.selectionDataService.getSelectionData(action.selectedElementsIDs).then(
                 (additionalSelectionData: any) =>
                     (this.selectionService.selection = {

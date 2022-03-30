@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -18,7 +18,6 @@ import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegist
 import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
 import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
 import { DiagramKeybindingContext } from 'sprotty-theia';
-
 import { GLSPCommandHandler, GLSPContextMenu } from './diagram';
 
 export function registerMarkerNavigationCommands(bind: interfaces.Bind): void {
@@ -40,14 +39,14 @@ export class NavigateToMarkerCommandContribution implements CommandContribution 
         commands.registerCommand(
             { id: NavigateToMarkerCommand.NEXT_MARKER, label: 'Go to Next Marker', category: 'Diagram' },
             new GLSPCommandHandler(this.shell, {
-                actions: () => [new NavigateToMarkerAction('next')],
+                actions: () => [NavigateToMarkerAction.create({ direction: 'next' })],
                 isEnabled: context => collectIssueMarkers(context.modelRoot).length > 0
             })
         );
         commands.registerCommand(
             { id: NavigateToMarkerCommand.PREVIOUS_MARKER, label: 'Go to Previous Marker', category: 'Diagram' },
             new GLSPCommandHandler(this.shell, {
-                actions: () => [new NavigateToMarkerAction('previous')],
+                actions: () => [NavigateToMarkerAction.create({ direction: 'previous' })],
                 isEnabled: context => collectIssueMarkers(context.modelRoot).length > 0
             })
         );

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2021 EclipseSource and others.
+ * Copyright (c) 2019-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -71,7 +71,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     protected readonly contextKeyService: GLSPDiagramContextKeyService;
 
     @inject(ApplicationShell)
-    protected readonly shell: ApplicationShell;
+    protected override readonly shell: ApplicationShell;
 
     @inject(SelectionService)
     theiaSelectionService: SelectionService;
@@ -91,7 +91,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         }
     }
 
-    async doOpen(widget: DiagramWidget, options?: WidgetOpenerOptions): Promise<void> {
+    override async doOpen(widget: DiagramWidget, options?: WidgetOpenerOptions): Promise<void> {
         const widgetWasAttached = widget.isAttached;
         await super.doOpen(widget);
         const navigations = this.diagramNavigationService.determineNavigations(widget.uri.toString(true), options);
@@ -106,7 +106,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         }
     }
 
-    async createWidget(options?: any): Promise<DiagramWidget> {
+    override async createWidget(options?: any): Promise<DiagramWidget> {
         if (DiagramWidgetOptions.is(options)) {
             const clientId = this.createClientId();
             const widgetId = this.createWidgetId(options);
@@ -129,7 +129,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         throw Error('DiagramWidgetFactory needs DiagramWidgetOptions but got ' + JSON.stringify(options));
     }
 
-    protected createWidgetOptions(uri: URI, options?: GLSPWidgetOpenerOptions): DiagramWidgetOptions & GLSPWidgetOptions {
+    protected override createWidgetOptions(uri: URI, options?: GLSPWidgetOpenerOptions): DiagramWidgetOptions & GLSPWidgetOptions {
         return {
             diagramType: this.diagramType,
             kind: 'navigatable',
@@ -148,7 +148,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         return this.diagramConfigurationRegistry.get(options.diagramType);
     }
 
-    canHandle(uri: URI, _options?: WidgetOpenerOptions | undefined): number {
+    override canHandle(uri: URI, _options?: WidgetOpenerOptions | undefined): number {
         for (const extension of this.fileExtensions) {
             if (uri.path.toString().endsWith(extension)) {
                 return 1001;
@@ -157,11 +157,11 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         return 0;
     }
 
-    get diagramConnector(): TheiaGLSPConnector {
+    override get diagramConnector(): TheiaGLSPConnector {
         return this._diagramConnector;
     }
 
-    get id(): string {
+    override get id(): string {
         return deriveDiagramManagerId(this.diagramType);
     }
 

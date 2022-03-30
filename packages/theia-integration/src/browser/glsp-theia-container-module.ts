@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (C) 2021 EclipseSource and others.
+ * Copyright (C) 2021-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -230,7 +230,7 @@ class ConfigurableTheiaGLSPConnector extends BaseTheiaGLSPConnector {
         return this._contributionId;
     }
 
-    protected initialize(): void {
+    protected override initialize(): void {
         if (this._diagramType && this._contributionId) {
             super.initialize();
         }
@@ -257,7 +257,7 @@ class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
         this.initialize();
     }
 
-    protected async initialize(): Promise<void> {
+    protected override async initialize(): Promise<void> {
         if (this._diagramType) {
             return super.initialize();
         }
@@ -278,7 +278,7 @@ class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
         return this._label;
     }
 
-    get iconClass(): string {
+    override get iconClass(): string {
         return this._iconClass;
     }
 }

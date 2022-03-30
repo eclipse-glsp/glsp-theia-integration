@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2021 EclipseSource and others.
+ * Copyright (c) 2019-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,13 +15,12 @@
  ********************************************************************************/
 import {
     Args,
-    DiagramServer,
+    DiagramServerProxy,
     EditorContextService,
     EnableToolPaletteAction,
     FocusStateChangedAction,
     FocusTracker,
     GLSPActionDispatcher,
-    GLSP_TYPES,
     IActionDispatcher,
     ICopyPasteHandler,
     isViewport,
@@ -50,18 +49,18 @@ import { TheiaGLSPConnector } from './theia-glsp-connector';
 export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     protected copyPasteHandler?: ICopyPasteHandler;
     public saveable: SaveableGLSPModelSource;
-    protected options: DiagramWidgetOptions & GLSPWidgetOptions;
+    protected override options: DiagramWidgetOptions & GLSPWidgetOptions;
     protected requestModelOptions: Args;
     protected storeViewportStateOnClose = true;
 
     constructor(
         options: DiagramWidgetOptions & GLSPWidgetOpenerOptions,
-        readonly widgetId: string,
-        readonly diContainer: Container,
+        override readonly widgetId: string,
+        override readonly diContainer: Container,
         readonly editorPreferences: EditorPreferences,
         readonly storage: StorageService,
         readonly theiaSelectionService: SelectionService,
-        readonly connector: TheiaGLSPConnector
+        override readonly connector: TheiaGLSPConnector
     ) {
         super(options, widgetId, diContainer, connector);
         this.saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
@@ -77,9 +76,9 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         this.saveable.autoSaveDelay = this.editorPreferences['editor.autoSaveDelay'];
     }
 
-    protected initializeSprotty(): void {
+    protected override initializeSprotty(): void {
         const modelSource = this.diContainer.get<ModelSource>(TYPES.ModelSource);
-        if (modelSource instanceof DiagramServer) {
+        if (modelSource instanceof DiagramServerProxy) {
             modelSource.clientId = this.id;
         }
         if (modelSource instanceof GLSPTheiaDiagramServer) {
@@ -103,34 +102,34 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     protected dispatchInitialActions(): void {
-        this.actionDispatcher.dispatch(new RequestModelAction(this.requestModelOptions));
-        this.actionDispatcher.dispatch(new RequestTypeHintsAction());
-        this.actionDispatcher.dispatch(new EnableToolPaletteAction());
-        this.actionDispatcher.dispatch(new SetEditModeAction(this.options.editMode));
+        this.actionDispatcher.dispatch(RequestModelAction.create({ options: this.requestModelOptions }));
+        this.actionDispatcher.dispatch(RequestTypeHintsAction.create());
+        this.actionDispatcher.dispatch(EnableToolPaletteAction.create());
+        this.actionDispatcher.dispatch(SetEditModeAction.create(this.options.editMode));
     }
 
-    protected onAfterAttach(msg: Message): void {
+    protected override onAfterAttach(msg: Message): void {
         super.onAfterAttach(msg);
         this.node.dataset['uri'] = this.uri.toString();
-        if (this.diContainer.isBound(GLSP_TYPES.ICopyPasteHandler)) {
-            this.copyPasteHandler = this.diContainer.get<ICopyPasteHandler>(GLSP_TYPES.ICopyPasteHandler);
+        if (this.diContainer.isBound(TYPES.ICopyPasteHandler)) {
+            this.copyPasteHandler = this.diContainer.get<ICopyPasteHandler>(TYPES.ICopyPasteHandler);
             this.addClipboardListener(this.node, 'copy', e => this.handleCopy(e));
             this.addClipboardListener(this.node, 'paste', e => this.handlePaste(e));
             this.addClipboardListener(this.node, 'cut', e => this.handleCut(e));
         }
     }
 
-    protected onBeforeDetach(msg: Message): void {
+    protected override onBeforeDetach(msg: Message): void {
         this.storeViewportDataInStorageService();
         super.onBeforeDetach(msg);
     }
 
-    protected onCloseRequest(msg: Message): void {
+    protected override onCloseRequest(msg: Message): void {
         super.onCloseRequest(msg);
         this.clearGlobalSelection();
     }
 
-    protected onActivateRequest(msg: Message): void {
+    protected override onActivateRequest(msg: Message): void {
         super.onActivateRequest(msg);
         this.updateGlobalSelection();
     }
@@ -144,7 +143,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     reloadModel(): Promise<void> {
-        return this.actionDispatcher.dispatch(new RequestModelAction(this.requestModelOptions));
+        return this.actionDispatcher.dispatch(RequestModelAction.create(this.requestModelOptions));
     }
 
     handleCopy(e: ClipboardEvent): void {
@@ -170,9 +169,9 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
             shell.onDidChangeActiveWidget(event => {
                 const focusedWidget = event.newValue;
                 if (this.hasFocus && focusedWidget && !this.isThisWidget(focusedWidget)) {
-                    this.actionDispatcher.dispatch(new FocusStateChangedAction(false));
+                    this.actionDispatcher.dispatch(FocusStateChangedAction.create(false));
                 } else if (!this.hasFocus && this.isThisWidget(focusedWidget)) {
-                    this.actionDispatcher.dispatch(new FocusStateChangedAction(true));
+                    this.actionDispatcher.dispatch(FocusStateChangedAction.create(true));
                 }
             })
         );
@@ -204,8 +203,8 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     protected async updateGlobalSelection(): Promise<void> {
-        this.getSelectedElementIds().then((currentSelection: string[]) =>
-            this.actionDispatcher.dispatch(new SelectAction(currentSelection))
+        this.getSelectedElementIds().then((selectedElementsIDs: string[]) =>
+            this.actionDispatcher.dispatch(SelectAction.create({ selectedElementsIDs }))
         );
     }
 
@@ -214,7 +213,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    storeState(): object {
+    override storeState(): object {
         // the viewport is stored in the application layout
         // so there is no need to keep it in the storage
         this.removeViewportDataFromStorageService();
@@ -222,7 +221,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    restoreState(oldState: object): void {
+    override restoreState(oldState: object): void {
         super.restoreState(oldState);
         if (isViewportDataContainer(oldState)) {
             this.setViewportData(oldState);
@@ -273,7 +272,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
     protected async setViewportData(viewportData: ViewportDataContainer): Promise<void> {
         if (this.actionDispatcher instanceof GLSPActionDispatcher) {
-            const restoreViewportAction = new SetViewportAction(viewportData.elementId, viewportData.viewportData, true);
+            const restoreViewportAction = SetViewportAction.create(viewportData.elementId, viewportData.viewportData, { animate: true });
             return this.actionDispatcher.onceModelInitialized().then(() => this.actionDispatcher.dispatch(restoreViewportAction));
         }
     }
@@ -316,7 +315,7 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
     }
 
     save(): MaybePromise<void> {
-        return this.actionDispatcher.dispatch(new SaveModelAction());
+        return this.actionDispatcher.dispatch(SaveModelAction.create());
     }
 
     get dirty(): boolean {

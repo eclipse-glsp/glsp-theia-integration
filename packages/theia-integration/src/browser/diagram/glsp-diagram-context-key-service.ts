@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -17,12 +17,12 @@ import {
     EditMode,
     EditModeListener,
     EditorContextService,
-    GLSP_TYPES,
+    getElements,
     isDeletable,
     isMoveable,
-    isNotUndefined,
     SModelElement,
-    SModelRoot
+    SModelRoot,
+    TYPES
 } from '@eclipse-glsp/client';
 import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { ApplicationShell } from '@theia/core/lib/browser';
@@ -89,11 +89,11 @@ export abstract class AbstractGLSPDiagramContextKeyService {
             this.doResetSelectionContextKeys();
             return;
         }
-        this.doUpdateSelectionContextKeys(selectedElementIds.map(id => root.index.getById(id)).filter(isNotUndefined));
+        this.doUpdateSelectionContextKeys(getElements(root.index, selectedElementIds));
     }
 
     protected getSelectionService(glspDiagramWidget: GLSPDiagramWidget): SelectionService {
-        return glspDiagramWidget.diContainer.get(GLSP_TYPES.SelectionService);
+        return glspDiagramWidget.diContainer.get(TYPES.SelectionService);
     }
 
     protected getEditorContextService(glspDiagramWidget: GLSPDiagramWidget): EditorContextService {

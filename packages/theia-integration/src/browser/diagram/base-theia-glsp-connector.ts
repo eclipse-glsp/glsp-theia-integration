@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2021 EclipseSource and others.
+ * Copyright (c) 2019-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -19,7 +19,6 @@ import {
     ExportSvgAction,
     GLSPClient,
     InitializeResult,
-    isGLSPServerStatusAction,
     remove,
     ServerMessageAction,
     ServerStatusAction
@@ -122,7 +121,7 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
 
     protected clearWidgetStatus(widgetId: string): void {
         // any status but FATAL, ERROR, WARNING or INFO will lead to a clear of the status
-        this.showWidgetStatus(widgetId, { kind: ServerStatusAction.KIND, message: '', severity: 'CLEAR' });
+        this.showWidgetStatus(widgetId, ServerStatusAction.create('', { severity: 'NONE' }));
     }
 
     protected showWidgetStatus(widgetId: string, status: ServerStatusAction): void {
@@ -140,7 +139,7 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
         }
 
         // check for any timeouts
-        const statusTimeout = isGLSPServerStatusAction(status) ? status.timeout : -1;
+        const statusTimeout = status.timeout ?? -1;
         if (statusTimeout > 0) {
             const newTimeout = window.setTimeout(() => this.clearWidgetStatus(widgetId), statusTimeout);
             this.widgetStatusTimeouts.set(widgetId, newTimeout);
