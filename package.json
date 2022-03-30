@@ -8,7 +8,6 @@
   },
   "scripts": {
     "prepare": "lerna run prepare",
-    "install:only": "yarn install --ignore-scripts",
     "watch": "lerna run --parallel watch",
     "build": "lerna run build",
     "lint": "lerna run lint --",
@@ -18,9 +17,6 @@
     "publish:next": "SHA=$(git rev-parse --short HEAD) && lerna publish preminor --exact --canary --preid next.${SHA} --dist-tag next --no-git-reset --no-git-tag-version --no-push --ignore-scripts --yes --no-verify-access",
     "upgrade:next": "yarn upgrade -p \"sprotty-theia|@eclipse-glsp.*\" --next ",
     "download:exampleServer": "ts-node examples/workflow-theia/server/download.ts"
-  },
-  "resolutions": {
-    "**/sprotty": "0.11.0-next.e898c14.30"
   },
   "devDependencies": {
     "@eclipse-glsp/config": "next",

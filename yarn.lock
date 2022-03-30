@@ -925,21 +925,21 @@
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
 "@eclipse-glsp-examples/workflow-glsp@next":
-  version "0.10.0-next.146a812.165"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.10.0-next.146a812.165.tgz#4bc7029ee9f918e20ee933d617f7f8b4c6e47239"
-  integrity sha512-eOlUmfRy3bqfWYh4iWMEZk3JtyhlDD3xvwdX5djYy7Yu8rnqWFRsBPbXRVo44/TuUevLzvb6E0HzUcvEJv2y+Q==
+  version "0.10.0-next.88e4725.166"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.10.0-next.88e4725.166.tgz#fe06172488b7272258692a3090058976793c1627"
+  integrity sha512-JoOrVaycrc6Wpm6zeG/pxt0TYij9fCCHBR+Gn7mv7cyxgNBpR8OTV3am00WOQDWv68rWVG90rCTEaTyc283vMw==
   dependencies:
-    "@eclipse-glsp/client" "0.10.0-next.146a812.165+146a812"
+    "@eclipse-glsp/client" "0.10.0-next.88e4725.166+88e4725"
     balloon-css "^0.5.0"
 
-"@eclipse-glsp/client@0.10.0-next.146a812.165+146a812", "@eclipse-glsp/client@next":
-  version "0.10.0-next.146a812.165"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.10.0-next.146a812.165.tgz#16b6d35e1cb9ac99df9259975f9c7cad727ff93c"
-  integrity sha512-BfbQrv1AKy9MzUuJURpWBZ9nnINcu6WO8VKP8+nOrlBkWiYPg6abAnyJHVh0cbzWcuFUOIdPzHubJfGMkMySjg==
+"@eclipse-glsp/client@0.10.0-next.88e4725.166+88e4725", "@eclipse-glsp/client@next":
+  version "0.10.0-next.88e4725.166"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.10.0-next.88e4725.166.tgz#5863cbae21aab1b53a121772198a16611544b414"
+  integrity sha512-uJ+s/BiyOIaFL1B09/qJkdnsQ6xaJFWjC70E1KqrZ5DJbNEsha89rs3y4wYs++uYvN7rrfW029qnJr1B/w1UEg==
   dependencies:
-    "@eclipse-glsp/protocol" "0.10.0-next.146a812.165+146a812"
+    "@eclipse-glsp/protocol" "0.10.0-next.88e4725.166+88e4725"
     autocompleter "5.1.0"
-    sprotty "0.10.0"
+    sprotty next
 
 "@eclipse-glsp/config@next":
   version "0.10.0-next.b7bb985.103"
@@ -987,12 +987,12 @@
   resolved "https://registry.yarnpkg.com/@eclipse-glsp/prettier-config/-/prettier-config-0.10.0-next.b7bb985.103.tgz#2ad708ca691e8fe228b98e0ce673dbba43a2ef8c"
   integrity sha512-GrIHVf41ZYfoHIs97JXukUAmTS6IHQ4n1MnIJcNILJ38lLoFb254QYWdpLybbtu8xmXMdqPOHlrJE1J6TrB5Ow==
 
-"@eclipse-glsp/protocol@0.10.0-next.146a812.165+146a812":
-  version "0.10.0-next.146a812.165"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.10.0-next.146a812.165.tgz#9fe528e1b0b13bec316704d3d38072388876057e"
-  integrity sha512-aEjK7EkihkgBWHipOZHBB+HkYjEkvi5Sqg0lzZfx0NEZ+GB/S52NeY779uN0CVQzf6NQpa06qoRam9cWkSyCCQ==
+"@eclipse-glsp/protocol@0.10.0-next.88e4725.166+88e4725":
+  version "0.10.0-next.88e4725.166"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.10.0-next.88e4725.166.tgz#0a9cf798e5219d1bd298702993c2f6e9fba7d120"
+  integrity sha512-NRTl8W01eifVIkhDnPu0M4qFlmS2ra4YVxN5jJCWtnXnjJjvs9cqDu//nvOUK+Ufo0U0hrLyivDglcYJfDVcKA==
   dependencies:
-    inversify "^5.1.1"
+    sprotty-protocol next
     uuid "7.0.3"
     vscode-ws-jsonrpc "0.2.0"
 
@@ -2667,9 +2667,9 @@
     "@types/lodash" "*"
 
 "@types/lodash@*":
-  version "4.14.180"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.180.tgz#4ab7c9ddfc92ec4a887886483bc14c79fb380670"
-  integrity sha512-XOKXa1KIxtNXgASAnwj7cnttJxS4fksBRywK/9LzRV5YxrF80BXZIGeQSuoESQ/VkUj30Ae0+YcuHc15wJCB2g==
+  version "4.14.181"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.181.tgz#d1d3740c379fda17ab175165ba04e2d03389385d"
+  integrity sha512-n3tyKthHJbkiWhDZs3DkhkCzt2MexYHXlX0td5iMplyfwketaOeKboEVBqzceH7juqvEg3q5oUoBFxSLu7zFag==
 
 "@types/markdown-it@^12.2.3":
   version "12.2.3"
@@ -3924,9 +3924,9 @@ camelcase@^6.0.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001317:
-  version "1.0.30001320"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001320.tgz#8397391bec389b8ccce328636499b7284ee13285"
-  integrity sha512-MWPzG54AGdo3nWx7zHZTefseM5Y1ccM7hlQKHRqJkPozUaw3hNbBTMmLn16GG2FUzjR13Cr3NPfhIieX5PzXDA==
+  version "1.0.30001322"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001322.tgz#2e4c09d11e1e8f852767dab287069a8d0c29d623"
+  integrity sha512-neRmrmIrCGuMnxGSoh+x7zYtQFFgnSY2jaomjU56sCkTA6JINqQrxutF459JpWcWRajvoyn95sOXq4Pqrnyjew==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -4885,9 +4885,9 @@ electron-rebuild@^3.2.7:
     yargs "^17.0.1"
 
 electron-to-chromium@^1.4.84:
-  version "1.4.96"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.96.tgz#a97438a01d5db1460343fea4a344960b09330990"
-  integrity sha512-DPNjvNGPabv6FcyjzLAN4C0psN/GgD9rSGvMTuv81SeXG/EX3mCz0wiw9N1tUEnfQXYCJi3H8M0oFPRziZh7rw==
+  version "1.4.101"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.101.tgz#71f3a10065146d7445ba5d4c06ba2cc063b0817a"
+  integrity sha512-XJH+XmJjACx1S7ASl/b//KePcda5ocPnFH2jErztXcIS8LpP0SE6rX8ZxiY5/RaDPnaF1rj0fPaHfppzb0e2Aw==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -5004,9 +5004,9 @@ error-ex@^1.3.1:
     is-arrayish "^0.2.1"
 
 es-abstract@^1.19.0, es-abstract@^1.19.1:
-  version "1.19.1"
-  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.19.1.tgz#d4885796876916959de78edaa0df456627115ec3"
-  integrity sha512-2vJ6tjA/UfqLm2MPs7jxVybLoB8i1t1Jd9R3kISld20sIxPcTbLuggQOUxeWeAvIUkduv/CfMjuh4WmiXr2v9w==
+  version "1.19.2"
+  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.19.2.tgz#8f7b696d8f15b167ae3640b4060670f3d054143f"
+  integrity sha512-gfSBJoZdlL2xRiOCy0g8gLMryhoe1TlimjzU99L/31Z8QEGIhVQI+EWwt5lT+AuU9SnorVupXFqqOGqGfsyO6w==
   dependencies:
     call-bind "^1.0.2"
     es-to-primitive "^1.2.1"
@@ -5014,15 +5014,15 @@ es-abstract@^1.19.0, es-abstract@^1.19.1:
     get-intrinsic "^1.1.1"
     get-symbol-description "^1.0.0"
     has "^1.0.3"
-    has-symbols "^1.0.2"
+    has-symbols "^1.0.3"
     internal-slot "^1.0.3"
     is-callable "^1.2.4"
-    is-negative-zero "^2.0.1"
+    is-negative-zero "^2.0.2"
     is-regex "^1.1.4"
     is-shared-array-buffer "^1.0.1"
     is-string "^1.0.7"
-    is-weakref "^1.0.1"
-    object-inspect "^1.11.0"
+    is-weakref "^1.0.2"
+    object-inspect "^1.12.0"
     object-keys "^1.1.1"
     object.assign "^4.1.2"
     string.prototype.trimend "^1.0.4"
@@ -5712,9 +5712,9 @@ fuzzy@^0.1.3:
   integrity sha1-THbsL/CsGjap3M+aAN+GIweNTtg=
 
 gauge@^4.0.0:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/gauge/-/gauge-4.0.3.tgz#286cf105c1962c659f0963058fb05116c1b82d3f"
-  integrity sha512-ICw1DhAwMtb22rYFwEHgJcx1JCwJGv3x6G0OQUq56Nge+H4Q8JEwr8iveS0XFlsUNSI67F5ffMGK25bK4Pmskw==
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/gauge/-/gauge-4.0.4.tgz#52ff0652f2bbf607a989793d53b751bef2328dce"
+  integrity sha512-f9m+BEN5jkg6a0fZjleidjN51VE1X+mPFQ2DJ0uv1V39oCLCbsGe6yjbBnp7eK7z/+GAon99a3nHuqbuuthyPg==
   dependencies:
     aproba "^1.0.3 || ^2.0.0"
     color-support "^1.1.3"
@@ -6076,7 +6076,7 @@ has-flag@^4.0.0:
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-4.0.0.tgz#944771fd9c81c81265c4d6941860da06bb59479b"
   integrity sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==
 
-has-symbols@^1.0.0, has-symbols@^1.0.1, has-symbols@^1.0.2:
+has-symbols@^1.0.0, has-symbols@^1.0.1, has-symbols@^1.0.2, has-symbols@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/has-symbols/-/has-symbols-1.0.3.tgz#bb7b2c4349251dce87b125f7bdf874aa7c8b39f8"
   integrity sha512-l3LCuF6MgDNwTDKkdYGEihYjt5pRPbEg46rtlmnSPlUbgmB8LOIrKJbYYFBSbnPaJexMKtiPO8hmeRjRz2Td+A==
@@ -6470,7 +6470,7 @@ is-natural-number@^4.0.1:
   resolved "https://registry.yarnpkg.com/is-natural-number/-/is-natural-number-4.0.1.tgz#ab9d76e1db4ced51e35de0c72ebecf09f734cde8"
   integrity sha1-q5124dtM7VHjXeDHLr7PCfc0zeg=
 
-is-negative-zero@^2.0.1:
+is-negative-zero@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/is-negative-zero/-/is-negative-zero-2.0.2.tgz#7bf6f03a28003b8b3965de3ac26f664d765f3150"
   integrity sha512-dqJvarLawXsFbNDeJW7zAz8ItJ9cd28YufuuFzh0G8pNHjJMnY08Dv7sYX2uF5UpQOwieAeOExEYAWWfu7ZZUA==
@@ -6585,7 +6585,7 @@ is-unicode-supported@^0.1.0:
   resolved "https://registry.yarnpkg.com/is-unicode-supported/-/is-unicode-supported-0.1.0.tgz#3f26c76a809593b52bfa2ecb5710ed2779b522a7"
   integrity sha512-knxG2q4UC3u8stRGyAVJCOdxFmv5DZiRcdlIaAQXAbSfJya+OhopNotLQrstBhququ4ZpuKbDc/8S6mgXgPFPw==
 
-is-weakref@^1.0.1:
+is-weakref@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/is-weakref/-/is-weakref-1.0.2.tgz#9529f383a9338205e89765e0392efc2f100f06f2"
   integrity sha512-qctsuLZmIQ0+vSSMfoVvyFe2+GSEvnmZ2ezTup1SBse9+twCCeial6EEi3Nc2KFcf6+qz2FBPnjXsk8xhKSaPQ==
@@ -7643,9 +7643,9 @@ neo-async@^2.6.0, neo-async@^2.6.2:
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
 nested-error-stacks@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.0.tgz#0fbdcf3e13fe4994781280524f8b96b0cdff9c61"
-  integrity sha512-AO81vsIO1k1sM4Zrd6Hu7regmJN1NSiAja10gc4bX3F0wd+9rQmcuHQaHVQCYIEC8iFXnE+mavh23GOt7wBgug==
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
+  integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 nise@^5.1.0:
   version "5.1.1"
@@ -7977,7 +7977,7 @@ object-assign@^4, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
 
-object-inspect@^1.11.0, object-inspect@^1.9.0:
+object-inspect@^1.12.0, object-inspect@^1.9.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.12.0.tgz#6e2c120e868fd1fd18cb4f18c31741d0d6e776f0"
   integrity sha512-Ho2z80bVIvJloH+YzRmpZVQe87+qASmBUKZDWgx9cu+KDrX2ZDH/3tMy+gXbZETVGs2M8YdxObOh7XAtim9Y0g==
@@ -9664,7 +9664,7 @@ sprotty-theia@next:
     sprotty next
     sprotty-protocol next
 
-sprotty@0.10.0, sprotty@0.11.0-next.e898c14.30, sprotty@next:
+sprotty@next:
   version "0.11.0-next.e898c14.30"
   resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.11.0-next.e898c14.30.tgz#2ea9c87b1c8cb3f2b29eaf7693c9e5c7f1ef3561"
   integrity sha512-oJDQDv5aHpAO1mUruNJn8Iaf0X43vkWPe0KQy4gh1wPx/HnMrYq9qMQ8lW7BMgCyN4UiE6go0k4cjW6GOyTwQw==
