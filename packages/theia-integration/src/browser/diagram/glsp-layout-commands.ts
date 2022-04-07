@@ -15,14 +15,11 @@
  ********************************************************************************/
 import {
     AlignElementsAction,
-    AlignElementsCommand,
     Alignment,
-    BoundsAwareModelElement,
-    Reduce,
+    ReduceFunctionType,
     ResizeDimension,
     ResizeElementsAction,
-    ResizeElementsCommand,
-    Select
+    SelectFunctionType
 } from '@eclipse-glsp/client';
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, MenuPath } from '@theia/core';
 import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
@@ -37,76 +34,76 @@ export function registerDiagramLayoutCommands(bind: interfaces.Bind): void {
 }
 
 export namespace GLSPLayoutCommands {
-    export const RESIZE_WIDTH_MIN = 'glsp:' + ResizeElementsCommand.KIND + ':width:min';
+    export const RESIZE_WIDTH_MIN = 'glsp:' + ResizeElementsAction.KIND + ':width:min';
     export const RESIZE_WIDTH_MIN_LABEL = 'Minimal Width';
-    export const RESIZE_WIDTH_MAX = 'glsp:' + ResizeElementsCommand.KIND + ':width:max';
+    export const RESIZE_WIDTH_MAX = 'glsp:' + ResizeElementsAction.KIND + ':width:max';
     export const RESIZE_WIDTH_MAX_LABEL = 'Maximal Width';
-    export const RESIZE_WIDTH_AVG = 'glsp:' + ResizeElementsCommand.KIND + ':width:avg';
+    export const RESIZE_WIDTH_AVG = 'glsp:' + ResizeElementsAction.KIND + ':width:avg';
     export const RESIZE_WIDTH_AVG_LABEL = 'Average Width';
-    export const RESIZE_WIDTH_FIRST = 'glsp:' + ResizeElementsCommand.KIND + ':width:first';
+    export const RESIZE_WIDTH_FIRST = 'glsp:' + ResizeElementsAction.KIND + ':width:first';
     export const RESIZE_WIDTH_FIRST_LABEL = 'Width of First Selected Element';
-    export const RESIZE_WIDTH_LAST = 'glsp:' + ResizeElementsCommand.KIND + ':width:last';
+    export const RESIZE_WIDTH_LAST = 'glsp:' + ResizeElementsAction.KIND + ':width:last';
     export const RESIZE_WIDTH_LAST_LABEL = 'Width of Last Selected Element';
 
-    export const RESIZE_HEIGHT_MIN = 'glsp:' + ResizeElementsCommand.KIND + ':height:min';
+    export const RESIZE_HEIGHT_MIN = 'glsp:' + ResizeElementsAction.KIND + ':height:min';
     export const RESIZE_HEIGHT_MIN_LABEL = 'Minimal Height';
-    export const RESIZE_HEIGHT_MAX = 'glsp:' + ResizeElementsCommand.KIND + ':height:max';
+    export const RESIZE_HEIGHT_MAX = 'glsp:' + ResizeElementsAction.KIND + ':height:max';
     export const RESIZE_HEIGHT_MAX_LABEL = 'Maximal Height';
-    export const RESIZE_HEIGHT_AVG = 'glsp:' + ResizeElementsCommand.KIND + ':height:avg';
+    export const RESIZE_HEIGHT_AVG = 'glsp:' + ResizeElementsAction.KIND + ':height:avg';
     export const RESIZE_HEIGHT_AVG_LABEL = 'Average Height';
-    export const RESIZE_HEIGHT_FIRST = 'glsp:' + ResizeElementsCommand.KIND + ':height:first';
+    export const RESIZE_HEIGHT_FIRST = 'glsp:' + ResizeElementsAction.KIND + ':height:first';
     export const RESIZE_HEIGHT_FIRST_LABEL = 'Height of First Selected Element';
-    export const RESIZE_HEIGHT_LAST = 'glsp:' + ResizeElementsCommand.KIND + ':height:last';
+    export const RESIZE_HEIGHT_LAST = 'glsp:' + ResizeElementsAction.KIND + ':height:last';
     export const RESIZE_HEIGHT_LAST_LABEL = 'Height of Last Selected Element';
 
-    export const RESIZE_WIDTH_AND_HEIGHT_MIN = 'glsp:' + ResizeElementsCommand.KIND + ':width_and_height:min';
+    export const RESIZE_WIDTH_AND_HEIGHT_MIN = 'glsp:' + ResizeElementsAction.KIND + ':width_and_height:min';
     export const RESIZE_WIDTH_AND_HEIGHT_MIN_LBL = 'Minimal Width and Height';
-    export const RESIZE_WIDTH_AND_HEIGHT_MAX = 'glsp:' + ResizeElementsCommand.KIND + ':width_and_height:max';
+    export const RESIZE_WIDTH_AND_HEIGHT_MAX = 'glsp:' + ResizeElementsAction.KIND + ':width_and_height:max';
     export const RESIZE_WIDTH_AND_HEIGHT_MAX_LBL = 'Maximal Width and Height';
-    export const RESIZE_WIDTH_AND_HEIGHT_AVG = 'glsp:' + ResizeElementsCommand.KIND + ':width_and_height:avg';
+    export const RESIZE_WIDTH_AND_HEIGHT_AVG = 'glsp:' + ResizeElementsAction.KIND + ':width_and_height:avg';
     export const RESIZE_WIDTH_AND_HEIGHT_AVG_LBL = 'Average Width and Height';
-    export const RESIZE_WIDTH_AND_HEIGHT_FIRST = 'glsp:' + ResizeElementsCommand.KIND + ':width_and_height:first';
+    export const RESIZE_WIDTH_AND_HEIGHT_FIRST = 'glsp:' + ResizeElementsAction.KIND + ':width_and_height:first';
     export const RESIZE_WIDTH_AND_HEIGHT_FIRST_LBL = 'Width and Height of First Selected Element';
-    export const RESIZE_WIDTH_AND_HEIGHT_LAST = 'glsp:' + ResizeElementsCommand.KIND + ':width_and_height:last';
+    export const RESIZE_WIDTH_AND_HEIGHT_LAST = 'glsp:' + ResizeElementsAction.KIND + ':width_and_height:last';
     export const RESIZE_WIDTH_AND_HEIGHT_LAST_LBL = 'Width and Height of Last Selected Element';
 
-    export const ALIGN_LEFT = 'glsp:' + AlignElementsCommand.KIND + ':left';
+    export const ALIGN_LEFT = 'glsp:' + AlignElementsAction.KIND + ':left';
     export const ALIGN_LEFT_LABEL = 'Left';
-    export const ALIGN_CENTER = 'glsp:' + AlignElementsCommand.KIND + ':center';
+    export const ALIGN_CENTER = 'glsp:' + AlignElementsAction.KIND + ':center';
     export const ALIGN_CENTER_LABEL = 'Center';
-    export const ALIGN_RIGHT = 'glsp:' + AlignElementsCommand.KIND + ':right';
+    export const ALIGN_RIGHT = 'glsp:' + AlignElementsAction.KIND + ':right';
     export const ALIGN_RIGHT_LABEL = 'Right';
-    export const ALIGN_TOP = 'glsp:' + AlignElementsCommand.KIND + ':top';
+    export const ALIGN_TOP = 'glsp:' + AlignElementsAction.KIND + ':top';
     export const ALIGN_TOP_LABEL = 'Top';
-    export const ALIGN_MIDDLE = 'glsp:' + AlignElementsCommand.KIND + ':middle';
+    export const ALIGN_MIDDLE = 'glsp:' + AlignElementsAction.KIND + ':middle';
     export const ALIGN_MIDDLE_LABEL = 'Middle';
-    export const ALIGN_BOTTOM = 'glsp:' + AlignElementsCommand.KIND + ':bottom';
+    export const ALIGN_BOTTOM = 'glsp:' + AlignElementsAction.KIND + ':bottom';
     export const ALIGN_BOTTOM_LABEL = 'Bottom';
 
-    export const ALIGN_LEFT_FIRST = 'glsp:' + AlignElementsCommand.KIND + ':left:first';
+    export const ALIGN_LEFT_FIRST = 'glsp:' + AlignElementsAction.KIND + ':left:first';
     export const ALIGN_LEFT_FIRST_LABEL = 'Left of First Selected Element';
-    export const ALIGN_CENTER_FIRST = 'glsp:' + AlignElementsCommand.KIND + ':center:first';
+    export const ALIGN_CENTER_FIRST = 'glsp:' + AlignElementsAction.KIND + ':center:first';
     export const ALIGN_CENTER_FIRST_LABEL = 'Center of First Selected Element';
-    export const ALIGN_RIGHT_FIRST = 'glsp:' + AlignElementsCommand.KIND + ':right:first';
+    export const ALIGN_RIGHT_FIRST = 'glsp:' + AlignElementsAction.KIND + ':right:first';
     export const ALIGN_RIGHT_FIRST_LABEL = 'Right of First Selected Element';
-    export const ALIGN_TOP_FIRST = 'glsp:' + AlignElementsCommand.KIND + ':top:first';
+    export const ALIGN_TOP_FIRST = 'glsp:' + AlignElementsAction.KIND + ':top:first';
     export const ALIGN_TOP_FIRST_LABEL = 'Top of First Selected Element';
-    export const ALIGN_MIDDLE_FIRST = 'glsp:' + AlignElementsCommand.KIND + ':middle:first';
+    export const ALIGN_MIDDLE_FIRST = 'glsp:' + AlignElementsAction.KIND + ':middle:first';
     export const ALIGN_MIDDLE_FIRST_LABEL = 'Middle of First Selected Element';
-    export const ALIGN_BOTTOM_FIRST = 'glsp:' + AlignElementsCommand.KIND + ':bottom:first';
+    export const ALIGN_BOTTOM_FIRST = 'glsp:' + AlignElementsAction.KIND + ':bottom:first';
     export const ALIGN_BOTTOM_FIRST_LABEL = 'Bottom of First Selected Element';
 
-    export const ALIGN_LEFT_LAST = 'glsp:' + AlignElementsCommand.KIND + ':left:last';
+    export const ALIGN_LEFT_LAST = 'glsp:' + AlignElementsAction.KIND + ':left:last';
     export const ALIGN_LEFT_LAST_LABEL = 'Left of Last Selected Element';
-    export const ALIGN_CENTER_LAST = 'glsp:' + AlignElementsCommand.KIND + ':center:last';
+    export const ALIGN_CENTER_LAST = 'glsp:' + AlignElementsAction.KIND + ':center:last';
     export const ALIGN_CENTER_LAST_LABEL = 'Center of Last Selected Element';
-    export const ALIGN_RIGHT_LAST = 'glsp:' + AlignElementsCommand.KIND + ':right:last';
+    export const ALIGN_RIGHT_LAST = 'glsp:' + AlignElementsAction.KIND + ':right:last';
     export const ALIGN_RIGHT_LAST_LABEL = 'Right of Last Selected Element';
-    export const ALIGN_TOP_LAST = 'glsp:' + AlignElementsCommand.KIND + ':top:last';
+    export const ALIGN_TOP_LAST = 'glsp:' + AlignElementsAction.KIND + ':top:last';
     export const ALIGN_TOP_LAST_LABEL = 'Top of Last Selected Element';
-    export const ALIGN_MIDDLE_LAST = 'glsp:' + AlignElementsCommand.KIND + ':middle:last';
+    export const ALIGN_MIDDLE_LAST = 'glsp:' + AlignElementsAction.KIND + ':middle:last';
     export const ALIGN_MIDDLE_LAST_LABEL = 'Middle of Last Selected Element';
-    export const ALIGN_BOTTOM_LAST = 'glsp:' + AlignElementsCommand.KIND + ':bottom:last';
+    export const ALIGN_BOTTOM_LAST = 'glsp:' + AlignElementsAction.KIND + ':bottom:last';
     export const ALIGN_BOTTOM_LAST_LABEL = 'Bottom of Last Selected Element';
 }
 
@@ -279,7 +276,7 @@ export class GLSPLayoutCommandContribution implements CommandContribution {
         id: string,
         label: string,
         dimension: ResizeDimension,
-        reductionFunction: (...values: number[]) => number
+        reduceFunction: ReduceFunctionType
     ): void {
         registry.registerCommand(
             {
@@ -288,19 +285,13 @@ export class GLSPLayoutCommandContribution implements CommandContribution {
                 label: 'Resize to ' + label
             },
             new GLSPCommandHandler(this.shell, {
-                actions: () => [ResizeElementsAction.create({ dimension, reductionFunction })],
+                actions: () => [ResizeElementsAction.create({ dimension, reduceFunction })],
                 isEnabled: context => !context.isReadonly && context.get().selectedElementIds.length > 1
             })
         );
     }
 
-    registerAlign(
-        registry: CommandRegistry,
-        id: string,
-        label: string,
-        alignment: Alignment,
-        selectionFunction: (elements: BoundsAwareModelElement[]) => BoundsAwareModelElement[]
-    ): void {
+    registerAlign(registry: CommandRegistry, id: string, label: string, alignment: Alignment, selectionFunction: SelectFunctionType): void {
         registry.registerCommand(
             {
                 id: id,
@@ -320,35 +311,35 @@ export class GLSPLayoutCommandContribution implements CommandContribution {
             GLSPLayoutCommands.RESIZE_WIDTH_MIN,
             GLSPLayoutCommands.RESIZE_WIDTH_MIN_LABEL,
             ResizeDimension.Width,
-            Reduce.min
+            'min'
         );
         this.registerResize(
             reg,
             GLSPLayoutCommands.RESIZE_WIDTH_MAX,
             GLSPLayoutCommands.RESIZE_WIDTH_MAX_LABEL,
             ResizeDimension.Width,
-            Reduce.max
+            'max'
         );
         this.registerResize(
             reg,
             GLSPLayoutCommands.RESIZE_WIDTH_AVG,
             GLSPLayoutCommands.RESIZE_WIDTH_AVG_LABEL,
             ResizeDimension.Width,
-            Reduce.avg
+            'avg'
         );
         this.registerResize(
             reg,
             GLSPLayoutCommands.RESIZE_WIDTH_FIRST,
             GLSPLayoutCommands.RESIZE_WIDTH_FIRST_LABEL,
             ResizeDimension.Width,
-            Reduce.first
+            'first'
         );
         this.registerResize(
             reg,
             GLSPLayoutCommands.RESIZE_WIDTH_LAST,
             GLSPLayoutCommands.RESIZE_WIDTH_LAST_LABEL,
             ResizeDimension.Width,
-            Reduce.last
+            'last'
         );
 
         this.registerResize(
@@ -356,35 +347,35 @@ export class GLSPLayoutCommandContribution implements CommandContribution {
             GLSPLayoutCommands.RESIZE_HEIGHT_MIN,
             GLSPLayoutCommands.RESIZE_HEIGHT_MIN_LABEL,
             ResizeDimension.Height,
-            Reduce.min
+            'min'
         );
         this.registerResize(
             reg,
             GLSPLayoutCommands.RESIZE_HEIGHT_MAX,
             GLSPLayoutCommands.RESIZE_HEIGHT_MAX_LABEL,
             ResizeDimension.Height,
-            Reduce.max
+            'max'
         );
         this.registerResize(
             reg,
             GLSPLayoutCommands.RESIZE_HEIGHT_AVG,
             GLSPLayoutCommands.RESIZE_HEIGHT_AVG_LABEL,
             ResizeDimension.Height,
-            Reduce.avg
+            'avg'
         );
         this.registerResize(
             reg,
             GLSPLayoutCommands.RESIZE_HEIGHT_FIRST,
             GLSPLayoutCommands.RESIZE_HEIGHT_FIRST_LABEL,
             ResizeDimension.Height,
-            Reduce.first
+            'first'
         );
         this.registerResize(
             reg,
             GLSPLayoutCommands.RESIZE_HEIGHT_LAST,
             GLSPLayoutCommands.RESIZE_HEIGHT_LAST_LABEL,
             ResizeDimension.Height,
-            Reduce.last
+            'last'
         );
 
         this.registerResize(
@@ -392,111 +383,75 @@ export class GLSPLayoutCommandContribution implements CommandContribution {
             GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_MIN,
             GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_MIN_LBL,
             ResizeDimension.Width_And_Height,
-            Reduce.min
+            'min'
         );
         this.registerResize(
             reg,
             GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_MAX,
             GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_MAX_LBL,
             ResizeDimension.Width_And_Height,
-            Reduce.max
+            'max'
         );
         this.registerResize(
             reg,
             GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_AVG,
             GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_AVG_LBL,
             ResizeDimension.Width_And_Height,
-            Reduce.avg
+            'avg'
         );
         this.registerResize(
             reg,
             GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_FIRST,
             GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_FIRST_LBL,
             ResizeDimension.Width_And_Height,
-            Reduce.first
+            'first'
         );
         this.registerResize(
             reg,
             GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_LAST,
             GLSPLayoutCommands.RESIZE_WIDTH_AND_HEIGHT_LAST_LBL,
             ResizeDimension.Width_And_Height,
-            Reduce.last
+            'last'
         );
 
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_LEFT, GLSPLayoutCommands.ALIGN_LEFT_LABEL, Alignment.Left, Select.all);
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_CENTER, GLSPLayoutCommands.ALIGN_CENTER_LABEL, Alignment.Center, Select.all);
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_RIGHT, GLSPLayoutCommands.ALIGN_RIGHT_LABEL, Alignment.Right, Select.all);
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_TOP, GLSPLayoutCommands.ALIGN_TOP_LABEL, Alignment.Top, Select.all);
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_MIDDLE, GLSPLayoutCommands.ALIGN_MIDDLE_LABEL, Alignment.Middle, Select.all);
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_BOTTOM, GLSPLayoutCommands.ALIGN_BOTTOM_LABEL, Alignment.Bottom, Select.all);
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_LEFT, GLSPLayoutCommands.ALIGN_LEFT_LABEL, Alignment.Left, 'all');
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_CENTER, GLSPLayoutCommands.ALIGN_CENTER_LABEL, Alignment.Center, 'all');
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_RIGHT, GLSPLayoutCommands.ALIGN_RIGHT_LABEL, Alignment.Right, 'all');
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_TOP, GLSPLayoutCommands.ALIGN_TOP_LABEL, Alignment.Top, 'all');
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_MIDDLE, GLSPLayoutCommands.ALIGN_MIDDLE_LABEL, Alignment.Middle, 'all');
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_BOTTOM, GLSPLayoutCommands.ALIGN_BOTTOM_LABEL, Alignment.Bottom, 'all');
 
-        this.registerAlign(
-            reg,
-            GLSPLayoutCommands.ALIGN_LEFT_FIRST,
-            GLSPLayoutCommands.ALIGN_LEFT_FIRST_LABEL,
-            Alignment.Left,
-            Select.first
-        );
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_LEFT_FIRST, GLSPLayoutCommands.ALIGN_LEFT_FIRST_LABEL, Alignment.Left, 'first');
         this.registerAlign(
             reg,
             GLSPLayoutCommands.ALIGN_CENTER_FIRST,
             GLSPLayoutCommands.ALIGN_CENTER_FIRST_LABEL,
             Alignment.Center,
-            Select.first
+            'first'
         );
-        this.registerAlign(
-            reg,
-            GLSPLayoutCommands.ALIGN_RIGHT_FIRST,
-            GLSPLayoutCommands.ALIGN_RIGHT_FIRST_LABEL,
-            Alignment.Right,
-            Select.first
-        );
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_TOP_FIRST, GLSPLayoutCommands.ALIGN_TOP_FIRST_LABEL, Alignment.Top, Select.first);
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_RIGHT_FIRST, GLSPLayoutCommands.ALIGN_RIGHT_FIRST_LABEL, Alignment.Right, 'first');
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_TOP_FIRST, GLSPLayoutCommands.ALIGN_TOP_FIRST_LABEL, Alignment.Top, 'first');
         this.registerAlign(
             reg,
             GLSPLayoutCommands.ALIGN_MIDDLE_FIRST,
             GLSPLayoutCommands.ALIGN_MIDDLE_FIRST_LABEL,
             Alignment.Middle,
-            Select.first
+            'first'
         );
         this.registerAlign(
             reg,
             GLSPLayoutCommands.ALIGN_BOTTOM_FIRST,
             GLSPLayoutCommands.ALIGN_BOTTOM_FIRST_LABEL,
             Alignment.Bottom,
-            Select.first
+            'first'
         );
 
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_LEFT_LAST, GLSPLayoutCommands.ALIGN_LEFT_LAST_LABEL, Alignment.Left, Select.last);
-        this.registerAlign(
-            reg,
-            GLSPLayoutCommands.ALIGN_CENTER_LAST,
-            GLSPLayoutCommands.ALIGN_CENTER_LAST_LABEL,
-            Alignment.Center,
-            Select.last
-        );
-        this.registerAlign(
-            reg,
-            GLSPLayoutCommands.ALIGN_RIGHT_LAST,
-            GLSPLayoutCommands.ALIGN_RIGHT_LAST_LABEL,
-            Alignment.Right,
-            Select.last
-        );
-        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_TOP_LAST, GLSPLayoutCommands.ALIGN_TOP_LAST_LABEL, Alignment.Top, Select.last);
-        this.registerAlign(
-            reg,
-            GLSPLayoutCommands.ALIGN_MIDDLE_LAST,
-            GLSPLayoutCommands.ALIGN_MIDDLE_LAST_LABEL,
-            Alignment.Middle,
-            Select.last
-        );
-        this.registerAlign(
-            reg,
-            GLSPLayoutCommands.ALIGN_BOTTOM_LAST,
-            GLSPLayoutCommands.ALIGN_BOTTOM_LAST_LABEL,
-            Alignment.Bottom,
-            Select.last
-        );
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_LEFT_LAST, GLSPLayoutCommands.ALIGN_LEFT_LAST_LABEL, Alignment.Left, 'last');
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_CENTER_LAST, GLSPLayoutCommands.ALIGN_CENTER_LAST_LABEL, Alignment.Center, 'last');
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_RIGHT_LAST, GLSPLayoutCommands.ALIGN_RIGHT_LAST_LABEL, Alignment.Right, 'last');
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_TOP_LAST, GLSPLayoutCommands.ALIGN_TOP_LAST_LABEL, Alignment.Top, 'last');
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_MIDDLE_LAST, GLSPLayoutCommands.ALIGN_MIDDLE_LAST_LABEL, Alignment.Middle, 'last');
+        this.registerAlign(reg, GLSPLayoutCommands.ALIGN_BOTTOM_LAST, GLSPLayoutCommands.ALIGN_BOTTOM_LAST_LABEL, Alignment.Bottom, 'last');
     }
 }
 

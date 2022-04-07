@@ -72,8 +72,8 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     protected updateSaveable(): void {
-        this.saveable.autoSave = this.editorPreferences['editor.autoSave'];
-        this.saveable.autoSaveDelay = this.editorPreferences['editor.autoSaveDelay'];
+        this.saveable.autoSave = this.editorPreferences['files.autoSave'];
+        this.saveable.autoSaveDelay = this.editorPreferences['files.autoSaveDelay'];
     }
 
     protected override initializeSprotty(): void {
@@ -296,8 +296,10 @@ export function getDiagramWidget(widget: Widget): GLSPDiagramWidget | undefined 
     return undefined;
 }
 
+type AutoSaveType = 'off' | 'afterDelay' | 'onFocusChange' | 'onWindowChange';
+
 export class SaveableGLSPModelSource implements Saveable, Disposable {
-    isAutoSave: 'on' | 'off' = 'on';
+    protected _autoSave: AutoSaveType = 'off';
     autoSaveDelay = 500;
 
     private autoSaveJobs = new DisposableCollection();
@@ -331,8 +333,8 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
         this.scheduleAutoSave();
     }
 
-    set autoSave(isAutoSave: 'on' | 'off') {
-        this.isAutoSave = isAutoSave;
+    set autoSave(autoSave: AutoSaveType) {
+        this._autoSave = autoSave;
         if (this.shouldAutoSave) {
             this.scheduleAutoSave();
         } else {
@@ -340,8 +342,8 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
         }
     }
 
-    get autoSave(): 'on' | 'off' {
-        return this.isAutoSave;
+    get autoSave(): AutoSaveType {
+        return this._autoSave;
     }
 
     protected scheduleAutoSave(): void {
@@ -360,7 +362,7 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
     }
 
     protected get shouldAutoSave(): boolean {
-        return this.dirty && this.autoSave === 'on';
+        return this.dirty && this.autoSave !== 'off';
     }
 
     dispose(): void {
