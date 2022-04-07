@@ -365,6 +365,16 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
         return this.dirty && this.autoSave !== 'off';
     }
 
+    // Needs to be implemented to pass the type check of `WorkspaceFrontendContribution.canBeSaved`.
+    async revert(options?: Saveable.RevertOptions): Promise<void> {
+        console.warn('GLSP only supports server-side saving. The `revert` implementation is no-op and has no effect.');
+    }
+
+    // Needs to be implemented to pass the type check of `WorkspaceFrontendContribution.canBeSaved`.
+    createSnapshot(): object {
+        throw new Error('GLSP only supports server-side saving. `createSnapshot` should never be invoked');
+    }
+
     dispose(): void {
         this.autoSaveJobs.dispose();
         this.dirtyChangedEmitter.dispose();
