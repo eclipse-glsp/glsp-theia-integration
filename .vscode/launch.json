@@ -39,7 +39,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Workflow Browser Backend (DEBUG)",
+      "name": "Launch Workflow Browser Backend (External GLSP Server)",
       "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
       "args": [
         "--hostname=localhost",
@@ -82,6 +82,21 @@
         "order": 2
       },
       "runtimeArgs": ["--incognito"]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Launch Workflow Browser Backend & Frontend",
+      "configurations": ["Launch Workflow Browser Backend", "Launch Workflow Browser Frontend"],
+      "stopAll": true
+    },
+    {
+      "name": "Launch Workflow Browser Backend & Frontend (External GLSP Server)",
+      "configurations": [
+        "Launch Workflow Browser Backend (External GLSP Server)",
+        "Launch Workflow Browser Frontend"
+      ],
+      "stopAll": true
     }
   ]
 }

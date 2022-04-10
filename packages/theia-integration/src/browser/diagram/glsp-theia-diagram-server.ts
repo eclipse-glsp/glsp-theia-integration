@@ -42,7 +42,7 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
         registry.register(SetDirtyStateAction.KIND, this);
     }
 
-    public getSourceURI(): string {
+    public get sourceURI(): string {
         return this.sourceUri;
     }
 
