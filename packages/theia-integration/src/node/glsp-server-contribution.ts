@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (C) 2017-2021 TypeFox and others.
+ * Copyright (C) 2017-2022 TypeFox and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -93,7 +93,7 @@ export namespace GLSPServerLaunchOptions {
      * @returns `true` if the '--debug' flag has been set.
      */
     export function inDebugMode(): boolean {
-        const args = process.argv.filter(a => a.startsWith(debugArgument));
+        const args = process.argv.filter(a => a.toLowerCase().startsWith(debugArgument.toLowerCase()));
         return args.length > 0;
     }
 
