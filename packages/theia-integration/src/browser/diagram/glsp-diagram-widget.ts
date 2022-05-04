@@ -117,10 +117,14 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
             this.addClipboardListener(this.node, 'paste', e => this.handlePaste(e));
             this.addClipboardListener(this.node, 'cut', e => this.handleCut(e));
         }
+        this.node.addEventListener('mouseenter', e => this.handleMouseEnter(e));
+        this.node.addEventListener('mouseleave', e => this.handleMouseLeave(e));
     }
 
     protected override onBeforeDetach(msg: Message): void {
         this.storeViewportDataInStorageService();
+        this.node.removeEventListener('mouseenter', this.handleMouseEnter);
+        this.node.removeEventListener('mouseleave', this.handleMouseLeave);
         super.onBeforeDetach(msg);
     }
 
@@ -144,6 +148,16 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
 
     reloadModel(): Promise<void> {
         return this.actionDispatcher.dispatch(RequestModelAction.create(this.requestModelOptions));
+    }
+
+    handleMouseEnter(e: MouseEvent): void {
+        this.node.classList.add('mouse-enter');
+        this.node.classList.remove('mouse-leave');
+    }
+
+    handleMouseLeave(e: MouseEvent): void {
+        this.node.classList.add('mouse-leave');
+        this.node.classList.remove('mouse-enter');
     }
 
     handleCopy(e: ClipboardEvent): void {
