@@ -147,7 +147,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     reloadModel(): Promise<void> {
-        return this.actionDispatcher.dispatch(RequestModelAction.create(this.requestModelOptions));
+        return this.actionDispatcher.dispatch(RequestModelAction.create({ options: this.requestModelOptions }));
     }
 
     handleMouseEnter(e: MouseEvent): void {
