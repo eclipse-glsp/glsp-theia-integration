@@ -17,7 +17,7 @@ import { ContributionProvider, ILogger } from '@theia/core/lib/common';
 import { MessagingService } from '@theia/core/lib/node/messaging/messaging-service';
 import { inject, injectable, named } from '@theia/core/shared/inversify';
 import { GLSPContribution } from '../common';
-import { GLSPServerContribution, GLSPServerLaunchOptions } from './glsp-server-contribution';
+import { GLSPServerContribution, GLSPServerContributionOptions } from './glsp-server-contribution';
 
 @injectable()
 export class GLSPBackendContribution implements MessagingService.Contribution, GLSPContribution.Service {
@@ -47,7 +47,7 @@ export class GLSPBackendContribution implements MessagingService.Contribution, G
     configure(service: MessagingService): void {
         for (const contribution of this.contributors.getContributions()) {
             const path = GLSPContribution.getPath(contribution);
-            if (GLSPServerLaunchOptions.shouldLaunchOnApplicationStart(contribution)) {
+            if (GLSPServerContributionOptions.shouldLaunchOnApplicationStart(contribution)) {
                 contribution.launch!().then(() => this.forward(service, path, contribution));
             } else {
                 this.forward(service, path, contribution);
