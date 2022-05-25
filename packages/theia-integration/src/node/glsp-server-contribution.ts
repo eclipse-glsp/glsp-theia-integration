@@ -27,6 +27,10 @@ import { GLSPContribution } from '../common';
 
 export const GLSPServerContribution = Symbol.for('GLSPServerContribution');
 
+/**
+ * The backend service component of a {@link GLSPContribution}. Responsible for launching new
+ * GLSP server processes or connecting to a running server instance.
+ */
 export interface GLSPServerContribution extends GLSPContribution {
     /**
      * Establish a connection between the given client (connection) and the GLSP server.
@@ -41,34 +45,31 @@ export interface GLSPServerContribution extends GLSPContribution {
     launch?(): Promise<void>;
 
     /**
-     * The {@link GLSPServerLaunchOptions} for this contribution.
+     * The {@link GLSPServerContributionOptions} for this contribution.
      */
-    launchOptions: GLSPServerLaunchOptions;
+    options: GLSPServerContributionOptions;
 }
-export interface GLSPServerLaunchOptions {
-    /**
-     * Declares if the server can handle multiple clients.
-     * A `multiClient` server only has to be started once whereas in a `singleClient` scenario a new server needs to be launched for each
-     * client.
-     */
-    multiClient: boolean;
+
+/**
+ * Configuration options for a {@link GLSPServerContribution}.
+ */
+export interface GLSPServerContributionOptions {
     /** Declares wether the  server should be launched on application start or on demand (e.g. on widget open). */
     launchOnDemand: boolean;
     /**
-     * Declares that the server contribution does not have to consider server launching. This will be done externally.
-     * Mostly used for debug purposes.
+     * Declares that the server contribution does not have to launch a server but expects it to be already started.
+     * Mostly used for debugging purposes during development.
      */
     launchedExternally: boolean;
 }
 
-export namespace GLSPServerLaunchOptions {
-    /** Default values for {@link GLSPServerLaunchOptions } **/
-    export function createDefaultOptions(): GLSPServerLaunchOptions {
+export namespace GLSPServerContributionOptions {
+    /** Default values for {@link GLSPServerContributionOptions } **/
+    export function createDefaultOptions(): GLSPServerContributionOptions {
         return {
-            multiClient: true,
             launchOnDemand: false,
             launchedExternally: inDebugMode()
-        } as GLSPServerLaunchOptions;
+        } as GLSPServerContributionOptions;
     }
 
     /**
@@ -76,12 +77,12 @@ export namespace GLSPServerLaunchOptions {
      * options that are not specified.
      * @param options (partial) launch options that should be extended with default values (if necessary).
      */
-    export function configure(options?: Partial<GLSPServerLaunchOptions>): GLSPServerLaunchOptions {
+    export function configure(options?: Partial<GLSPServerContributionOptions>): GLSPServerContributionOptions {
         return options
             ? ({
                   ...createDefaultOptions(),
                   ...options
-              } as GLSPServerLaunchOptions)
+              } as GLSPServerContributionOptions)
             : createDefaultOptions();
     }
 
@@ -104,11 +105,7 @@ export namespace GLSPServerLaunchOptions {
      * @returns `true` if the server should be launched on application start.
      */
     export function shouldLaunchOnApplicationStart(contribution: GLSPServerContribution): boolean {
-        return (
-            contribution.launch !== undefined &&
-            !contribution.launchOptions.launchOnDemand &&
-            !contribution.launchOptions.launchedExternally
-        );
+        return contribution.launch !== undefined && !contribution.options.launchOnDemand && !contribution.options.launchedExternally;
     }
 }
 
@@ -118,21 +115,25 @@ export namespace GLSPServerLaunchOptions {
  */
 @injectable()
 export abstract class BaseGLSPServerContribution implements GLSPServerContribution {
-    @inject(RawProcessFactory) protected readonly processFactory: RawProcessFactory;
-    @inject(ProcessManager) protected readonly processManager: ProcessManager;
-    abstract readonly id: string;
-    launchOptions: GLSPServerLaunchOptions = GLSPServerLaunchOptions.createDefaultOptions();
+    @inject(RawProcessFactory)
+    protected readonly processFactory: RawProcessFactory;
 
-    abstract connect(clientConnection: IConnection): void;
+    @inject(ProcessManager)
+    protected readonly processManager: ProcessManager;
+
+    abstract readonly id: string;
+    options: GLSPServerContributionOptions;
 
     @postConstruct()
     protected initialize(): void {
-        if (this.createLaunchOptions) {
-            this.launchOptions = GLSPServerLaunchOptions.configure(this.createLaunchOptions());
-        }
+        this.options = this.createContributionOptions
+            ? GLSPServerContributionOptions.configure(this.createContributionOptions())
+            : GLSPServerContributionOptions.createDefaultOptions();
     }
 
-    abstract createLaunchOptions?(): Partial<GLSPServerLaunchOptions>;
+    abstract connect(clientConnection: IConnection): void;
+
+    abstract createContributionOptions?(): Partial<GLSPServerContributionOptions>;
 
     protected forward(clientConnection: IConnection, serverConnection: IConnection): void {
         forward(clientConnection, serverConnection);
