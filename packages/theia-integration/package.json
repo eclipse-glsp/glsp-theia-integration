@@ -40,7 +40,7 @@
   ],
   "dependencies": {
     "@eclipse-glsp/client": "next",
-    "@theia/messages": "^1.24.0",
+    "@theia/messages": "^1.25.0",
     "sprotty-theia": "next"
   },
   "scripts": {
