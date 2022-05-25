@@ -29,7 +29,7 @@ export const GLSPServerContribution = Symbol.for('GLSPServerContribution');
 
 /**
  * The backend service component of a {@link GLSPContribution}. Responsible for launching new
- * GLSP server processes and connecting to a running server instance.
+ * GLSP server processes or connecting to a running server instance.
  */
 export interface GLSPServerContribution extends GLSPContribution {
     /**
@@ -51,13 +51,13 @@ export interface GLSPServerContribution extends GLSPContribution {
 }
 
 /**
- * Configurable options for a {@link GLSPServerContribution}.
+ * Configuration options for a {@link GLSPServerContribution}.
  */
 export interface GLSPServerContributionOptions {
     /** Declares wether the  server should be launched on application start or on demand (e.g. on widget open). */
     launchOnDemand: boolean;
     /**
-     * Declares that the server contribution does not have to consider server launching. This will be done externally.
+     * Declares that the server contribution does not have to launch a server but expects it to be already started.
      * Mostly used for debugging purposes during development.
      */
     launchedExternally: boolean;

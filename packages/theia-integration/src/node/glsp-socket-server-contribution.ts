@@ -22,7 +22,7 @@ import { BaseGLSPServerContribution, GLSPServerContributionOptions } from './gls
 
 /**
  * Message that is expected to be printed by the embedded server process to the stdout once the
- * server process startup routine has been completed.
+ * server process startup routine has been completed and is ready to accept incoming connections.
  */
 export const START_UP_COMPLETE_MSG = '[GLSP-Server]:Startup completed';
 
