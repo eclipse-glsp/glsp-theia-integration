@@ -65,7 +65,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         super(options, widgetId, diContainer, connector);
         this.saveable = new SaveableGLSPModelSource(this.actionDispatcher, this.diContainer.get<ModelSource>(TYPES.ModelSource));
         this.updateSaveable();
-        this.title.caption = this.uri.path.toString();
+        this.title.caption = this.uri.path.fsPath();
         const prefUpdater = editorPreferences.onPreferenceChanged(() => this.updateSaveable());
         this.toDispose.push(prefUpdater);
         this.toDispose.push(this.saveable);
@@ -94,7 +94,7 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         // Filter options to only contain defined primitive values
         const definedOptions: any = pickBy(this.options, v => v !== undefined && typeof v !== 'object');
         this.requestModelOptions = {
-            sourceUri: this.uri.path.toString(),
+            sourceUri: this.uri.path.fsPath(),
             ...definedOptions
         };
 
@@ -385,7 +385,7 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
     }
 
     // Needs to be implemented to pass the type check of `WorkspaceFrontendContribution.canBeSaved`.
-    createSnapshot(): object {
+    createSnapshot(): Saveable.Snapshot {
         throw new Error('GLSP only supports server-side saving. `createSnapshot` should never be invoked');
     }
 
