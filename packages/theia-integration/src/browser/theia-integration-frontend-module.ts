@@ -18,7 +18,6 @@ import { FrontendApplicationContribution, WebSocketConnectionProvider } from '@t
 import { ContainerModule, interfaces } from '@theia/core/shared/inversify';
 import { NotificationManager } from '@theia/messages/lib/browser/notifications-manager';
 import { TheiaContextMenuService } from 'sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service';
-
 import { GLSPContribution } from '../common';
 import { GLSPDiagramContextKeyService } from './diagram/glsp-diagram-context-key-service';
 import { TheiaGLSPConnectorProvider } from './diagram/glsp-diagram-manager';
@@ -29,7 +28,7 @@ import { TheiaMarkerManager, TheiaMarkerManagerFactory } from './diagram/theia-m
 import { GLSPClientContribution } from './glsp-client-contribution';
 import { GLSPClientProvider, GLSPClientProviderImpl } from './glsp-client-provider';
 import { GLSPFrontendContribution } from './glsp-frontend-contribution';
-import { TheiaModelSourceChangedHandler } from './theia-model-source-changed-handler';
+import { TheiaSourceModelChangedHandler } from './theia-model-source-changed-handler';
 import { TheiaOpenerOptionsNavigationService } from './theia-opener-options-navigation-service';
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -53,7 +52,7 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
 
     bind(GLSPDiagramContextKeyService).toSelf().inSingletonScope();
     bind(TheiaOpenerOptionsNavigationService).toSelf().inSingletonScope();
-    bind(TheiaModelSourceChangedHandler).toSelf().inSingletonScope();
+    bind(TheiaSourceModelChangedHandler).toSelf().inSingletonScope();
 
     bind(TheiaContextMenuServiceFactory).toFactory(context => () => {
         const container = context.container.createChild();

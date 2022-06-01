@@ -13,12 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { configureActionHandler, ExternalModelSourceChangedHandler, NavigateToExternalTargetAction, TYPES } from '@eclipse-glsp/client';
+import { configureActionHandler, ExternalSourceModelChangedHandler, NavigateToExternalTargetAction, TYPES } from '@eclipse-glsp/client';
 import { CommandService, SelectionService } from '@theia/core';
 import { OpenerService } from '@theia/core/lib/browser';
 import { Container, inject, injectable } from '@theia/core/shared/inversify';
 import { DiagramConfiguration, TheiaContextMenuService, TheiaDiagramServer } from 'sprotty-theia';
-import { TheiaModelSourceChangedHandler } from '../theia-model-source-changed-handler';
+import { TheiaSourceModelChangedHandler } from '../theia-model-source-changed-handler';
 import { TheiaNavigateToExternalTargetHandler } from '../theia-navigate-to-external-target-handler';
 import { connectTheiaContextMenuService, TheiaContextMenuServiceFactory } from './theia-context-menu-service';
 import { TheiaGLSPConnector, TheiaGLSPConnectorRegistry } from './theia-glsp-connector';
@@ -30,7 +30,7 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
     @inject(SelectionService) protected selectionService: SelectionService;
     @inject(OpenerService) protected openerService: OpenerService;
     @inject(CommandService) protected readonly commandService: CommandService;
-    @inject(TheiaModelSourceChangedHandler) protected modelSourceChangedHandler: TheiaModelSourceChangedHandler;
+    @inject(TheiaSourceModelChangedHandler) protected sourceModelChangedHandler: TheiaSourceModelChangedHandler;
     @inject(TheiaContextMenuServiceFactory) protected readonly contextMenuServiceFactory: () => TheiaContextMenuService;
     @inject(TheiaMarkerManagerFactory) protected readonly theiaMarkerManager: () => TheiaMarkerManager;
     @inject(TheiaGLSPConnectorRegistry) protected readonly connectorRegistry: TheiaGLSPConnectorRegistry;
@@ -52,7 +52,7 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
         container.bind(SelectionService).toConstantValue(this.selectionService);
         container.bind(OpenerService).toConstantValue(this.openerService);
         container.bind(CommandService).toConstantValue(this.commandService);
-        container.bind(ExternalModelSourceChangedHandler).toConstantValue(this.modelSourceChangedHandler);
+        container.bind(ExternalSourceModelChangedHandler).toConstantValue(this.sourceModelChangedHandler);
 
         connectTheiaContextMenuService(container, this.contextMenuServiceFactory);
         connectTheiaMarkerManager(container, this.theiaMarkerManager, this.diagramType);

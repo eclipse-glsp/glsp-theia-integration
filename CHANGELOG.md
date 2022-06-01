@@ -9,6 +9,7 @@
 ### Breaking Changes
 
 -   [theia] Updated Theia dependencies to >=1.22.0. Due to an API break Theia versions <= 1.22.0 are no longer supported. [#105](https://github.com/eclipse-glsp/glsp-theia-integration/pull/105)
+-   [protocol] Adapt to renamed `ModelSourceChangedAction` and handler [#117](https://github.com/eclipse-glsp/glsp-theia-integration/pull/117)
 
 ## [v0.9.0- 09/12/2021](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v0.9.0)
 
