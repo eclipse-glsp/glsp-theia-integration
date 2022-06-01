@@ -13,28 +13,27 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action, ExternalModelSourceChangedHandler, ViewerOptions } from '@eclipse-glsp/client';
+import { Action, ExternalSourceModelChangedHandler, ViewerOptions } from '@eclipse-glsp/client';
 import { ApplicationShell, ConfirmDialog, Widget } from '@theia/core/lib/browser';
 import { inject, injectable } from '@theia/core/shared/inversify';
-
 import { getDiagramWidget } from './diagram/glsp-diagram-widget';
 
 @injectable()
-export class TheiaModelSourceChangedHandler extends ExternalModelSourceChangedHandler {
+export class TheiaSourceModelChangedHandler extends ExternalSourceModelChangedHandler {
     @inject(ApplicationShell) protected readonly shell: ApplicationShell;
 
-    async notifyModelSourceChange(modelSourceName: string, options: ViewerOptions): Promise<Action[]> {
+    async notifySourceModelChange(sourceModelName: string, options: ViewerOptions): Promise<Action[]> {
         const element = document.getElementById(options.baseDiv);
         if (element) {
             const widget = this.shell.findWidgetForElement(element);
             if (widget) {
-                return this.notifyModelSourceChangedWithWidget(widget, modelSourceName);
+                return this.notifySourceModelChangedWithWidget(widget, sourceModelName);
             }
         }
         return [];
     }
 
-    protected async notifyModelSourceChangedWithWidget(widget: Widget, modelSourceName: string): Promise<Action[]> {
+    protected async notifySourceModelChangedWithWidget(widget: Widget, sourceModelName: string): Promise<Action[]> {
         const diagramWidget = getDiagramWidget(widget);
         if (!diagramWidget) {
             return [];
@@ -44,7 +43,7 @@ export class TheiaModelSourceChangedHandler extends ExternalModelSourceChangedHa
             return [];
         }
         await this.shell.activateWidget(widget.id);
-        const reload = await this.showDialog(widget.title.label, modelSourceName);
+        const reload = await this.showDialog(widget.title.label, sourceModelName);
         if (reload === true) {
             await diagramWidget.reloadModel();
         }
@@ -55,10 +54,10 @@ export class TheiaModelSourceChangedHandler extends ExternalModelSourceChangedHa
         return false;
     }
 
-    protected showDialog(widgetTitle: string, modelSourceName: string): Promise<boolean | undefined> {
+    protected showDialog(widgetTitle: string, sourceModelName: string): Promise<boolean | undefined> {
         const dialog = new ConfirmDialog({
             title: `Source of editor '${widgetTitle}' changed`,
-            msg: `The source '${modelSourceName}' changed. Do you want to omit
+            msg: `The source model '${sourceModelName}' changed. Do you want to omit
             local changes and reload the editor or continue editing and ignore the changes?`,
             cancel: 'Continue editing',
             ok: 'Reload editor',
