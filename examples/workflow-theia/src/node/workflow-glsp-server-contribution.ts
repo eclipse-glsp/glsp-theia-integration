@@ -21,7 +21,7 @@ import { WorkflowLanguage } from '../common/workflow-language';
 export const DEFAULT_PORT = 5007;
 export const PORT_ARG_KEY = 'WF_GLSP';
 export const SERVER_DIR = join(__dirname, '..', '..', 'server');
-export const JAR_FILE = resolve(join(SERVER_DIR, 'org.eclipse.glsp.example.workflow-0.10.0-SNAPSHOT-glsp.jar'));
+export const JAR_FILE = resolve(join(SERVER_DIR, 'org.eclipse.glsp.example.workflow-1.0.0-glsp.jar'));
 
 @injectable()
 export class WorkflowGLServerContribution extends GLSPSocketServerContribution {

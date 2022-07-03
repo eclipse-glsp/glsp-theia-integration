@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -17,14 +17,14 @@ import download from 'mvn-artifact-download';
 import { join, resolve } from 'path';
 
 const downloadDir = resolve(join(__dirname));
-const mavenRepository = 'https://oss.sonatype.org/content/repositories/snapshots/';
+const mavenRepository = 'https://repo1.maven.org/maven2/';
 const groupId = 'org.eclipse.glsp.example';
 const artifactId = 'org.eclipse.glsp.example.workflow';
-const version = '0.10.0';
+const version = '1.0.0';
 const classifier = 'glsp';
 
 console.log('Downloading latest version of the Workflow Example Java Server from the maven repository...');
-download({ groupId, artifactId, version, classifier, isSnapShot: true }, downloadDir, mavenRepository).then(() =>
+download({ groupId, artifactId, version, classifier, isSnapShot: false }, downloadDir, mavenRepository).then(() =>
     console.log(
         'Download completed. Start the Theia back-end using these commands: \ncd examples/browser-app\nyarn start\n\n' +
             'After starting the Theia back-end, access the following link locally in your browser to see the running example:\n' +

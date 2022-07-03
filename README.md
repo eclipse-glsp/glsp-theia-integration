@@ -8,10 +8,25 @@ For details on building the project, please see the [README file of the theia-in
 
 ## Theia Version Compatibility
 
-| @eclipse-glsp/theia-integration | Theia    |
-| ------------------------------- | -------- |
-| 0.8.0                           | <=1.4.0  |
-| 0.9.0                           | >=1.20.0 |
+| @eclipse-glsp/theia-integration | Theia              |
+| ------------------------------- | ------------------ |
+| 0.8.0                           | <=1.4.0            |
+| 0.9.0                           | >=1.20.0           |
+| 1.0.0                           | >=1.25.0 <= 1.26.0 |
+
+> Note: Due to a transitive dependency to `sprotty-theia` it's currently not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project:
+
+```json
+...
+ "resolutions": {
+    "**/@theia/core": "1.26.0",
+    "**/@theia/editor": "1.26.0",
+    "**/@theia/filesystem": "1.26.0",
+    "**/@theia/messages": "1.26.0",
+    "**/@theia/monaco": "1.26.0"
+  },
+...
+```
 
 ## Workflow Diagram Example
 

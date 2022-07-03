@@ -1,32 +1,40 @@
 # Eclipse GLSP Theia Integration Changelog
 
-## [v0.10.0- Upcoming](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v0.10.0)
+## [1.0.0 - 30/06/2022](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v1.0.0)
 
 ### Changes
 
--   [navigation] Avoid changing the viewport twice when navigating to a diagram element. [#475](https://github.com/eclipse-glsp/glsp-theia-integration/pull/102)
+-   [navigation] Avoid changing the viewport twice when navigating to a diagram element. [#102](https://github.com/eclipse-glsp/glsp-theia-integration/pull/102)
+-   [example] Improved and modernized styling of the GLSP workflow example [#103](https://github.com/eclipse-glsp/glsp-theia-integration/pull/103)
+-   [diagram] Attached `mouseLeave` and `mouseEnter` listeners to the `GLSPDiagramWidget`. These listener add/remove corresponding css classes which can be used to apply custom styling dependent on the the relative mouse position. [#113](https://github.com/eclipse-glsp/glsp-theia-integration/pull/113/)
+-   [build] Updated Typescript to version 4.5.5 and enforced `noImplicitOverride` [#110](https://github.com/eclipse-glsp/glsp-theia-integration/pull/110)
 
 ### Breaking Changes
 
--   [theia] Updated Theia dependencies to >=1.22.0. Due to an API break Theia versions <= 1.22.0 are no longer supported. [#105](https://github.com/eclipse-glsp/glsp-theia-integration/pull/105)
+-   [theia] Updated Theia dependencies to `>=1.25.0`. Due API breaks Theia version `<1.25.0` are no longer supported. [#105](https://github.com/eclipse-glsp/glsp-theia-integration/pull/105) [#111](https://github.com/eclipse-glsp/glsp-theia-integration/pull/111) [#116](https://github.com/eclipse-glsp/glsp-theia-integration/pull/116)
 -   [protocol] Adapt to renamed `ModelSourceChangedAction` and handler [#117](https://github.com/eclipse-glsp/glsp-theia-integration/pull/117)
+-   Refactored `JavaSocketServerContribution` to be able to both launching of Java and node processes. [#115](https://github.com/eclipse-glsp/glsp-theia-integration/pull/115)
+    -   Renamed `JavaSocketServeContribution` -> `GLSPSocketServerContribution`
+    -   `JavaSocketServerLaunchOptions`
+        -   Renamed to `GLSPSocketServerContributionOptions`
+        -   Renamed `jarPath` property to `executable`
 
 ## [v0.9.0- 09/12/2021](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v0.9.0)
 
 ### Changes
 
--   [backend] Added ability to launch embedded GLSP servers from `GLSPBackendContribution` [#35](https://github.com/eclipse-glsp/glsp-theia-integration/pull/55) [#381](https://github.com/eclipse-glsp/glsp/pull/382)
--   [feature] Replaced `ExternalNavigateToTargetHandler` and its implementation in Theia `TheiaNavigateToTargetHandler` with a generic action `NavigateToExternalTargetAction` [#153](https://github.com/eclipse-glsp/glsp-client/pull/95) and an
--   [diagram] Cleanup diagram widget initialization by removing no longer needed options [#123](https://github.com/eclipse-glsp/glsp-theia-integration/pull/60)
--   [diagram] Fixed a bug that prevented activation of the diagram widget on model source changes [#168](https://github.com/eclipse-glsp/glsp-theia-integration/pull/61)
--   [diagram] Fixed a bug that kept the hover feedback visible after the diagram widget becomes inactive [#184](https://github.com/eclipse-glsp/glsp-theia-integration/pull/64)
--   [di] Made rebind of `CommandPalette` to `TheiaCommandPalette` optional to ensure compatibility with DI configurations where no `CommandPalette` is bound [#188](https://github.com/eclipse-glsp/glsp-theia-integration/pull/65)
--   [build] Dropped the dependency to the deprecated `@theia/languages` package. [#189](https://github.com/eclipse-glsp/glsp-theia-integration/pull/66)
--   [protocol] Adapted `SetDirtyStateAction` to provide an optional `reason` property indicating the cause for the dirty state change [#197](https://github.com/eclipse-glsp/glsp-theia-integration/pull/67)
--   [feature] Introduced `GLSPSelectionDataService` which can be used to forward additional information on top of the selection to the Theia selection service. [#228](https://github.com/eclipse-glsp/glsp/issues/228)
--   [diagram] Fixed a bug that displayed the diagram widget as inactive when initially opened. [#243](https://github.com/eclipse-glsp/glsp-theia-integration/pull/75)
--   [all] Refactored the theia-integration code base to remove boilerplate configuration code. [#258](https://github.com/eclipse-glsp/glsp-theia-integration/pull/84)
--   [protocol] Adapt frontend components to conform to the latest [protocol changes](eclipse-glsp/glsp/issues/315). [#315](https://github.com/eclipse-glsp/glsp-theia-integration/pull/86)
+-   [backend] Added ability to launch embedded GLSP servers from `GLSPBackendContribution` [#55](https://github.com/eclipse-glsp/glsp-theia-integration/pull/55)
+-   [feature] Replaced `ExternalNavigateToTargetHandler` and its implementation in Theia `TheiaNavigateToTargetHandler` with a generic action `NavigateToExternalTargetAction` [#57](https://github.com/eclipse-glsp/glsp-theia-integration/pull/57)
+-   [diagram] Cleanup diagram widget initialization by removing no longer needed options [#60](https://github.com/eclipse-glsp/glsp-theia-integration/pull/60)
+-   [diagram] Fixed a bug that prevented activation of the diagram widget on model source changes [#61](https://github.com/eclipse-glsp/glsp-theia-integration/pull/61)
+-   [diagram] Fixed a bug that kept the hover feedback visible after the diagram widget becomes inactive [#64](https://github.com/eclipse-glsp/glsp-theia-integration/pull/64)
+-   [di] Made rebind of `CommandPalette` to `TheiaCommandPalette` optional to ensure compatibility with DI configurations where no `CommandPalette` is bound [#65](https://github.com/eclipse-glsp/glsp-theia-integration/pull/65)
+-   [build] Dropped the dependency to the deprecated `@theia/languages` package. [#66](https://github.com/eclipse-glsp/glsp-theia-integration/pull/66)
+-   [protocol] Adapted `SetDirtyStateAction` to provide an optional `reason` property indicating the cause for the dirty state change [#67](https://github.com/eclipse-glsp/glsp-theia-integration/pull/67)
+-   [feature] Introduced `GLSPSelectionDataService` which can be used to forward additional information on top of the selection to the Theia selection service. [#69](https://github.com/eclipse-glsp/glsp-theia-integration/pull/69)
+-   [diagram] Fixed a bug that displayed the diagram widget as inactive when initially opened. [#75](https://github.com/eclipse-glsp/glsp-theia-integration/pull/75)
+-   [all] Refactored the theia-integration code base to remove boilerplate configuration code. [#84](https://github.com/eclipse-glsp/glsp-theia-integration/pull/84)
+-   [protocol] Adapt frontend components to conform to the latest [protocol changes](eclipse-glsp/glsp/issues/315). [#86](https://github.com/eclipse-glsp/glsp-theia-integration/pull/86)
 -   Upgrade to Theia 1.17.2 and ES2017 [#90](https://github.com/eclipse-glsp/glsp-theia-integration/pull/90)
 
 ### Breaking Changes
