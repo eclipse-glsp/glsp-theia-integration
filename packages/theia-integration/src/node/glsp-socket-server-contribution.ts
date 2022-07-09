@@ -13,11 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { Channel } from '@theia/core';
+import { ForwardingChannel } from '@theia/core/lib/common/message-rpc/channel';
 import { injectable, postConstruct } from '@theia/core/shared/inversify';
 import { RawProcess } from '@theia/process/lib/node/raw-process';
 import * as fs from 'fs';
 import * as net from 'net';
-import { createSocketConnection, IConnection } from 'vscode-ws-jsonrpc/lib/server';
+import { createSocketConnection } from 'vscode-ws-jsonrpc/lib/server';
 import { BaseGLSPServerContribution, GLSPServerContributionOptions } from './glsp-server-contribution';
 
 /**
@@ -86,8 +88,8 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
 
     abstract override createContributionOptions(): Partial<GLSPSocketServerContributionOptions>;
 
-    connect(clientConnection: IConnection): void {
-        this.connectToSocketServer(clientConnection);
+    connect(clientChannel: Channel): void {
+        this.connectToSocketServer(clientChannel);
     }
 
     async launch(): Promise<void> {
@@ -149,7 +151,7 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
         }
     }
 
-    protected connectToSocketServer(clientConnection: IConnection): void {
+    protected connectToSocketServer(clientChannel: Channel): void {
         if (isNaN(this.options.socketConnectionOptions.port)) {
             throw new Error(
                 // eslint-disable-next-line max-len
@@ -160,7 +162,11 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
         const serverConnection = createSocketConnection(socket, socket, () => {
             socket.destroy();
         });
-        this.forward(clientConnection, serverConnection);
+
+        this.forward(clientChannel, serverConnection);
+        if (clientChannel instanceof ForwardingChannel) {
+            socket.on('error', error => clientChannel.onErrorEmitter.fire(error));
+        }
         socket.connect(this.options.socketConnectionOptions);
     }
 }

@@ -24,13 +24,6 @@
     "rimraf": "^3.0.2",
     "typescript": "~4.5.5"
   },
-  "resolutions": {
-    "**/@theia/core": "1.26.0",
-    "**/@theia/editor": "1.26.0",
-    "**/@theia/filesystem": "1.26.0",
-    "**/@theia/messages": "1.26.0",
-    "**/@theia/monaco": "1.26.0"
-  },
   "workspaces": [
     "packages/theia-integration",
     "examples/*"
