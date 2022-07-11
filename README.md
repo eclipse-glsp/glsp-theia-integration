@@ -12,7 +12,9 @@ For details on building the project, please see the [README file of the theia-in
 | ------------------------------- | ------------------ |
 | 0.8.0                           | <=1.4.0            |
 | 0.9.0                           | >=1.20.0           |
-| 1.0.0                           | >=1.25.0 <= 1.26.0 |
+| >=1.0.0                         | >=1.25.0 <= 1.26.0 |
+
+The `glsp-theia-integration` package is currently compatible with Theia `<=1.26.0`. Versions `>=1.27.0` are currently not supported, but we are working to provide a fix as soon as possible.
 
 > Note: Due to a transitive dependency to `sprotty-theia` it's currently not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project:
 
