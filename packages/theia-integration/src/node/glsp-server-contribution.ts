@@ -16,14 +16,15 @@
 /* eslint-disable indent */
 
 import { MaybePromise } from '@eclipse-glsp/protocol';
-import { WebSocketChannelConnection } from '@theia/core/lib/node/messaging';
+import { Channel } from '@theia/core';
 import { inject, injectable, postConstruct } from '@theia/core/shared/inversify';
 import { ProcessErrorEvent } from '@theia/process/lib/node/process';
 import { ProcessManager } from '@theia/process/lib/node/process-manager';
 import { RawProcess, RawProcessFactory } from '@theia/process/lib/node/raw-process';
 import * as cp from 'child_process';
-import { forward, IConnection } from 'vscode-ws-jsonrpc/lib/server';
+import { IConnection } from 'vscode-ws-jsonrpc/lib/server';
 import { GLSPContribution } from '../common';
+import { ConnectionForwarder } from './connection-forwarder';
 
 export const GLSPServerContribution = Symbol.for('GLSPServerContribution');
 
@@ -34,9 +35,9 @@ export const GLSPServerContribution = Symbol.for('GLSPServerContribution');
 export interface GLSPServerContribution extends GLSPContribution {
     /**
      * Establish a connection between the given client (connection) and the GLSP server.
-     * @param clientConnection  The client (connection) which should be connected to the server
+     * @param clientChannel  The client (channel) which should be connected to the server
      */
-    connect(clientConnection: IConnection): MaybePromise<void>;
+    connect(clientChannel: Channel): MaybePromise<void>;
 
     /**
      * Optional function that can be used by the contribution to launch an embedded GLSP server.
@@ -131,15 +132,12 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
             : GLSPServerContributionOptions.createDefaultOptions();
     }
 
-    abstract connect(clientConnection: IConnection): void;
+    abstract connect(clientChannel: Channel): void;
 
     abstract createContributionOptions?(): Partial<GLSPServerContributionOptions>;
 
-    protected forward(clientConnection: IConnection, serverConnection: IConnection): void {
-        forward(clientConnection, serverConnection);
-        if (WebSocketChannelConnection.is(clientConnection)) {
-            serverConnection.onClose(() => clientConnection.channel.tryClose());
-        }
+    protected forward(clientChannel: Channel, serverConnection: IConnection): void {
+        new ConnectionForwarder(clientChannel, serverConnection);
     }
 
     protected spawnProcessAsync(command: string, args?: string[], options?: cp.SpawnOptions): Promise<RawProcess> {

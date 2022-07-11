@@ -36,6 +36,7 @@ import '../../css/diagram.css';
 import '../../css/theia-dialogs.css';
 import '../../css/tool-palette.css';
 import { GLSPContribution } from '../common';
+import { createChannelConnection } from './channel-connection';
 import { TheiaJsonrpcGLSPClient } from './theia-jsonrpc-glsp-client';
 
 export const GLSPClientContribution = Symbol.for('GLSPClientContribution');
@@ -128,16 +129,17 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
             this.connectionProvider.listen(
                 {
                     path: GLSPContribution.getPath(this),
-                    onConnection: messageConnection => {
+                    onConnection: channel => {
                         if (toStop.disposed) {
-                            messageConnection.dispose();
+                            channel.close();
                             return;
                         }
-                        const languageClient = this.createGLSPCLient(messageConnection);
+                        const connection = createChannelConnection(channel);
+                        const languageClient = this.createGLSPCLient(connection);
                         this.onWillStart(languageClient);
                         toStop.pushAll([
-                            messageConnection,
                             Disposable.create(() => {
+                                channel.close();
                                 languageClient.shutdownServer();
                                 languageClient.stop();
                             })
