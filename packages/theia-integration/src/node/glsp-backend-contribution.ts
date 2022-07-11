@@ -56,7 +56,7 @@ export class GLSPBackendContribution implements MessagingService.Contribution, G
     }
 
     protected forward(service: MessagingService, path: string, contribution: GLSPServerContribution): void {
-        service.forward(path, async (params, connection) => {
+        service.wsChannel(path, async (params, connection) => {
             try {
                 connection.onClose(() => this.destroy(params.id));
                 await contribution.connect(connection);
