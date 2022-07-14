@@ -1,10 +1,10 @@
 # Eclipse GLSP Theia Integration Changelog
 
-## [Upcoming - TBA]()
+## [1.1.0 - Upcoming]()
 
 ### Breaking Changes
 
--   [theia] Updated Theia dependencies to `1.27.0`. Due to API breaks, Theia versions `<1.27.0` are no longer supported. [#105](https://github.com/eclipse-glsp/glsp-theia-integration/pull/105) - Contributed on behalf of STMicroelectronics <br>
+-   [theia] Updated Theia dependencies to `1.27.0`. Due to API breaks, Theia versions `<1.27.0` are no longer supported. [#119](https://github.com/eclipse-glsp/glsp-theia-integration/pull/119) - Contributed on behalf of STMicroelectronics <br>
     This also causes breaking changes in:
     -   `GlspServerContribution` (and inherited classes)
         -   `connect` method now takes a `Channel` instead of a `Connection` parameter
