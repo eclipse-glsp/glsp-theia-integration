@@ -38,7 +38,8 @@
     "prepare": "yarn  clean && yarn  build && yarn lint",
     "clean": "rimraf lib tsconfig.tsbuildinfo",
     "build": "tsc",
-    "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
+    "lint": "eslint --ext .ts,.tsx ./src",
+    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "build:ci": "yarn clean && yarn build -o eslint.xml -f checkstyle",
     "watch": "tsc -w"
   },
