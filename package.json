@@ -25,6 +25,9 @@
     "rimraf": "^3.0.2",
     "typescript": "~4.5.5"
   },
+  "resolutions": {
+    "**/sprotty": "0.13.0-next.1c4343c.328"
+  },
   "workspaces": [
     "packages/theia-integration",
     "examples/*"
