@@ -117,7 +117,9 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
     }
 
     protected launchJavaProcess(): Promise<RawProcess> {
-        const args = ['-jar', this.options.executable!, '--port', `${this.options.socketConnectionOptions.port}`];
+        const args = [...this.getJavaProcessJvmArgs(),
+            '-jar', this.options.executable!,
+            '--port', `${this.options.socketConnectionOptions.port}`];
 
         if (this.options.socketConnectionOptions.host) {
             args.push('--host', `${this.options.socketConnectionOptions.host}`);
@@ -127,6 +129,10 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
             args.push(...this.options.additionalArgs);
         }
         return this.spawnProcessAsync('java', args);
+    }
+
+    protected getJavaProcessJvmArgs(): string[] {
+        return ['--add-opens', 'java.base/java.util=ALL-UNNAMED'];
     }
 
     protected startNodeProcess(): Promise<RawProcess> {
