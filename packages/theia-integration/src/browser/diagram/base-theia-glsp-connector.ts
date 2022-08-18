@@ -25,9 +25,12 @@ import {
 } from '@eclipse-glsp/client';
 import { ContributionProvider, Message, MessageService, MessageType } from '@theia/core';
 import { ConfirmDialog, WidgetManager } from '@theia/core/lib/browser';
+import URI from '@theia/core/lib/common/uri';
 import { inject, injectable, named, postConstruct } from '@theia/core/shared/inversify';
 import { EditorManager } from '@theia/editor/lib/browser';
-import { DiagramWidget, TheiaDiagramServer, TheiaFileSaver } from 'sprotty-theia';
+import { FileDialogService } from '@theia/filesystem/lib/browser/file-dialog/file-dialog-service';
+import { FileService } from '@theia/filesystem/lib/browser/file-service';
+import { DiagramWidget, TheiaDiagramServer } from 'sprotty-theia';
 import { GLSPClientContribution } from '../glsp-client-contribution';
 import { deriveDiagramManagerId } from './glsp-diagram-manager';
 import { GLSPMessageOptions, GLSPNotificationManager } from './glsp-notification-manager';
@@ -37,8 +40,11 @@ const SHOW_DETAILS_LABEL = 'Show details';
 
 @injectable()
 export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
-    @inject(TheiaFileSaver)
-    protected readonly fileSaver: TheiaFileSaver;
+    @inject(FileDialogService)
+    protected readonly fileDialogService: FileDialogService;
+
+    @inject(FileService)
+    protected readonly fileService: FileService;
 
     @inject(EditorManager)
     protected readonly editorManager: EditorManager;
@@ -105,8 +111,20 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
         return undefined;
     }
 
-    save(uri: string, action: ExportSvgAction): void {
-        this.fileSaver.save(uri, action);
+    async save(uri: string, action: ExportSvgAction): Promise<void> {
+        const folder = await this.fileService.resolve(new URI(uri));
+        let file = await this.fileDialogService.showSaveDialog({ title: 'Export Diagram' , filters: { 'Images (*.svg)': ['svg'] }}, folder);
+        if(file) {
+            try {
+                if(!file.path.ext) {
+                    file = new URI(file.path.fsPath() + '.svg');
+                }
+                await this.fileService.write(file, action.svg);
+                this.messageService.info(`Diagram exported to '${file.path.name}'`);
+            } catch(error) {
+                this.messageService.info(`Error exporting diagram '${error}'`);
+            }
+        }
     }
 
     // Status
