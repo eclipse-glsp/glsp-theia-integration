@@ -17,11 +17,13 @@ import { getPort, GLSPSocketServerContribution, GLSPSocketServerContributionOpti
 import { injectable } from '@theia/core/shared/inversify';
 import { join, resolve } from 'path';
 import { WorkflowLanguage } from '../common/workflow-language';
+import * as config from './server-config.json';
 
 export const DEFAULT_PORT = 5007;
 export const PORT_ARG_KEY = 'WF_GLSP';
 export const SERVER_DIR = join(__dirname, '..', '..', 'server');
-export const JAR_FILE = resolve(join(SERVER_DIR, 'org.eclipse.glsp.example.workflow-1.1.0-SNAPSHOT-glsp.jar'));
+const { version, isSnapShot } = config;
+export const JAR_FILE = resolve(join(SERVER_DIR, `org.eclipse.glsp.example.workflow-${version}${isSnapShot ? '-SNAPSHOT' : ''}-glsp.jar`));
 
 @injectable()
 export class WorkflowGLServerContribution extends GLSPSocketServerContribution {
