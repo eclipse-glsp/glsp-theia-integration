@@ -3,10 +3,6 @@
   "version": "1.1.0-next",
   "description": "Glue code to integrate GLSP clients into Eclipse Theia",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
-  "engines": {
-    "yarn": ">=1.7.0 <2.x.x",
-    "node": ">=12.14.1"
-  },
   "keywords": [
     "theia-extension",
     "eclipse",
