@@ -134,8 +134,21 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
     }
 
     protected override onActivateRequest(msg: Message): void {
+        this.makeFocusable(this.node.querySelector(`#${this.viewerOptions.baseDiv} svg`));
         super.onActivateRequest(msg);
         this.updateGlobalSelection();
+    }
+
+    protected makeFocusable(element: Element | null): void {
+        // eslint-disable-next-line no-null/no-null
+        if (element !== null) {
+            const tabindex = element.getAttribute('tabindex');
+            // eslint-disable-next-line no-null/no-null
+            if (tabindex === null) {
+                // use -1 to make focusable but not reachable via keyboard navigation
+                element.setAttribute('tabindex', '-1');
+            }
+        }
     }
 
     get diagramType(): string {
