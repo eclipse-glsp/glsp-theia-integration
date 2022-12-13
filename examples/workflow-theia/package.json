@@ -35,12 +35,11 @@
     "mvn-artifact-download": "5.1.0"
   },
   "scripts": {
-    "prepare": "yarn  clean && yarn  build && yarn lint",
+    "build": "tsc -b",
     "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "build": "tsc",
     "lint": "eslint --ext .ts,.tsx ./src",
-    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
-    "build:ci": "yarn clean && yarn build -o eslint.xml -f checkstyle",
+    "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
+    "prepare": "yarn clean && yarn build",
     "watch": "tsc -w"
   },
   "publishConfig": {

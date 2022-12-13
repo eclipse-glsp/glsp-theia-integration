@@ -16,3 +16,4 @@ examples/browser-app/**
 examples/**/server/**
 !examples/**/server/download.ts
 tsconfig.tsbuildinfo
+eslint.xml

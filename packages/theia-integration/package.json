@@ -41,12 +41,11 @@
     "sprotty-theia": "0.12.0"
   },
   "scripts": {
-    "prepare": "yarn  clean && yarn  build",
-    "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "build": "tsc",
+    "build": "tsc -b",
+    "clean": "rimraf lib tsconfig.tsbuildinfo ",
     "lint": "eslint --ext .ts,.tsx ./src",
-    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
-    "build:ci": "yarn clean && yarn build -o eslint.xml -f checkstyle",
+    "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
+    "prepare": "yarn clean && yarn build",
     "watch": "tsc -w"
   },
   "theiaExtensions": [
