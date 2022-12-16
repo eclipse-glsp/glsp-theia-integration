@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "engines": {
     "yarn": ">=1.7.0 <2",
-    "node": ">=14.18.0"
+    "node": ">=16.11.0"
   },
   "scripts": {
     "all": "yarn install && yarn lint",
@@ -21,7 +21,7 @@
     "watch": "lerna run --parallel watch"
   },
   "devDependencies": {
-    "@eclipse-glsp/config": "1.1.0-next.d03ad9f.112",
+    "@eclipse-glsp/config": "1.1.0-next.e31f2e5.119",
     "@types/node": "14.x",
     "lerna": "^6.1.0",
     "rimraf": "^3.0.2",

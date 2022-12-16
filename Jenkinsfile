@@ -4,7 +4,7 @@ kind: Pod
 spec:
   containers:
   - name: node
-    image: eclipseglsp/ci:alpine-v3.1
+    image: eclipseglsp/ci:alpine-v4.0
     tty: true
     resources:
       limits:
@@ -32,7 +32,7 @@ spec:
 pipeline {
     agent {
         kubernetes {
-            label 'glsp-agent-pod'
+            label 'glsp-theia-agent-pod'
             yaml kubernetes_config
         }
     }

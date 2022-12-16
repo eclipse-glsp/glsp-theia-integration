@@ -14,8 +14,14 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { Channel, Disposable, DisposableCollection, MessageProvider } from '@theia/core';
-import { Message } from 'vscode-jsonrpc';
-import { IConnection } from 'vscode-ws-jsonrpc/lib/server';
+import { Message, MessageReader, MessageWriter } from 'vscode-jsonrpc';
+
+export interface IConnection extends Disposable {
+    readonly reader: MessageReader;
+    readonly writer: MessageWriter;
+    forward(to: IConnection, map?: (message: Message) => Message): void;
+    onClose(callback: () => void): Disposable;
+}
 
 // Temporary fix/workaround to enable comparability with Theia >=1.27 until https://github.com/eclipse-theia/theia/issues/11405 is resolved
 

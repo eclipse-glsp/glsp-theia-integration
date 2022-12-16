@@ -22,9 +22,8 @@ import { ProcessErrorEvent } from '@theia/process/lib/node/process';
 import { ProcessManager } from '@theia/process/lib/node/process-manager';
 import { RawProcess, RawProcessFactory } from '@theia/process/lib/node/raw-process';
 import * as cp from 'child_process';
-import { IConnection } from 'vscode-ws-jsonrpc/lib/server';
 import { GLSPContribution } from '../common';
-import { ConnectionForwarder } from './connection-forwarder';
+import { ConnectionForwarder, IConnection } from './connection-forwarder';
 
 export const GLSPServerContribution = Symbol.for('GLSPServerContribution');
 
