@@ -19,7 +19,6 @@ import { injectable, postConstruct } from '@theia/core/shared/inversify';
 import { RawProcess } from '@theia/process/lib/node/raw-process';
 import * as fs from 'fs';
 import * as net from 'net';
-import { createSocketConnection } from 'vscode-ws-jsonrpc/lib/server';
 import { BaseGLSPServerContribution, GLSPServerContributionOptions } from './glsp-server-contribution';
 
 /**
@@ -157,7 +156,7 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
         }
     }
 
-    protected connectToSocketServer(clientChannel: Channel): void {
+    protected async connectToSocketServer(clientChannel: Channel): Promise<void> {
         if (isNaN(this.options.socketConnectionOptions.port)) {
             throw new Error(
                 // eslint-disable-next-line max-len
@@ -165,6 +164,8 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
             );
         }
         const socket = new net.Socket();
+        // eslint-disable-next-line import/no-unresolved
+        const { createSocketConnection } = await import('vscode-ws-jsonrpc/server');
         const serverConnection = createSocketConnection(socket, socket, () => {
             socket.destroy();
         });

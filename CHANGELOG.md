@@ -2,6 +2,10 @@
 
 ## [1.1.0 - Upcoming]()
 
+### Changes
+
+-   [protocol] Update to vscode-jsonrpc 8.0.2 to be compliant with client [#136](https://github.com/eclipse-glsp/glsp-theia-integration/pull/136)
+
 ### Breaking Changes
 
 -   [theia] Updated Theia dependencies to `1.27.0`. Due to API breaks, Theia versions `<1.27.0` are no longer supported. [#119](https://github.com/eclipse-glsp/glsp-theia-integration/pull/119) - Contributed on behalf of STMicroelectronics <br>

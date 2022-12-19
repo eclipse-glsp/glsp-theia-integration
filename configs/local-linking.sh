@@ -22,7 +22,8 @@ function linkClient(){
     yarn $1
     cd ../sprotty-protocol || exit
     yarn $1
-    
+    cd ../vscode-jsonrpc || exit
+    yarn $1
 }
 
 #### MAIN Script
@@ -46,12 +47,12 @@ if [[ "$2" != "--unlink" ]]; then
     # Link client
     linkClient link $baseDir
     cd $baseDir/glsp-theia-integration || exit
-    yarn link sprotty sprotty-protocol @eclipse-glsp/client  @eclipse-glsp/protocol @eclipse-glsp-examples/workflow-glsp
+    yarn link sprotty sprotty-protocol @eclipse-glsp/client  @eclipse-glsp/protocol @eclipse-glsp-examples/workflow-glsp vscode-jsonrpc
     yarn install --force
     echo "--- LINKING SUCCESSFULL --- "
 else
     echo "--- Start unlinking all previously linked packages --- "
-    yarn unlink sprotty sprotty-protocol @eclipse-glsp/client  @eclipse-glsp/protocol  @eclipse-glsp-examples/workflow-glsp
+    yarn unlink sprotty sprotty-protocol @eclipse-glsp/client  @eclipse-glsp/protocol  @eclipse-glsp-examples/workflow-glsp vscode-jsonrpc
     yarn install --force
     linkClient unlink $baseDir
     echo "--- UNLINKING SUCCESSFULL --- "
