@@ -22,25 +22,8 @@
   },
   "devDependencies": {
     "@eclipse-glsp/config": "1.1.0-next.e31f2e5.119",
-    "@types/node": "14.x",
-    "lerna": "^6.1.0",
-    "rimraf": "^3.0.2",
+    "@types/node": "16.x",
     "typescript": "^4.9.3"
-  },
-  "resolutions": {
-    "**/@theia/core": "1.29.1",
-    "**/@theia/editor": "1.29.1",
-    "**/@theia/filesystem": "1.29.1",
-    "**/@theia/markers": "1.29.1",
-    "**/@theia/messages": "1.29.1",
-    "**/@theia/monaco": "1.29.1",
-    "**/@theia/navigator": "1.29.1",
-    "**/@theia/preferences": "1.29.1",
-    "**/@theia/process": "1.29.1",
-    "**/@theia/terminal": "1.29.1",
-    "**/@theia/workspace": "1.29.1",
-    "**/@theia/cli": "1.29.1",
-    "**/sprotty": "0.13.0-next.f4445dd.342"
   },
   "workspaces": [
     "packages/theia-integration",

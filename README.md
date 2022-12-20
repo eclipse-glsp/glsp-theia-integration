@@ -1,6 +1,5 @@
 # Eclipse GLSP - Theia Integration for GLSP Clients [![Build Status](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-theia-integration/job/master/badge/icon)](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-theia-integration/job/master/)
 
-
 This project contains the glue code necessary to integrate diagram editors built with the [graphical language server platform](https://github.com/eclipse-glsp/glsp) with [Eclipse Theia](https://github.com/theia-ide/theia) as well as an example Theia application for testing purposes.
 
 This project is built with `yarn` and is available from npm via [@eclipse-glsp/theia-integration](https://www.npmjs.com/package/@eclipse-glsp/theia-integration).
@@ -19,9 +18,9 @@ If that is the case, a new compatible 1.0.0 version prefixed with the supported 
 | 0.9.0                           | >=1.20.0 <= 1.25.0 |
 | 1.0.0                           | >=1.25.0 <= 1.26.0 |
 | 1.0.0-theia1.27.0               | >=1.27.0           |
-| next                            | >=1.27.0           |
+| next                            | >=1.33.0           |
 
-> Note: Due to a transitive dependency to `sprotty-theia` it's currently not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project e.g. for `1.0.0-theia1.27.0`:
+> Note: For versions <=1.0.0 it is not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project e.g. for `1.0.0-theia1.27.0`:
 
 ```json
 ...
