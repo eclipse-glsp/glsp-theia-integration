@@ -36,10 +36,12 @@
   ],
   "dependencies": {
     "@eclipse-glsp/client": "next",
-    "@theia/core": "^1.27.0",
-    "@theia/messages": "^1.27.0",
-    "sprotty-theia": "0.12.0",
     "vscode-jsonrpc": "8.0.2"
+  },
+  "peerDependencies": {
+    "@theia/core": "^1.33.0",
+    "@theia/messages": "^1.33.0",
+    "sprotty-theia": "0.13.0-next.9cbedec"
   },
   "scripts": {
     "build": "tsc -b",
