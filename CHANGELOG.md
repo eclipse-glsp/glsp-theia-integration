@@ -14,7 +14,7 @@
         -   `connect` method now takes a `Channel` instead of a `Connection` parameter
     -   `BaseGlspServerContribution` (and inherited classes)
         -   `forward` method now takes a `Channel` as first parameter instead of a `Connection`
--   [deps] Switch theia extension dependencies to peer dependencies. These dependencies are no longer autoresolved and have to be declared
+-   [deps] Switch Theia extension dependencies to peer dependencies. These dependencies are no longer autoresolved and have to be declared
     in the application package. [#138](https://github.com/eclipse-glsp/glsp-theia-integration/pull/138) - Contributed on behalf of STMicroelectronics <br>
 
 ## [1.0.0 - 30/06/2022](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v1.0.0)
