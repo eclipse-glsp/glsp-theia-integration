@@ -101,11 +101,17 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         this.dispatchInitialActions();
     }
 
+    override get actionDispatcher(): GLSPActionDispatcher {
+        return this.diContainer.get(TYPES.IActionDispatcher);
+    }
+
     protected dispatchInitialActions(): void {
         this.actionDispatcher.dispatch(RequestModelAction.create({ options: this.requestModelOptions }));
         this.actionDispatcher.dispatch(RequestTypeHintsAction.create());
-        this.actionDispatcher.dispatch(EnableToolPaletteAction.create());
         this.actionDispatcher.dispatch(SetEditModeAction.create(this.options.editMode));
+        this.actionDispatcher.onceModelInitialized().then(() => {
+            this.actionDispatcher.dispatch(EnableToolPaletteAction.create());
+        });
     }
 
     protected override onAfterAttach(msg: Message): void {
