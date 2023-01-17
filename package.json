@@ -1,32 +1,35 @@
 {
-  "private": true,
   "name": "parent",
   "version": "1.0.0",
-  "engines": {
-    "yarn": ">=1.7.0 <2",
-    "node": ">=16.11.0"
-  },
+  "private": true,
+  "workspaces": [
+    "packages/theia-integration",
+    "examples/*"
+  ],
   "scripts": {
     "all": "yarn install && yarn lint",
     "build": "lerna run build",
+    "check:headers": "yarn glsp checkHeaders . -t lastCommit",
+    "check:pr": "yarn all && yarn check:headers",
     "clean": "lerna run clean",
     "download:exampleServer": "ts-node examples/workflow-theia/server/download.ts",
     "lint": "lerna run lint",
     "lint:ci": "lerna run lint:ci",
     "prepare": "lerna run prepare",
-    "publish:prepare": "lerna version --ignore-scripts --yes --no-push",
     "publish:latest": "lerna publish from-git --no-git-reset --no-git-tag-version --no-verify-access --no-push",
     "publish:next": "SHA=$(git rev-parse --short HEAD) && lerna publish preminor --exact --canary --preid next.${SHA} --dist-tag next --no-git-reset --no-git-tag-version --no-push --ignore-scripts --yes --no-verify-access",
+    "publish:prepare": "lerna version --ignore-scripts --yes --no-push",
     "upgrade:next": "yarn upgrade -p \"@eclipse-glsp.*\" --next ",
     "watch": "lerna run --parallel watch"
   },
   "devDependencies": {
-    "@eclipse-glsp/config": "1.1.0-next.e31f2e5.119",
+    "@eclipse-glsp/cli": "1.1.0-next.164cf99.124",
+    "@eclipse-glsp/config": "1.1.0-next.164cf99.124",
     "@types/node": "16.x",
     "typescript": "^4.9.3"
   },
-  "workspaces": [
-    "packages/theia-integration",
-    "examples/*"
-  ]
+  "engines": {
+    "node": ">=16.11.0",
+    "yarn": ">=1.7.0 <2"
+  }
 }
