@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-theia1.27.0",
+  "version": "1.0.0-theia1.34.0",
   "useWorkspaces": true,
   "npmClient": "yarn",
   "command": {

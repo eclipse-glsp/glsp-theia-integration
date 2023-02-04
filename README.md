@@ -1,4 +1,4 @@
-# Eclipse GLSP - Theia Integration for GLSP Clients [![build-status](https://img.shields.io/jenkins/build?jobUrl=https%3A%2F%2Fci.eclipse.org%2Fglsp%2Fjob%2Feclipse-glsp%2Fjob%2Fglsp-theia-integration%2Fjob%2Fmaster%2F)](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-theia-integration/) [![build-status-server](https://img.shields.io/jenkins/build?jobUrl=https://ci.eclipse.org/glsp/job/deploy-npm-glsp-theia-integration/&label=publish)](https://ci.eclipse.org/glsp/job/deploy-npm-glsp-theia-integration/)
+# Eclipse GLSP - Theia Integration for GLSP Clients [![Build Status](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-theia-integration/job/master/badge/icon)](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-theia-integration/job/master/)
 
 This project contains the glue code necessary to integrate diagram editors built with the [graphical language server platform](https://github.com/eclipse-glsp/glsp) with [Eclipse Theia](https://github.com/theia-ide/theia) as well as an example Theia application for testing purposes.
 
@@ -10,26 +10,28 @@ For details on building the project, please see the [README file of the theia-in
 
 The `@eclipse-glsp/theia-integration` package in version `1.0.0` is currently compatible with Theia `>=1.25.0`.
 Theia releases currently have no stable public API so new Theia versions might introduce API breaks.
-If that is the case, a new compatible 1.0.0 version prefixed with the supported minimal Theia version will be released (e.g. `1.0.0-theia1.27.0` for Theia >= 1.27.0).
+If that is the case, a new compatible 1.0.0 version prefixed with the supported minimal Theia version will be released (e.g. `1.0.0-theia1.34.0` for Theia >= 1.34.0).
 
 | @eclipse-glsp/theia-integration | Theia              |
 | ------------------------------- | ------------------ |
 | 0.8.0                           | <=1.4.0            |
-| 0.9.0                           | >=1.20.0 <= 1.25.0 |
+| 0.9.0                           | >=1.20.0 <= 1.24.0 |
 | 1.0.0                           | >=1.25.0 <= 1.26.0 |
-| 1.0.0-theia1.27.0               | >=1.27.0           |
-| next                            | >=1.27.0           |
+| 1.0.0-theia1.27.0               | >=1.27.0 <= 1.33.0 |
+| 1.0.0-theia1.34.0               | >=1.34.0           |
+| next                            | >=1.34.0           |
 
-> Note: Due to a transitive dependency to `sprotty-theia` it's currently not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project e.g. for `1.0.0-theia1.27.0`:
+> Note: Due to a transitive dependency to `sprotty-theia` it's currently not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project e.g. for `1.0.0-theia1.34.0`:
 
 ```json
 ...
  "resolutions": {
-    "**/@theia/core": "1.27.0",
-    "**/@theia/editor": "1.27.0",
-    "**/@theia/filesystem": "1.27.0",
-    "**/@theia/messages": "1.27.0",
-    "**/@theia/monaco": "1.27.0"
+    "**/@theia/cli":"1.0.0-theia1.34.0",
+    "**/@theia/core": "1.0.0-theia1.34.0",
+    "**/@theia/editor": "1.0.0-theia1.34.0",
+    "**/@theia/filesystem": "1.0.0-theia1.34.0",
+    "**/@theia/messages": "1.0.0-theia1.34.0",
+    "**/@theia/monaco": "1.0.0-theia1.34.0"
   },
 ...
 ```

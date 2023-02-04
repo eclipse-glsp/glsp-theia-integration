@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2022 STMicroelectronics and others.
+ * Copyright (c) 2022-2023 STMicroelectronics and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -14,10 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { Channel, Disposable, DisposableCollection, Emitter, MessageProvider } from '@theia/core';
-import { createMessageConnection, Logger, Message, MessageConnection } from 'vscode-jsonrpc';
-import { AbstractMessageReader, DataCallback, MessageReader } from 'vscode-jsonrpc/lib/messageReader';
+import { AbstractMessageReader, createMessageConnection, DataCallback, Logger, Message, MessageConnection, MessageReader } from 'vscode-jsonrpc';
 
-import { AbstractMessageWriter, MessageWriter } from 'vscode-jsonrpc/lib/messageWriter';
+import { AbstractMessageWriter, MessageWriter } from 'vscode-jsonrpc';
 
 // Temporary fix/workaround to enable comparability with Theia >=1.27 until https://github.com/eclipse-theia/theia/issues/11405 is resolved
 
@@ -46,8 +45,8 @@ export class ChannelMessageReader extends AbstractMessageReader implements Messa
         this.toDispose.dispose();
     }
 
-    listen(callback: DataCallback): void {
-        this.onMessageEmitter.event(callback);
+    listen(callback: DataCallback): Disposable {
+      return  this.onMessageEmitter.event(callback);
     }
 }
 
@@ -62,7 +61,11 @@ export class ChannelMessageWriter extends AbstractMessageWriter implements Messa
         this.toDispose = channel.onClose(() => this.fireClose());
     }
 
-    write(msg: Message): void {
+   end(): void {
+        this.dispose();
+    }
+
+   async write(msg: Message): Promise<void> {
         const writeBuffer = this.channel.getWriteBuffer();
         writeBuffer.writeBytes(Buffer.from(JSON.stringify(msg, undefined, 0)));
         writeBuffer.commit();
