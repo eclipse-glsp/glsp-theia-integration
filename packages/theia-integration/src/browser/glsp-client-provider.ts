@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2021 EclipseSource and others.
+ * Copyright (c) 2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -18,35 +18,30 @@ import { ContributionProvider } from '@theia/core';
 import { inject, injectable, named } from '@theia/core/shared/inversify';
 import { GLSPClientContribution } from './glsp-client-contribution';
 
-export const GLSPClientProvider = Symbol.for('GLSPClientProvider');
-
-export interface GLSPClientProvider {
-    getLanguageClient(languageId: string): Promise<GLSPClient | undefined>;
-}
-
+/**
+ * Provides lookup methods to retrieve a glsp client (or its contribution) via id
+ */
 @injectable()
-export class GLSPClientProviderImpl implements GLSPClientProvider {
+export class GLSPClientProvider {
     @inject(ContributionProvider)
     @named(GLSPClientContribution)
-    private readonly contributions: ContributionProvider<GLSPClientContribution>;
+    protected readonly contributors: ContributionProvider<GLSPClientContribution>;
 
-    async getLanguageClient(languageId: string): Promise<GLSPClient | undefined> {
-        const contribution = this.getLanguageContribution(languageId);
-        if (contribution) {
-            return contribution.glspClient;
-        }
-        return undefined;
+    /**
+     * Look up the {@link GLSPClient} that is configured for the contribution Id (if any).
+     * @param contributionId The contributionId of the target client
+     * @returns the corresponding `GLSPClient` or `undefined` if no client is configured for the given type
+     */
+    async getGLSPClient(contributionId: string): Promise<GLSPClient | undefined> {
+        return this.getGLSPClientContribution(contributionId)?.glspClient ?? undefined;
     }
 
-    protected getLanguageContribution(languageId: string): GLSPClientContribution | undefined {
-        const contributions = this.contributions.getContributions();
-        if (contributions) {
-            for (const contribution of contributions) {
-                if (contribution.id === languageId) {
-                    return contribution;
-                }
-            }
-        }
-        return undefined;
+    /**
+     * Look up the {@link GLSPClientContribution} that is configured for the given  contribution Id (if any).
+     * @param contributionId The contributionId of the target contribution
+     * @returns the corresponding `GLSPClientContribution` or `undefined` if no client contribution is configured for the given type
+     */
+    getGLSPClientContribution(contributionId: string): GLSPClientContribution | undefined {
+        return this.contributors.getContributions().find(contribution => contribution.id === contributionId);
     }
 }

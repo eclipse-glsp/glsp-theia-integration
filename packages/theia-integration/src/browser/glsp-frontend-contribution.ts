@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2021 EclipseSource and others.
+ * Copyright (c) 2019-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -19,6 +19,9 @@ import { inject, injectable, named } from '@theia/core/shared/inversify';
 
 import { GLSPClientContribution } from './glsp-client-contribution';
 
+/**
+ * Responsible for the activation & deactivation of all registered {@link GLSPClientContribution}s.
+ */
 @injectable()
 export class GLSPFrontendContribution implements FrontendApplicationContribution {
     @inject(FrontendApplication)
@@ -26,16 +29,16 @@ export class GLSPFrontendContribution implements FrontendApplicationContribution
 
     @inject(ContributionProvider)
     @named(GLSPClientContribution)
-    protected readonly contributions: ContributionProvider<GLSPClientContribution>;
+    protected readonly contributors: ContributionProvider<GLSPClientContribution>;
 
     onStart(app: FrontendApplication): void {
-        for (const contribution of this.contributions.getContributions()) {
+        for (const contribution of this.contributors.getContributions()) {
             contribution.activate(app);
         }
     }
 
     onStop(app: FrontendApplication): void {
-        for (const contribution of this.contributions.getContributions()) {
+        for (const contribution of this.contributors.getContributions()) {
             contribution.deactivate(app);
         }
     }

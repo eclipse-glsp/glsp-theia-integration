@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2021 EclipseSource and others.
+ * Copyright (c) 2019-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -26,7 +26,7 @@ import { TheiaContextMenuServiceFactory } from './diagram/theia-context-menu-ser
 import { TheiaGLSPConnector, TheiaGLSPConnectorRegistry } from './diagram/theia-glsp-connector';
 import { TheiaMarkerManager, TheiaMarkerManagerFactory } from './diagram/theia-marker-manager';
 import { GLSPClientContribution } from './glsp-client-contribution';
-import { GLSPClientProvider, GLSPClientProviderImpl } from './glsp-client-provider';
+import { GLSPClientProvider } from './glsp-client-provider';
 import { GLSPFrontendContribution } from './glsp-frontend-contribution';
 import { TheiaSourceModelChangedHandler } from './theia-model-source-changed-handler';
 import { TheiaOpenerOptionsNavigationService } from './theia-opener-options-navigation-service';
@@ -36,8 +36,7 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(GLSPFrontendContribution).toSelf().inSingletonScope();
     bind(FrontendApplicationContribution).toService(GLSPFrontendContribution);
 
-    bind(GLSPClientProviderImpl).toSelf().inSingletonScope();
-    bind(GLSPClientProvider).toService(GLSPClientProviderImpl);
+    bind(GLSPClientProvider).toSelf().inSingletonScope();
 
     bind(GLSPContribution.Service)
         .toDynamicValue(({ container }) => WebSocketConnectionProvider.createProxy(container, GLSPContribution.servicePath))

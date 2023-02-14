@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (C) 2020-2021 EclipseSource and others.
+ * Copyright (C) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -14,18 +14,19 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-export interface GLSPContribution {
+import { Disposable } from '@theia/core';
+
+/**
+ *  Common interface for `GLSPClientContribution` (frontend) and `GLSPServerContribution` (backend).
+ */
+export interface GLSPContribution extends Disposable {
     readonly id: string;
 }
 
 export namespace GLSPContribution {
     export const servicePath = '/services/glsp';
-    export function getPath(contribution: GLSPContribution, sessionId = ':id'): string {
-        return servicePath + '/' + contribution.id + '/' + sessionId;
+    export function getPath(contribution: GLSPContribution): string {
+        return servicePath + '/' + contribution.id;
     }
     export const Service = Symbol('GLSPContributionService');
-    export interface Service {
-        create(contributionId: string, parameters: any): Promise<string>;
-        destroy(sessionId: string): Promise<void>;
-    }
 }

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (C) 2017-2021 TypeFox and others.
+ * Copyright (C) 2019-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -16,7 +16,6 @@
 import {
     ApplicationIdProvider,
     Args,
-    ClientState,
     ConnectionProvider,
     GLSPClient,
     InitializeParameters,
@@ -25,9 +24,8 @@ import {
 } from '@eclipse-glsp/client';
 import { Disposable, DisposableCollection, MessageService } from '@theia/core';
 import { FrontendApplication, WebSocketConnectionProvider } from '@theia/core/lib/browser';
-import { inject, injectable, multiInject } from '@theia/core/shared/inversify';
-import { WorkspaceService } from '@theia/workspace/lib/browser';
-import { DiagramManagerProvider } from 'sprotty-theia';
+import { Deferred } from '@theia/core/lib/common/promise-util';
+import { inject, injectable } from '@theia/core/shared/inversify';
 import 'sprotty-theia/css/theia-sprotty.css';
 import 'sprotty/css/sprotty.css';
 import '../../css/command-palette.css';
@@ -41,37 +39,65 @@ import { TheiaJsonrpcGLSPClient } from './theia-jsonrpc-glsp-client';
 
 export const GLSPClientContribution = Symbol.for('GLSPClientContribution');
 
+/**
+ * The frontend service component of a {@link GLSPContribution}. Responsible for providing & initializing the
+ * {@link GLSPClient}.
+ */
 export interface GLSPClientContribution extends GLSPContribution {
-    readonly running: boolean;
-    readonly initializeResult: Promise<InitializeResult>;
-    readonly glspClient: Promise<GLSPClient>;
-    waitForActivation(app: FrontendApplication): Promise<void>;
-    activate(app: FrontendApplication): Disposable;
+    /**
+     * Triggers the setup for the {@link GLSPClient}.
+     * The activation phase consists of the following steps:
+     *  - Establish a service connection to the corresponding backend contribution (`GLSPServerContribution`)
+     *  - Create a new {@link GLSPClient} on top of the service connection
+     *  - Start the client
+     *  - Initialize the server
+     *
+     * The {@link GLSPClientContribution.waitForActivation} function can be used to further delay the activation
+     * @param app Theia`s frontend application
+     */
+    activate(app: FrontendApplication): void;
+
+    /**
+     * Optional function to delay the activation of this client contribution until certain conditions are met
+     * @param app Theia`s frontend application
+     * @returns A promise that resolves once all activation conditions are met.
+     */
+    waitForActivation?(app: FrontendApplication): Promise<void>;
+
+    /**
+     * Deactivates the contribution and disposes all underlying resources e.g. the service connection
+     * and the glsp client.
+     *
+     * @param app Theia`s frontend application
+     */
     deactivate(app: FrontendApplication): void;
+
+    /**
+     * Retrieve the activated {@link GLSPClient}.
+     * @returns A promise of the client that resolves after the client has been started & initialized
+     */
+    readonly glspClient: Promise<GLSPClient>;
+
+    /**
+     * The cached result of the client initialization
+     * @returns  A promise that will resolve after  {@link GLSPClient.initializeServer} has been called
+     */
+    readonly initializeResult: Promise<InitializeResult>;
 }
 
 @injectable()
 export abstract class BaseGLSPClientContribution implements GLSPClientContribution {
     abstract readonly id: string;
 
-    protected _glspClient: GLSPClient | undefined;
-
-    protected resolveReady: (glspClient: GLSPClient) => void;
-    protected ready: Promise<GLSPClient>;
-    protected readonly toDeactivate = new DisposableCollection();
+    protected glspClientDeferred: Deferred<GLSPClient> = new Deferred();
+    protected readonly toDispose = new DisposableCollection();
     protected _initializeResult: InitializeResult | undefined;
 
-    @inject(WorkspaceService) protected readonly workspaceService: WorkspaceService;
     @inject(MessageService) protected readonly messageService: MessageService;
     @inject(WebSocketConnectionProvider) protected readonly connectionProvider: WebSocketConnectionProvider;
-    @multiInject(DiagramManagerProvider) protected diagramManagerProviders: DiagramManagerProvider[];
-
-    constructor() {
-        this.waitForReady();
-    }
 
     get glspClient(): Promise<GLSPClient> {
-        return this._glspClient ? Promise.resolve(this._glspClient) : this.ready;
+        return this.glspClientDeferred.promise;
     }
 
     get initializeResult(): Promise<InitializeResult> {
@@ -83,84 +109,58 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         });
     }
 
-    waitForActivation(app: FrontendApplication): Promise<any> {
-        const activationPromises: Promise<any>[] = [];
-        const workspaceContains = this.workspaceContains;
-        if (workspaceContains.length !== 0) {
-            activationPromises.push(this.waitForItemInWorkspace());
-        }
-        if (activationPromises.length !== 0) {
-            return Promise.all([
-                this.ready,
-                Promise.race(
-                    activationPromises.map(
-                        p =>
-                            // eslint-disable-next-line no-async-promise-executor
-                            new Promise<void>(async resolve => {
-                                try {
-                                    await p;
-                                    resolve();
-                                } catch (e) {
-                                    console.error(e);
-                                }
-                            })
-                    )
-                )
-            ]);
-        }
-        return this.ready;
-    }
+    waitForActivation?(app: FrontendApplication): Promise<void>;
 
-    activate(): Disposable {
-        if (this.toDeactivate.disposed) {
+    activate(app: FrontendApplication): void {
+        if (this.toDispose.disposed) {
             // eslint-disable-next-line @typescript-eslint/no-empty-function
-            this.toDeactivate.push(new DisposableCollection(Disposable.create(() => {}))); // mark as not disposed
-            this.doActivate(this.toDeactivate);
+            this.toDispose.push(new DisposableCollection(Disposable.create(() => {}))); // mark as not disposed
+            if (this.waitForActivation) {
+                this.waitForActivation(app).then(() => this.doActivate());
+                return;
+            }
+            this.doActivate();
         }
-        return this.toDeactivate;
     }
 
     deactivate(_app: FrontendApplication): void {
-        this.toDeactivate.dispose();
+        this.toDispose.dispose();
     }
 
-    protected async doActivate(toStop: DisposableCollection): Promise<void> {
+    protected async doActivate(): Promise<void> {
         try {
             this.connectionProvider.listen(
                 {
                     path: GLSPContribution.getPath(this),
                     onConnection: channel => {
-                        if (toStop.disposed) {
+                        if (this.toDispose.disposed) {
                             channel.close();
                             return;
                         }
                         const connection = createChannelConnection(channel);
-                        const languageClient = this.createGLSPCLient(connection);
-                        this.onWillStart(languageClient);
-                        toStop.pushAll([
+                        const client = this.createGLSPClient(connection);
+                        this.start(client);
+                        this.toDispose.pushAll([
                             Disposable.create(() => {
                                 channel.close();
-                                languageClient.shutdownServer();
-                                languageClient.stop();
+                                client.shutdownServer();
+                                client.stop();
                             })
                         ]);
                     }
                 },
-                { reconnecting: false }
+                { reconnecting: true }
             );
         } catch (e) {
             console.error(e);
+            this.glspClientDeferred.reject(e);
         }
     }
 
-    get running(): boolean {
-        return !this.toDeactivate.disposed && this._glspClient !== undefined && this._glspClient.currentState === ClientState.Running;
-    }
-
-    protected async onWillStart(languageClient: GLSPClient): Promise<void> {
-        await languageClient.start();
-        this._initializeResult = await this.initialize(languageClient);
-        this.onReady(languageClient);
+    protected async start(glspClient: GLSPClient): Promise<void> {
+        await glspClient.start();
+        this._initializeResult = await this.initialize(glspClient);
+        this.glspClientDeferred.resolve(glspClient);
     }
 
     protected async initialize(languageClient: GLSPClient): Promise<InitializeResult> {
@@ -187,17 +187,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         return undefined;
     }
 
-    protected onReady(languageClient: GLSPClient): void {
-        this._glspClient = languageClient;
-        this.resolveReady(this._glspClient);
-        this.waitForReady();
-    }
-
-    protected waitForReady(): void {
-        this.ready = new Promise<GLSPClient>(resolve => (this.resolveReady = resolve));
-    }
-
-    protected createGLSPCLient(connectionProvider: ConnectionProvider): GLSPClient {
+    protected createGLSPClient(connectionProvider: ConnectionProvider): GLSPClient {
         return new TheiaJsonrpcGLSPClient({
             id: this.id,
             connectionProvider,
@@ -205,16 +195,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         });
     }
 
-    protected get workspaceContains(): string[] {
-        return [];
-    }
-
-    protected async waitForItemInWorkspace(): Promise<any> {
-        const doesContain = await this.workspaceService.containsSome(this.workspaceContains);
-        if (!doesContain) {
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            return new Promise(resolve => {});
-        }
-        return doesContain;
+    dispose(): void {
+        this.toDispose.dispose();
     }
 }

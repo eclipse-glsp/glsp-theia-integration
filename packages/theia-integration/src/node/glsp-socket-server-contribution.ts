@@ -13,14 +13,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Channel, MaybePromise } from '@theia/core';
+import { Channel, Disposable, MaybePromise } from '@theia/core';
 import { ForwardingChannel } from '@theia/core/lib/common/message-rpc/channel';
+import { Deferred } from '@theia/core/lib/common/promise-util';
 import { injectable, postConstruct } from '@theia/core/shared/inversify';
 import { RawProcess } from '@theia/process/lib/node/raw-process';
 import * as fs from 'fs';
 import * as net from 'net';
-import { SocketConnectionForwarder } from './connection-forwarder';
 import { BaseGLSPServerContribution, GLSPServerContributionOptions } from './glsp-server-contribution';
+import { SocketConnectionForwarder } from './socket-connection-forwarder';
 
 /**
  * Message that is expected to be printed by the embedded server process to the stdout once the
@@ -50,7 +51,7 @@ export namespace GLSPSocketServerContributionOptions {
             socketConnectionOptions: {
                 port: NaN
             }
-        } as GLSPSocketServerContributionOptions;
+        };
     }
 
     /**
@@ -59,12 +60,10 @@ export namespace GLSPSocketServerContributionOptions {
      * @param options (partial) launch options that should be extended with default values (if necessary)
      */
     export function configure(options?: Partial<GLSPSocketServerContributionOptions>): GLSPSocketServerContributionOptions {
-        return options
-            ? ({
-                  ...createDefaultOptions(),
-                  ...options
-              } as GLSPSocketServerContributionOptions)
-            : createDefaultOptions();
+        return {
+            ...createDefaultOptions(),
+            ...options
+        };
     }
 }
 
@@ -74,16 +73,12 @@ export namespace GLSPSocketServerContributionOptions {
  **/
 @injectable()
 export abstract class GLSPSocketServerContribution extends BaseGLSPServerContribution {
-    protected resolveReady: (value?: void | PromiseLike<void> | undefined) => void;
-    // eslint-disable-next-line no-invalid-this
-    onReady: Promise<void> = new Promise(resolve => (this.resolveReady = resolve));
     override options: GLSPSocketServerContributionOptions;
+    protected onReadyDeferred = new Deferred<void>();
 
     @postConstruct()
     protected override initialize(): void {
-        if (this.createContributionOptions) {
-            this.options = GLSPSocketServerContributionOptions.configure(this.createContributionOptions());
-        }
+        this.options = GLSPSocketServerContributionOptions.configure(this.createContributionOptions());
     }
 
     abstract override createContributionOptions(): Partial<GLSPSocketServerContributionOptions>;
@@ -93,27 +88,31 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
     }
 
     async launch(): Promise<void> {
-        if (!this.options.executable) {
-            throw new Error('Could not launch GLSP server. No executable path is provided via the contribution options');
-        }
-        if (!fs.existsSync(this.options.executable)) {
-            throw new Error(`Could not launch GLSP server. The given server executable path is not valid: ${this.options.executable}`);
-        }
-        if (isNaN(this.options.socketConnectionOptions.port)) {
-            throw new Error(
-                `Could not launch GLSP Server. The given server port is not a number: ${this.options.socketConnectionOptions.port}`
-            );
+        try {
+            if (!this.options.executable) {
+                throw new Error('Could not launch GLSP server. No executable path is provided via the contribution options');
+            }
+            if (!fs.existsSync(this.options.executable)) {
+                throw new Error(`Could not launch GLSP server. The given server executable path is not valid: ${this.options.executable}`);
+            }
+            if (isNaN(this.options.socketConnectionOptions.port)) {
+                throw new Error(
+                    `Could not launch GLSP Server. The given server port is not a number: ${this.options.socketConnectionOptions.port}`
+                );
+            }
+
+            if (this.options.executable.endsWith('.jar')) {
+                await this.launchJavaProcess();
+            } else if (this.options.executable.endsWith('.js')) {
+                await this.launchNodeProcess();
+            } else {
+                throw new Error(`Could not launch GLSP Server. Invalid executable path ${this.options.executable}`);
+            }
+        } catch (error) {
+            this.onReadyDeferred.reject(error);
         }
 
-        if (this.options.executable.endsWith('.jar')) {
-            await this.launchJavaProcess();
-        } else if (this.options.executable.endsWith('.js')) {
-            await this.startNodeProcess();
-        } else {
-            throw new Error(`Could not launch GLSP Server. Invalid executable path ${this.options.executable}`);
-        }
-
-        return this.onReady;
+        return this.onReadyDeferred.promise;
     }
 
     protected launchJavaProcess(): Promise<RawProcess> {
@@ -139,7 +138,7 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
         return ['--add-opens', 'java.base/java.util=ALL-UNNAMED'];
     }
 
-    protected startNodeProcess(): Promise<RawProcess> {
+    protected launchNodeProcess(): Promise<RawProcess> {
         const args = [this.options.executable!, '--port', `${this.options.socketConnectionOptions.port}`];
 
         if (this.options.socketConnectionOptions.host) {
@@ -152,11 +151,11 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
         return this.spawnProcessAsync('node', args);
     }
 
-    protected override processLogInfo(data: string | Buffer): void {
-        if (data) {
-            const message = data.toString();
+    protected override processLogInfo(line: string): void {
+        if (line) {
+            const message = line.toString();
             if (message.startsWith(START_UP_COMPLETE_MSG)) {
-                this.resolveReady();
+                this.onReadyDeferred.resolve();
             }
         }
     }
@@ -175,6 +174,7 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
             socket.on('error', error => clientChannel.onErrorEmitter.fire(error));
         }
         socket.connect(this.options.socketConnectionOptions);
+        this.toDispose.push(Disposable.create(() => socket.destroy()));
     }
 
     protected forward(clientChannel: Channel, socket: net.Socket): void {
