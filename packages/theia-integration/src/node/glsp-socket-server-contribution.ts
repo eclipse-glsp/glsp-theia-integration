@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2022 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Channel } from '@theia/core';
+import { Channel, MaybePromise } from '@theia/core';
 import { ForwardingChannel } from '@theia/core/lib/common/message-rpc/channel';
 import { injectable, postConstruct } from '@theia/core/shared/inversify';
 import { RawProcess } from '@theia/process/lib/node/raw-process';
@@ -87,8 +87,8 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
 
     abstract override createContributionOptions(): Partial<GLSPSocketServerContributionOptions>;
 
-    connect(clientChannel: Channel): void {
-        this.connectToSocketServer(clientChannel);
+    connect(clientChannel: Channel): MaybePromise<void> {
+        return this.connectToSocketServer(clientChannel);
     }
 
     async launch(): Promise<void> {
@@ -116,9 +116,13 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
     }
 
     protected launchJavaProcess(): Promise<RawProcess> {
-        const args = [...this.getJavaProcessJvmArgs(),
-            '-jar', this.options.executable!,
-            '--port', `${this.options.socketConnectionOptions.port}`];
+        const args = [
+            ...this.getJavaProcessJvmArgs(),
+            '-jar',
+            this.options.executable!,
+            '--port',
+            `${this.options.socketConnectionOptions.port}`
+        ];
 
         if (this.options.socketConnectionOptions.host) {
             args.push('--host', `${this.options.socketConnectionOptions.host}`);
