@@ -19,6 +19,7 @@ import { injectable, postConstruct } from '@theia/core/shared/inversify';
 import { RawProcess } from '@theia/process/lib/node/raw-process';
 import * as fs from 'fs';
 import * as net from 'net';
+import { ConnectionForwarder } from './connection-forwarder';
 import { BaseGLSPServerContribution, GLSPServerContributionOptions } from './glsp-server-contribution';
 
 /**
@@ -168,17 +169,16 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
             );
         }
         const socket = new net.Socket();
-        // eslint-disable-next-line import/no-unresolved
-        const { createSocketConnection } = await import('vscode-ws-jsonrpc/server');
-        const serverConnection = createSocketConnection(socket, socket, () => {
-            socket.destroy();
-        });
 
-        this.forward(clientChannel, serverConnection);
+        this.forward(clientChannel, socket);
         if (clientChannel instanceof ForwardingChannel) {
             socket.on('error', error => clientChannel.onErrorEmitter.fire(error));
         }
         socket.connect(this.options.socketConnectionOptions);
+    }
+
+    protected forward(clientChannel: Channel, socket: net.Socket): void {
+        this.toDispose.push(new ConnectionForwarder(clientChannel, socket));
     }
 }
 
