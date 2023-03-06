@@ -112,8 +112,13 @@ export abstract class GLSPDiagramManager extends DiagramManager {
             const widgetId = this.createWidgetId(options);
             const config = this.getDiagramConfiguration(options);
             const diContainer = config.createContainer(clientId);
-            const initializeResult = await this.diagramConnector.initializeResult;
-            await configureServerActions(initializeResult, this.diagramType, diContainer);
+
+            // do not await the result here as it blocks the Theia layout restoration for open widgets
+            // instead simply check in the widget if we are already initialized
+            this.diagramConnector.initializeResult.then(initializeResult =>
+                configureServerActions(initializeResult, this.diagramType, diContainer)
+            );
+
             const widget = new GLSPDiagramWidget(
                 options,
                 widgetId,

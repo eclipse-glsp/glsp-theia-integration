@@ -80,7 +80,7 @@
 .tool-palette .palette-body .group-header {
     font-size: var(--theia-ui-font-size1);
     font-weight: normal;
-    background: var(--theia-activityBar-background);
+    background: var(--theia-editorHoverWidget-statusBarBackground);
     color: var(--theia-titleBar-activeForeground);
     border: 0;
     display: flex;

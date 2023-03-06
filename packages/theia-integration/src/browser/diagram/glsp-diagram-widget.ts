@@ -29,6 +29,7 @@ import {
     RequestTypeHintsAction,
     SaveModelAction,
     SelectAction,
+    ServerStatusAction,
     SetEditModeAction,
     SetViewportAction,
     TYPES,
@@ -105,7 +106,11 @@ export class GLSPDiagramWidget extends DiagramWidget implements SaveableSource {
         return this.diContainer.get(TYPES.IActionDispatcher);
     }
 
-    protected dispatchInitialActions(): void {
+    protected async dispatchInitialActions(): Promise<void> {
+        this.setStatus(ServerStatusAction.create('Initializing...', { severity: 'INFO' }));
+        await this.connector.initializeResult;
+        this.setStatus(ServerStatusAction.create('', { severity: 'NONE' }));
+
         this.actionDispatcher.dispatch(RequestModelAction.create({ options: this.requestModelOptions }));
         this.actionDispatcher.dispatch(RequestTypeHintsAction.create());
         this.actionDispatcher.dispatch(SetEditModeAction.create(this.options.editMode));
