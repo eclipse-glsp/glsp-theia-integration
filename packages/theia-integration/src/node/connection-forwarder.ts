@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2022 STMicroelectronics and others.
+ * Copyright (c) 2022-2023 STMicroelectronics and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -14,37 +14,44 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { Channel, Disposable, DisposableCollection, MessageProvider } from '@theia/core';
-import { Message, MessageReader, MessageWriter } from 'vscode-jsonrpc';
-
-export interface IConnection extends Disposable {
-    readonly reader: MessageReader;
-    readonly writer: MessageWriter;
-    forward(to: IConnection, map?: (message: Message) => Message): void;
-    onClose(callback: () => void): Disposable;
-}
-
-// Temporary fix/workaround to enable comparability with Theia >=1.27 until https://github.com/eclipse-theia/theia/issues/11405 is resolved
-
+import { Socket } from 'net';
+import {
+    createMessageConnection,
+    Message,
+    MessageConnection,
+    MessageReader,
+    MessageWriter,
+    SocketMessageReader,
+    SocketMessageWriter
+} from 'vscode-jsonrpc/node';
 /**
- * Forwards messages from service channel to an (raw) `vscode-json-rpc` connection
+ * Creates a new {@link MessageConnection} on top of a given socket and forwards messages from service channel to this connection
  */
-export class ConnectionForwarder implements Disposable {
+export class SocketConnectionForwarder implements Disposable {
     protected toDispose = new DisposableCollection();
 
-    constructor(protected readonly channel: Channel, protected readonly connection: IConnection) {
-        this.connection.reader.listen(message => this.writeMessage(message));
+    constructor(protected readonly channel: Channel, protected readonly socket: Socket) {
+        const reader = new SocketMessageReader(socket);
+        const writer = new SocketMessageWriter(socket);
+        const connection = this.createMessageConnection(reader, writer);
         this.toDispose.pushAll([
+            connection.onClose(() => socket.destroy()),
+            reader.listen(message => this.writeMessage(message)),
             this.channel.onMessage(msgProvider => {
                 const message = this.decodeMessage(msgProvider);
-                this.connection.writer.write(message);
+                writer.write(message);
             }),
-            this.channel.onClose(() => this.connection.dispose()),
-            this.connection.onClose(() => this.channel.close()),
+            this.channel.onClose(() => connection.dispose()),
+            connection.onClose(() => this.channel.close()),
             Disposable.create(() => {
                 this.channel.close();
-                this.connection.dispose();
+                connection.dispose();
             })
         ]);
+    }
+
+    protected createMessageConnection(reader: MessageReader, writer: MessageWriter): MessageConnection {
+        return createMessageConnection(reader, writer);
     }
 
     protected decodeMessage(msgProvider: MessageProvider): Message {

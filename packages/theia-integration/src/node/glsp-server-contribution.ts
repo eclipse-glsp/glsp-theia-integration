@@ -16,14 +16,13 @@
 /* eslint-disable indent */
 
 import { MaybePromise } from '@eclipse-glsp/protocol';
-import { Channel } from '@theia/core';
+import { Channel, Disposable, DisposableCollection } from '@theia/core';
 import { inject, injectable, postConstruct } from '@theia/core/shared/inversify';
 import { ProcessErrorEvent } from '@theia/process/lib/node/process';
 import { ProcessManager } from '@theia/process/lib/node/process-manager';
 import { RawProcess, RawProcessFactory } from '@theia/process/lib/node/raw-process';
 import * as cp from 'child_process';
 import { GLSPContribution } from '../common';
-import { ConnectionForwarder, IConnection } from './connection-forwarder';
 
 export const GLSPServerContribution = Symbol.for('GLSPServerContribution');
 
@@ -31,7 +30,7 @@ export const GLSPServerContribution = Symbol.for('GLSPServerContribution');
  * The backend service component of a {@link GLSPContribution}. Responsible for launching new
  * GLSP server processes or connecting to a running server instance.
  */
-export interface GLSPServerContribution extends GLSPContribution {
+export interface GLSPServerContribution extends GLSPContribution, Disposable {
     /**
      * Establish a connection between the given client (connection) and the GLSP server.
      * @param clientChannel  The client (channel) which should be connected to the server
@@ -124,6 +123,8 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
     abstract readonly id: string;
     options: GLSPServerContributionOptions;
 
+    protected toDispose = new DisposableCollection();
+
     @postConstruct()
     protected initialize(): void {
         this.options = this.createContributionOptions
@@ -134,10 +135,6 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
     abstract connect(clientChannel: Channel): MaybePromise<void>;
 
     abstract createContributionOptions?(): Partial<GLSPServerContributionOptions>;
-
-    protected forward(clientChannel: Channel, serverConnection: IConnection): void {
-        new ConnectionForwarder(clientChannel, serverConnection);
-    }
 
     protected spawnProcessAsync(command: string, args?: string[], options?: cp.SpawnOptions): Promise<RawProcess> {
         const rawProcess = this.processFactory({ command, args, options });
@@ -173,5 +170,9 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
         if (data) {
             console.info(`${this.id}: ${data}`);
         }
+    }
+
+    dispose(): void {
+        this.toDispose.dispose();
     }
 }
