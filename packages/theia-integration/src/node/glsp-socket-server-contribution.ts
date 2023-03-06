@@ -19,7 +19,7 @@ import { injectable, postConstruct } from '@theia/core/shared/inversify';
 import { RawProcess } from '@theia/process/lib/node/raw-process';
 import * as fs from 'fs';
 import * as net from 'net';
-import { ConnectionForwarder } from './connection-forwarder';
+import { SocketConnectionForwarder } from './connection-forwarder';
 import { BaseGLSPServerContribution, GLSPServerContributionOptions } from './glsp-server-contribution';
 
 /**
@@ -178,7 +178,7 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
     }
 
     protected forward(clientChannel: Channel, socket: net.Socket): void {
-        this.toDispose.push(new ConnectionForwarder(clientChannel, socket));
+        this.toDispose.push(new SocketConnectionForwarder(clientChannel, socket));
     }
 }
 

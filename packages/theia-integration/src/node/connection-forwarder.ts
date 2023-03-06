@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2022 STMicroelectronics and others.
+ * Copyright (c) 2022-2023 STMicroelectronics and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,17 +15,25 @@
  ********************************************************************************/
 import { Channel, Disposable, DisposableCollection, MessageProvider } from '@theia/core';
 import { Socket } from 'net';
-import { createMessageConnection, Message, SocketMessageReader, SocketMessageWriter } from 'vscode-jsonrpc/node';
+import {
+    createMessageConnection,
+    Message,
+    MessageConnection,
+    MessageReader,
+    MessageWriter,
+    SocketMessageReader,
+    SocketMessageWriter
+} from 'vscode-jsonrpc/node';
 /**
- * Forwards messages from service channel to an (raw) `vscode-json-rpc` connection
+ * Creates a new {@link MessageConnection} on top of a given socket and forwards messages from service channel to this connection
  */
-export class ConnectionForwarder implements Disposable {
+export class SocketConnectionForwarder implements Disposable {
     protected toDispose = new DisposableCollection();
 
     constructor(protected readonly channel: Channel, protected readonly socket: Socket) {
         const reader = new SocketMessageReader(socket);
         const writer = new SocketMessageWriter(socket);
-        const connection = createMessageConnection(reader, writer);
+        const connection = this.createMessageConnection(reader, writer);
         this.toDispose.pushAll([
             connection.onClose(() => socket.destroy()),
             reader.listen(message => this.writeMessage(message)),
@@ -40,6 +48,10 @@ export class ConnectionForwarder implements Disposable {
                 connection.dispose();
             })
         ]);
+    }
+
+    protected createMessageConnection(reader: MessageReader, writer: MessageWriter): MessageConnection {
+        return createMessageConnection(reader, writer);
     }
 
     protected decodeMessage(msgProvider: MessageProvider): Message {
