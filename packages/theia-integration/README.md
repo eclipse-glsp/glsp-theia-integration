@@ -16,7 +16,8 @@ If that is the case, a new compatible 1.0.0 version prefixed with the supported 
 | 0.9.0                           | >=1.20.0 <= 1.25.0 |
 | 1.0.0                           | >=1.25.0 <= 1.26.0 |
 | 1.0.0-theia1.27.0               | >=1.27.0           |
-| next                            | >=1.33.0           |
+| 1.0.0-theia1.34.0               | >=1.34.0           |
+| next                            | >=1.34.0           |
 
 > Note: Due to a transitive dependency to `sprotty-theia` it's currently not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project e.g. for `1.0.0-theia1.27.0`:
 

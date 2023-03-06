@@ -44,12 +44,11 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@eclipse-glsp/client": "next",
-    "vscode-jsonrpc": "8.0.2"
+    "@eclipse-glsp/client": "next"
   },
   "peerDependencies": {
-    "@theia/core": "^1.33.0",
-    "@theia/messages": "^1.33.0",
+    "@theia/core": "^1.34.2",
+    "@theia/messages": "^1.34.2",
     "sprotty-theia": "0.13.0-next.9cbedec"
   },
   "publishConfig": {
