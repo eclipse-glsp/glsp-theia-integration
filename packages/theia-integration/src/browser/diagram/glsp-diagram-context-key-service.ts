@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2022 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -28,8 +28,7 @@ import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selec
 import { ApplicationShell } from '@theia/core/lib/browser';
 import { ContextKey, ContextKeyService } from '@theia/core/lib/browser/context-key-service';
 import { inject, injectable, postConstruct } from '@theia/core/shared/inversify';
-import { isDiagramWidgetContainer } from 'sprotty-theia';
-import { GLSPDiagramWidget } from './glsp-diagram-widget';
+import { getDiagramWidget, GLSPDiagramWidget } from './glsp-diagram-widget';
 
 @injectable()
 export abstract class AbstractGLSPDiagramContextKeyService {
@@ -101,13 +100,7 @@ export abstract class AbstractGLSPDiagramContextKeyService {
     }
 
     protected getDiagramWidget(): GLSPDiagramWidget | undefined {
-        const widget = this.shell.activeWidget || this.shell.currentWidget;
-        if (widget instanceof GLSPDiagramWidget) {
-            return widget as GLSPDiagramWidget;
-        } else if (isDiagramWidgetContainer(widget) && widget.diagramWidget instanceof GLSPDiagramWidget) {
-            return widget.diagramWidget as GLSPDiagramWidget;
-        }
-        return undefined;
+        return getDiagramWidget(this.shell);
     }
 
     protected resetContextKeys(): void {

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -16,7 +16,7 @@
 import { MenuContribution, MenuModelRegistry } from '@theia/core';
 import { CommonCommands } from '@theia/core/lib/browser';
 import { injectable, interfaces } from '@theia/core/shared/inversify';
-import { TheiaSprottyContextMenu } from 'sprotty-theia';
+import { TheiaGLSPContextMenu } from './theia-glsp-context-menu-service';
 
 export function registerCopyPasteContextMenu(bind: interfaces.Bind): void {
     bind(MenuContribution).to(CopyPasteMenuContribution);
@@ -24,7 +24,7 @@ export function registerCopyPasteContextMenu(bind: interfaces.Bind): void {
 
 @injectable()
 export class CopyPasteMenuContribution implements MenuContribution {
-    static readonly COPY_PASTE = TheiaSprottyContextMenu.CONTEXT_MENU.concat('copy-paste');
+    static readonly COPY_PASTE = TheiaGLSPContextMenu.CONTEXT_MENU.concat('copy-paste');
     registerMenus(menus: MenuModelRegistry): void {
         menus.registerMenuAction(CopyPasteMenuContribution.COPY_PASTE, {
             commandId: CommonCommands.CUT.id,

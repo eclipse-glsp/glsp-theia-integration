@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2022 EclipseSource and others.
+ * Copyright (c) 2019-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -24,8 +24,9 @@ import {
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, MenuPath } from '@theia/core';
 import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
 import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
-import { DiagramKeybindingContext, DiagramMenus } from 'sprotty-theia';
 import { GLSPCommandHandler } from './glsp-command-handler';
+import { GLSPDiagramMenus } from './glsp-diagram-commands';
+import { GLSPDiagramKeybindingContext } from './glsp-diagram-keybinding';
 
 export function registerDiagramLayoutCommands(bind: interfaces.Bind): void {
     bind(CommandContribution).to(GLSPLayoutCommandContribution).inSingletonScope();
@@ -108,7 +109,7 @@ export namespace GLSPLayoutCommands {
 }
 
 export namespace GLSPLayoutMenus {
-    export const ALIGN_MENU: MenuPath = DiagramMenus.DIAGRAM.concat('align');
+    export const ALIGN_MENU: MenuPath = GLSPDiagramMenus.DIAGRAM.concat('align');
     export const ALIGN_HORIZONTAL_GROUP: MenuPath = ALIGN_MENU.concat('1_horizontal');
     export const ALIGN_VERTICAL_GROUP: MenuPath = ALIGN_MENU.concat('2_vertical');
     export const ALIGN_HORIZONTAL_FIRST_GROUP: MenuPath = ALIGN_MENU.concat('3_horizontal_first');
@@ -116,7 +117,7 @@ export namespace GLSPLayoutMenus {
     export const ALIGN_HORIZONTAL_LAST_GROUP: MenuPath = ALIGN_MENU.concat('5_horizontal_last');
     export const ALIGN_VERTICAL_LAST_GROUP: MenuPath = ALIGN_MENU.concat('6_vertical_last');
 
-    export const RESIZE_MENU: MenuPath = DiagramMenus.DIAGRAM.concat('resize');
+    export const RESIZE_MENU: MenuPath = GLSPDiagramMenus.DIAGRAM.concat('resize');
     export const RESIZE_WIDTH_GROUP: MenuPath = RESIZE_MENU.concat('1_width');
     export const RESIZE_HEIGHT_GROUP: MenuPath = RESIZE_MENU.concat('2_height');
     export const RESIZE_WIDTH_AND_HEIGHT_GROUP: MenuPath = RESIZE_MENU.concat('3_width_and_height');
@@ -457,7 +458,7 @@ export class GLSPLayoutCommandContribution implements CommandContribution {
 
 @injectable()
 export class GLSPLayoutKeybindingContribution implements KeybindingContribution {
-    constructor(@inject(DiagramKeybindingContext) protected readonly diagramKeybindingContext: DiagramKeybindingContext) {}
+    constructor(@inject(GLSPDiagramKeybindingContext) protected readonly diagramKeybindingContext: GLSPDiagramKeybindingContext) {}
 
     registerKeybindings(registry: KeybindingRegistry): void {
         registry.registerKeybinding({

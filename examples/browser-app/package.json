@@ -21,8 +21,7 @@
     "@theia/preferences": "1.34.2",
     "@theia/process": "1.34.2",
     "@theia/terminal": "1.34.2",
-    "@theia/workspace": "1.34.2",
-    "sprotty-theia": "0.13.0-next.9cbedec"
+    "@theia/workspace": "1.34.2"
   },
   "devDependencies": {
     "@theia/cli": "1.34.2"

@@ -1,5 +1,6 @@
 /********************************************************************************
- * Copyright (c) 2019-2021 EclipseSource and others.
+ * Copyright (c) 2017-2020 TypeFox and others.
+ * Modifications: (c) 2019-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,29 +14,31 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { InitializeResult, InstanceRegistry, ServerMessageAction } from '@eclipse-glsp/client';
+// based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/sprotty/theia-sprotty-connector.ts
+import {
+    ActionMessage,
+    ExportSvgAction,
+    InitializeResult,
+    InstanceRegistry,
+    ServerMessageAction,
+    ServerStatusAction
+} from '@eclipse-glsp/client';
 import { injectable, multiInject, optional } from '@theia/core/shared/inversify';
-import { TheiaSprottyConnector } from 'sprotty-theia';
+import { GLSPTheiaDiagramServer } from './glsp-theia-diagram-server';
 
 export const TheiaGLSPConnector = Symbol('TheiaGLSPConnector');
 
-export interface TheiaGLSPConnector extends TheiaSprottyConnector {
+export interface TheiaGLSPConnector {
     readonly diagramType: string;
     readonly diagramManagerId: string;
     readonly initializeResult: Promise<InitializeResult>;
     showMessage(widgetId: string, action: ServerMessageAction): void;
-}
-
-export function isTheiaGLSPConnector(connector?: TheiaSprottyConnector): connector is TheiaGLSPConnector {
-    return (
-        connector !== undefined &&
-        'diagramType' in connector &&
-        typeof connector['diagramType'] === 'string' &&
-        'diagramManagerId' in connector &&
-        typeof connector['diagramManagerId'] === 'string' &&
-        'showMessage' in connector &&
-        typeof connector['showMessage'] === 'function'
-    );
+    connect(diagramServer: GLSPTheiaDiagramServer): void;
+    disconnect(diagramServer: GLSPTheiaDiagramServer): void;
+    save(uri: string, action: ExportSvgAction): void;
+    showStatus(clientId: string, status: ServerStatusAction): void;
+    sendMessage(message: ActionMessage): void;
+    onMessageReceived(message: ActionMessage): void;
 }
 
 @injectable()

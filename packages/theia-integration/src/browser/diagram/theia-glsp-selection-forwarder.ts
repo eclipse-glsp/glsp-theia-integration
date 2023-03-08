@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2021-2022 EclipseSource and others.
+ * Copyright (c) 2018-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,24 +13,60 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action, SelectAction } from '@eclipse-glsp/client';
+// based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/sprotty/theia-sprotty-selection-forwarder.ts
+import {
+    ActionHandlerRegistry,
+    AnyObject,
+    hasArrayProp,
+    hasObjectProp,
+    hasStringProp,
+    IActionHandler,
+    IActionHandlerInitializer,
+    RequestModelAction,
+    SelectAction,
+    TYPES,
+    ViewerOptions
+} from '@eclipse-glsp/client';
+import { SelectionService } from '@theia/core';
 import { inject, injectable, optional } from '@theia/core/shared/inversify';
-import { isSprottySelection, SprottySelection, TheiaSprottySelectionForwarder } from 'sprotty-theia';
 import { GlspSelectionData, GlspSelectionDataService } from './glsp-selection-data-service';
 
-export interface GlspSelection extends SprottySelection {
+export interface GlspSelection {
     additionalSelectionData?: GlspSelectionData;
+    selectedElementsIDs: string[];
+    widgetId: string;
+    sourceUri?: string;
 }
 
-export function isGlspSelection(selection?: any): selection is GlspSelection {
-    return !!selection && isSprottySelection(selection);
+export function isGlspSelection(selection?: unknown): selection is GlspSelection {
+    return (
+        AnyObject.is(selection) &&
+        hasArrayProp(selection, 'selectedElementsIDs') &&
+        hasStringProp(selection, 'widgetId') &&
+        hasStringProp(selection, 'sourceUri', true) &&
+        hasObjectProp(selection, 'additionalSelectionData', true)
+    );
 }
 
 @injectable()
-export class TheiaGLSPSelectionForwarder extends TheiaSprottySelectionForwarder {
-    @inject(GlspSelectionDataService) @optional() protected readonly selectionDataService?: GlspSelectionDataService;
+export class TheiaGLSPSelectionForwarder implements IActionHandlerInitializer, IActionHandler {
+    @inject(GlspSelectionDataService)
+    @optional()
+    protected readonly selectionDataService?: GlspSelectionDataService;
 
-    override handle(action: Action): void {
+    @inject(TYPES.ViewerOptions)
+    protected viewerOptions: ViewerOptions;
+    @inject(SelectionService)
+    protected selectionService: SelectionService;
+
+    protected sourceUri?: string;
+
+    initialize(registry: ActionHandlerRegistry): any {
+        registry.register(RequestModelAction.KIND, this);
+        registry.register(SelectAction.KIND, this);
+    }
+
+    handle(action: RequestModelAction | SelectAction): void {
         if (SelectAction.is(action) && this.selectionDataService) {
             this.selectionDataService.getSelectionData(action.selectedElementsIDs).then(
                 (additionalSelectionData: any) =>
@@ -41,8 +77,8 @@ export class TheiaGLSPSelectionForwarder extends TheiaSprottySelectionForwarder 
                         sourceUri: this.sourceUri
                     } as GlspSelection)
             );
-        } else {
-            super.handle(action);
+        } else if (RequestModelAction.is(action) && action.options) {
+            this.sourceUri = (action as RequestModelAction).options!.sourceUri as string;
         }
     }
 }

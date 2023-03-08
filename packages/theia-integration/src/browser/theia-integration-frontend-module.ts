@@ -13,13 +13,20 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { bindContributionProvider } from '@theia/core';
-import { FrontendApplicationContribution, WebSocketConnectionProvider } from '@theia/core/lib/browser';
+import { bindContributionProvider, CommandContribution, MenuContribution } from '@theia/core';
+import {
+    FrontendApplicationContribution,
+    KeybindingContext,
+    KeybindingContribution,
+    WebSocketConnectionProvider
+} from '@theia/core/lib/browser';
 import { ContainerModule, interfaces } from '@theia/core/shared/inversify';
 import { NotificationManager } from '@theia/messages/lib/browser/notifications-manager';
-import { TheiaContextMenuService } from 'sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service';
 import { GLSPContribution } from '../common';
+import { DiagramConfigurationRegistry } from './diagram/diagram-configuration';
+import { GLSPDiagramCommandContribution, GLSPDiagramMenuContribution } from './diagram/glsp-diagram-commands';
 import { GLSPDiagramContextKeyService } from './diagram/glsp-diagram-context-key-service';
+import { GLSPDiagramKeybindingContext, GLSPDiagramKeybindingContribution } from './diagram/glsp-diagram-keybinding';
 import { TheiaGLSPConnectorProvider } from './diagram/glsp-diagram-manager';
 import { GLSPNotificationManager } from './diagram/glsp-notification-manager';
 import { TheiaContextMenuServiceFactory } from './diagram/theia-context-menu-service';
@@ -28,10 +35,21 @@ import { TheiaMarkerManager, TheiaMarkerManagerFactory } from './diagram/theia-m
 import { GLSPClientContribution } from './glsp-client-contribution';
 import { GLSPClientProvider } from './glsp-client-provider';
 import { GLSPFrontendContribution } from './glsp-frontend-contribution';
-import { TheiaSourceModelChangedHandler } from './theia-model-source-changed-handler';
+import { TheiaFileSaver } from './theia-file-saver';
+import { TheiaContextMenuService } from './theia-glsp-context-menu-service';
 import { TheiaOpenerOptionsNavigationService } from './theia-opener-options-navigation-service';
+import { TheiaSourceModelChangedHandler } from './theia-source-model-changed-handler';
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
+    bind(DiagramConfigurationRegistry).toSelf().inSingletonScope();
+    bind(TheiaFileSaver).toSelf().inSingletonScope();
+    bind(CommandContribution).to(GLSPDiagramCommandContribution).inSingletonScope();
+    bind(MenuContribution).to(GLSPDiagramMenuContribution).inSingletonScope();
+    bind(GLSPDiagramKeybindingContext).toSelf().inSingletonScope();
+    bind(KeybindingContext).toService(GLSPDiagramKeybindingContext);
+    bind(GLSPDiagramKeybindingContribution).toSelf().inSingletonScope();
+    bind(KeybindingContribution).toService(GLSPDiagramKeybindingContribution);
+
     bindContributionProvider(bind, GLSPClientContribution);
     bind(GLSPFrontendContribution).toSelf().inSingletonScope();
     bind(FrontendApplicationContribution).toService(GLSPFrontendContribution);

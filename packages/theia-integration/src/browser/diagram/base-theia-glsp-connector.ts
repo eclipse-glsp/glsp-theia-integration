@@ -30,11 +30,12 @@ import { inject, injectable, postConstruct } from '@theia/core/shared/inversify'
 import { EditorManager } from '@theia/editor/lib/browser';
 import { FileDialogService } from '@theia/filesystem/lib/browser/file-dialog/file-dialog-service';
 import { FileService } from '@theia/filesystem/lib/browser/file-service';
-import { DiagramWidget, TheiaDiagramServer } from 'sprotty-theia';
 import { GLSPClientContribution } from '../glsp-client-contribution';
 import { GLSPClientProvider } from '../glsp-client-provider';
 import { deriveDiagramManagerId } from './glsp-diagram-manager';
+import { GLSPDiagramWidget } from './glsp-diagram-widget';
 import { GLSPMessageOptions, GLSPNotificationManager } from './glsp-notification-manager';
+import { GLSPTheiaDiagramServer } from './glsp-theia-diagram-server';
 import { TheiaGLSPConnector } from './theia-glsp-connector';
 
 const SHOW_DETAILS_LABEL = 'Show details';
@@ -62,7 +63,7 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
     @inject(GLSPClientProvider)
     protected readonly glspClientProvider: GLSPClientProvider;
 
-    private servers: Map<string, TheiaDiagramServer> = new Map();
+    private servers: Map<string, GLSPTheiaDiagramServer> = new Map();
     private widgetMessages: Map<string, string[]> = new Map();
     private widgetStatusTimeouts: Map<string, number> = new Map();
 
@@ -80,7 +81,7 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
         this.glspClientContribution = clientContribution;
     }
 
-    connect(diagramServer: TheiaDiagramServer): void {
+    connect(diagramServer: GLSPTheiaDiagramServer): void {
         this.servers.set(diagramServer.clientId, diagramServer);
 
         this.glspClient.then(client => {
@@ -94,11 +95,11 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
         diagramServer.connect(this);
     }
 
-    initializeClientSessionArgs(_diagramServer: TheiaDiagramServer): Args | undefined {
+    initializeClientSessionArgs(_diagramServer: GLSPTheiaDiagramServer): Args | undefined {
         return undefined;
     }
 
-    disconnect(diagramServer: TheiaDiagramServer): void {
+    disconnect(diagramServer: GLSPTheiaDiagramServer): void {
         this.servers.delete(diagramServer.clientId);
         this.glspClient.then(client =>
             client.disposeClientSession({
@@ -109,7 +110,7 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
         diagramServer.disconnect();
     }
 
-    disposeClientSessionArgs(_diagramServer: TheiaDiagramServer): Args | undefined {
+    disposeClientSessionArgs(_diagramServer: GLSPTheiaDiagramServer): Args | undefined {
         return undefined;
     }
 
@@ -154,7 +155,7 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
 
         // update status
         const widget = this.widgetManager.getWidgets(this.diagramManagerId).find(w => w.id === widgetId);
-        if (widget instanceof DiagramWidget) {
+        if (widget instanceof GLSPDiagramWidget) {
             widget.setStatus(status);
         }
 
@@ -188,7 +189,7 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
 
     protected showServerMessage(widgetId: string, action: ServerMessageAction): void {
         const widget = this.widgetManager.getWidgets(this.diagramManagerId).find(w => w.id === widgetId);
-        const uri = widget instanceof DiagramWidget ? widget.uri.toString() : '';
+        const uri = widget instanceof GLSPDiagramWidget ? widget.uri.toString() : '';
 
         const type = this.toMessageType(action.severity);
         const text = action.message;

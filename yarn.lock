@@ -954,12 +954,21 @@
     semver "^7.3.7"
     shelljs "0.8.5"
 
-"@eclipse-glsp/client@1.1.0-next.6efef44.226+6efef44", "@eclipse-glsp/client@next":
+"@eclipse-glsp/client@1.1.0-next.6efef44.226+6efef44":
   version "1.1.0-next.6efef44.226"
   resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-1.1.0-next.6efef44.226.tgz#06275ed71e0dac9c93b8f04b2cb5924d9b5cf414"
   integrity sha512-WyFqGkclQat6t2+843oYvg8cGMcKg2Zlci+G5NXf1OFrx4cjcVcDD8vK4+Ow8z0uXGgGe9f/41CkhVJwoEqp4A==
   dependencies:
     "@eclipse-glsp/protocol" "1.1.0-next.6efef44.226+6efef44"
+    autocompleter "5.1.0"
+    sprotty "0.13.0-next.f4445dd.342"
+
+"@eclipse-glsp/client@next":
+  version "1.1.0-next.35bf56e.230"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-1.1.0-next.35bf56e.230.tgz#63e739ccd67ea7ae9685985751368489d829471d"
+  integrity sha512-K5DCA95xeB7dpRKOwwmhpqzSpDX4jrMvd6HcYYuTqt+Hh8g4fBfLMvjUz/7ajqKV/Rr7e83uaeS9IdHuu6g5Uw==
+  dependencies:
+    "@eclipse-glsp/protocol" "1.1.0-next.35bf56e.230+35bf56e"
     autocompleter "5.1.0"
     sprotty "0.13.0-next.f4445dd.342"
 
@@ -1036,6 +1045,15 @@
   integrity sha512-6J3Ve2PWyQgDG9HxUUZd7n2gEkYb3g+GZOWE0GqMvpoDXtRZHUL3vxrP0a1SMH4akS2LDQ1BVl5CQHUlXIOfXw==
   dependencies:
     prettier-plugin-packagejson "^2.3.0"
+
+"@eclipse-glsp/protocol@1.1.0-next.35bf56e.230+35bf56e":
+  version "1.1.0-next.35bf56e.230"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-1.1.0-next.35bf56e.230.tgz#b32def3b4a2d8819b9f9939758d88a49ba78b69e"
+  integrity sha512-7GCSjXrh2ubyGIH/7Wq/oDD7ULIjwstlSyIVhfyczzn1MNhpztLhWGHtvGE7mecMbYkli14DABUJj8ypJ5zV3g==
+  dependencies:
+    sprotty-protocol "0.13.0-next.f4445dd.342"
+    uuid "7.0.3"
+    vscode-jsonrpc "^8.0.2"
 
 "@eclipse-glsp/protocol@1.1.0-next.6efef44.226+6efef44":
   version "1.1.0-next.6efef44.226"
@@ -9794,11 +9812,6 @@ sprotty-protocol@0.13.0-next.f4445dd.342, sprotty-protocol@0.13.0-next.f4445dd.3
   version "0.13.0-next.f4445dd.342"
   resolved "https://registry.yarnpkg.com/sprotty-protocol/-/sprotty-protocol-0.13.0-next.f4445dd.342.tgz#79e39a3427202d59173f61f3f03429dfdec7ab9c"
   integrity sha512-6cNoZrvay1Gk3uk6NqlmraBy68dskvhuDKDiUlpxbzFQ/ZVO4MKY2D41S5AXzjDyOtYQO6tZjlPrNCjmj5Kvrg==
-
-sprotty-theia@0.13.0-next.9cbedec:
-  version "0.13.0-next.9cbedec"
-  resolved "https://registry.yarnpkg.com/sprotty-theia/-/sprotty-theia-0.13.0-next.9cbedec.tgz#f56f6be917a9b9f75264375e5c25fd064f39cbb5"
-  integrity sha512-ouxLqGfNHyHD6XRLKOwTJLYJkaklBHP7qJNL4HlxK7Y1DH77QtN5G5Y5Kuu/v733lLufOzgT5XznIr2WL2IF/g==
 
 sprotty@0.13.0-next.f4445dd.342:
   version "0.13.0-next.f4445dd.342"

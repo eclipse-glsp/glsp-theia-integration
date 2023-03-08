@@ -1,5 +1,6 @@
 /********************************************************************************
- * Copyright (c) 2019-2022 EclipseSource and others.
+ * Copyright (c) 2017-2018 TypeFox and others.
+ * Modifications: (c) 2019-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,37 +14,55 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+// based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/sprotty/theia-diagram-server.ts
+
 import {
     Action,
     ActionHandlerRegistry,
+    ActionMessage,
     ComputedBoundsAction,
+    DiagramServerProxy,
     ExportSvgAction,
+    ICommand,
     registerDefaultGLSPServerActions,
+    RequestModelAction,
     ServerMessageAction,
+    ServerStatusAction,
     SetDirtyStateAction,
     SetEditModeAction,
     SourceUriAware
 } from '@eclipse-glsp/client';
 import { Emitter, Event } from '@theia/core/lib/common';
 import { injectable } from '@theia/core/shared/inversify';
-import { TheiaDiagramServer } from 'sprotty-theia';
-import { isTheiaGLSPConnector, TheiaGLSPConnector } from './theia-glsp-connector';
+import { TheiaGLSPConnector } from './theia-glsp-connector';
 
 const receivedFromServerProperty = '__receivedFromServer';
 
 @injectable()
-export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyStateNotifier, SourceUriAware {
+export class GLSPTheiaDiagramServer extends DiagramServerProxy implements DirtyStateNotifier, SourceUriAware {
     readonly dirtyStateChangeEmitter: Emitter<DirtyState> = new Emitter<DirtyState>();
 
     protected dirtyState: DirtyState = { isDirty: false };
 
+    protected _sourceUri: string;
+
+    protected _connector?: TheiaGLSPConnector;
+
+    connect(connector: TheiaGLSPConnector): void {
+        this._connector = connector;
+    }
+
+    disconnect(): void {
+        // empty per default
+    }
+
+    get sourceURI(): string {
+        return this._sourceUri;
+    }
+
     override initialize(registry: ActionHandlerRegistry): void {
         registerDefaultGLSPServerActions(registry, this);
         registry.register(SetDirtyStateAction.KIND, this);
-    }
-
-    public get sourceURI(): string {
-        return this.sourceUri;
     }
 
     get onDirtyStateChange(): Event<DirtyState> {
@@ -55,6 +74,13 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
             this.dirtyState = { isDirty: dirty };
             this.dirtyStateChangeEmitter.fire(this.dirtyState);
         }
+    }
+
+    override handle(action: Action): void | ICommand | Action {
+        if (RequestModelAction.is(action)) {
+            this._sourceUri = action.options!.sourceUri as string;
+        }
+        return super.handle(action);
     }
 
     override handleLocally(action: Action): boolean {
@@ -72,12 +98,17 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
     }
 
     override handleExportSvgAction(action: ExportSvgAction): boolean {
-        this.connector.save(this.sourceUri, action);
+        this.connector.save(this.sourceURI, action);
         return false;
     }
 
     protected override handleComputedBounds(_action: ComputedBoundsAction): boolean {
         return true;
+    }
+
+    protected override handleServerStateAction(status: ServerStatusAction): boolean {
+        this.connector.showStatus(this.clientId, status);
+        return false;
     }
 
     protected handleSetEditModeAction(action: SetEditModeAction): boolean {
@@ -89,12 +120,20 @@ export class GLSPTheiaDiagramServer extends TheiaDiagramServer implements DirtyS
         return false;
     }
 
-    override get connector(): TheiaGLSPConnector {
+    sendMessage(message: ActionMessage): void {
+        this.connector.sendMessage(message);
+    }
+
+    /**
+     * made public
+     */
+    override messageReceived(message: ActionMessage): void {
+        super.messageReceived(message);
+    }
+
+    get connector(): TheiaGLSPConnector {
         if (!this._connector) {
             throw Error('TheiaDiagramServer is not connected.');
-        }
-        if (!isTheiaGLSPConnector(this._connector)) {
-            throw new Error('Connector needs to be a instance of "TheiaGLSPConnector');
         }
         return this._connector;
     }
