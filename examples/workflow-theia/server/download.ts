@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2022 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -24,7 +24,7 @@ const mavenRepository = isSnapShot ? config.snapshotRepository : config.releaseR
 console.log('Downloading latest version of the Workflow Example Java Server from the maven repository...');
 download({ groupId, artifactId, version, classifier, isSnapShot }, downloadDir, mavenRepository).then(() =>
     console.log(
-        'Download completed. Start the Theia back-end using these commands: \ncd examples/browser-app\nyarn start\n\n' +
+        'Download completed. Start the Theia back-end using: \nyarn start\n\n' +
             'After starting the Theia back-end, access the following link locally in your browser to see the running example:\n' +
             'http://localhost:3000'
     )

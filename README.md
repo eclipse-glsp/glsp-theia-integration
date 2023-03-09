@@ -57,7 +57,6 @@ Next, download a pre-built version of the Workflow Diagram Server, start the The
 
 ```bash
 yarn download:exampleServer
-cd examples/browser-app
 yarn start
 ```
 
@@ -69,7 +68,6 @@ See [`workflow example glsp-server`](https://github.com/eclipse-glsp/glsp-server
 Once the Workflow Diagram Server is running, start the Theia application with the `debug` flag so that it'll connect to an existing server process -- the one you started from the command line or from your IDE before:
 
 ```bash
-cd examples/browser-app
 yarn start:debug
 ```
 

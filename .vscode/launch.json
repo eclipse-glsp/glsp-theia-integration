@@ -8,14 +8,14 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Workflow Browser Backend",
-      "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
+      "program": "${workspaceRoot}/examples/workflow-browser-app/src-gen/backend/main.js",
       "args": [
         "--hostname=localhost",
         "--WF_GLSP=5007",
         "--port=3000",
         "--no-cluster",
         "--root-dir=${workspaceRoot}/examples/workspace",
-        "--app-project-path=${workspaceRoot}/examples/browser-app"
+        "--app-project-path=${workspaceRoot}/examples/workflow-browser-app"
       ],
       "env": {
         "NODE_ENV": "development"
@@ -23,8 +23,8 @@
       "sourceMaps": true,
       "outFiles": [
         "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
-        "${workspaceRoot}/examples/browser-app/lib/**/*.js",
-        "${workspaceRoot}/examples/browser-app/src-gen/**/*.js",
+        "${workspaceRoot}/examples/workflow-browser-app/lib/**/*.js",
+        "${workspaceRoot}/examples/workflow-browser-app/src-gen/**/*.js",
         "${workspaceRoot}/packages/*/lib/**/*.js",
         "${workspaceRoot}/examples/*/lib/**/*.js"
       ],
@@ -40,14 +40,14 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Workflow Browser Backend (External GLSP Server)",
-      "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
+      "program": "${workspaceRoot}/examples/workflow-browser-app/src-gen/backend/main.js",
       "args": [
         "--hostname=localhost",
         "--WF_GLSP=5007",
         "--port=3000",
         "--no-cluster",
         "--root-dir=${workspaceRoot}/examples/workspace",
-        "--app-project-path=${workspaceRoot}/examples/browser-app",
+        "--app-project-path=${workspaceRoot}/examples/workflow-browser-app",
         "--debug",
         "--loglevel=debug"
       ],
@@ -57,8 +57,8 @@
       "sourceMaps": true,
       "outFiles": [
         "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
-        "${workspaceRoot}/examples/browser-app/lib/**/*.js",
-        "${workspaceRoot}/examples/browser-app/src-gen/**/*.js",
+        "${workspaceRoot}/examples/workflow-browser-app/lib/**/*.js",
+        "${workspaceRoot}/examples/workflow-browser-app/src-gen/**/*.js",
         "${workspaceRoot}/packages/*/lib/**/*.js",
         "${workspaceRoot}/examples/*/lib/**/*.js"
       ],
@@ -76,7 +76,7 @@
       "name": "Launch Workflow Browser Frontend",
       "url": "http://localhost:3000",
       "sourceMaps": true,
-      "webRoot": "${workspaceRoot}/examples/browser-app",
+      "webRoot": "${workspaceRoot}/examples/workflow-browser-app",
       "presentation": {
         "group": "Browser launch configurations",
         "order": 2
