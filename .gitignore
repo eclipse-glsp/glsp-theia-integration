@@ -10,9 +10,9 @@ yarn-error.log
 
 *.log
 
-examples/browser-app/**
-!examples/browser-app/package.json
-!examples/browser-app/webpack.config.js
+examples/browser-app/src-gen/
+examples/browser-app/gen-webpack.config.js
+
 examples/**/server/**
 !examples/**/server/download.ts
 tsconfig.tsbuildinfo
