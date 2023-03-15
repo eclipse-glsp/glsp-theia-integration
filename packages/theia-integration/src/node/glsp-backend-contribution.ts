@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (C) 2018-2022 TypeFox and others.
+ * Copyright (C) 2018-2023 TypeFox and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,42 +13,29 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ContributionProvider, ILogger } from '@theia/core/lib/common';
+import { ContributionProvider } from '@theia/core/lib/common';
 import { MessagingService } from '@theia/core/lib/node/messaging/messaging-service';
 import { inject, injectable, named } from '@theia/core/shared/inversify';
 import { GLSPContribution } from '../common';
 import { GLSPServerContribution, GLSPServerContributionOptions } from './glsp-server-contribution';
 
+/**
+ * Responsible for the configuration of all registered {@link GLSPServerContribution}s.
+ * This includes two main steps:
+ *  - launch the GLSP server process (if necessary)
+ *  - forwarding of the service connection to the `GLSPClientContribution` counterpart i.e. the client channel
+ */
 @injectable()
-export class GLSPBackendContribution implements MessagingService.Contribution, GLSPContribution.Service {
-    @inject(ILogger)
-    @named('glsp')
-    protected readonly logger: ILogger;
-
+export class GLSPBackendContribution implements MessagingService.Contribution {
     @inject(ContributionProvider)
     @named(GLSPServerContribution)
     protected readonly contributors: ContributionProvider<GLSPServerContribution>;
-
-    protected nextId = 1;
-    protected readonly sessions = new Map<string, any>();
-
-    async create(_contributionId: string, startParameters: any): Promise<string> {
-        const id = this.nextId;
-        this.nextId++;
-        const sessionId = String(id);
-        this.sessions.set(sessionId, startParameters);
-        return sessionId;
-    }
-
-    async destroy(sessionId: string): Promise<void> {
-        this.sessions.delete(sessionId);
-    }
 
     configure(service: MessagingService): void {
         for (const contribution of this.contributors.getContributions()) {
             const path = GLSPContribution.getPath(contribution);
             if (GLSPServerContributionOptions.shouldLaunchOnApplicationStart(contribution)) {
-                contribution.launch!().then(() => this.forward(service, path, contribution));
+                contribution.launch?.().then(() => this.forward(service, path, contribution));
             } else {
                 this.forward(service, path, contribution);
             }
@@ -56,12 +43,12 @@ export class GLSPBackendContribution implements MessagingService.Contribution, G
     }
 
     protected forward(service: MessagingService, path: string, contribution: GLSPServerContribution): void {
-        service.wsChannel(path, async (params, connection) => {
+        service.wsChannel(path, async (_params, clientChannel) => {
             try {
-                connection.onClose(() => this.destroy(params.id));
-                await contribution.connect(connection);
+                clientChannel.onClose(() => contribution.dispose());
+                await contribution.connect(clientChannel);
             } catch (e) {
-                this.logger.error(`Error occurred while starting GLSP contribution. ${path}.`, e);
+                console.error(`Error occurred while starting GLSP contribution. ${path}.`, e);
             }
         });
     }

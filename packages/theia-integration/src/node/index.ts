@@ -16,3 +16,4 @@
 export * from './glsp-backend-contribution';
 export * from './glsp-server-contribution';
 export * from './glsp-socket-server-contribution';
+export * from './socket-connection-forwarder';

@@ -22,8 +22,8 @@ import { ProcessErrorEvent } from '@theia/process/lib/node/process';
 import { ProcessManager } from '@theia/process/lib/node/process-manager';
 import { RawProcess, RawProcessFactory } from '@theia/process/lib/node/raw-process';
 import * as cp from 'child_process';
+import { createInterface } from 'readline';
 import { GLSPContribution } from '../common';
-
 export const GLSPServerContribution = Symbol.for('GLSPServerContribution');
 
 /**
@@ -68,7 +68,7 @@ export namespace GLSPServerContributionOptions {
         return {
             launchOnDemand: false,
             launchedExternally: inDebugMode()
-        } as GLSPServerContributionOptions;
+        };
     }
 
     /**
@@ -77,12 +77,10 @@ export namespace GLSPServerContributionOptions {
      * @param options (partial) launch options that should be extended with default values (if necessary).
      */
     export function configure(options?: Partial<GLSPServerContributionOptions>): GLSPServerContributionOptions {
-        return options
-            ? ({
-                  ...createDefaultOptions(),
-                  ...options
-              } as GLSPServerContributionOptions)
-            : createDefaultOptions();
+        return {
+            ...createDefaultOptions(),
+            ...options
+        };
     }
 
     export const debugArgument = '--debug';
@@ -104,7 +102,7 @@ export namespace GLSPServerContributionOptions {
      * @returns `true` if the server should be launched on application start.
      */
     export function shouldLaunchOnApplicationStart(contribution: GLSPServerContribution): boolean {
-        return contribution.launch !== undefined && !contribution.options.launchOnDemand && !contribution.options.launchedExternally;
+        return !contribution.options.launchOnDemand && !contribution.options.launchedExternally;
     }
 }
 
@@ -127,9 +125,7 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
 
     @postConstruct()
     protected initialize(): void {
-        this.options = this.createContributionOptions
-            ? GLSPServerContributionOptions.configure(this.createContributionOptions())
-            : GLSPServerContributionOptions.createDefaultOptions();
+        this.options = GLSPServerContributionOptions.configure(this.createContributionOptions?.());
     }
 
     abstract connect(clientChannel: Channel): MaybePromise<void>;
@@ -138,8 +134,10 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
 
     protected spawnProcessAsync(command: string, args?: string[], options?: cp.SpawnOptions): Promise<RawProcess> {
         const rawProcess = this.processFactory({ command, args, options });
-        rawProcess.errorStream.on('data', this.processLogError.bind(this));
-        rawProcess.outputStream.on('data', this.processLogInfo.bind(this));
+
+        createInterface(rawProcess.outputStream).on('line', line => this.processLogInfo(line));
+        createInterface(rawProcess.errorStream).on('line', line => this.processLogError(line));
+
         return new Promise<RawProcess>((resolve, reject) => {
             rawProcess.onError((error: ProcessErrorEvent) => {
                 this.onDidFailSpawnProcess(error);
@@ -160,16 +158,12 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
         console.error(error);
     }
 
-    protected processLogError(data: string | Buffer): void {
-        if (data) {
-            console.error(`${this.id}: ${data}`);
-        }
+    protected processLogError(line: string): void {
+        console.error(`${this.id}: ${line}`);
     }
 
-    protected processLogInfo(data: string | Buffer): void {
-        if (data) {
-            console.info(`${this.id}: ${data}`);
-        }
+    protected processLogInfo(line: string): void {
+        console.info(`${this.id}: ${line}`);
     }
 
     dispose(): void {

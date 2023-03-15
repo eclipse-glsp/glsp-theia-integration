@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2022 EclipseSource and others.
+ * Copyright (c) 2019-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -23,15 +23,16 @@ import {
     ServerMessageAction,
     ServerStatusAction
 } from '@eclipse-glsp/client';
-import { ContributionProvider, Message, MessageService, MessageType } from '@theia/core';
+import { Message, MessageService, MessageType } from '@theia/core';
 import { ConfirmDialog, WidgetManager } from '@theia/core/lib/browser';
 import URI from '@theia/core/lib/common/uri';
-import { inject, injectable, named, postConstruct } from '@theia/core/shared/inversify';
+import { inject, injectable, postConstruct } from '@theia/core/shared/inversify';
 import { EditorManager } from '@theia/editor/lib/browser';
 import { FileDialogService } from '@theia/filesystem/lib/browser/file-dialog/file-dialog-service';
 import { FileService } from '@theia/filesystem/lib/browser/file-service';
 import { DiagramWidget, TheiaDiagramServer } from 'sprotty-theia';
 import { GLSPClientContribution } from '../glsp-client-contribution';
+import { GLSPClientProvider } from '../glsp-client-provider';
 import { deriveDiagramManagerId } from './glsp-diagram-manager';
 import { GLSPMessageOptions, GLSPNotificationManager } from './glsp-notification-manager';
 import { TheiaGLSPConnector } from './theia-glsp-connector';
@@ -58,9 +59,8 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
     @inject(GLSPNotificationManager)
     protected readonly notificationManager: GLSPNotificationManager;
 
-    @inject(ContributionProvider)
-    @named(GLSPClientContribution)
-    protected readonly clientContributions: ContributionProvider<GLSPClientContribution>;
+    @inject(GLSPClientProvider)
+    protected readonly glspClientProvider: GLSPClientProvider;
 
     private servers: Map<string, TheiaDiagramServer> = new Map();
     private widgetMessages: Map<string, string[]> = new Map();
@@ -68,27 +68,29 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
 
     abstract readonly diagramType: string;
     abstract readonly contributionId: string;
+
     protected glspClientContribution: GLSPClientContribution;
 
     @postConstruct()
     protected initialize(): void {
-        const contributions = this.clientContributions.getContributions().filter(contribution => contribution.id === this.contributionId);
-        if (contributions.length === 0) {
-            throw new Error(`Could not retrieve GLSP client contribution with id '${this.contributionId}}'`);
+        const clientContribution = this.glspClientProvider.getGLSPClientContribution(this.contributionId);
+        if (!clientContribution) {
+            throw new Error(`No GLSPClientContribution is configured for the id '${this.contributionId}'`);
         }
-        this.glspClientContribution = contributions[0];
-        this.glspClientContribution.glspClient.then(client => client.onActionMessage(this.onMessageReceived.bind(this)));
+        this.glspClientContribution = clientContribution;
     }
 
     connect(diagramServer: TheiaDiagramServer): void {
         this.servers.set(diagramServer.clientId, diagramServer);
-        this.glspClient.then(client =>
+
+        this.glspClient.then(client => {
+            client.onActionMessage(message => this.onMessageReceived(message));
             client.initializeClientSession({
                 clientSessionId: diagramServer.clientId,
                 diagramType: this.diagramType,
                 args: this.initializeClientSessionArgs(diagramServer)
-            })
-        );
+            });
+        });
         diagramServer.connect(this);
     }
 
@@ -113,15 +115,15 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
 
     async save(uri: string, action: ExportSvgAction): Promise<void> {
         const folder = await this.fileService.resolve(new URI(uri));
-        let file = await this.fileDialogService.showSaveDialog({ title: 'Export Diagram' , filters: { 'Images (*.svg)': ['svg'] }}, folder);
-        if(file) {
+        let file = await this.fileDialogService.showSaveDialog({ title: 'Export Diagram', filters: { 'Images (*.svg)': ['svg'] } }, folder);
+        if (file) {
             try {
-                if(!file.path.ext) {
+                if (!file.path.ext) {
                     file = new URI(file.path.fsPath() + '.svg');
                 }
                 await this.fileService.write(file, action.svg);
                 this.messageService.info(`Diagram exported to '${file.path.name}'`);
-            } catch(error) {
+            } catch (error) {
                 this.messageService.info(`Error exporting diagram '${error}'`);
             }
         }
