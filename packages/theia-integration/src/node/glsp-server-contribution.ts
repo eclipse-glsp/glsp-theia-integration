@@ -159,15 +159,11 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
     }
 
     protected processLogError(line: string): void {
-        if (line) {
-            console.error(`${this.id}: ${line}`);
-        }
+        console.error(`${this.id}: ${line}`);
     }
 
     protected processLogInfo(line: string): void {
-        if (line) {
-            console.info(`${this.id}: ${line}`);
-        }
+        console.info(`${this.id}: ${line}`);
     }
 
     dispose(): void {

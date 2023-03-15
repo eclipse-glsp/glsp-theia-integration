@@ -152,11 +152,8 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
     }
 
     protected override processLogInfo(line: string): void {
-        if (line) {
-            const message = line.toString();
-            if (message.startsWith(START_UP_COMPLETE_MSG)) {
-                this.onReadyDeferred.resolve();
-            }
+        if (line.startsWith(START_UP_COMPLETE_MSG)) {
+            this.onReadyDeferred.resolve();
         }
     }
 

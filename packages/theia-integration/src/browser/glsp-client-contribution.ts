@@ -55,7 +55,7 @@ export interface GLSPClientContribution extends GLSPContribution {
      * The {@link GLSPClientContribution.waitForActivation} function can be used to further delay the activation
      * @param app Theia`s frontend application
      */
-    activate(app: FrontendApplication): void;
+    activate(app: FrontendApplication): MaybePromise<void>;
 
     /**
      * Optional function to delay the activation of this client contribution until certain conditions are met
@@ -111,20 +111,19 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
 
     waitForActivation?(app: FrontendApplication): Promise<void>;
 
-    activate(app: FrontendApplication): void {
+    activate(app: FrontendApplication): MaybePromise<void> {
         if (this.toDispose.disposed) {
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             this.toDispose.push(new DisposableCollection(Disposable.create(() => {}))); // mark as not disposed
             if (this.waitForActivation) {
-                this.waitForActivation(app).then(() => this.doActivate());
-                return;
+                return this.waitForActivation(app).then(() => this.doActivate());
             }
-            this.doActivate();
+            return this.doActivate();
         }
     }
 
     deactivate(_app: FrontendApplication): void {
-        this.toDispose.dispose();
+        this.dispose();
     }
 
     protected async doActivate(): Promise<void> {
@@ -149,7 +148,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
                         ]);
                     }
                 },
-                { reconnecting: true }
+                { reconnecting: false }
             );
         } catch (e) {
             console.error(e);

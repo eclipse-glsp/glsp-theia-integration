@@ -31,9 +31,9 @@ export class GLSPFrontendContribution implements FrontendApplicationContribution
     @named(GLSPClientContribution)
     protected readonly contributors: ContributionProvider<GLSPClientContribution>;
 
-    onStart(app: FrontendApplication): void {
+    async onStart(app: FrontendApplication): Promise<void> {
         for (const contribution of this.contributors.getContributions()) {
-            contribution.activate(app);
+            await contribution.activate(app);
         }
     }
 

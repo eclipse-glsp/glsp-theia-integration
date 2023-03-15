@@ -19,6 +19,10 @@
         -   `forward` method now takes a `Channel` as first parameter instead of a `Connection`
 -   [deps] Switch Theia extension dependencies to peer dependencies. These dependencies are no longer autoresolved and have to be declared
     in the application package. [#138](https://github.com/eclipse-glsp/glsp-theia-integration/pull/138) - Contributed on behalf of STMicroelectronics <br>
+-   [API] Refactor `GLSPContribution` API [#146](https://github.com/eclipse-glsp/glsp-theia-integration/pull/146)
+    -   `GLSPClientContribution.waitForActivation` is now optional and is not implemented by default.
+    -   `GLSPClientProviderImpl` has been renamed to `GLSPClientProvider`, function keys have been renamed has well
+    -   Removed `GLSPContribution.Service` and dropped the related deprecated session concept.
 
 ## [1.0.0 - 30/06/2022](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v1.0.0)
 
