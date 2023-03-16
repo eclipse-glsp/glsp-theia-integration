@@ -13,16 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { collectIssueMarkers, NavigateToMarkerAction } from '@eclipse-glsp/client/lib';
+import { bindAsService, collectIssueMarkers, NavigateToMarkerAction } from '@eclipse-glsp/client/lib';
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from '@theia/core';
 import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
 import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
 import { GLSPCommandHandler, GLSPContextMenu, GLSPDiagramKeybindingContext } from './diagram';
 
 export function registerMarkerNavigationCommands(bind: interfaces.Bind): void {
-    bind(CommandContribution).to(NavigateToMarkerCommandContribution);
-    bind(MenuContribution).to(NavigateToMarkerMenuContribution);
-    bind(KeybindingContribution).to(NavigateToMarkerKeybindingContribution);
+    bindAsService(bind, CommandContribution, NavigateToMarkerCommandContribution);
+    bindAsService(bind, MenuContribution, NavigateToMarkerMenuContribution);
+    bindAsService(bind, KeybindingContribution, NavigateToMarkerKeybindingContribution);
 }
 
 export namespace NavigateToMarkerCommand {

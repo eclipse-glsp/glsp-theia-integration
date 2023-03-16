@@ -25,6 +25,9 @@
     -   Removed `GLSPContribution.Service` and dropped the related deprecated session concept.
 -   [API] Removed dependency to sprotty-theia [#149](https://github.com/eclipse-glsp/glsp-theia-integration/pull/149)
     -   Modules from `sprotty-theia` are no longer reexported via the browser index.ts file
+-   [diagram] Refactored `GLSPDiagramConfiguration`. Diagram containers are now child containers of the Theia DI container [#152](https://github.com/eclipse-glsp/glsp-theia-integration/pull/1525)
+    -   `GLSPDiagramConfiguration`
+        -   `doCreateContainer` method has been renamed to `configureContainer` and requires additional arguments.
 
 ## [1.0.0 - 30/06/2022](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v1.0.0)
 

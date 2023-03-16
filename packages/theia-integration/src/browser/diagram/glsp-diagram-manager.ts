@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2018-2020 TypeFox and others.
+ * Copyright (c) 2018-2023 TypeFox and others.
  * Modifications: (c) 2019-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
@@ -31,7 +31,7 @@ import URI from '@theia/core/lib/common/uri';
 import { inject, injectable, interfaces, postConstruct } from '@theia/core/shared/inversify';
 import { EditorManager, EditorPreferences } from '@theia/editor/lib/browser';
 import { TheiaOpenerOptionsNavigationService } from '../theia-opener-options-navigation-service';
-import { DiagramConfiguration, DiagramConfigurationRegistry } from './diagram-configuration';
+import { DiagramConfiguration, DiagramConfigurationRegistry } from './glsp-diagram-configuration';
 import { GLSPDiagramContextKeyService } from './glsp-diagram-context-key-service';
 import { GLSPDiagramWidget, GLSPDiagramWidgetOptions } from './glsp-diagram-widget';
 import { TheiaGLSPConnector } from './theia-glsp-connector';
@@ -52,6 +52,7 @@ export function registerDiagramManager(
 export const TheiaGLSPConnectorProvider = Symbol('TheiaGLSPConnectorProvider');
 
 export type TheiaGLSPConnectorProvider = (diagramType: string) => Promise<TheiaGLSPConnector>;
+
 @injectable()
 export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWidget> implements WidgetFactory {
     @inject(EditorPreferences)

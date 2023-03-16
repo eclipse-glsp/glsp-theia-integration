@@ -16,6 +16,7 @@
 import {
     AlignElementsAction,
     Alignment,
+    bindAsService,
     ReduceFunctionType,
     ResizeDimension,
     ResizeElementsAction,
@@ -29,9 +30,9 @@ import { GLSPDiagramMenus } from './glsp-diagram-commands';
 import { GLSPDiagramKeybindingContext } from './glsp-diagram-keybinding';
 
 export function registerDiagramLayoutCommands(bind: interfaces.Bind): void {
-    bind(CommandContribution).to(GLSPLayoutCommandContribution).inSingletonScope();
-    bind(MenuContribution).to(GLSPLayoutMenuContribution).inSingletonScope();
-    bind(KeybindingContribution).to(GLSPLayoutKeybindingContribution).inSingletonScope();
+    bindAsService(bind, CommandContribution, GLSPLayoutCommandContribution);
+    bindAsService(bind, MenuContribution, GLSPLayoutMenuContribution);
+    bindAsService(bind, KeybindingContribution, GLSPLayoutKeybindingContribution);
 }
 
 export namespace GLSPLayoutCommands {

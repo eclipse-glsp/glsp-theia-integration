@@ -15,21 +15,19 @@
  ********************************************************************************/
 // based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/sprotty/theia-sprotty-selection-forwarder.ts
 import {
-    ActionHandlerRegistry,
     AnyObject,
     hasArrayProp,
     hasObjectProp,
     hasStringProp,
-    IActionHandler,
-    IActionHandlerInitializer,
-    RequestModelAction,
-    SelectAction,
+    isSourceUriAware,
+    ModelSource,
+    SelectionListener,
+    SModelRoot,
     TYPES,
     ViewerOptions
 } from '@eclipse-glsp/client';
 import { SelectionService } from '@theia/core';
 import { inject, injectable, optional } from '@theia/core/shared/inversify';
-import { GlspSelectionData, GlspSelectionDataService } from './glsp-selection-data-service';
 
 export interface GlspSelection {
     additionalSelectionData?: GlspSelectionData;
@@ -38,6 +36,21 @@ export interface GlspSelection {
     sourceUri?: string;
 }
 
+export namespace GlspSelection {
+    export function is(object: unknown): object is GlspSelection {
+        return (
+            AnyObject.is(object) &&
+            hasArrayProp(object, 'selectedElementsIDs') &&
+            hasStringProp(object, 'widgetId') &&
+            hasStringProp(object, 'sourceUri', true) &&
+            hasObjectProp(object, 'additionalSelectionData', true)
+        );
+    }
+}
+
+/**
+ * @deprecated Use `GlspSelection.is()` instead
+ */
 export function isGlspSelection(selection?: unknown): selection is GlspSelection {
     return (
         AnyObject.is(selection) &&
@@ -48,37 +61,66 @@ export function isGlspSelection(selection?: unknown): selection is GlspSelection
     );
 }
 
+/**
+ * Additional domain specific selection data that can be attached to a {@link GlspSelection}
+ */
+export interface GlspSelectionData {
+    selectionDataMap: Map<string, unknown>;
+}
+
+/**
+ * Optional service that can be implemented to provide additional {@link GlspSelectionData} for
+ *  the {@link TheiaGLSPSelectionForwarder}
+ */
 @injectable()
-export class TheiaGLSPSelectionForwarder implements IActionHandlerInitializer, IActionHandler {
+export abstract class GlspSelectionDataService {
+    abstract getSelectionData(selectedElementIds: string[]): Promise<GlspSelectionData>;
+}
+
+/**
+ * Reacts to diagram selection changes and forwards the corresponding {@link GlspSelection}
+ * to Theia`s {@link SelectionService}
+ */
+@injectable()
+export class TheiaGLSPSelectionForwarder implements SelectionListener {
     @inject(GlspSelectionDataService)
     @optional()
     protected readonly selectionDataService?: GlspSelectionDataService;
 
     @inject(TYPES.ViewerOptions)
     protected viewerOptions: ViewerOptions;
+
     @inject(SelectionService)
-    protected selectionService: SelectionService;
+    protected theiaSelectionService: SelectionService;
+
+    @inject(TYPES.ModelSourceProvider)
+    protected modelSourceProvider: () => Promise<ModelSource>;
 
     protected sourceUri?: string;
 
-    initialize(registry: ActionHandlerRegistry): any {
-        registry.register(RequestModelAction.KIND, this);
-        registry.register(SelectAction.KIND, this);
+    protected async getSourceUri(): Promise<string | undefined> {
+        if (!this.sourceUri) {
+            const modelSource = await this.modelSourceProvider();
+            if (isSourceUriAware(modelSource)) {
+                this.sourceUri = modelSource.sourceURI;
+            }
+        }
+        return this.sourceUri;
     }
 
-    handle(action: RequestModelAction | SelectAction): void {
-        if (SelectAction.is(action) && this.selectionDataService) {
-            this.selectionDataService.getSelectionData(action.selectedElementsIDs).then(
-                (additionalSelectionData: any) =>
-                    (this.selectionService.selection = {
-                        selectedElementsIDs: action.selectedElementsIDs,
-                        additionalSelectionData: additionalSelectionData,
-                        widgetId: this.viewerOptions.baseDiv,
-                        sourceUri: this.sourceUri
-                    } as GlspSelection)
-            );
-        } else if (RequestModelAction.is(action) && action.options) {
-            this.sourceUri = (action as RequestModelAction).options!.sourceUri as string;
-        }
+    selectionChanged(_root: Readonly<SModelRoot>, selectedElements: string[]): void {
+        this.handleSelectionChanged(selectedElements);
+    }
+
+    async handleSelectionChanged(selectedElementsIDs: string[]): Promise<void> {
+        const sourceUri = await this.getSourceUri();
+        const additionalSelectionData = (await this.selectionDataService?.getSelectionData(selectedElementsIDs)) ?? undefined;
+        const glspSelection: GlspSelection = {
+            selectedElementsIDs,
+            additionalSelectionData,
+            widgetId: this.viewerOptions.baseDiv,
+            sourceUri: sourceUri
+        };
+        this.theiaSelectionService.selection = glspSelection;
     }
 }

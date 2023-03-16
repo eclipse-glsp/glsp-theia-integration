@@ -39,7 +39,6 @@ export class TheiaContextMenuService implements IContextMenuService {
 
     protected actionDispatcher?: IActionDispatcher;
 
-    // Rework and directly bind in DiagramContainer instead?
     connect(actionDispatcher: IActionDispatcher): void {
         this.actionDispatcher = actionDispatcher;
     }

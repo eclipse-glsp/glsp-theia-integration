@@ -13,51 +13,99 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { configureActionHandler, ExternalSourceModelChangedHandler, NavigateToExternalTargetAction, TYPES } from '@eclipse-glsp/client';
-import { CommandService, SelectionService } from '@theia/core';
-import { OpenerService } from '@theia/core/lib/browser';
-import { Container, inject, injectable } from '@theia/core/shared/inversify';
+import {
+    bindAsService,
+    configureActionHandler,
+    ContainerConfiguration,
+    ExternalSourceModelChangedHandler,
+    InstanceRegistry,
+    NavigateToExternalTargetAction,
+    TYPES
+} from '@eclipse-glsp/client';
+import { Container, inject, injectable, multiInject, optional } from '@theia/core/shared/inversify';
 import { TheiaContextMenuService } from '../theia-glsp-context-menu-service';
 import { TheiaNavigateToExternalTargetHandler } from '../theia-navigate-to-external-target-handler';
 import { TheiaSourceModelChangedHandler } from '../theia-source-model-changed-handler';
-import { DiagramConfiguration } from './diagram-configuration';
 import { connectTheiaContextMenuService, TheiaContextMenuServiceFactory } from './theia-context-menu-service';
-import { TheiaGLSPConnector, TheiaGLSPConnectorRegistry } from './theia-glsp-connector';
 import { TheiaGLSPSelectionForwarder } from './theia-glsp-selection-forwarder';
 import { connectTheiaMarkerManager, TheiaMarkerManager, TheiaMarkerManagerFactory } from './theia-marker-manager';
 
+export const DiagramContainerFactory = Symbol('DiagramContainerFactory');
+/**
+ * An injectable factory used to create the baseline diagram DI container for a new diagram widget.
+ * The default factory simply creates a child container from the main Theia DI container.
+ */
+export type DiagramContainerFactory = () => Container;
+
+export const DiagramConfiguration = Symbol('DiagramConfiguration');
+
+/**
+ * The `DiagramConfiguration` is responsible for creating and initializing a diagram container for a GLSP diagram widget.
+ */
+export interface DiagramConfiguration {
+    /**
+     * Creates a new diagram container for a widget with the given id and container configuration
+     * @param widgetId The id of the corresponding diagram widget
+     * @param containerConfiguration Additional container configuration.
+     *  Typically modules that are scoped to the Theia application context and  should be loaded on top of the generic diagram modules.
+     */
+    createContainer(widgetId: string, ...containerConfiguration: ContainerConfiguration): Container;
+    /** The id of the corresponding `DiagramWidget` */
+    readonly diagramType: string;
+}
+
+/**
+ * Registry for querying all configured {@link DiagramConfiguration}s.
+ */
+@injectable()
+export class DiagramConfigurationRegistry extends InstanceRegistry<DiagramConfiguration> {
+    constructor(@multiInject(DiagramConfiguration) @optional() diagramConfigs: DiagramConfiguration[]) {
+        super();
+        diagramConfigs.forEach(c => this.register(c.diagramType, c));
+    }
+}
+
+/**
+ * Default {@link DiagramConfiguration} implementation for GLSP diagrams.
+ * The created diagram container is a child container of the main Theia DI container.
+ * This means that services that are configured inside of the diagram container also have access (i.e. can inject)
+ * services from the main Theia DI container.
+ */
 @injectable()
 export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
-    @inject(SelectionService) protected selectionService: SelectionService;
-    @inject(OpenerService) protected openerService: OpenerService;
-    @inject(CommandService) protected readonly commandService: CommandService;
-    @inject(TheiaSourceModelChangedHandler) protected sourceModelChangedHandler: TheiaSourceModelChangedHandler;
-    @inject(TheiaContextMenuServiceFactory) protected readonly contextMenuServiceFactory: () => TheiaContextMenuService;
-    @inject(TheiaMarkerManagerFactory) protected readonly theiaMarkerManager: () => TheiaMarkerManager;
-    @inject(TheiaGLSPConnectorRegistry) protected readonly connectorRegistry: TheiaGLSPConnectorRegistry;
+    @inject(TheiaContextMenuServiceFactory)
+    protected readonly contextMenuServiceFactory: () => TheiaContextMenuService;
+    @inject(TheiaMarkerManagerFactory)
+    protected readonly theiaMarkerManager: () => TheiaMarkerManager;
+    @inject(DiagramContainerFactory)
+    protected readonly diagramContainerFactory: DiagramContainerFactory;
 
     abstract readonly diagramType: string;
 
-    createContainer(widgetId: string): Container {
-        const container = this.doCreateContainer(widgetId);
-
+    createContainer(widgetId: string, ...containerConfiguration: ContainerConfiguration): Container {
+        const container = this.diagramContainerFactory();
+        this.configureContainer(container, widgetId, ...containerConfiguration);
         this.initializeContainer(container);
         return container;
     }
 
-    abstract doCreateContainer(widgetId: string): Container;
+    /**
+     * Configures the freshly created DI container by loading the diagram specific modules and services.
+     * Theia specific bindings can be either be loaded as additional {@link ContainerConfiguration} or
+     *  setup using the {@link configure} method.
+     * @param container The newly created DI container
+     * @param widgetId  The id of the corresponding diagram widget.
+     * @param containerConfiguration Optional additional container configuration
+     */
+    abstract configureContainer(container: Container, widgetId: string, ...containerConfiguration: ContainerConfiguration): void;
 
     protected initializeContainer(container: Container): void {
-        container.bind(TheiaGLSPConnector).toConstantValue(this.connectorRegistry.get(this.diagramType));
-        container.bind(TYPES.IActionHandlerInitializer).to(TheiaGLSPSelectionForwarder);
-        container.bind(SelectionService).toConstantValue(this.selectionService);
-        container.bind(OpenerService).toConstantValue(this.openerService);
-        container.bind(CommandService).toConstantValue(this.commandService);
-        container.bind(ExternalSourceModelChangedHandler).toConstantValue(this.sourceModelChangedHandler);
+        bindAsService(container, TYPES.SelectionListener, TheiaGLSPSelectionForwarder);
 
+        container.bind(ExternalSourceModelChangedHandler).toService(TheiaSourceModelChangedHandler);
+        configureActionHandler(container, NavigateToExternalTargetAction.KIND, TheiaNavigateToExternalTargetHandler);
         connectTheiaContextMenuService(container, this.contextMenuServiceFactory);
         connectTheiaMarkerManager(container, this.theiaMarkerManager, this.diagramType);
-        configureActionHandler(container, NavigateToExternalTargetAction.KIND, TheiaNavigateToExternalTargetHandler);
     }
 }
 

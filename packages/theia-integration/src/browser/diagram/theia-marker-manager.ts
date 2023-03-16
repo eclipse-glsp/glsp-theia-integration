@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ExternalMarkerManager, IActionDispatcher, Marker, MarkerKind, TYPES } from '@eclipse-glsp/client/lib';
+import { bindOrRebind, ExternalMarkerManager, IActionDispatcher, Marker, MarkerKind, TYPES } from '@eclipse-glsp/client/lib';
 import URI from '@theia/core/lib/common/uri';
 import { Container, inject, injectable, optional, postConstruct } from '@theia/core/shared/inversify';
 import { ProblemManager } from '@theia/markers/lib/browser/problem/problem-manager';
@@ -30,35 +30,31 @@ export function connectTheiaMarkerManager(
 ): void {
     const markerManager = markerManagerFactory();
     if (markerManager instanceof ExternalMarkerManager) {
-        if (container.isBound(ExternalMarkerManager)) {
-            container.rebind(ExternalMarkerManager).toConstantValue(markerManager);
-        } else {
-            container.bind(ExternalMarkerManager).toConstantValue(markerManager);
-        }
+        bindOrRebind(container, ExternalMarkerManager).toConstantValue(markerManager);
         markerManager.languageLabel = languageLabel;
         markerManager.connect(container.get<IActionDispatcher>(TYPES.IActionDispatcher));
     }
 }
 
 class DiagnosticMarkers {
-    protected diagnotic2marker = new Map<Diagnostic, Marker>();
+    protected diagnostic2marker = new Map<Diagnostic, Marker>();
     get size(): number {
-        return this.diagnotic2marker.size;
+        return this.diagnostic2marker.size;
     }
     all(): IterableIterator<Marker> {
-        return this.diagnotic2marker.values();
+        return this.diagnostic2marker.values();
     }
     marker(diagnostic: Diagnostic): Marker | undefined {
-        return this.diagnotic2marker.get(diagnostic);
+        return this.diagnostic2marker.get(diagnostic);
     }
     add(diagnostic: Diagnostic, marker: Marker): Map<Diagnostic, Marker> {
-        return this.diagnotic2marker.set(diagnostic, marker);
+        return this.diagnostic2marker.set(diagnostic, marker);
     }
     delete(diagnostic: Diagnostic): boolean {
-        return this.diagnotic2marker.delete(diagnostic);
+        return this.diagnostic2marker.delete(diagnostic);
     }
     clear(): void {
-        return this.diagnotic2marker.clear();
+        return this.diagnostic2marker.clear();
     }
 }
 
