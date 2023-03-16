@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -17,9 +17,10 @@ import { configureActionHandler, ExternalSourceModelChangedHandler, NavigateToEx
 import { CommandService, SelectionService } from '@theia/core';
 import { OpenerService } from '@theia/core/lib/browser';
 import { Container, inject, injectable } from '@theia/core/shared/inversify';
-import { DiagramConfiguration, TheiaContextMenuService, TheiaDiagramServer } from 'sprotty-theia';
-import { TheiaSourceModelChangedHandler } from '../theia-model-source-changed-handler';
+import { TheiaContextMenuService } from '../theia-glsp-context-menu-service';
 import { TheiaNavigateToExternalTargetHandler } from '../theia-navigate-to-external-target-handler';
+import { TheiaSourceModelChangedHandler } from '../theia-source-model-changed-handler';
+import { DiagramConfiguration } from './diagram-configuration';
 import { connectTheiaContextMenuService, TheiaContextMenuServiceFactory } from './theia-context-menu-service';
 import { TheiaGLSPConnector, TheiaGLSPConnectorRegistry } from './theia-glsp-connector';
 import { TheiaGLSPSelectionForwarder } from './theia-glsp-selection-forwarder';
@@ -63,5 +64,4 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
 export function configureDiagramServer<T>(container: Container, server: { new (...args: any[]): T }): void {
     container.bind(server).toSelf().inSingletonScope();
     container.bind(TYPES.ModelSource).toService(server);
-    container.bind(TheiaDiagramServer).toService(server);
 }

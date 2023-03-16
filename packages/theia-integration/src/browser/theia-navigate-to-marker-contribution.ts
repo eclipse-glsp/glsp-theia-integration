@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2022 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -17,8 +17,7 @@ import { collectIssueMarkers, NavigateToMarkerAction } from '@eclipse-glsp/clien
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from '@theia/core';
 import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
 import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
-import { DiagramKeybindingContext } from 'sprotty-theia';
-import { GLSPCommandHandler, GLSPContextMenu } from './diagram';
+import { GLSPCommandHandler, GLSPContextMenu, GLSPDiagramKeybindingContext } from './diagram';
 
 export function registerMarkerNavigationCommands(bind: interfaces.Bind): void {
     bind(CommandContribution).to(NavigateToMarkerCommandContribution);
@@ -72,7 +71,7 @@ export class NavigateToMarkerMenuContribution implements MenuContribution {
 
 @injectable()
 export class NavigateToMarkerKeybindingContribution implements KeybindingContribution {
-    @inject(DiagramKeybindingContext) protected readonly diagramKeybindingContext: DiagramKeybindingContext;
+    @inject(GLSPDiagramKeybindingContext) protected readonly diagramKeybindingContext: GLSPDiagramKeybindingContext;
 
     registerKeybindings(keybindings: KeybindingRegistry): void {
         keybindings.registerKeybinding({

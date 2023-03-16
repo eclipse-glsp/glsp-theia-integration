@@ -1,5 +1,6 @@
 /********************************************************************************
- * Copyright (c) 2019-2022 EclipseSource and others.
+ * Copyright (c) 2018-2020 TypeFox and others.
+ * Modifications: (c) 2019-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,51 +14,46 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { codiconCSSString, configureServerActions, EditMode, GLSPActionDispatcher } from '@eclipse-glsp/client';
+// based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/theia/diagram-manager.ts
+
+import { codiconCSSString, configureServerActions, EditMode } from '@eclipse-glsp/client';
 import {
     ApplicationShell,
     FrontendApplicationContribution,
-    NavigatableWidgetOptions,
     OpenHandler,
     StorageService,
     WidgetFactory,
-    WidgetOpenerOptions
+    WidgetOpenerOptions,
+    WidgetOpenHandler
 } from '@theia/core/lib/browser';
 import { SelectionService } from '@theia/core/lib/common/selection-service';
 import URI from '@theia/core/lib/common/uri';
 import { inject, injectable, interfaces, postConstruct } from '@theia/core/shared/inversify';
-import { EditorPreferences } from '@theia/editor/lib/browser';
-import { DiagramConfiguration, DiagramManager, DiagramManagerProvider, DiagramWidget, DiagramWidgetOptions } from 'sprotty-theia';
+import { EditorManager, EditorPreferences } from '@theia/editor/lib/browser';
 import { TheiaOpenerOptionsNavigationService } from '../theia-opener-options-navigation-service';
+import { DiagramConfiguration, DiagramConfigurationRegistry } from './diagram-configuration';
 import { GLSPDiagramContextKeyService } from './glsp-diagram-context-key-service';
-import { GLSPDiagramWidget } from './glsp-diagram-widget';
+import { GLSPDiagramWidget, GLSPDiagramWidgetOptions } from './glsp-diagram-widget';
 import { TheiaGLSPConnector } from './theia-glsp-connector';
 
 export function registerDiagramManager(
     bind: interfaces.Bind,
-    diagramManagerServiceId: interfaces.ServiceIdentifier<DiagramManager>,
+    diagramManagerServiceId: interfaces.ServiceIdentifier<GLSPDiagramManager>,
     bindToSelf = true
 ): void {
     if (bindToSelf) {
         bind(diagramManagerServiceId).toSelf().inSingletonScope();
     }
-    bind(DiagramManager).toService(diagramManagerServiceId);
     bind(FrontendApplicationContribution).toService(diagramManagerServiceId);
     bind(OpenHandler).toService(diagramManagerServiceId);
     bind(WidgetFactory).toService(diagramManagerServiceId);
-    bind(DiagramManagerProvider).toProvider<DiagramManager>(
-        context => () =>
-            new Promise<DiagramManager>(resolve => {
-                resolve(context.container.get(diagramManagerServiceId));
-            })
-    );
 }
 
 export const TheiaGLSPConnectorProvider = Symbol('TheiaGLSPConnectorProvider');
 
 export type TheiaGLSPConnectorProvider = (diagramType: string) => Promise<TheiaGLSPConnector>;
 @injectable()
-export abstract class GLSPDiagramManager extends DiagramManager {
+export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWidget> implements WidgetFactory {
     @inject(EditorPreferences)
     protected readonly editorPreferences: EditorPreferences;
 
@@ -79,9 +75,19 @@ export abstract class GLSPDiagramManager extends DiagramManager {
     @inject(TheiaGLSPConnectorProvider)
     protected readonly connectorProvider: TheiaGLSPConnectorProvider;
 
+    @inject(EditorManager)
+    protected readonly editorManager: EditorManager;
+
+    @inject(DiagramConfigurationRegistry)
+    diagramConfigurationRegistry: DiagramConfigurationRegistry;
+
     abstract get fileExtensions(): string[];
 
+    abstract get diagramType(): string;
+
     protected _diagramConnector: TheiaGLSPConnector;
+
+    protected widgetCount = 0;
 
     @postConstruct()
     protected async initialize(): Promise<void> {
@@ -91,23 +97,54 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         }
     }
 
-    override async doOpen(widget: DiagramWidget, options?: WidgetOpenerOptions): Promise<void> {
+    override async doOpen(widget: GLSPDiagramWidget, maybeOptions?: WidgetOpenerOptions): Promise<void> {
         const widgetWasAttached = widget.isAttached;
-        await super.doOpen(widget);
-        const navigations = this.diagramNavigationService.determineNavigations(widget.uri.toString(true), options);
-        if (navigations.length > 0) {
-            if (widget.actionDispatcher instanceof GLSPActionDispatcher) {
-                widget.actionDispatcher.onceModelInitialized().then(() => widget.actionDispatcher.dispatchAll(navigations));
-            } else {
-                widget.actionDispatcher.dispatchAll(navigations);
-            }
-        } else if (!widgetWasAttached && widget instanceof GLSPDiagramWidget) {
+        const options: WidgetOpenerOptions = {
+            mode: 'activate',
+            ...maybeOptions
+        };
+        if (!widget.isAttached) {
+            this.attachWidget(widget, options);
+        }
+        if (options.mode === 'activate') {
+            await widget.getSvgElement();
+            await this.shell.activateWidget(widget.widgetId);
+        } else if (options.mode === 'reveal') {
+            await this.shell.revealWidget(widget.widgetId);
+        }
+        if (this.handleNavigations(widget, options)) {
+            return;
+        }
+        if (!widgetWasAttached && widget instanceof GLSPDiagramWidget) {
             widget.restoreViewportDataFromStorageService();
         }
     }
 
-    override async createWidget(options?: any): Promise<DiagramWidget> {
-        if (DiagramWidgetOptions.is(options)) {
+    protected attachWidget(widget: GLSPDiagramWidget, options?: WidgetOpenerOptions): void {
+        const currentEditor = this.editorManager.currentEditor;
+        const widgetOptions: ApplicationShell.WidgetOptions = {
+            area: 'main',
+            ...(options && options.widgetOptions ? options.widgetOptions : {})
+        };
+        if (!!currentEditor && currentEditor.editor.uri.toString(true) === widget.uri.toString(true)) {
+            widgetOptions.ref = currentEditor;
+            widgetOptions.mode =
+                options && options.widgetOptions && options.widgetOptions.mode ? options.widgetOptions.mode : 'open-to-right';
+        }
+        this.shell.addWidget(widget, widgetOptions);
+    }
+
+    protected handleNavigations(widget: GLSPDiagramWidget, options?: WidgetOpenerOptions): boolean {
+        const navigations = this.diagramNavigationService.determineNavigations(widget.uri.toString(true), options);
+        if (navigations.length > 0) {
+            widget.actionDispatcher.onceModelInitialized().then(() => widget.actionDispatcher.dispatchAll(navigations));
+            return true;
+        }
+        return false;
+    }
+
+    async createWidget(options?: any): Promise<GLSPDiagramWidget> {
+        if (GLSPDiagramWidgetOptions.is(options)) {
             const clientId = this.createClientId();
             const widgetId = this.createWidgetId(options);
             const config = this.getDiagramConfiguration(options);
@@ -134,7 +171,11 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         throw Error('DiagramWidgetFactory needs DiagramWidgetOptions but got ' + JSON.stringify(options));
     }
 
-    protected override createWidgetOptions(uri: URI, options?: GLSPWidgetOpenerOptions): DiagramWidgetOptions & GLSPWidgetOptions {
+    protected createClientId(): string {
+        return this.diagramType + '_' + this.widgetCount++;
+    }
+
+    protected override createWidgetOptions(uri: URI, options?: GLSPWidgetOpenerOptions): GLSPDiagramWidgetOptions {
         return {
             diagramType: this.diagramType,
             kind: 'navigatable',
@@ -142,18 +183,18 @@ export abstract class GLSPDiagramManager extends DiagramManager {
             iconClass: this.iconClass,
             label: uri.path.base,
             editMode: options && options.editMode ? options.editMode : EditMode.EDITABLE
-        } as DiagramWidgetOptions & GLSPWidgetOptions;
+        };
     }
 
-    protected createWidgetId(options: DiagramWidgetOptions): string {
+    protected createWidgetId(options: GLSPDiagramWidgetOptions): string {
         return `${this.diagramType}:${options.uri}`;
     }
 
-    protected getDiagramConfiguration(options: DiagramWidgetOptions): DiagramConfiguration {
+    protected getDiagramConfiguration(options: GLSPDiagramWidgetOptions): DiagramConfiguration {
         return this.diagramConfigurationRegistry.get(options.diagramType);
     }
 
-    override canHandle(uri: URI, _options?: WidgetOpenerOptions | undefined): number {
+    canHandle(uri: URI, _options?: WidgetOpenerOptions | undefined): number {
         for (const extension of this.fileExtensions) {
             if (uri.path.toString().endsWith(extension)) {
                 return 1001;
@@ -162,7 +203,7 @@ export abstract class GLSPDiagramManager extends DiagramManager {
         return 0;
     }
 
-    override get diagramConnector(): TheiaGLSPConnector {
+    get diagramConnector(): TheiaGLSPConnector {
         return this._diagramConnector;
     }
 
@@ -177,10 +218,6 @@ export abstract class GLSPDiagramManager extends DiagramManager {
 
 export interface GLSPWidgetOpenerOptions extends WidgetOpenerOptions {
     editMode?: string;
-}
-
-export interface GLSPWidgetOptions extends NavigatableWidgetOptions {
-    editMode: string;
 }
 
 export function deriveDiagramManagerId(diagramType: string): string {

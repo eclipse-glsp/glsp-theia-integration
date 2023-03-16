@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2022 EclipseSource and others.
+ * Copyright (c) 2019-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,10 +13,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ContainerContext, GLSPClientContribution, GLSPTheiaFrontendModule } from '@eclipse-glsp/theia-integration';
+import { ContainerContext, DiagramConfiguration, GLSPClientContribution, GLSPTheiaFrontendModule } from '@eclipse-glsp/theia-integration';
 import { CommandContribution, MenuContribution } from '@theia/core';
 import { KeybindingContext, KeybindingContribution } from '@theia/core/lib/browser';
-import { DiagramConfiguration } from 'sprotty-theia';
 import { WorkflowLanguage } from '../common/workflow-language';
 import { WorkflowDiagramConfiguration } from './diagram/workflow-diagram-configuration';
 import { WorkflowDiagramReadonlyViewContribution } from './diagram/workflow-diagram-readonly-view';
