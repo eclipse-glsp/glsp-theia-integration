@@ -5,7 +5,7 @@
   "scripts": {
     "build": "theia build --mode development",
     "prepare": "yarn build",
-    "start": "theia start --WF_GLSP=5007 --root-dir=../workspace",
+    "start": "theia start --WF_GLSP=0 --root-dir=../workspace",
     "start:debug": "theia start --WF_GLSP=5007  --root-dir=../workspace --loglevel=debug --debug",
     "watch": "theia build --watch --mode development"
   },
