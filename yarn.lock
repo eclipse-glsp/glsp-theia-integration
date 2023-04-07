@@ -934,12 +934,12 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@eclipse-glsp-examples/workflow-glsp@next":
-  version "1.1.0-next.35bf56e.230"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-1.1.0-next.35bf56e.230.tgz#015541f2833a6bdedcd9c9df74a24d27d04dfefb"
-  integrity sha512-9qRQ4QWO8rUf407L9+a8wzeRJC06ZTLFuJHwc5VxoOpKTpduK+vxQVmuK8InsntGYmYvCxOKl3VEFrBG1NsZmQ==
+"@eclipse-glsp-examples/workflow-glsp@1.1.0-RC07":
+  version "1.1.0-RC07"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-1.1.0-RC07.tgz#ee28bfc9cbf42f7d092ee1b3c635b3bddfb1933c"
+  integrity sha512-PQuUKWP1mxCvYXm6Gk/JB97+5vwa1OChbdpFPGluaG2+TPygML+hPWWKPM/ct5MlZIXzm3aPj+GTSs7ULhUaWA==
   dependencies:
-    "@eclipse-glsp/client" "1.1.0-next.35bf56e.230+35bf56e"
+    "@eclipse-glsp/client" "1.1.0-RC07"
     balloon-css "^0.5.0"
 
 "@eclipse-glsp/cli@1.1.0-next.7026c40.129+7026c40":
@@ -954,12 +954,12 @@
     semver "^7.3.7"
     shelljs "0.8.5"
 
-"@eclipse-glsp/client@1.1.0-next.35bf56e.230+35bf56e", "@eclipse-glsp/client@next":
-  version "1.1.0-next.35bf56e.230"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-1.1.0-next.35bf56e.230.tgz#63e739ccd67ea7ae9685985751368489d829471d"
-  integrity sha512-K5DCA95xeB7dpRKOwwmhpqzSpDX4jrMvd6HcYYuTqt+Hh8g4fBfLMvjUz/7ajqKV/Rr7e83uaeS9IdHuu6g5Uw==
+"@eclipse-glsp/client@1.1.0-RC07":
+  version "1.1.0-RC07"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-1.1.0-RC07.tgz#7bc70f5fea5df1870e3ce950511ec0a6dc6b6857"
+  integrity sha512-DRNF2/OAo972BKJvJV87X1CVeghKQtRyVtz/z7nb4fV8U7BZLF4FJnZjqFPit5LuuWTwMd8ctkni0/VEmpmkQQ==
   dependencies:
-    "@eclipse-glsp/protocol" "1.1.0-next.35bf56e.230+35bf56e"
+    "@eclipse-glsp/protocol" "1.1.0-RC07"
     autocompleter "5.1.0"
     sprotty "0.13.0-next.f4445dd.342"
 
@@ -1037,10 +1037,10 @@
   dependencies:
     prettier-plugin-packagejson "^2.3.0"
 
-"@eclipse-glsp/protocol@1.1.0-next.35bf56e.230+35bf56e":
-  version "1.1.0-next.35bf56e.230"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-1.1.0-next.35bf56e.230.tgz#b32def3b4a2d8819b9f9939758d88a49ba78b69e"
-  integrity sha512-7GCSjXrh2ubyGIH/7Wq/oDD7ULIjwstlSyIVhfyczzn1MNhpztLhWGHtvGE7mecMbYkli14DABUJj8ypJ5zV3g==
+"@eclipse-glsp/protocol@1.1.0-RC07":
+  version "1.1.0-RC07"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-1.1.0-RC07.tgz#ad689a62ae85481f12533ef09bdf93890e2e1761"
+  integrity sha512-LvDTODuQBWkl4lt9iTZXSeUSH9+0WqQ5FThgxvLreyOJmxsHjfVqCKyUvA73rVsGKlNF5rA19Vr6QmQSNFruAA==
   dependencies:
     sprotty-protocol "0.13.0-next.f4445dd.342"
     uuid "7.0.3"
