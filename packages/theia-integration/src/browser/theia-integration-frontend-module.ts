@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { bindAsService, bindOrRebind } from '@eclipse-glsp/client';
-import { bindContributionProvider, CommandContribution, MenuContribution } from '@theia/core';
+import { CommandContribution, MenuContribution, bindContributionProvider } from '@theia/core';
 import {
     FrontendApplicationContribution,
     KeybindingContext,
@@ -68,7 +68,6 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
 
     bind(GLSPDiagramContextKeyService).toSelf().inSingletonScope();
 
-    // Can be moved into diagram container right?
     bind(TheiaOpenerOptionsNavigationService).toSelf().inSingletonScope();
     bind(TheiaSourceModelChangedHandler).toSelf().inSingletonScope();
 
