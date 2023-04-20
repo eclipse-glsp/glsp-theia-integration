@@ -8,6 +8,7 @@
 -   [backend] Added support for using custom JVM args in `GLSPSocketServerContribution` [#125](https://github.com/eclipse-glsp/glsp-theia-integration/pull/125)
 -   [diagram] Fixed a bug that prevented proper focus tracking when switching between tabs [#132](https://github.com/eclipse-glsp/glsp-theia-integration/pull/132)
 -   [diagram] Fixed a bug that could cause dispatching of `SaveActions` even if the diagram is not dirty [#141](https://github.com/eclipse-glsp/glsp-theia-integration/pull/141) - Contributed on behalf of STMicroelectronics
+-   [validation] Only keep live validation markers in problems view and clean all others [153](https://github.com/eclipse-glsp/glsp-theia-integration/pull/153)
 
 ### Breaking Changes
 

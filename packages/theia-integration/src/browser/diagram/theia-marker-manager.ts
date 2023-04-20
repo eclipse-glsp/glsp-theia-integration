@@ -13,13 +13,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { bindOrRebind, ExternalMarkerManager, IActionDispatcher, Marker, MarkerKind, TYPES } from '@eclipse-glsp/client/lib';
+import { bindOrRebind, ExternalMarkerManager, IActionDispatcher, Marker, MarkerKind, MarkersReason, TYPES } from '@eclipse-glsp/client/lib';
 import URI from '@theia/core/lib/common/uri';
 import { Container, inject, injectable, optional, postConstruct } from '@theia/core/shared/inversify';
 import { ProblemManager } from '@theia/markers/lib/browser/problem/problem-manager';
 import { Diagnostic } from 'vscode-languageserver-types';
 
+import { ApplicationShell, Widget } from '@theia/core/lib/browser';
 import { SelectionWithElementIds } from '../theia-opener-options-navigation-service';
+import { getDiagramWidget } from './glsp-diagram-widget';
 
 export const TheiaMarkerManagerFactory = Symbol('TheiaMarkerManagerFactory');
 
@@ -36,19 +38,42 @@ export function connectTheiaMarkerManager(
     }
 }
 
+type ValidationMarker = Marker & { reason?: string };
+
 class DiagnosticMarkers {
-    protected diagnostic2marker = new Map<Diagnostic, Marker>();
+    protected diagnostic2marker = new Map<Diagnostic, ValidationMarker>();
     get size(): number {
         return this.diagnostic2marker.size;
     }
-    all(): IterableIterator<Marker> {
+    all(): IterableIterator<ValidationMarker> {
         return this.diagnostic2marker.values();
     }
-    marker(diagnostic: Diagnostic): Marker | undefined {
+    marker(diagnostic: Diagnostic): ValidationMarker | undefined {
         return this.diagnostic2marker.get(diagnostic);
     }
-    add(diagnostic: Diagnostic, marker: Marker): Map<Diagnostic, Marker> {
+    add(diagnostic: Diagnostic, marker: ValidationMarker): Map<Diagnostic, ValidationMarker> {
         return this.diagnostic2marker.set(diagnostic, marker);
+    }
+    getMarkerByOrigin(origin?: string): ValidationMarker[] {
+        return Array.from(this.diagnostic2marker.values()).filter(marker => marker.reason === origin);
+    }
+    getByOrigin(origin?: string): Diagnostic[] {
+        const diagnostics: Diagnostic[] = [];
+        this.diagnostic2marker.forEach((marker, diagnostic) => {
+            if (marker.reason === origin) {
+                diagnostics.push(diagnostic);
+            }
+        });
+        return diagnostics;
+    }
+    deleteByOrigin(origin?: string): void {
+        const toDelete: Diagnostic[] = [];
+        this.diagnostic2marker.forEach((marker, diagnostic) => {
+            if (marker.reason === origin) {
+                toDelete.push(diagnostic);
+            }
+        });
+        toDelete.forEach(diagnostic => this.delete(diagnostic));
     }
     delete(diagnostic: Diagnostic): boolean {
         return this.diagnostic2marker.delete(diagnostic);
@@ -60,24 +85,30 @@ class DiagnosticMarkers {
 
 @injectable()
 export class TheiaMarkerManager extends ExternalMarkerManager {
-    @inject(ProblemManager) @optional() protected readonly problemManager?: ProblemManager;
+    protected markerReasonsToKeep = [MarkersReason.LIVE];
 
-    protected uri2markers = new Map<URI, DiagnosticMarkers>();
+    @inject(ProblemManager) @optional() protected readonly problemManager?: ProblemManager;
+    @inject(ApplicationShell) @optional() protected readonly shell?: ApplicationShell;
+
+    protected uri2markers = new Map<string, DiagnosticMarkers>();
 
     protected markers(uri: URI): DiagnosticMarkers {
-        const marker = this.uri2markers.get(uri);
-        if (marker === undefined) {
+        const markers = this.uri2markers.get(uri.toString());
+        if (markers === undefined) {
             const newMarker = new DiagnosticMarkers();
-            this.uri2markers.set(uri, newMarker);
+            this.uri2markers.set(uri.toString(), newMarker);
             return newMarker;
         }
-        return marker;
+        return markers;
     }
 
     @postConstruct()
     protected initialize(): void {
         if (this.problemManager) {
             this.problemManager.onDidChangeMarkers(uri => this.refreshMarker(uri));
+        }
+        if (this.shell) {
+            this.shell.onDidRemoveWidget(widget => this.handleWidgetClose(widget));
         }
     }
 
@@ -103,23 +134,25 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
         }
     }
 
-    setMarkers(markers: Marker[], sourceUri?: string): void {
+    setMarkers(markers: Marker[], reason?: string, sourceUri?: string): void {
         if (this.problemManager === undefined) {
             return;
         }
         const uri = new URI(sourceUri);
+
+        this.markers(uri).deleteByOrigin(reason);
+        const existingOtherMarkers = [...this.markers(uri).all()];
         this.markers(uri).clear();
-        this.problemManager.setMarkers(
-            uri,
-            this.languageLabel,
-            markers.map(marker => this.createDiagnostic(uri, marker))
-        );
+
+        const existingOtherDiagnostics = existingOtherMarkers.map(marker => this.createDiagnostic(uri, marker, marker.reason));
+        const newDiagnostics = markers.map(marker => this.createDiagnostic(uri, marker, reason));
+        this.problemManager.setMarkers(uri, this.languageLabel, [...existingOtherDiagnostics, ...newDiagnostics]);
     }
 
-    protected createDiagnostic(uri: URI, marker: Marker): Diagnostic {
+    protected createDiagnostic(uri: URI, marker: Marker, origin?: string): Diagnostic {
         const range = SelectionWithElementIds.createRange([marker.elementId]);
         const diagnostic = Diagnostic.create(range, marker.label, this.toSeverity(marker.kind));
-        this.markers(uri).add(diagnostic, marker);
+        this.markers(uri).add(diagnostic, { ...marker, reason: origin });
         return diagnostic;
     }
 
@@ -134,5 +167,23 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
             default:
                 return undefined;
         }
+    }
+
+    protected handleWidgetClose(widget: Widget): void {
+        const resourceUri = getDiagramWidget(widget)?.getResourceUri();
+        if (resourceUri) {
+            this.clearMarkers(resourceUri, this.markerReasonsToKeep);
+        }
+    }
+
+    protected clearMarkers(uri: URI, exceptThoseWithReasons: string[]): void {
+        const diagnostics = [];
+        for (const reason of exceptThoseWithReasons) {
+            const markersToKeep = this.markers(uri).getMarkerByOrigin(reason);
+            this.markers(uri).clear();
+            const diagnosticsToKeep = markersToKeep.map(marker => this.createDiagnostic(uri, marker, reason));
+            diagnostics.push(...diagnosticsToKeep);
+        }
+        this.problemManager?.setMarkers(uri, this.languageLabel, diagnostics);
     }
 }
