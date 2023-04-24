@@ -13,7 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { bindContributionProvider, CommandContribution, MenuContribution } from '@theia/core';
+import { bindAsService, bindOrRebind } from '@eclipse-glsp/client';
+import { CommandContribution, MenuContribution, bindContributionProvider } from '@theia/core';
 import {
     FrontendApplicationContribution,
     KeybindingContext,
@@ -23,8 +24,8 @@ import {
 import { ContainerModule, interfaces } from '@theia/core/shared/inversify';
 import { NotificationManager } from '@theia/messages/lib/browser/notifications-manager';
 import { GLSPContribution } from '../common';
-import { DiagramConfigurationRegistry } from './diagram/diagram-configuration';
 import { GLSPDiagramCommandContribution, GLSPDiagramMenuContribution } from './diagram/glsp-diagram-commands';
+import { DiagramConfigurationRegistry, DiagramContainerFactory } from './diagram/glsp-diagram-configuration';
 import { GLSPDiagramContextKeyService } from './diagram/glsp-diagram-context-key-service';
 import { GLSPDiagramKeybindingContext, GLSPDiagramKeybindingContribution } from './diagram/glsp-diagram-keybinding';
 import { TheiaGLSPConnectorProvider } from './diagram/glsp-diagram-manager';
@@ -41,44 +42,43 @@ import { TheiaOpenerOptionsNavigationService } from './theia-opener-options-navi
 import { TheiaSourceModelChangedHandler } from './theia-source-model-changed-handler';
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
-    bind(DiagramConfigurationRegistry).toSelf().inSingletonScope();
-    bind(TheiaFileSaver).toSelf().inSingletonScope();
-    bind(CommandContribution).to(GLSPDiagramCommandContribution).inSingletonScope();
-    bind(MenuContribution).to(GLSPDiagramMenuContribution).inSingletonScope();
-    bind(GLSPDiagramKeybindingContext).toSelf().inSingletonScope();
-    bind(KeybindingContext).toService(GLSPDiagramKeybindingContext);
-    bind(GLSPDiagramKeybindingContribution).toSelf().inSingletonScope();
-    bind(KeybindingContribution).toService(GLSPDiagramKeybindingContribution);
-
+    const context = { bind, unbind, isBound, rebind };
+    // GLSP Contribution API
     bindContributionProvider(bind, GLSPClientContribution);
-    bind(GLSPFrontendContribution).toSelf().inSingletonScope();
-    bind(FrontendApplicationContribution).toService(GLSPFrontendContribution);
-
+    bindAsService(context, FrontendApplicationContribution, GLSPFrontendContribution);
     bind(GLSPClientProvider).toSelf().inSingletonScope();
-
     bind(GLSPContribution.Service)
         .toDynamicValue(({ container }) => WebSocketConnectionProvider.createProxy(container, GLSPContribution.servicePath))
         .inSingletonScope();
 
+    // Diagram Command API
+    bindAsService(context, CommandContribution, GLSPDiagramCommandContribution);
+    bindAsService(context, MenuContribution, GLSPDiagramMenuContribution);
+    bindAsService(context, KeybindingContext, GLSPDiagramKeybindingContext);
+    bindAsService(context, KeybindingContribution, GLSPDiagramKeybindingContribution);
+
+    // Misc
+    bind(DiagramConfigurationRegistry).toSelf().inSingletonScope();
+    bind(DiagramContainerFactory).toFactory(ctx => () => ctx.container.createChild());
+
+    bind(TheiaFileSaver).toSelf().inSingletonScope();
+
     bind(GLSPNotificationManager).toSelf().inSingletonScope();
-    if (isBound(NotificationManager)) {
-        rebind(NotificationManager).toService(GLSPNotificationManager);
-    } else {
-        bind(NotificationManager).toService(GLSPNotificationManager);
-    }
+    bindOrRebind(context, NotificationManager).toService(GLSPNotificationManager);
 
     bind(GLSPDiagramContextKeyService).toSelf().inSingletonScope();
+
     bind(TheiaOpenerOptionsNavigationService).toSelf().inSingletonScope();
     bind(TheiaSourceModelChangedHandler).toSelf().inSingletonScope();
 
-    bind(TheiaContextMenuServiceFactory).toFactory(context => () => {
-        const container = context.container.createChild();
+    bind(TheiaContextMenuServiceFactory).toFactory(ctx => () => {
+        const container = ctx.container.createChild();
         container.bind(TheiaContextMenuService).toSelf().inSingletonScope();
         return container.get(TheiaContextMenuService);
     });
 
-    bind(TheiaMarkerManagerFactory).toFactory(context => () => {
-        const container = context.container.createChild();
+    bind(TheiaMarkerManagerFactory).toFactory(ctx => () => {
+        const container = ctx.container.createChild();
         container.bind(TheiaMarkerManager).toSelf().inSingletonScope();
         return container.get(TheiaMarkerManager);
     });

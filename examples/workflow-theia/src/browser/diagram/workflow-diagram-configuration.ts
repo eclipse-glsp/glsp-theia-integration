@@ -14,7 +14,8 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-import { createWorkflowDiagramContainer } from '@eclipse-glsp-examples/workflow-glsp/lib';
+import { initializeWorkflowDiagramContainer } from '@eclipse-glsp-examples/workflow-glsp/lib';
+import { ContainerConfiguration } from '@eclipse-glsp/client';
 import { configureDiagramServer, GLSPDiagramConfiguration, GLSPTheiaDiagramServer } from '@eclipse-glsp/theia-integration';
 import { Container, injectable } from '@theia/core/shared/inversify';
 
@@ -24,8 +25,8 @@ import { WorkflowLanguage } from '../../common/workflow-language';
 export class WorkflowDiagramConfiguration extends GLSPDiagramConfiguration {
     diagramType: string = WorkflowLanguage.diagramType;
 
-    doCreateContainer(widgetId: string): Container {
-        const container = createWorkflowDiagramContainer(widgetId);
+    configureContainer(container: Container, widgetId: string, ...containerConfiguration: ContainerConfiguration): Container {
+        initializeWorkflowDiagramContainer(container, widgetId, ...containerConfiguration);
         configureDiagramServer(container, GLSPTheiaDiagramServer);
         return container;
     }

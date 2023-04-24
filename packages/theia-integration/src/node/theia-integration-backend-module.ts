@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (C) 2019-2021 EclipseSource and others.
+ * Copyright (c) 2019-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,7 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { bindContributionProvider, ConnectionHandler, ILogger, JsonRpcConnectionHandler } from '@theia/core/lib/common';
+import { bindAsService } from '@eclipse-glsp/protocol';
+import { bindContributionProvider, ConnectionHandler, JsonRpcConnectionHandler } from '@theia/core/lib/common';
 import { MessagingService } from '@theia/core/lib/node/messaging/messaging-service';
 import { ContainerModule } from '@theia/core/shared/inversify';
 
@@ -22,8 +23,7 @@ import { GLSPBackendContribution } from './glsp-backend-contribution';
 import { GLSPServerContribution } from './glsp-server-contribution';
 
 export default new ContainerModule(bind => {
-    bind(GLSPBackendContribution).toSelf().inSingletonScope();
-    bind(MessagingService.Contribution).toService(GLSPBackendContribution);
+    bindAsService(bind, MessagingService.Contribution, GLSPBackendContribution);
     bind(GLSPContribution.Service).toService(GLSPBackendContribution);
     bindContributionProvider(bind, GLSPServerContribution);
 
@@ -32,12 +32,4 @@ export default new ContainerModule(bind => {
             ctx => new JsonRpcConnectionHandler(GLSPContribution.servicePath, () => ctx.container.get(GLSPContribution.Service))
         )
         .inSingletonScope();
-
-    bind(ILogger)
-        .toDynamicValue(ctx => {
-            const logger = ctx.container.get<ILogger>(ILogger);
-            return logger.child('glsp');
-        })
-        .inSingletonScope()
-        .whenTargetNamed('glsp');
 });

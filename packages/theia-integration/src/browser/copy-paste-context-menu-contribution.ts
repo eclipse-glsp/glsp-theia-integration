@@ -13,13 +13,14 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { bindAsService } from '@eclipse-glsp/client';
 import { MenuContribution, MenuModelRegistry } from '@theia/core';
 import { CommonCommands } from '@theia/core/lib/browser';
 import { injectable, interfaces } from '@theia/core/shared/inversify';
 import { TheiaGLSPContextMenu } from './theia-glsp-context-menu-service';
 
 export function registerCopyPasteContextMenu(bind: interfaces.Bind): void {
-    bind(MenuContribution).to(CopyPasteMenuContribution);
+    bindAsService(bind, MenuContribution, CopyPasteMenuContribution);
 }
 
 @injectable()
