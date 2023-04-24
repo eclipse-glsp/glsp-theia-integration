@@ -14,5 +14,6 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
+export * from './channel-connection';
 export * from './glsp-contribution';
 export * from './glsp-diagram-language';

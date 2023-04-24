@@ -72,6 +72,44 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Launch Workflow Browser Backend (Integrated Node GLSP Server)",
+      "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
+      "args": [
+        "--hostname=localhost",
+        "--port=3000",
+        "--no-cluster",
+        "--root-dir=${workspaceRoot}/examples/workspace",
+        "--app-project-path=${workspaceRoot}/examples/browser-app",
+        "--debug",
+        "--loglevel=debug",
+        "--integratedNode"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
+        "${workspaceRoot}/node_modules/@eclipse-glsp/server/*/lib/**/*.js",
+        "${workspaceRoot}/node_modules/@eclipse-glsp/graph/*/lib/**/*.js",
+        "${workspaceRoot}/node_modules/@eclipse-glsp/layout-elk/*/lib/**/*.js",
+        "${workspaceRoot}/node_modules/@eclipse-glsp-examples/workflow-server/*/lib/**/*.js",
+        "${workspaceRoot}/examples/browser-app/lib/**/*.js",
+        "${workspaceRoot}/examples/browser-app/src-gen/**/*.js",
+        "${workspaceRoot}/packages/*/lib/**/*.js",
+        "${workspaceRoot}/examples/*/lib/**/*.js"
+      ],
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "presentation": {
+        "group": "Browser launch configurations",
+        "order": 1
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch Workflow Browser Backend (External GLSP Server)",
       "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
       "args": [
@@ -196,6 +234,14 @@
       "name": "Launch Workflow Browser Backend & Frontend (External GLSP Server)",
       "configurations": [
         "Launch Workflow Browser Backend (External GLSP Server)",
+        "Launch Workflow Browser Frontend"
+      ],
+      "stopAll": true
+    },
+    {
+      "name": "Launch Workflow Browser Backend & Frontend (Integrated Node GLSP Server)",
+      "configurations": [
+        "Launch Workflow Browser Backend (Integrated Node GLSP Server)",
         "Launch Workflow Browser Frontend"
       ],
       "stopAll": true

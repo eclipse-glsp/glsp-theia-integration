@@ -20,6 +20,7 @@ import { ContainerModule } from '@theia/core/shared/inversify';
 
 import { GLSPContribution } from '../common';
 import { GLSPBackendContribution } from './glsp-backend-contribution';
+import { ServerContainerFactory } from './glsp-node-server-contribution';
 import { GLSPServerContribution } from './glsp-server-contribution';
 
 export default new ContainerModule(bind => {
@@ -32,4 +33,6 @@ export default new ContainerModule(bind => {
             ctx => new JsonRpcConnectionHandler(GLSPContribution.servicePath, () => ctx.container.get(GLSPContribution.Service))
         )
         .inSingletonScope();
+
+    bind(ServerContainerFactory).toFactory(ctx => () => ctx.container.createChild());
 });

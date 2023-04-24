@@ -26,7 +26,7 @@ const { version, isSnapShot } = config;
 export const JAR_FILE = resolve(join(SERVER_DIR, `org.eclipse.glsp.example.workflow-${version}${isSnapShot ? '-SNAPSHOT' : ''}-glsp.jar`));
 
 @injectable()
-export class WorkflowGLServerContribution extends GLSPSocketServerContribution {
+export class WorkflowGLSPSocketServerContribution extends GLSPSocketServerContribution {
     readonly id = WorkflowLanguage.contributionId;
 
     createContributionOptions(): Partial<GLSPSocketServerContributionOptions> {

@@ -34,8 +34,8 @@ export class GLSPBackendContribution implements MessagingService.Contribution {
     configure(service: MessagingService): void {
         for (const contribution of this.contributors.getContributions()) {
             const path = GLSPContribution.getPath(contribution);
-            if (GLSPServerContributionOptions.shouldLaunchOnApplicationStart(contribution)) {
-                contribution.launch?.().then(() => this.forward(service, path, contribution));
+            if (GLSPServerContributionOptions.shouldLaunchOnApplicationStart(contribution) && contribution.launch) {
+                contribution.launch().then(() => this.forward(service, path, contribution));
             } else {
                 this.forward(service, path, contribution);
             }

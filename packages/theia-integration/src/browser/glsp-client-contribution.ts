@@ -34,8 +34,7 @@ import '../../css/diagram.css';
 import '../../css/sprotty-theia.css';
 import '../../css/theia-dialogs.css';
 import '../../css/tool-palette.css';
-import { GLSPContribution } from '../common';
-import { createChannelConnection } from './channel-connection';
+import { GLSPContribution, createChannelConnection } from '../common';
 import { TheiaJsonrpcGLSPClient } from './theia-jsonrpc-glsp-client';
 export const GLSPClientContribution = Symbol.for('GLSPClientContribution');
 
