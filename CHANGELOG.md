@@ -29,6 +29,7 @@
 -   [diagram] Refactored `GLSPDiagramConfiguration`. Diagram containers are now child containers of the Theia DI container [#152](https://github.com/eclipse-glsp/glsp-theia-integration/pull/1525)
     -   `GLSPDiagramConfiguration`
         -   `doCreateContainer` method has been renamed to `configureContainer` and requires additional arguments.
+-   [theia] BaseGLSPClientContribution: changed `createGLSPClient(connectionProvider: ConnectionProvider)` to an async function
 
 ## [1.0.0 - 30/06/2022](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v1.0.0)
 

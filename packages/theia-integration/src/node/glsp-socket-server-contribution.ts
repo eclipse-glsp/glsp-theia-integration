@@ -20,8 +20,10 @@ import { injectable, postConstruct } from '@theia/core/shared/inversify';
 import { RawProcess } from '@theia/process/lib/node/raw-process';
 import * as fs from 'fs';
 import * as net from 'net';
+import { WebSocket } from 'ws';
 import { BaseGLSPServerContribution, GLSPServerContributionOptions } from './glsp-server-contribution';
 import { SocketConnectionForwarder } from './socket-connection-forwarder';
+import { WebSocketConnectionForwarder } from './websocket-connection-forwarder';
 
 /**
  * Message that is expected to be printed by the embedded server process to the stdout once the
@@ -41,6 +43,9 @@ export interface GLSPSocketServerContributionOptions extends GLSPServerContribut
 
     /** Additional arguments that should be passed when starting the server process. */
     additionalArgs?: string[];
+
+    /** Path of the WebSocket GLSP Server. */
+    webSocketPath?: string;
 }
 
 export namespace GLSPSocketServerContributionOptions {
@@ -50,7 +55,8 @@ export namespace GLSPSocketServerContributionOptions {
             ...GLSPServerContributionOptions.createDefaultOptions(),
             socketConnectionOptions: {
                 port: NaN
-            }
+            },
+            webSocketPath: getWebSocketPath()
         };
     }
 
@@ -64,6 +70,21 @@ export namespace GLSPSocketServerContributionOptions {
             ...createDefaultOptions(),
             ...options
         };
+    }
+
+    export const webSocketArgument = '--webSocket';
+
+    /**
+     * Utility function to parse the WebSocket Server path if the GLSP Server should be started in WebSocket mode.
+     * @returns the path value of the {@link webSocketArgument `--webSocket`} argument if set, `undefined` instead.
+     */
+    export function getWebSocketPath(): string | undefined {
+        const argsKey = `--${webSocketArgument.replace('--', '').replace('=', '')}=`;
+        const args = process.argv.filter(a => a.startsWith(argsKey));
+        if (args.length > 0) {
+            return args[0].substring(argsKey.length);
+        }
+        return undefined;
     }
 }
 
@@ -84,6 +105,9 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
     abstract override createContributionOptions(): Partial<GLSPSocketServerContributionOptions>;
 
     connect(clientChannel: Channel): MaybePromise<void> {
+        if (this.options.webSocketPath) {
+            return this.connectToWebSocketServer(clientChannel);
+        }
         return this.connectToSocketServer(clientChannel);
     }
 
@@ -132,6 +156,10 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
             `${this.options.socketConnectionOptions.port}`
         ];
 
+        if (this.options.webSocketPath) {
+            args.push('--websocket');
+        }
+
         if (this.options.socketConnectionOptions.host) {
             args.push('--host', `${this.options.socketConnectionOptions.host}`);
         }
@@ -148,6 +176,10 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
 
     protected launchNodeProcess(): Promise<RawProcess> {
         const args = [this.options.executable!, '--port', `${this.options.socketConnectionOptions.port}`];
+
+        if (this.options.webSocketPath) {
+            args.push('--webSocket');
+        }
 
         if (this.options.socketConnectionOptions.host) {
             args.push('--host', `${this.options.socketConnectionOptions.host}`);
@@ -180,16 +212,20 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
         }
     }
 
-    protected async connectToSocketServer(clientChannel: Channel): Promise<void> {
+    protected checkServerPort(): void {
         if (isNaN(this.options.socketConnectionOptions.port)) {
             throw new Error(
                 // eslint-disable-next-line max-len
                 `Could not connect to to GLSP Server. The given server port is not a number: ${this.options.socketConnectionOptions.port}`
             );
         }
+    }
+
+    protected async connectToSocketServer(clientChannel: Channel): Promise<void> {
+        this.checkServerPort();
         const socket = new net.Socket();
 
-        this.forward(clientChannel, socket);
+        this.forwardToSocketConnection(clientChannel, socket);
         if (clientChannel instanceof ForwardingChannel) {
             socket.on('error', error => clientChannel.onErrorEmitter.fire(error));
         }
@@ -197,8 +233,28 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
         this.toDispose.push(Disposable.create(() => socket.destroy()));
     }
 
-    protected forward(clientChannel: Channel, socket: net.Socket): void {
+    protected forwardToSocketConnection(clientChannel: Channel, socket: net.Socket): void {
         this.toDispose.push(new SocketConnectionForwarder(clientChannel, socket));
+    }
+
+    protected async connectToWebSocketServer(clientChannel: Channel): Promise<void> {
+        this.checkServerPort();
+        if (!this.options.webSocketPath || this.options.webSocketPath === '') {
+            throw new Error('Could not connect to to GLSP Server. The WebSocket path cannot be empty');
+        }
+
+        const port = this.options.socketConnectionOptions.port;
+        const id = this.options.webSocketPath;
+
+        const webSocket = new WebSocket(`ws://localhost:${port}/${id}`);
+        this.forwardToWebSocketConnection(clientChannel, webSocket);
+        if (clientChannel instanceof ForwardingChannel) {
+            webSocket.onerror = error => clientChannel.onErrorEmitter.fire(error);
+        }
+    }
+
+    protected forwardToWebSocketConnection(clientChannel: Channel, webSocket: WebSocket): void {
+        this.toDispose.push(new WebSocketConnectionForwarder(clientChannel, webSocket));
     }
 }
 
