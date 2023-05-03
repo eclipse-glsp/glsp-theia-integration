@@ -115,6 +115,14 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
         return this.onReadyDeferred.promise;
     }
 
+    protected getPortFromStartupMessage(message: string): number | undefined {
+        if (message.includes(START_UP_COMPLETE_MSG)) {
+            const port = message.substring(message.lastIndexOf(':') + 1);
+            return parseInt(port, 10);
+        }
+        return undefined;
+    }
+
     protected launchJavaProcess(): Promise<RawProcess> {
         const args = [
             ...this.getJavaProcessJvmArgs(),
@@ -153,6 +161,21 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
 
     protected override processLogInfo(line: string): void {
         if (line.startsWith(START_UP_COMPLETE_MSG)) {
+            const port = this.getPortFromStartupMessage(line);
+            if (port) {
+                if (this.options.socketConnectionOptions.port === 0) {
+                    this.options.socketConnectionOptions.port = port;
+                } else {
+                    if (this.options.socketConnectionOptions.port !== port) {
+                        throw new Error(
+                            // eslint-disable-next-line max-len
+                            `The configured port ${this.options.socketConnectionOptions.port} does not match the port in the startup message: ${line}`
+                        );
+                    }
+                }
+            } else {
+                throw new Error(`Could not find listening port in startup message of GLSP server: ${line}`);
+            }
             this.onReadyDeferred.resolve();
         }
     }
