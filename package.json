@@ -21,6 +21,8 @@
     "publish:prepare": "lerna version --ignore-scripts --yes --no-push",
     "start": "yarn --cwd examples/browser-app start",
     "start:debug": "yarn --cwd examples/browser-app start:debug",
+    "start:ws": "yarn --cwd examples/browser-app start:ws",
+    "start:ws:debug": "yarn --cwd examples/browser-app start:ws:debug",
     "upgrade:next": "yarn upgrade -p \"@eclipse-glsp.*\" --next ",
     "watch": "lerna run --parallel watch"
   },

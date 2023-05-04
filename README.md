@@ -45,7 +45,7 @@ See [our project website](https://www.eclipse.org/glsp/documentation/#workflowov
 
 > _**Remark:**_ The workflow example is a fully dev example, as it combines a variety of integration and connectivity options to easily test the different use cases. However, it should not be used as a blueprint for your custom implementation, for this we recommend the [GLSP project templates](https://github.com/eclipse-glsp/glsp-examples/tree/master/project-templates) in the GLSP example repository.
 
-https://user-images.githubusercontent.com/588090/154459938-849ca684-11b3-472c-8a59-98ea6cb0b4c1.mp4
+<https://user-images.githubusercontent.com/588090/154459938-849ca684-11b3-472c-8a59-98ea6cb0b4c1.mp4>
 
 ### How to start the Workflow Diagram example?
 
@@ -81,11 +81,7 @@ The default example use case uses a socket communication from the backend to the
 
 To communicate with the server via WebSockets, there are two options available:
 
-#### Connect to GLSP server from Theia backend via WebSockets
-
-Extend SocketServerContribution to allow starting server in WebSocket mode
-Introduce WebSocketConnectionForwarder
-Add launch configs and scripts to start workflow example in WebSocket mode
+#### **1. Connect to GLSP server from Theia backend via WebSockets**
 
 To connect to the example GLSP server in WebSocket mode from the backend, this can be achieved by passing the CLI argument `--webSocket=<path>`.
 In the example the argument to be passed is `--webSocket=workflow`.
@@ -101,7 +97,7 @@ The example provides scripts and launch configs that pass this argument to test 
     -   VS Code Launch config: `Launch Workflow Browser Backend (External Websocket GLSP Server)`
     -   Script: `yarn start:ws:debug`
 
-#### Connect directly to GLSP server from frontend via WebSockets
+#### **2. Connect directly to GLSP server from frontend via WebSockets**
 
 This skips binding of the GLSP backend contribution if `--directWebSocket` argument is passed to the Theia backend.
 The workflow diagram example frontend additionally expects an environment variable (e.g. `"WEBSOCKET_PORT=8081"`) to trigger the direct connection from the GLSP frontend client to the running GLSP WebSocket Server.
@@ -119,6 +115,7 @@ The workflow example provides a launch config that passes the argument sets the 
 In addition to this repository, the related source code can be found here:
 
 -   <https://github.com/eclipse-glsp/glsp-server>
+-   <https://github.com/eclipse-glsp/glsp-server-node>
 -   <https://github.com/eclipse-glsp/glsp-client>
 
 ## More information

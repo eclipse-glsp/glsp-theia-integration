@@ -11,7 +11,7 @@
       "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
       "args": [
         "--hostname=localhost",
-        "--WF_GLSP=5007",
+        "--WF_GLSP=0",
         "--port=3000",
         "--no-cluster",
         "--root-dir=${workspaceRoot}/examples/workspace",
@@ -43,7 +43,7 @@
       "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
       "args": [
         "--hostname=localhost",
-        "--WF_GLSP=8081",
+        "--WF_GLSP=0",
         "--webSocket=workflow",
         "--port=3000",
         "--no-cluster",
