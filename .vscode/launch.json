@@ -11,7 +11,40 @@
       "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
       "args": [
         "--hostname=localhost",
-        "--WF_GLSP=5007",
+        "--WF_GLSP=0",
+        "--port=3000",
+        "--no-cluster",
+        "--root-dir=${workspaceRoot}/examples/workspace",
+        "--app-project-path=${workspaceRoot}/examples/browser-app"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
+        "${workspaceRoot}/examples/browser-app/lib/**/*.js",
+        "${workspaceRoot}/examples/browser-app/src-gen/**/*.js",
+        "${workspaceRoot}/packages/*/lib/**/*.js",
+        "${workspaceRoot}/examples/*/lib/**/*.js"
+      ],
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "presentation": {
+        "group": "Browser launch configurations",
+        "order": 1
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Workflow Browser Backend (WebSocket GLSP Server)",
+      "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
+      "args": [
+        "--hostname=localhost",
+        "--WF_GLSP=0",
+        "--webSocket=workflow",
         "--port=3000",
         "--no-cluster",
         "--root-dir=${workspaceRoot}/examples/workspace",
@@ -49,10 +82,79 @@
         "--root-dir=${workspaceRoot}/examples/workspace",
         "--app-project-path=${workspaceRoot}/examples/browser-app",
         "--debug",
-        "--loglevel=debug"
+        "--logLevel=debug"
       ],
       "env": {
         "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
+        "${workspaceRoot}/examples/browser-app/lib/**/*.js",
+        "${workspaceRoot}/examples/browser-app/src-gen/**/*.js",
+        "${workspaceRoot}/packages/*/lib/**/*.js",
+        "${workspaceRoot}/examples/*/lib/**/*.js"
+      ],
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "presentation": {
+        "group": "Browser launch configurations",
+        "order": 1
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Workflow Browser Backend (External Websocket GLSP Server)",
+      "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
+      "args": [
+        "--hostname=localhost",
+        "--WF_GLSP=8081",
+        "--webSocket=workflow",
+        "--port=3000",
+        "--no-cluster",
+        "--root-dir=${workspaceRoot}/examples/workspace",
+        "--app-project-path=${workspaceRoot}/examples/browser-app",
+        "--debug",
+        "--logLevel=debug"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
+        "${workspaceRoot}/examples/browser-app/lib/**/*.js",
+        "${workspaceRoot}/examples/browser-app/src-gen/**/*.js",
+        "${workspaceRoot}/packages/*/lib/**/*.js",
+        "${workspaceRoot}/examples/*/lib/**/*.js"
+      ],
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "presentation": {
+        "group": "Browser launch configurations",
+        "order": 1
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Theia Browser Backend (Direct WebSocket GLSP Server connection from frontend)",
+      "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
+      "args": [
+        "--hostname=localhost",
+        "--directWebSocket",
+        "--port=3000",
+        "--no-cluster",
+        "--root-dir=${workspaceRoot}/examples/workspace",
+        "--app-project-path=${workspaceRoot}/examples/browser-app",
+        "--logLevel=debug"
+      ],
+      "env": {
+        "NODE_ENV": "development",
+        "WEBSOCKET_PORT": "8081"
       },
       "sourceMaps": true,
       "outFiles": [

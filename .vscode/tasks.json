@@ -37,10 +37,32 @@
       "problemMatcher": []
     },
     {
+      "label": "[Theia] Start Workflow Theia Backend Example (WebSocket Server)",
+      "type": "shell",
+      "group": "test",
+      "command": "cd examples/browser-app && yarn start:ws",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "[Theia] Start Workflow Theia Backend Example (DEBUG)",
       "type": "shell",
       "group": "test",
       "command": "cd examples/browser-app && yarn start:debug",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "[Theia] Start Workflow Theia Backend Example (WebSocket Server) (DEBUG)",
+      "type": "shell",
+      "group": "test",
+      "command": "cd examples/browser-app && yarn start:ws:debug",
       "presentation": {
         "reveal": "always",
         "panel": "new"

@@ -20,5 +20,19 @@ import { ContainerModule } from '@theia/core/shared/inversify';
 import { WorkflowGLServerContribution } from './workflow-glsp-server-contribution';
 
 export default new ContainerModule(bind => {
-    bindAsService(bind, GLSPServerContribution, WorkflowGLServerContribution);
+    if (!isDirectWebSocketConnection()) {
+        bindAsService(bind, GLSPServerContribution, WorkflowGLServerContribution);
+    }
 });
+
+const directWebSocketArg = '--directWebSocket';
+/**
+ * Utility function to parse if the frontend should connect directly to a running GLSP WebSocket Server instance
+ * and skip the binding of the backend contribution.
+ * i.e. if the {@link directWebSocketArg `--directWebSocket`} argument has been passed.
+ * @returns `true` if the {@link directWebSocketArg `--directWebSocket`} argument has been set.
+ */
+function isDirectWebSocketConnection(): boolean {
+    const args = process.argv.filter(a => a.toLowerCase().startsWith(directWebSocketArg.toLowerCase()));
+    return args.length > 0;
+}

@@ -131,13 +131,13 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
             this.connectionProvider.listen(
                 {
                     path: GLSPContribution.getPath(this),
-                    onConnection: channel => {
+                    onConnection: async channel => {
                         if (this.toDispose.disposed) {
                             channel.close();
                             return;
                         }
                         const connection = createChannelConnection(channel);
-                        const client = this.createGLSPClient(connection);
+                        const client = await this.createGLSPClient(connection);
                         this.start(client);
                         this.toDispose.pushAll([
                             Disposable.create(() => {
@@ -186,7 +186,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         return undefined;
     }
 
-    protected createGLSPClient(connectionProvider: ConnectionProvider): GLSPClient {
+    protected async createGLSPClient(connectionProvider: ConnectionProvider): Promise<GLSPClient> {
         return new TheiaJsonrpcGLSPClient({
             id: this.id,
             connectionProvider,

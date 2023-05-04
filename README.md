@@ -40,10 +40,12 @@ If that is the case, a new compatible 1.0.0 version prefixed with the supported 
 The workflow diagram is a consistent example provided by all GLSP components.
 The example implements a simple flow chart diagram editor with different types of nodes and edges (see screenshot below).
 The example can be used to try out different GLSP features, as well as several available integrations with IDE platforms (Theia, VSCode, Eclipse, Standalone).
-As the example is fully open source, you can also use it as a blueprint for a custom implementation of a GLSP diagram editor.
+It also offers different server connectivity possibilities such as socket or websocket connections.
 See [our project website](https://www.eclipse.org/glsp/documentation/#workflowoverview) for an overview of the workflow example and all components implementing it.
 
-https://user-images.githubusercontent.com/588090/154459938-849ca684-11b3-472c-8a59-98ea6cb0b4c1.mp4
+> _**Remark:**_ The workflow example is a fully dev example, as it combines a variety of integration and connectivity options to easily test the different use cases. However, it should not be used as a blueprint for your custom implementation, for this we recommend the [GLSP project templates](https://github.com/eclipse-glsp/glsp-examples/tree/master/project-templates) in the GLSP example repository.
+
+<https://user-images.githubusercontent.com/588090/154459938-849ca684-11b3-472c-8a59-98ea6cb0b4c1.mp4>
 
 ### How to start the Workflow Diagram example?
 
@@ -73,11 +75,47 @@ cd examples/browser-app
 yarn start:debug
 ```
 
+### Start Workflow Diagram example in WebSocket mode
+
+The default example use case uses a socket communication from the backend to the GLSP server.
+
+To communicate with the server via WebSockets, there are two options available:
+
+#### **1. Connect to GLSP server from Theia backend via WebSockets**
+
+To connect to the example GLSP server in WebSocket mode from the backend, this can be achieved by passing the CLI argument `--webSocket=<path>`.
+In the example the argument to be passed is `--webSocket=workflow`.
+
+The example provides scripts and launch configs that pass this argument to test this connectivity option either in embedded or debug mode:
+
+-   Embedded: Start a Java GLSP server in WebSocket mode along with the backend:
+
+    -   VS Code Launch config: `Launch Workflow Browser Backend (WebSocket GLSP Server)`
+    -   Script: `yarn start:ws`
+
+-   Debug mode: Expects a running GLSP server (Java or node.js) in WebSocket mode:
+    -   VS Code Launch config: `Launch Workflow Browser Backend (External Websocket GLSP Server)`
+    -   Script: `yarn start:ws:debug`
+
+#### **2. Connect directly to GLSP server from frontend via WebSockets**
+
+This skips binding of the GLSP backend contribution if `--directWebSocket` argument is passed to the Theia backend.
+The workflow diagram example frontend additionally expects an environment variable (e.g. `"WEBSOCKET_PORT=8081"`) to trigger the direct connection from the GLSP frontend client to the running GLSP WebSocket Server.
+In this case, we do not have any GLSP backend contribution which means, the GLSP server instance is not started automatically, and needs either to be started manually or by some other party.
+
+The workflow example provides a launch config that passes the argument sets the environment variable:
+
+-   Debug mode: Expects a running GLSP server (Java or node.js) in WebSocket mode:
+    -   VS Code Launch config: `Launch Theia Browser Backend (Direct WebSocket GLSP Server connection from frontend)`
+
+> _**Remark:**_ In production, one would decide for one way of connectivity, and would not implement all the different options as we do in the workflow diagram example. This was setup to easily show and switch between the different possibilities.
+
 ### Where to find the sources?
 
 In addition to this repository, the related source code can be found here:
 
 -   <https://github.com/eclipse-glsp/glsp-server>
+-   <https://github.com/eclipse-glsp/glsp-server-node>
 -   <https://github.com/eclipse-glsp/glsp-client>
 
 ## More information
