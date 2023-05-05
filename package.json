@@ -23,6 +23,7 @@
     "start:debug": "yarn --cwd examples/browser-app start:debug",
     "start:ws": "yarn --cwd examples/browser-app start:ws",
     "start:ws:debug": "yarn --cwd examples/browser-app start:ws:debug",
+    "start:integrated": "yarn --cwd examples/browser-app start:integrated",
     "upgrade:next": "yarn upgrade -p \"@eclipse-glsp.*\" --next ",
     "watch": "lerna run --parallel watch"
   },

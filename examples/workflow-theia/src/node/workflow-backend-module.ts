@@ -16,12 +16,17 @@
 import { bindAsService } from '@eclipse-glsp/protocol';
 import { GLSPServerContribution } from '@eclipse-glsp/theia-integration/lib/node';
 import { ContainerModule } from '@theia/core/shared/inversify';
-
-import { WorkflowGLServerContribution } from './workflow-glsp-server-contribution';
+import { WorkflowGLSPNodeServerContribution } from './workflow-glsp-node-server-contribution';
+import { WorkflowGLSPSocketServerContribution } from './workflow-glsp-server-contribution';
 
 export default new ContainerModule(bind => {
-    if (!isDirectWebSocketConnection()) {
-        bindAsService(bind, GLSPServerContribution, WorkflowGLServerContribution);
+    if (isDirectWebSocketConnection()) {
+        return;
+    }
+    if (isIntegratedNodeServer()) {
+        bindAsService(bind, GLSPServerContribution, WorkflowGLSPNodeServerContribution);
+    } else {
+        bindAsService(bind, GLSPServerContribution, WorkflowGLSPSocketServerContribution);
     }
 });
 
@@ -34,5 +39,17 @@ const directWebSocketArg = '--directWebSocket';
  */
 function isDirectWebSocketConnection(): boolean {
     const args = process.argv.filter(a => a.toLowerCase().startsWith(directWebSocketArg.toLowerCase()));
+    return args.length > 0;
+}
+
+export const integratedArg = '--integratedNode';
+
+/**
+ * Utility function to parse if the frontend should connect to a GLSP server running directly in the backend
+ * i.e. if the {@link integratedArg `--integratedNode`} argument has been passed.
+ * @returns `true` if the {@link integratedArg `--integratedNode`} argument has been set.
+ */
+export function isIntegratedNodeServer(): boolean {
+    const args = process.argv.filter(a => a.toLowerCase().startsWith(integratedArg.toLowerCase()));
     return args.length > 0;
 }

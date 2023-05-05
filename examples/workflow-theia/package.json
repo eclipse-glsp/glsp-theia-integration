@@ -37,7 +37,8 @@
   },
   "dependencies": {
     "@eclipse-glsp-examples/workflow-glsp": "next",
-    "@eclipse-glsp/theia-integration": "1.1.0-next"
+    "@eclipse-glsp/theia-integration": "1.1.0-next",
+    "@eclipse-glsp-examples/workflow-server": "next"
   },
   "devDependencies": {
     "mvn-artifact-download": "5.1.0"
