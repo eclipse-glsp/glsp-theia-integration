@@ -108,6 +108,17 @@ The workflow example provides a launch config that passes the argument sets the 
 -   Debug mode: Expects a running GLSP server (Java or node.js) in WebSocket mode:
     -   VS Code Launch config: `Launch Theia Browser Backend (Direct WebSocket GLSP Server connection from frontend)`
 
+### Start Workflow Diagram example without a dedicated server process
+
+The default example use case uses a socket communication from the backend to a GLSP server process.
+To directly start the server in the Theia backend without an extra process,this can be achieved by passing the CLI argument `--integratedNode`.
+If this argument is passed, the node-based GLSP server will be integrated directly into Theia's backend.
+
+The example provides scripts and launch configs that pass this argument to test this connectivity option:
+
+-   VS Code Launch config: `Launch Workflow Browser Backend (Integrated Node GLSP Server)`
+-   Script: `yarn start:integrated`
+
 > _**Remark:**_ In production, one would decide for one way of connectivity, and would not implement all the different options as we do in the workflow diagram example. This was setup to easily show and switch between the different possibilities.
 
 ### Where to find the sources?
