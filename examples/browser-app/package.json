@@ -1,6 +1,6 @@
 {
   "name": "browser-app",
-  "version": "1.1.0-next",
+  "version": "1.1.0-RC08",
   "private": true,
   "scripts": {
     "build": "theia build --mode development",
@@ -13,7 +13,7 @@
     "watch": "theia build --watch --mode development"
   },
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-theia": "1.1.0-next",
+    "@eclipse-glsp-examples/workflow-theia": "1.1.0-RC08",
     "@theia/core": "1.34.2",
     "@theia/editor": "1.34.2",
     "@theia/filesystem": "1.34.2",
