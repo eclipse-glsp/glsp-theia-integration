@@ -15,15 +15,24 @@
  ********************************************************************************/
 import { getPort, GLSPSocketServerContribution, GLSPSocketServerContributionOptions } from '@eclipse-glsp/theia-integration/lib/node';
 import { injectable } from '@theia/core/shared/inversify';
-import { join, resolve } from 'path';
+import { join } from 'path';
 import { WorkflowLanguage } from '../common/workflow-language';
-import * as config from './server-config.json';
 
 export const DEFAULT_PORT = 0;
 export const PORT_ARG_KEY = 'WF_GLSP';
-export const SERVER_DIR = join(__dirname, '..', '..', 'server');
-const { version, isSnapShot } = config;
-export const JAR_FILE = resolve(join(SERVER_DIR, `org.eclipse.glsp.example.workflow-${version}${isSnapShot ? '-SNAPSHOT' : ''}-glsp.jar`));
+export const LOG_DIR = join(__dirname, '..', '..', '..', '..', 'logs');
+export const SERVER_MODULE = join(
+    __dirname,
+    '..',
+    '..',
+    '..',
+    '..',
+    'node_modules',
+    '@eclipse-glsp-examples',
+    'workflow-server',
+    'bundle',
+    'wf-glsp-server-node.js'
+);
 
 @injectable()
 export class WorkflowGLSPSocketServerContribution extends GLSPSocketServerContribution {
@@ -31,8 +40,8 @@ export class WorkflowGLSPSocketServerContribution extends GLSPSocketServerContri
 
     createContributionOptions(): Partial<GLSPSocketServerContributionOptions> {
         return {
-            executable: JAR_FILE,
-            additionalArgs: ['--consoleLog', 'false', '--fileLog', 'true', '--logDir', SERVER_DIR],
+            executable: SERVER_MODULE,
+            additionalArgs: ['--no-consoleLog', '--fileLog', 'true', '--logDir', LOG_DIR],
             socketConnectionOptions: {
                 port: getPort(PORT_ARG_KEY, DEFAULT_PORT)
             }

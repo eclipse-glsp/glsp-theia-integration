@@ -20,12 +20,12 @@ import { GLSPNodeServerContribution } from '@eclipse-glsp/theia-integration/lib/
 import { ContainerModule, injectable } from '@theia/core/shared/inversify';
 import { join } from 'path';
 import { WorkflowLanguage } from '../common/workflow-language';
-export const SERVER_DIR = join(__dirname, '..', '..', 'server');
+export const LOG_DIR = join(__dirname, '..', '..', '..', '..', 'logs');
 
 @injectable()
 export class WorkflowGLSPNodeServerContribution extends GLSPNodeServerContribution {
     protected override createServerModules(): ContainerModule[] {
-        const appModule = createAppModule({ logLevel: LogLevel.info, logDir: SERVER_DIR, fileLog: true, consoleLog: false });
+        const appModule = createAppModule({ logLevel: LogLevel.info, logDir: LOG_DIR, fileLog: true, consoleLog: false });
         const elkLayoutModule = configureELKLayoutModule({ algorithms: ['layered'], layoutConfigurator: WorkflowLayoutConfigurator });
         const mainModule = new WorkflowServerModule().configureDiagramModule(
             new WorkflowDiagramModule(() => GModelStorage),

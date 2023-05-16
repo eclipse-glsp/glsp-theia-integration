@@ -1,6 +1,7 @@
 {
   "name": "@eclipse-glsp-examples/workflow-theia",
   "version": "1.1.0-next",
+  "private": "true",
   "description": "Theia extension for the workflow GLSP example",
   "keywords": [
     "theia-extension"
@@ -24,12 +25,11 @@
   ],
   "files": [
     "lib",
-    "src",
-    "server"
+    "src"
   ],
   "scripts": {
     "build": "tsc -b",
-    "clean": "rimraf lib tsconfig.tsbuildinfo server/*.log",
+    "clean": "rimraf lib tsconfig.tsbuildinfo",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
     "prepare": "yarn clean && yarn build",
@@ -37,8 +37,8 @@
   },
   "dependencies": {
     "@eclipse-glsp-examples/workflow-glsp": "next",
-    "@eclipse-glsp/theia-integration": "1.1.0-next",
-    "@eclipse-glsp-examples/workflow-server": "next"
+    "@eclipse-glsp-examples/workflow-server": "next",
+    "@eclipse-glsp/theia-integration": "1.1.0-next"
   },
   "devDependencies": {
     "mvn-artifact-download": "5.1.0"
