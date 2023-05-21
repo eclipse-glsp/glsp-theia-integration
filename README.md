@@ -55,24 +55,22 @@ Clone this repository and build Theia-Integration packages:
 yarn install
 ```
 
-Next, download a pre-built version of the Workflow Diagram Server, start the Theia application, and point your browser to [localhost:3000](http://localhost:3000):
+Next, start the Theia application, and point your browser to [localhost:3000](http://localhost:3000):
 
 ```bash
-yarn download:exampleServer
-cd examples/browser-app
 yarn start
 ```
 
 ### How to start the Workflow Diagram example server from the sources
 
-If you want to explore or change the Workflow Diagram Server too, you can clone, build and start the [`workflow example glsp-server`](https://github.com/eclipse-glsp/glsp-server#workflow-diagram-example) from your IDE instead of using the pre-built version of the Workflow Diagram Server.
-See [`workflow example glsp-server`](https://github.com/eclipse-glsp/glsp-server#workflow-diagram-example) for instructions on building and running the Workflow Diagram Server example.
+If you want to explore or change the Workflow Diagram Server too, you can clone, build and start the `workflow example glsp-server`
+for [Java](https://github.com/eclipse-glsp/glsp-server#workflow-diagram-example) or [Node](https://github.com/eclipse-glsp/glsp-server#workflow-diagram-example) from your IDE instead of using the pre-built version of the Workflow Diagram Server.
+Checkout the README of the [glsp-server](https://github.com/eclipse-glsp/glsp-server#how-to-start-the-workflow-diagram-example) or [glsp-server-node](https://github.com/eclipse-glsp/glsp-server-node#how-to-start-the-workflow-diagram-example) for instructions on building and running the Workflow Diagram Server example.
 
 Once the Workflow Diagram Server is running, start the Theia application with the `debug` flag so that it'll connect to an existing server process -- the one you started from the command line or from your IDE before:
 
 ```bash
-cd examples/browser-app
-yarn start:debug
+cd start:debug
 ```
 
 ### Start Workflow Diagram example in WebSocket mode
@@ -88,12 +86,12 @@ In the example the argument to be passed is `--webSocket=workflow`.
 
 The example provides scripts and launch configs that pass this argument to test this connectivity option either in embedded or debug mode:
 
--   Embedded: Start a Java GLSP server in WebSocket mode along with the backend:
+-   Embedded: Start a Node GLSP server in WebSocket mode along with the backend:
 
     -   VS Code Launch config: `Launch Workflow Browser Backend (WebSocket GLSP Server)`
     -   Script: `yarn start:ws`
 
--   Debug mode: Expects a running GLSP server (Java or node.js) in WebSocket mode:
+-   Debug mode: Expects a running GLSP server (Java or Node) in WebSocket mode:
     -   VS Code Launch config: `Launch Workflow Browser Backend (External Websocket GLSP Server)`
     -   Script: `yarn start:ws:debug`
 
