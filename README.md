@@ -81,8 +81,8 @@ To communicate with the server via WebSockets, there are two options available:
 
 #### **1. Connect to GLSP server from Theia backend via WebSockets**
 
-To connect to the example GLSP server in WebSocket mode from the backend, this can be achieved by passing the CLI argument `--webSocket=<path>`.
-In the example the argument to be passed is `--webSocket=workflow`.
+To connect to the example GLSP server in WebSocket mode from the backend, this can be achieved by passing the CLI argument `--WF_PATH=<path>`.
+In the example the argument to be passed is `--WF_PATH=workflow`.
 
 The example provides scripts and launch configs that pass this argument to test this connectivity option either in embedded or debug mode:
 

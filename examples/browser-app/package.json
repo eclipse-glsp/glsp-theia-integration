@@ -7,9 +7,9 @@
     "prepare": "yarn build",
     "start": "theia start --WF_GLSP=0 --root-dir=../workspace",
     "start:debug": "theia start --WF_GLSP=5007  --root-dir=../workspace --loglevel=debug --debug",
-    "start:ws": "theia start --WF_GLSP=0 --webSocket=workflow --root-dir=../workspace",
-    "start:ws:debug": "theia start --WF_GLSP=8081 --webSocket=workflow --root-dir=../workspace --logLevel=debug --debug",
     "start:integrated": "theia start --WF_GLSP=5007  --root-dir=../workspace --loglevel=debug --integratedNode",
+    "start:ws": "theia start --WF_GLSP=0 --WF_PATH=workflow --root-dir=../workspace",
+    "start:ws:debug": "theia start --WF_GLSP=8081 --WF_PATH=workflow --root-dir=../workspace --logLevel=debug --debug",
     "watch": "theia build --watch --mode development"
   },
   "dependencies": {

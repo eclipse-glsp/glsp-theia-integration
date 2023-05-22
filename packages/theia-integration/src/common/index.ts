@@ -17,3 +17,4 @@
 export * from './channel-connection';
 export * from './glsp-contribution';
 export * from './glsp-diagram-language';
+export * from './websocket-util';

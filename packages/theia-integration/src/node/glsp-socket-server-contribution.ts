@@ -21,6 +21,7 @@ import { RawProcess } from '@theia/process/lib/node/raw-process';
 import * as fs from 'fs';
 import * as net from 'net';
 import { WebSocket } from 'ws';
+import { WebSocketConnectionInfo, getWebSocketAddress, isValidWebSocketAddress } from '../common';
 import { BaseGLSPServerContribution, GLSPServerContributionOptions } from './glsp-server-contribution';
 import { SocketConnectionForwarder } from './socket-connection-forwarder';
 import { WebSocketConnectionForwarder } from './websocket-connection-forwarder';
@@ -39,14 +40,15 @@ export interface GLSPSocketServerContributionOptions extends GLSPServerContribut
     executable?: string;
 
     /** Socket connection options for new client connections */
-    socketConnectionOptions: net.TcpSocketConnectOpts;
+    socketConnectionOptions: SocketConnectionOptions;
 
     /** Additional arguments that should be passed when starting the server process. */
     additionalArgs?: string[];
-
-    /** Path of the WebSocket GLSP Server. */
-    webSocketPath?: string;
 }
+
+export type SocketConnectionOptions =
+    /* Socket connection options*/
+    net.TcpSocketConnectOpts | WebSocketConnectionInfo;
 
 export namespace GLSPSocketServerContributionOptions {
     /** Default values for {@link JavaGLSPServerLaunchOptions }**/
@@ -55,8 +57,7 @@ export namespace GLSPSocketServerContributionOptions {
             ...GLSPServerContributionOptions.createDefaultOptions(),
             socketConnectionOptions: {
                 port: NaN
-            },
-            webSocketPath: getWebSocketPath()
+            }
         };
     }
 
@@ -71,21 +72,6 @@ export namespace GLSPSocketServerContributionOptions {
             ...options
         };
     }
-
-    export const webSocketArgument = '--webSocket';
-
-    /**
-     * Utility function to parse the WebSocket Server path if the GLSP Server should be started in WebSocket mode.
-     * @returns the path value of the {@link webSocketArgument `--webSocket`} argument if set, `undefined` instead.
-     */
-    export function getWebSocketPath(): string | undefined {
-        const argsKey = `--${webSocketArgument.replace('--', '').replace('=', '')}=`;
-        const args = process.argv.filter(a => a.startsWith(argsKey));
-        if (args.length > 0) {
-            return args[0].substring(argsKey.length);
-        }
-        return undefined;
-    }
 }
 
 /**
@@ -96,7 +82,7 @@ export namespace GLSPSocketServerContributionOptions {
 export abstract class GLSPSocketServerContribution extends BaseGLSPServerContribution {
     override options: GLSPSocketServerContributionOptions;
     protected onReadyDeferred = new Deferred<void>();
-
+    // protected webSocketAddress?: string;
     @postConstruct()
     protected override initialize(): void {
         this.options = GLSPSocketServerContributionOptions.configure(this.createContributionOptions());
@@ -105,8 +91,12 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
     abstract override createContributionOptions(): Partial<GLSPSocketServerContributionOptions>;
 
     connect(clientChannel: Channel): MaybePromise<void> {
-        if (this.options.webSocketPath) {
-            return this.connectToWebSocketServer(clientChannel);
+        const webSocketAddress = getWebSocketAddress(this.options.socketConnectionOptions);
+        if (webSocketAddress) {
+            if (!isValidWebSocketAddress(webSocketAddress)) {
+                throw new Error(`Could not connect to server. The given websocket address is not valid: ${webSocketAddress}`);
+            }
+            return this.connectToWebSocketServer(clientChannel, webSocketAddress);
         }
         return this.connectToSocketServer(clientChannel);
     }
@@ -156,7 +146,7 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
             `${this.options.socketConnectionOptions.port}`
         ];
 
-        if (this.options.webSocketPath) {
+        if (this.useWebSocket()) {
             args.push('--websocket');
         }
 
@@ -177,7 +167,7 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
     protected launchNodeProcess(): Promise<RawProcess> {
         const args = [this.options.executable!, '--port', `${this.options.socketConnectionOptions.port}`];
 
-        if (this.options.webSocketPath) {
+        if (this.useWebSocket()) {
             args.push('--webSocket');
         }
 
@@ -212,6 +202,10 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
         }
     }
 
+    protected useWebSocket(): boolean {
+        return 'path' in this.options.socketConnectionOptions && this.options.socketConnectionOptions.path !== undefined;
+    }
+
     protected checkServerPort(): void {
         if (isNaN(this.options.socketConnectionOptions.port)) {
             throw new Error(
@@ -237,16 +231,13 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
         this.toDispose.push(new SocketConnectionForwarder(clientChannel, socket));
     }
 
-    protected async connectToWebSocketServer(clientChannel: Channel): Promise<void> {
+    protected async connectToWebSocketServer(clientChannel: Channel, webSocketAddress: string | undefined): Promise<void> {
         this.checkServerPort();
-        if (!this.options.webSocketPath || this.options.webSocketPath === '') {
+        if (!webSocketAddress) {
             throw new Error('Could not connect to to GLSP Server. The WebSocket path cannot be empty');
         }
 
-        const port = this.options.socketConnectionOptions.port;
-        const id = this.options.webSocketPath;
-
-        const webSocket = new WebSocket(`ws://localhost:${port}/${id}`);
+        const webSocket = new WebSocket(webSocketAddress);
         this.forwardToWebSocketConnection(clientChannel, webSocket);
         if (clientChannel instanceof ForwardingChannel) {
             webSocket.onerror = error => clientChannel.onErrorEmitter.fire(error);
@@ -261,7 +252,8 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
 /**
  * Utility function to parse a server port that is defined via command line arg.
  * @param argsKey Name/Key of the commandLine arg
- * @param defaultPort Default port that should be returned if no (valid) port was passed via CLI
+ * @param defaultPort Default port that should be returned if no (valid) port was passed via CLI#
+ * @returns the path value of the given argument if set, default value or `NaN` instead.
  */
 export function getPort(argsKey: string, defaultPort?: number): number {
     argsKey = `--${argsKey.replace('--', '').replace('=', '')}=`;
@@ -270,4 +262,19 @@ export function getPort(argsKey: string, defaultPort?: number): number {
         return Number.parseInt(args[0].substring(argsKey.length), 10);
     }
     return defaultPort ? defaultPort : NaN;
+}
+
+/**
+ * Utility function to parse the WebSocket Server path if the GLSP Server should be started in WebSocket mode.#
+ * @param argsKey Name/Key of the commandLine arg
+ * @param defaultPath Default path that should be returned if no path was passed via CLI
+ * @returns the path value of the given argument if set, default value or `undefined` instead.
+ */
+export function getWebSocketPath(argsKey: string, defaultPath?: string): string | undefined {
+    argsKey = `--${argsKey.replace('--', '').replace('=', '')}=`;
+    const args = process.argv.filter(a => a.startsWith(argsKey));
+    if (args.length > 0) {
+        return args[0].substring(argsKey.length);
+    }
+    return defaultPath;
 }
