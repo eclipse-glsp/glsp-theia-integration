@@ -15,7 +15,7 @@
  ********************************************************************************/
 import { ContainerContext, DiagramConfiguration, GLSPClientContribution, GLSPTheiaFrontendModule } from '@eclipse-glsp/theia-integration';
 import { CommandContribution, MenuContribution } from '@theia/core';
-import { KeybindingContext, KeybindingContribution } from '@theia/core/lib/browser';
+import { KeybindingContext, KeybindingContribution, WidgetFactory, bindViewContribution } from '@theia/core/lib/browser';
 import { WorkflowLanguage } from '../common/workflow-language';
 import { WorkflowDiagramConfiguration } from './diagram/workflow-diagram-configuration';
 import { WorkflowDiagramReadonlyViewContribution } from './diagram/workflow-diagram-readonly-view';
@@ -24,6 +24,7 @@ import { WorkflowNavigationCommandContribution, WorkflowNavigationMenuContributi
 import { WorkflowTaskEditCommandContribution, WorkflowTaskEditMenuContribution } from './diagram/workflow-task-editing-context-menu';
 import { ExampleNavigationCommandContribution } from './external-navigation-example/external-navigation-example';
 import { WorkflowGLSPClientContribution } from './workflow-glsp-client-contribution';
+import { WorkflowSelectionWidget, WorkflowSelectionWidgetViewContribution } from './workflow-selection-widget';
 
 export class WorkflowTheiaFrontendModule extends GLSPTheiaFrontendModule {
     protected override enableCopyPaste = true;
@@ -49,6 +50,17 @@ export class WorkflowTheiaFrontendModule extends GLSPTheiaFrontendModule {
         context.bind(WorkflowDiagramReadonlyViewContribution).toSelf().inSingletonScope();
         context.bind(MenuContribution).toService(WorkflowDiagramReadonlyViewContribution);
         context.bind(CommandContribution).toService(WorkflowDiagramReadonlyViewContribution);
+
+        // selection widget
+        bindViewContribution(context.bind, WorkflowSelectionWidgetViewContribution);
+        context.bind(WorkflowSelectionWidget).toSelf();
+        context
+            .bind(WidgetFactory)
+            .toDynamicValue(ctx => ({
+                id: WorkflowSelectionWidget.ID,
+                createWidget: () => ctx.container.get<WorkflowSelectionWidget>(WorkflowSelectionWidget)
+            }))
+            .inSingletonScope();
     }
 
     override bindGLSPClientContribution(context: ContainerContext): void {
