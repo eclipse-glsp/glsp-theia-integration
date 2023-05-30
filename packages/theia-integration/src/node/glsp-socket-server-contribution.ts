@@ -82,7 +82,6 @@ export namespace GLSPSocketServerContributionOptions {
 export abstract class GLSPSocketServerContribution extends BaseGLSPServerContribution {
     override options: GLSPSocketServerContributionOptions;
     protected onReadyDeferred = new Deferred<void>();
-    // protected webSocketAddress?: string;
     @postConstruct()
     protected override initialize(): void {
         this.options = GLSPSocketServerContributionOptions.configure(this.createContributionOptions());
