@@ -44,7 +44,7 @@
       "args": [
         "--hostname=localhost",
         "--WF_GLSP=0",
-        "--webSocket=workflow",
+        "--WF_PATH=workflow",
         "--port=3000",
         "--no-cluster",
         "--root-dir=${workspaceRoot}/examples/workspace",
@@ -149,7 +149,7 @@
       "args": [
         "--hostname=localhost",
         "--WF_GLSP=8081",
-        "--webSocket=workflow",
+        "--WF_PATH=workflow",
         "--port=3000",
         "--no-cluster",
         "--root-dir=${workspaceRoot}/examples/workspace",

@@ -13,8 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Args, ConnectionProvider, GLSPClient, MaybePromise } from '@eclipse-glsp/client';
-import { BaseGLSPClientContribution, TheiaJsonrpcGLSPClient } from '@eclipse-glsp/theia-integration/lib/browser';
+import { Args, MaybePromise } from '@eclipse-glsp/client';
+import { BaseGLSPClientContribution, WebSocketConnectionOptions } from '@eclipse-glsp/theia-integration/lib/browser';
 import { EnvVariablesServer } from '@theia/core/lib/common/env-variables';
 import { inject, injectable } from '@theia/core/shared/inversify';
 import { WorkflowLanguage } from '../common/workflow-language';
@@ -39,14 +39,15 @@ export class WorkflowGLSPClientContribution extends BaseGLSPClientContribution {
         };
     }
 
-    protected override async createGLSPClient(connectionProvider: ConnectionProvider): Promise<GLSPClient> {
+    protected override async getWebSocketConnectionOptions(): Promise<WebSocketConnectionOptions | undefined> {
         const webSocketPort = await this.getWebSocketPortFromEnv();
-        return new TheiaJsonrpcGLSPClient({
-            id: this.id,
-            connectionProvider,
-            messageService: this.messageService,
-            webSocketPort
-        });
+        if (webSocketPort) {
+            return {
+                path: this.id,
+                port: webSocketPort
+            };
+        }
+        return undefined;
     }
 
     protected async getWebSocketPortFromEnv(): Promise<number | undefined> {

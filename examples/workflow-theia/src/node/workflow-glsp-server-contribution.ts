@@ -13,13 +13,20 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { getPort, GLSPSocketServerContribution, GLSPSocketServerContributionOptions } from '@eclipse-glsp/theia-integration/lib/node';
+import {
+    getPort,
+    getWebSocketPath,
+    GLSPSocketServerContribution,
+    GLSPSocketServerContributionOptions
+} from '@eclipse-glsp/theia-integration/lib/node';
 import { injectable } from '@theia/core/shared/inversify';
 import { join } from 'path';
 import { WorkflowLanguage } from '../common/workflow-language';
 
 export const DEFAULT_PORT = 0;
 export const PORT_ARG_KEY = 'WF_GLSP';
+export const WEBSOCKET_PATH_ARG_KEY = 'WF_PATH';
+
 export const LOG_DIR = join(__dirname, '..', '..', '..', '..', 'logs');
 export const SERVER_MODULE = join(
     __dirname,
@@ -43,7 +50,8 @@ export class WorkflowGLSPSocketServerContribution extends GLSPSocketServerContri
             executable: SERVER_MODULE,
             additionalArgs: ['--no-consoleLog', '--fileLog', 'true', '--logDir', LOG_DIR],
             socketConnectionOptions: {
-                port: getPort(PORT_ARG_KEY, DEFAULT_PORT)
+                port: getPort(PORT_ARG_KEY, DEFAULT_PORT),
+                path: getWebSocketPath(WEBSOCKET_PATH_ARG_KEY)
             }
         };
     }

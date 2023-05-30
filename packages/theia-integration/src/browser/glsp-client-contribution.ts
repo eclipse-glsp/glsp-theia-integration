@@ -20,12 +20,14 @@ import {
     GLSPClient,
     InitializeParameters,
     InitializeResult,
-    MaybePromise
+    MaybePromise,
+    listen
 } from '@eclipse-glsp/client';
 import { Disposable, DisposableCollection, MessageService } from '@theia/core';
 import { FrontendApplication, WebSocketConnectionProvider } from '@theia/core/lib/browser';
 import { Deferred } from '@theia/core/lib/common/promise-util';
 import { inject, injectable } from '@theia/core/shared/inversify';
+import { MessageConnection } from 'vscode-jsonrpc';
 
 import 'sprotty/css/sprotty.css';
 import '../../css/command-palette.css';
@@ -34,7 +36,13 @@ import '../../css/diagram.css';
 import '../../css/sprotty-theia.css';
 import '../../css/theia-dialogs.css';
 import '../../css/tool-palette.css';
-import { GLSPContribution, createChannelConnection } from '../common';
+import {
+    GLSPContribution,
+    WebSocketConnectionInfo,
+    createChannelConnection,
+    getWebSocketAddress,
+    isValidWebSocketAddress
+} from '../common';
 import { TheiaJsonrpcGLSPClient } from './theia-jsonrpc-glsp-client';
 export const GLSPClientContribution = Symbol.for('GLSPClientContribution');
 
@@ -84,6 +92,19 @@ export interface GLSPClientContribution extends GLSPContribution {
     readonly initializeResult: Promise<InitializeResult>;
 }
 
+export type WebSocketConnectionOptions =
+    // The address of the GLSP server websocket endpoint
+    | string
+    // or a info object
+    | WebSocketConnectionInfo;
+
+/**
+ * Base implementation for {@link GLSPClientContribution}s. The default implementation setups a {@link GLSPClient} that
+ * uses a Theia service connection to communicate with the corresponding `GLSPBackendContribution`.
+ * Subclasses can override the {@link BaseGLSPClientContribution.getWebSocketConnectionOptions} method. If this method
+ * provides websocket options the  `GLSPClient` is not routed via service connection to the Theia backend, and instead directly
+ * communicates with a `GLSPServer` via WebSocket.
+ */
 @injectable()
 export abstract class BaseGLSPClientContribution implements GLSPClientContribution {
     abstract readonly id: string;
@@ -91,6 +112,11 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     protected glspClientDeferred: Deferred<GLSPClient> = new Deferred();
     protected readonly toDispose = new DisposableCollection();
     protected _initializeResult: InitializeResult | undefined;
+    protected glspClientStartupTimeout = 15000;
+
+    protected getWebSocketConnectionOptions(): MaybePromise<WebSocketConnectionOptions | undefined> {
+        return undefined;
+    }
 
     @inject(MessageService) protected readonly messageService: MessageService;
     @inject(WebSocketConnectionProvider) protected readonly connectionProvider: WebSocketConnectionProvider;
@@ -125,40 +151,79 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
         this.dispose();
     }
 
-    protected async doActivate(): Promise<void> {
-        try {
+    protected doActivate(): void {
+        /* Let `doActivate` complete synchronous even though 'activateClient' is asynchronous.
+         This way we don't block the startup of other contributions. We are using a deferred GLSPClient anyways
+         that only resolves after client activation is completed */
+        this.activateClient();
+    }
+
+    protected async activateClient(): Promise<void> {
+        const connection = await this.createConnection();
+        const client = await this.createGLSPClient(connection);
+        connection.onDispose(() => {
+            client.stop();
+        });
+        return this.start(client);
+    }
+
+    protected async createConnection(): Promise<MessageConnection> {
+        const opts = await this.getWebSocketConnectionOptions();
+        if (opts) {
+            return this.createWebSocketConnection(opts);
+        }
+        return this.createChannelConnection();
+    }
+
+    protected createWebSocketConnection(opts: WebSocketConnectionOptions): Promise<MessageConnection> {
+        const address = this.getWebsocketAddress(opts);
+        const socket = new WebSocket(address);
+        return listen(socket);
+    }
+
+    protected getWebsocketAddress(opts: WebSocketConnectionOptions): string {
+        const address = typeof opts === 'string' ? opts : getWebSocketAddress(opts);
+        if (!address) {
+            throw new Error(`Could not derive server websocket address from options: ${JSON.stringify(opts, undefined, 2)}`);
+        }
+        if (!isValidWebSocketAddress(address)) {
+            throw new Error(`The given websocket server address is not valid: ${address}`);
+        }
+
+        return address;
+    }
+
+    protected createChannelConnection(): Promise<MessageConnection> {
+        return new Promise((resolve, reject) => {
             this.connectionProvider.listen(
                 {
                     path: GLSPContribution.getPath(this),
-                    onConnection: async channel => {
+                    onConnection: channel => {
                         if (this.toDispose.disposed) {
                             channel.close();
-                            return;
+                            reject(new Error('GLSPClientContribution is already disposed'));
                         }
                         const connection = createChannelConnection(channel);
-                        const client = await this.createGLSPClient(connection);
-                        this.start(client);
-                        this.toDispose.pushAll([
-                            Disposable.create(() => {
-                                channel.close();
-                                client.shutdownServer();
-                                client.stop();
-                            })
-                        ]);
+                        this.toDispose.push(connection);
+                        if (Disposable.is(channel)) {
+                            this.toDispose.push(channel);
+                        }
+                        resolve(connection);
                     }
                 },
                 { reconnecting: false }
             );
-        } catch (e) {
-            console.error(e);
-            this.glspClientDeferred.reject(e);
-        }
+        });
     }
 
     protected async start(glspClient: GLSPClient): Promise<void> {
-        await glspClient.start();
-        this._initializeResult = await this.initialize(glspClient);
-        this.glspClientDeferred.resolve(glspClient);
+        try {
+            await glspClient.start();
+            this._initializeResult = await this.initialize(glspClient);
+            this.glspClientDeferred.resolve(glspClient);
+        } catch (error) {
+            this.glspClientDeferred.reject(error);
+        }
     }
 
     protected async initialize(languageClient: GLSPClient): Promise<InitializeResult> {
