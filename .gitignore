@@ -12,6 +12,7 @@ yarn-error.log
 
 examples/browser-app/src-gen/
 examples/browser-app/gen-webpack.config.js
+examples/browser-app/gen-webpack.node.config.js
 
 examples/**/server/**
 !examples/**/server/download.ts
