@@ -91,11 +91,12 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
     protected widgetCount = 0;
 
     @postConstruct()
-    protected async initialize(): Promise<void> {
-        this._diagramConnector = await this.connectorProvider(this.diagramType);
-        if (!this._diagramConnector) {
-            throw new Error(`No diagram connector is registered for diagramType: ${this.diagramType}!`);
-        }
+    protected initialize(): void {
+        this.connectorProvider(this.diagramType)
+            .then(connector => (this._diagramConnector = connector))
+            .catch(_err => {
+                throw new Error(`No diagram connector is registered for diagramType: ${this.diagramType}!`);
+            });
     }
 
     override async doOpen(widget: GLSPDiagramWidget, maybeOptions?: WidgetOpenerOptions): Promise<void> {

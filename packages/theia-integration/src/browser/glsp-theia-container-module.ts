@@ -257,7 +257,7 @@ class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
         this.initialize();
     }
 
-    protected override async initialize(): Promise<void> {
+    protected override initialize(): void {
         if (this._diagramType) {
             return super.initialize();
         }
