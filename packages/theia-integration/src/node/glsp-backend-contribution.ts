@@ -45,8 +45,8 @@ export class GLSPBackendContribution implements MessagingService.Contribution {
     protected forward(service: MessagingService, path: string, contribution: GLSPServerContribution): void {
         service.wsChannel(path, async (_params, clientChannel) => {
             try {
-                clientChannel.onClose(() => contribution.dispose());
-                await contribution.connect(clientChannel);
+                const toDispose = await contribution.connect(clientChannel);
+                clientChannel.onClose(() => toDispose.dispose());
             } catch (e) {
                 console.error(`Error occurred while starting GLSP contribution. ${path}.`, e);
             }
