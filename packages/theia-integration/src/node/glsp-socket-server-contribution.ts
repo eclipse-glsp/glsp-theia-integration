@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Channel, Disposable, MaybePromise } from '@theia/core';
+import { Channel, Disposable, DisposableCollection, MaybePromise } from '@theia/core';
 import { ForwardingChannel } from '@theia/core/lib/common/message-rpc/channel';
 import { Deferred } from '@theia/core/lib/common/promise-util';
 import { injectable, postConstruct } from '@theia/core/shared/inversify';
@@ -89,7 +89,7 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
 
     abstract override createContributionOptions(): Partial<GLSPSocketServerContributionOptions>;
 
-    connect(clientChannel: Channel): MaybePromise<void> {
+    doConnect(clientChannel: Channel): MaybePromise<Disposable> {
         const webSocketAddress = getWebSocketAddress(this.options.socketConnectionOptions);
         if (webSocketAddress) {
             if (!isValidWebSocketAddress(webSocketAddress)) {
@@ -115,9 +115,11 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
             }
 
             if (this.options.executable.endsWith('.jar')) {
-                await this.launchJavaProcess();
+                const process = await this.launchJavaProcess();
+                this.toDispose.push(Disposable.create(() => process.kill()));
             } else if (this.options.executable.endsWith('.js')) {
-                await this.launchNodeProcess();
+                const process = await this.launchNodeProcess();
+                this.toDispose.push(Disposable.create(() => process.kill()));
             } else {
                 throw new Error(`Could not launch GLSP Server. Invalid executable path ${this.options.executable}`);
             }
@@ -214,37 +216,42 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
         }
     }
 
-    protected async connectToSocketServer(clientChannel: Channel): Promise<void> {
+    protected async connectToSocketServer(clientChannel: Channel): Promise<Disposable> {
+        const clientDisposable = new DisposableCollection();
         this.checkServerPort();
         const socket = new net.Socket();
 
-        this.forwardToSocketConnection(clientChannel, socket);
+        clientDisposable.push(this.forwardToSocketConnection(clientChannel, socket));
         if (clientChannel instanceof ForwardingChannel) {
             socket.on('error', error => clientChannel.onErrorEmitter.fire(error));
         }
         socket.connect(this.options.socketConnectionOptions);
-        this.toDispose.push(Disposable.create(() => socket.destroy()));
+        clientDisposable.push(Disposable.create(() => socket.destroy()));
+        return clientDisposable;
     }
 
-    protected forwardToSocketConnection(clientChannel: Channel, socket: net.Socket): void {
-        this.toDispose.push(new SocketConnectionForwarder(clientChannel, socket));
+    protected forwardToSocketConnection(clientChannel: Channel, socket: net.Socket): Disposable {
+        return new SocketConnectionForwarder(clientChannel, socket);
     }
 
-    protected async connectToWebSocketServer(clientChannel: Channel, webSocketAddress: string | undefined): Promise<void> {
+    protected async connectToWebSocketServer(clientChannel: Channel, webSocketAddress: string | undefined): Promise<Disposable> {
+        const clientDisposable = new DisposableCollection();
         this.checkServerPort();
         if (!webSocketAddress) {
             throw new Error('Could not connect to to GLSP Server. The WebSocket path cannot be empty');
         }
 
         const webSocket = new WebSocket(webSocketAddress);
-        this.forwardToWebSocketConnection(clientChannel, webSocket);
+        clientDisposable.push(Disposable.create(() => webSocket.close()));
+        clientDisposable.push(this.forwardToWebSocketConnection(clientChannel, webSocket));
         if (clientChannel instanceof ForwardingChannel) {
             webSocket.onerror = error => clientChannel.onErrorEmitter.fire(error);
         }
+        return clientDisposable;
     }
 
-    protected forwardToWebSocketConnection(clientChannel: Channel, webSocket: WebSocket): void {
-        this.toDispose.push(new WebSocketConnectionForwarder(clientChannel, webSocket));
+    protected forwardToWebSocketConnection(clientChannel: Channel, webSocket: WebSocket): Disposable {
+        return new WebSocketConnectionForwarder(clientChannel, webSocket);
     }
 }
 

@@ -15,7 +15,6 @@
  ********************************************************************************/
 import {
     ContainerConfiguration,
-    Deferred,
     GLSPClientProxy,
     GLSPServer,
     JsonrpcClientProxy,
@@ -52,35 +51,28 @@ export abstract class GLSPNodeServerContribution extends BaseGLSPServerContribut
 
     protected abstract createServerModules(): ContainerModule[];
 
-    protected serverDeferred = new Deferred<GLSPServer>();
-    protected containerDeferred = new Deferred<Container>();
-
     override createContributionOptions(): Partial<GLSPServerContributionOptions> {
         return {
             launchedExternally: false
         };
     }
-    override connect(clientChannel: Channel): MaybePromise<void> {
+
+    override doConnect(clientChannel: Channel): MaybePromise<Disposable> {
         try {
             const clientConnection = this.createMessageConnection(clientChannel);
             const connectionModule = this.createConnectionModule(clientConnection);
             const container = this.createContainer(connectionModule);
             const server = container.get<GLSPServer>(GLSPServer);
-            this.containerDeferred.resolve(container);
-            this.serverDeferred.resolve(server);
             configureClientConnection(clientConnection, server);
-            this.toDispose.push(
-                Disposable.create(() => {
-                    server.shutdown();
-                    container.unbindAll();
-                    clientConnection.dispose();
-                    clientChannel.close();
-                })
-            );
+            return Disposable.create(() => {
+                server.shutdown();
+                container.unbindAll();
+                clientConnection.dispose();
+                clientChannel.close();
+            });
         } catch (error) {
             console.error(error);
-            this.serverDeferred.reject(error);
-            this.containerDeferred.reject(error);
+            return Disposable.NULL;
         }
     }
 
@@ -105,14 +97,6 @@ export abstract class GLSPNodeServerContribution extends BaseGLSPServerContribut
 
     protected createMessageConnection(clientChannel: Channel): MessageConnection {
         return createChannelConnection(clientChannel);
-    }
-
-    get glspServer(): Promise<GLSPServer> {
-        return this.serverDeferred.promise;
-    }
-
-    get container(): Promise<Container> {
-        return this.containerDeferred.promise;
     }
 }
 

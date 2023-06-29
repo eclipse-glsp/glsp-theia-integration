@@ -34,14 +34,15 @@ export interface GLSPServerContribution extends GLSPContribution, Disposable {
     /**
      * Establish a connection between the given client (connection) and the GLSP server.
      * @param clientChannel  The client (channel) which should be connected to the server
+     * @returns A 'Disposable' that cleans up all client (channel)-specific resources.
      */
-    connect(clientChannel: Channel): MaybePromise<void>;
+    connect(clientChannel: Channel): MaybePromise<Disposable>;
 
     /**
      * Optional function that can be used by the contribution to launch an embedded GLSP server.
      * @returns A 'Promise' that resolves after the server has been successfully launched and is ready to establish a client connection.
      */
-    launch?(): Promise<void>;
+    launch?(): Promise<Disposable>;
 
     /**
      * The {@link GLSPServerContributionOptions} for this contribution.
@@ -128,7 +129,13 @@ export abstract class BaseGLSPServerContribution implements GLSPServerContributi
         this.options = GLSPServerContributionOptions.configure(this.createContributionOptions?.());
     }
 
-    abstract connect(clientChannel: Channel): MaybePromise<void>;
+    async connect(clientChannel: Channel): Promise<Disposable> {
+        const clientDisposable = await this.doConnect(clientChannel);
+        this.toDispose.push(clientDisposable);
+        return clientDisposable;
+    }
+
+    abstract doConnect(clientChannel: Channel): MaybePromise<Disposable>;
 
     abstract createContributionOptions?(): Partial<GLSPServerContributionOptions>;
 
