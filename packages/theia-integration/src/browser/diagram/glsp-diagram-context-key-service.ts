@@ -20,11 +20,10 @@ import {
     getElements,
     isDeletable,
     isMoveable,
+    SelectionService,
     SModelElement,
-    SModelRoot,
-    TYPES
+    SModelRoot
 } from '@eclipse-glsp/client';
-import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { ApplicationShell } from '@theia/core/lib/browser';
 import { ContextKey, ContextKeyService } from '@theia/core/lib/browser/context-key-service';
 import { inject, injectable, postConstruct } from '@theia/core/shared/inversify';
@@ -92,7 +91,7 @@ export abstract class AbstractGLSPDiagramContextKeyService {
     }
 
     protected getSelectionService(glspDiagramWidget: GLSPDiagramWidget): SelectionService {
-        return glspDiagramWidget.diContainer.get(TYPES.SelectionService);
+        return glspDiagramWidget.diContainer.get(SelectionService);
     }
 
     protected getEditorContextService(glspDiagramWidget: GLSPDiagramWidget): EditorContextService {
