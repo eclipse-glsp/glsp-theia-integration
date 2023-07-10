@@ -19,9 +19,9 @@ import {
     hasArrayProp,
     hasObjectProp,
     hasStringProp,
+    ISelectionListener,
     isSourceUriAware,
     ModelSource,
-    SelectionListener,
     SModelRoot,
     TYPES,
     ViewerOptions
@@ -82,7 +82,7 @@ export abstract class GlspSelectionDataService {
  * to Theia`s {@link SelectionService}
  */
 @injectable()
-export class TheiaGLSPSelectionForwarder implements SelectionListener {
+export class TheiaGLSPSelectionForwarder implements ISelectionListener {
     @inject(GlspSelectionDataService)
     @optional()
     protected readonly selectionDataService?: GlspSelectionDataService;

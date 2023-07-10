@@ -15,19 +15,19 @@
  ********************************************************************************/
 import {
     EditMode,
-    EditModeListener,
     EditorContextService,
+    SModelElement,
+    SModelRoot,
+    SelectionService,
     getElements,
     isDeletable,
-    isMoveable,
-    SelectionService,
-    SModelElement,
-    SModelRoot
+    isMoveable
 } from '@eclipse-glsp/client';
+import { DisposableCollection } from '@theia/core';
 import { ApplicationShell } from '@theia/core/lib/browser';
 import { ContextKey, ContextKeyService } from '@theia/core/lib/browser/context-key-service';
 import { inject, injectable, postConstruct } from '@theia/core/shared/inversify';
-import { getDiagramWidget, GLSPDiagramWidget } from './glsp-diagram-widget';
+import { GLSPDiagramWidget, getDiagramWidget } from './glsp-diagram-widget';
 
 @injectable()
 export abstract class AbstractGLSPDiagramContextKeyService {
@@ -37,19 +37,7 @@ export abstract class AbstractGLSPDiagramContextKeyService {
     @inject(ContextKeyService)
     protected readonly contextKeyService: ContextKeyService;
 
-    protected currentSelectionService: SelectionService | undefined;
-    protected currentEditorContextService: EditorContextService | undefined;
-
-    protected readonly selectionChangeListener = {
-        selectionChanged: (root: Readonly<SModelRoot>, selectedElements: string[]) =>
-            // eslint-disable-next-line no-invalid-this
-            this.updateSelectionContextKeys(root, selectedElements)
-    };
-
-    protected readonly editModeChangeListener = {
-        // eslint-disable-next-line no-invalid-this
-        editModeChanged: (oldValue, newValue) => this.doUpdateEditModeContextKeys(newValue)
-    } as EditModeListener;
+    protected disposeOnUpdate = new DisposableCollection();
 
     @postConstruct()
     protected init(): void {
@@ -59,24 +47,16 @@ export abstract class AbstractGLSPDiagramContextKeyService {
     }
 
     protected updateContextKeys(): void {
-        if (this.currentSelectionService) {
-            this.currentSelectionService.deregister(this.selectionChangeListener);
-        }
-        if (this.currentEditorContextService) {
-            this.currentEditorContextService.deregister(this.editModeChangeListener);
-        }
+        this.disposeOnUpdate.dispose();
         const glspDiagramWidget = this.getDiagramWidget();
         if (glspDiagramWidget) {
             this.doUpdateStaticContextKeys(glspDiagramWidget);
-            this.currentSelectionService = this.getSelectionService(glspDiagramWidget);
-            this.currentSelectionService.register(this.selectionChangeListener);
-            this.updateSelectionContextKeys(
-                this.currentSelectionService.getModelRoot(),
-                Array.from(this.currentSelectionService.getSelectedElementIDs())
-            );
-            this.currentEditorContextService = this.getEditorContextService(glspDiagramWidget);
-            this.currentEditorContextService.register(this.editModeChangeListener);
-            this.doUpdateEditModeContextKeys(this.currentEditorContextService.editMode);
+            const selectionService = this.getSelectionService(glspDiagramWidget);
+            const editorContextService = this.getEditorContextService(glspDiagramWidget);
+            this.disposeOnUpdate.pushAll([
+                selectionService.onSelectionChanged(change => this.updateSelectionContextKeys(change.root, change.selectedElements)),
+                editorContextService.onEditModeChanged(change => this.doUpdateEditModeContextKeys(change.newValue))
+            ]);
         } else {
             this.resetContextKeys();
         }
