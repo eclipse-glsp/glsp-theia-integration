@@ -100,7 +100,7 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
     abstract configureContainer(container: Container, widgetId: string, ...containerConfiguration: ContainerConfiguration): void;
 
     protected initializeContainer(container: Container): void {
-        bindAsService(container, TYPES.SelectionListener, TheiaGLSPSelectionForwarder);
+        bindAsService(container, TYPES.ISelectionListener, TheiaGLSPSelectionForwarder);
 
         container.bind(ExternalSourceModelChangedHandler).toService(TheiaSourceModelChangedHandler);
         configureActionHandler(container, NavigateToExternalTargetAction.KIND, TheiaNavigateToExternalTargetHandler);
