@@ -17,11 +17,14 @@
 // based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/sprotty/theia-sprotty-connector.ts
 import {
     ActionMessage,
+    EndProgressAction,
     ExportSvgAction,
     InitializeResult,
     InstanceRegistry,
     ServerMessageAction,
-    ServerStatusAction
+    ServerStatusAction,
+    StartProgressAction,
+    UpdateProgressAction
 } from '@eclipse-glsp/client';
 import { injectable, multiInject, optional } from '@theia/core/shared/inversify';
 import { GLSPTheiaDiagramServer } from './glsp-theia-diagram-server';
@@ -38,6 +41,9 @@ export interface TheiaGLSPConnector {
     save(uri: string, action: ExportSvgAction): void;
     showStatus(clientId: string, status: ServerStatusAction): void;
     sendMessage(message: ActionMessage): void;
+    startProgress(clientId: any, action: StartProgressAction): void;
+    updateProgress(clientId: any, action: UpdateProgressAction): void;
+    endProgress(clientId: any, action: EndProgressAction): void;
     onMessageReceived(message: ActionMessage): void;
 }
 

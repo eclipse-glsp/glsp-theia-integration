@@ -11,6 +11,7 @@
 -   [backend] (Web)Socket based `GLSPServerContributions` now support auto-assigned ports [#151](https://github.com/eclipse-glsp/glsp-theia-integration/pull/151)
 -   [validation] Only keep live validation markers in problems view and clean all others [#153](https://github.com/eclipse-glsp/glsp-theia-integration/pull/153)
 -   [backend] Provide `GLSPNodeServerContribution` to enable direct server integration into the Theia backed [#154](https://github.com/eclipse-glsp/glsp-theia-integration) - Contributed on behalf of STMicroelectronics
+-   [theia] Add support for showing server progress in Theia [#168](https://github.com/eclipse-glsp/glsp-theia-integration/pull/168)
 
 ### Breaking Changes
 
