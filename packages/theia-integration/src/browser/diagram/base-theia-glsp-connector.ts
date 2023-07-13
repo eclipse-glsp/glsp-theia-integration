@@ -16,14 +16,17 @@
 import {
     ActionMessage,
     Args,
+    EndProgressAction,
     ExportSvgAction,
     GLSPClient,
     InitializeResult,
-    remove,
     ServerMessageAction,
-    ServerStatusAction
+    ServerStatusAction,
+    StartProgressAction,
+    UpdateProgressAction,
+    remove
 } from '@eclipse-glsp/client';
-import { Message, MessageService, MessageType } from '@theia/core';
+import { Message, MessageService, MessageType, Progress } from '@theia/core';
 import { ConfirmDialog, WidgetManager } from '@theia/core/lib/browser';
 import URI from '@theia/core/lib/common/uri';
 import { inject, injectable, postConstruct } from '@theia/core/shared/inversify';
@@ -63,9 +66,11 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
     @inject(GLSPClientProvider)
     protected readonly glspClientProvider: GLSPClientProvider;
 
-    private servers: Map<string, GLSPTheiaDiagramServer> = new Map();
-    private widgetMessages: Map<string, string[]> = new Map();
-    private widgetStatusTimeouts: Map<string, number> = new Map();
+    protected servers: Map<string, GLSPTheiaDiagramServer> = new Map();
+    protected widgetMessages: Map<string, string[]> = new Map();
+    protected widgetStatusTimeouts: Map<string, number> = new Map();
+
+    protected progressReporters: Map<string, Progress> = new Map();
 
     abstract readonly diagramType: string;
     abstract readonly contributionId: string;
@@ -194,8 +199,7 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
         const type = this.toMessageType(action.severity);
         const text = action.message;
         const details = action.details;
-        const timeout = action.timeout;
-        const options = { timeout, uri } as GLSPMessageOptions;
+        const options = { uri } as GLSPMessageOptions;
         const actions = details ? [SHOW_DETAILS_LABEL] : [];
         const message: Message = { type, text, actions, options };
         const messageId = this.createMessageId(message);
@@ -258,6 +262,43 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
 
     createMessageId(message: Message): string {
         return this.notificationManager.getMessageId(message);
+    }
+
+    // Progress reporting
+
+    startProgress(widgetId: string, action: StartProgressAction): void {
+        const { progressId, title, message, percentage } = action;
+        const reporterId = this.progressReporterId(widgetId, progressId);
+        this.messageService
+            .showProgress({ text: title }) //
+            .then(progress => {
+                this.progressReporters.set(reporterId, progress);
+                progress.report({ message, work: percentage ? { done: percentage, total: 100 } : undefined });
+            });
+    }
+
+    updateProgress(widgetId: string, action: UpdateProgressAction): void {
+        const { progressId, message, percentage } = action;
+        const reporterId = this.progressReporterId(widgetId, progressId);
+        const progress = this.progressReporters.get(reporterId);
+        if (!progress) {
+            return;
+        }
+        progress.report({ message, work: percentage ? { done: percentage, total: 100 } : undefined });
+    }
+
+    endProgress(widgetId: string, action: EndProgressAction): void {
+        const reporterId = this.progressReporterId(widgetId, action.progressId);
+        const progress = this.progressReporters.get(reporterId);
+        if (!progress) {
+            return;
+        }
+        this.progressReporters.delete(reporterId);
+        progress.cancel();
+    }
+
+    protected progressReporterId(widgetId: string, progressId: string): string {
+        return `${widgetId}_${progressId}`;
     }
 
     sendMessage(message: ActionMessage): void {

@@ -22,6 +22,7 @@ import {
     ActionMessage,
     ComputedBoundsAction,
     DiagramServerProxy,
+    EndProgressAction,
     ExportSvgAction,
     ICommand,
     registerDefaultGLSPServerActions,
@@ -30,7 +31,9 @@ import {
     ServerStatusAction,
     SetDirtyStateAction,
     SetEditModeAction,
-    SourceUriAware
+    SourceUriAware,
+    StartProgressAction,
+    UpdateProgressAction
 } from '@eclipse-glsp/client';
 import { Emitter, Event } from '@theia/core/lib/common';
 import { injectable } from '@theia/core/shared/inversify';
@@ -94,6 +97,15 @@ export class GLSPTheiaDiagramServer extends DiagramServerProxy implements DirtyS
         if (SetEditModeAction.is(action)) {
             return this.handleSetEditModeAction(action);
         }
+        if (StartProgressAction.is(action)) {
+            return this.handleStartProgress(action);
+        }
+        if (UpdateProgressAction.is(action)) {
+            return this.handleUpdateProgress(action);
+        }
+        if (EndProgressAction.is(action)) {
+            return this.handleEndProgress(action);
+        }
         return super.handleLocally(action);
     }
 
@@ -117,6 +129,21 @@ export class GLSPTheiaDiagramServer extends DiagramServerProxy implements DirtyS
 
     protected handleServerMessageAction(status: ServerMessageAction): boolean {
         this.connector.showMessage(this.clientId, status);
+        return false;
+    }
+
+    protected handleStartProgress(action: StartProgressAction): boolean {
+        this.connector.startProgress(this.clientId, action);
+        return false;
+    }
+
+    protected handleUpdateProgress(action: UpdateProgressAction): boolean {
+        this.connector.updateProgress(this.clientId, action);
+        return false;
+    }
+
+    protected handleEndProgress(action: EndProgressAction): boolean {
+        this.connector.endProgress(this.clientId, action);
         return false;
     }
 
