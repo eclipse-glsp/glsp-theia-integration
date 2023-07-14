@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { bindAsService } from '@eclipse-glsp/protocol';
-import { bindContributionProvider, ConnectionHandler, JsonRpcConnectionHandler } from '@theia/core/lib/common';
+import { bindContributionProvider, ConnectionHandler, RpcConnectionHandler } from '@theia/core/lib/common';
 import { MessagingService } from '@theia/core/lib/node/messaging/messaging-service';
 import { ContainerModule } from '@theia/core/shared/inversify';
 
@@ -29,9 +29,7 @@ export default new ContainerModule(bind => {
     bindContributionProvider(bind, GLSPServerContribution);
 
     bind(ConnectionHandler)
-        .toDynamicValue(
-            ctx => new JsonRpcConnectionHandler(GLSPContribution.servicePath, () => ctx.container.get(GLSPContribution.Service))
-        )
+        .toDynamicValue(ctx => new RpcConnectionHandler(GLSPContribution.servicePath, () => ctx.container.get(GLSPContribution.Service)))
         .inSingletonScope();
 
     bind(ServerContainerFactory).toFactory(ctx => () => ctx.container.createChild());
