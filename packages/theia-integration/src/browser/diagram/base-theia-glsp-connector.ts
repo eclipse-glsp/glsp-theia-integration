@@ -269,22 +269,24 @@ export abstract class BaseTheiaGLSPConnector implements TheiaGLSPConnector {
     startProgress(widgetId: string, action: StartProgressAction): void {
         const { progressId, title, message, percentage } = action;
         const reporterId = this.progressReporterId(widgetId, progressId);
+        const newPercentage = (percentage ?? -1) >= 0 ? percentage : undefined;
         this.messageService
             .showProgress({ text: title }) //
             .then(progress => {
                 this.progressReporters.set(reporterId, progress);
-                progress.report({ message, work: percentage ? { done: percentage, total: 100 } : undefined });
+                progress.report({ message, work: newPercentage ? { done: newPercentage, total: 100 } : undefined });
             });
     }
 
     updateProgress(widgetId: string, action: UpdateProgressAction): void {
         const { progressId, message, percentage } = action;
+        const newPercentage = (percentage ?? -1) >= 0 ? percentage : undefined;
         const reporterId = this.progressReporterId(widgetId, progressId);
         const progress = this.progressReporters.get(reporterId);
         if (!progress) {
             return;
         }
-        progress.report({ message, work: percentage ? { done: percentage, total: 100 } : undefined });
+        progress.report({ message, work: newPercentage ? { done: newPercentage, total: 100 } : undefined });
     }
 
     endProgress(widgetId: string, action: EndProgressAction): void {
