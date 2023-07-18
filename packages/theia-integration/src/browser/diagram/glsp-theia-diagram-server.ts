@@ -110,7 +110,6 @@ export class GLSPTheiaDiagramServer extends DiagramServerProxy implements DirtyS
     }
 
     override handleExportSvgAction(action: ExportSvgAction): boolean {
-        this.connector.save(this.sourceURI, action);
         return false;
     }
 

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2023 EclipseSource and others.
+ * Copyright (c) 2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,19 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export * from './base-theia-glsp-connector';
-export * from './features/select/theia-glsp-selection-forwarder';
-export * from './glsp-command-handler';
-export * from './glsp-diagram-commands';
-export * from './glsp-diagram-configuration';
-export * from './glsp-diagram-context-key-service';
-export * from './glsp-diagram-keybinding';
-export * from './glsp-diagram-manager';
-export * from './glsp-diagram-widget';
-export * from './glsp-layout-commands';
-export * from './glsp-notification-manager';
-export * from './glsp-theia-diagram-server';
-export * from './saveable-glsp-model-source';
-export * from './theia-context-menu-service';
-export * from './theia-glsp-connector';
-export * from './theia-marker-manager';
+
+import { FeatureModule, TYPES, bindAsService, selectModule } from '@eclipse-glsp/client';
+import { TheiaGLSPSelectionForwarder } from './theia-glsp-selection-forwarder';
+
+export const theiaSelectModule = new FeatureModule(
+    bind => {
+        bindAsService(bind, TYPES.ISelectionListener, TheiaGLSPSelectionForwarder);
+    },
+    { requires: selectModule }
+);

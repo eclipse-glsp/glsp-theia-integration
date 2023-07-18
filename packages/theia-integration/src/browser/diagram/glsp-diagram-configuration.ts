@@ -14,20 +14,22 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import {
-    bindAsService,
     configureActionHandler,
     ContainerConfiguration,
+    contextMenuModule,
     ExternalSourceModelChangedHandler,
     InstanceRegistry,
     NavigateToExternalTargetAction,
-    TYPES
+    navigationModule,
+    TYPES,
+    validationModule
 } from '@eclipse-glsp/client';
 import { Container, inject, injectable, multiInject, optional } from '@theia/core/shared/inversify';
 import { TheiaContextMenuService } from '../theia-glsp-context-menu-service';
 import { TheiaNavigateToExternalTargetHandler } from '../theia-navigate-to-external-target-handler';
 import { TheiaSourceModelChangedHandler } from '../theia-source-model-changed-handler';
+import { THEIA_DEFAULT_MODULES } from './features/default-modules';
 import { connectTheiaContextMenuService, TheiaContextMenuServiceFactory } from './theia-context-menu-service';
-import { TheiaGLSPSelectionForwarder } from './theia-glsp-selection-forwarder';
 import { connectTheiaMarkerManager, TheiaMarkerManager, TheiaMarkerManagerFactory } from './theia-marker-manager';
 
 export const DiagramContainerFactory = Symbol('DiagramContainerFactory');
@@ -82,11 +84,15 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
 
     abstract readonly diagramType: string;
 
-    createContainer(widgetId: string, ...containerConfiguration: ContainerConfiguration): Container {
+    createContainer(widgetId: string): Container {
         const container = this.diagramContainerFactory();
-        this.configureContainer(container, widgetId, ...containerConfiguration);
+        this.configureContainer(container, widgetId, ...this.getContainerConfiguration());
         this.initializeContainer(container);
         return container;
+    }
+
+    protected getContainerConfiguration(): ContainerConfiguration {
+        return [...THEIA_DEFAULT_MODULES];
     }
 
     /**
@@ -100,12 +106,17 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
     abstract configureContainer(container: Container, widgetId: string, ...containerConfiguration: ContainerConfiguration): void;
 
     protected initializeContainer(container: Container): void {
-        bindAsService(container, TYPES.ISelectionListener, TheiaGLSPSelectionForwarder);
-
         container.bind(ExternalSourceModelChangedHandler).toService(TheiaSourceModelChangedHandler);
-        configureActionHandler(container, NavigateToExternalTargetAction.KIND, TheiaNavigateToExternalTargetHandler);
-        connectTheiaContextMenuService(container, this.contextMenuServiceFactory);
-        connectTheiaMarkerManager(container, this.theiaMarkerManager, this.diagramType);
+        if (navigationModule.isLoaded(container)) {
+            configureActionHandler(container, NavigateToExternalTargetAction.KIND, TheiaNavigateToExternalTargetHandler);
+        }
+        if (contextMenuModule.isLoaded(container)) {
+            connectTheiaContextMenuService(container, this.contextMenuServiceFactory);
+        }
+
+        if (validationModule.isLoaded(container)) {
+            connectTheiaMarkerManager(container, this.theiaMarkerManager, this.diagramType);
+        }
     }
 }
 
