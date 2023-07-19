@@ -29,11 +29,9 @@ import { Deferred } from '@theia/core/lib/common/promise-util';
 import { inject, injectable } from '@theia/core/shared/inversify';
 import { MessageConnection } from 'vscode-jsonrpc';
 
-import 'sprotty/css/sprotty.css';
 import '../../css/command-palette.css';
 import '../../css/decoration.css';
 import '../../css/diagram.css';
-import '../../css/sprotty-theia.css';
 import '../../css/theia-dialogs.css';
 import '../../css/tool-palette.css';
 import {

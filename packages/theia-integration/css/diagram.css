@@ -14,6 +14,22 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
+.sprotty {
+    display: flex;
+    height: 100%;
+}
+
+.sprotty svg {
+    width: 100%;
+    flex: 1;
+    border-style: solid;
+    border-width: 0px;
+}
+
+.sprotty svg:focus {
+    border-width: 0;
+    outline: none;
+}
 .sprotty > div:focus {
     outline: none;
 }
@@ -30,6 +46,21 @@
 .sprotty-edge {
     fill: none;
     stroke: var(--theia-editor-foreground);
+}
+
+.sprotty-edge > .sprotty-routing-handle {
+    r: 5px;
+    fill: var(--theia-foreground);
+    stroke: none;
+    z-index: 1000;
+}
+
+.sprotty-edge > .sprotty-routing-handle[data-kind='line'] {
+    opacity: 0.35;
+}
+
+.sprotty-edge > .sprotty-routing-handle.mouseover {
+    stroke-width: 1;
 }
 
 .sprotty-edge .arrow {
@@ -72,6 +103,8 @@
     stroke: var(--theia-editor-foreground);
 }
 
+/* Hover popup c*/
+
 .sprotty-popup {
     padding: 0px;
     border-radius: 2px;
@@ -79,4 +112,76 @@
     background-color: var(--theia-editorHoverWidget-background);
     color: var(--theia-editorHoverWidget-foreground);
     border: 1px solid var(--theia-editorHoverWidget-border);
+}
+
+.sprotty-infoRow {
+    font-size: small;
+    margin-bottom: 8px;
+}
+
+.sprotty-infoTitle {
+    display: block;
+    font-weight: bold;
+}
+
+/*Status div */
+
+.sprotty-status {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.sprotty-status .fatal {
+    color: var(--theia-inputValidation-errorBorder);
+}
+
+.sprotty-status .error {
+    color: var(--theia-errorForeground);
+}
+
+.sprotty-status .warning {
+    color: var(--theia-editorWarning-foreground);
+}
+
+.sprotty-status .info {
+    color: var(--theia-editorInfo-foreground);
+}
+
+.sprotty-error {
+    fill: var(--theia-inputValidation-errorBackground);
+    color: var(--theia-errorForeground);
+}
+
+.sprotty-warning {
+    fill: var(--theia-inputValidation-warningBackground);
+    color: var(--theia-editorWarning-foreground);
+}
+
+.sprotty-info {
+    fill: var(--theia-info-color0);
+    color: var(--theia-inputValidation-infoBackground);
+}
+
+.sprotty-infoRow .codicon {
+    margin-right: 8px;
+}
+.sprotty-status .ok {
+    visibility: hidden;
+}
+
+.sprotty-status-message {
+    visibility: hidden;
+    padding-left: 10px;
+}
+
+.sprotty-status-message.fatal {
+    visibility: visible;
+    padding-left: 10px;
+}
+
+.sprotty-status:hover .sprotty-status-message {
+    visibility: visible;
 }
