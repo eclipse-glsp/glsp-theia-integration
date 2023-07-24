@@ -31,6 +31,8 @@ import { Range } from '@theia/editor/lib/browser';
  *   *(a)* the property `elementIds: string[]` as element ids
  *   *(b)* `start` with `line: number` and `character: number`
  *   *(c)* any simple-typed properties that are direct properties of `selection`
+ *
+ * (bound in Theia main DI container)
  */
 @injectable()
 export class TheiaOpenerOptionsNavigationService {

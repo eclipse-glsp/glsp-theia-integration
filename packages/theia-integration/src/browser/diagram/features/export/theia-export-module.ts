@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2023 EclipseSource and others.
+ * Copyright (c) 2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,17 +13,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export * from './features/export/theia-export-module';
-export * from './features/export/theia-export-svg-action-handler';
-export * from './features/select/theia-glsp-selection-forwarder';
-export * from './glsp-command-handler';
-export * from './glsp-diagram-commands';
-export * from './glsp-diagram-configuration';
-export * from './glsp-diagram-context-key-service';
-export * from './glsp-diagram-keybinding';
-export * from './glsp-diagram-manager';
-export * from './glsp-diagram-widget';
-export * from './glsp-layout-commands';
-export * from './glsp-saveable';
-export * from './theia-context-menu-service';
-export * from './theia-marker-manager';
+import { ExportSvgAction, FeatureModule, configureActionHandler, exportModule } from '@eclipse-glsp/client';
+import { TheiaExportSvgActionHandler } from './theia-export-svg-action-handler';
+export const theiaExportModule = new FeatureModule(
+    (bind, _unbind, isBound, _rebind) => {
+        configureActionHandler({ bind, isBound }, ExportSvgAction.KIND, TheiaExportSvgActionHandler);
+    },
+    { requires: exportModule }
+);

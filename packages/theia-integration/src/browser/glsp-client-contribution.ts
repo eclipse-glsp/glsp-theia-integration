@@ -82,12 +82,6 @@ export interface GLSPClientContribution extends GLSPContribution {
      * @returns A promise of the client that resolves after the client has been started & initialized
      */
     readonly glspClient: Promise<GLSPClient>;
-
-    /**
-     * The cached result of the client initialization
-     * @returns  A promise that will resolve after  {@link GLSPClient.initializeServer} has been called
-     */
-    readonly initializeResult: Promise<InitializeResult>;
 }
 
 export type WebSocketConnectionOptions =
@@ -109,7 +103,6 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
 
     protected glspClientDeferred: Deferred<GLSPClient> = new Deferred();
     protected readonly toDispose = new DisposableCollection();
-    protected _initializeResult: InitializeResult | undefined;
     protected glspClientStartupTimeout = 15000;
 
     protected getWebSocketConnectionOptions(): MaybePromise<WebSocketConnectionOptions | undefined> {
@@ -121,15 +114,6 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
 
     get glspClient(): Promise<GLSPClient> {
         return this.glspClientDeferred.promise;
-    }
-
-    get initializeResult(): Promise<InitializeResult> {
-        return this.glspClient.then(_client => {
-            if (!this._initializeResult) {
-                throw new Error('Server is not yet initialized!');
-            }
-            return this._initializeResult;
-        });
     }
 
     waitForActivation?(app: FrontendApplication): Promise<void>;
@@ -217,7 +201,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     protected async start(glspClient: GLSPClient): Promise<void> {
         try {
             await glspClient.start();
-            this._initializeResult = await this.initialize(glspClient);
+            await this.initialize(glspClient);
             this.glspClientDeferred.resolve(glspClient);
         } catch (error) {
             this.glspClientDeferred.reject(error);

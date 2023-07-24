@@ -16,14 +16,13 @@
 
 export * from './copy-paste-context-menu-contribution';
 export * from './diagram';
+export * from './diagram/features/navigation/theia-navigate-to-external-target-handler';
+export * from './diagram/features/source-model-watcher/theia-source-model-changed-handler';
 export * from './glsp-client-contribution';
 export * from './glsp-client-provider';
 export * from './glsp-frontend-contribution';
 export * from './glsp-theia-container-module';
-export * from './theia-file-saver';
 export * from './theia-glsp-context-menu-service';
 export * from './theia-jsonrpc-glsp-client';
-export * from './theia-navigate-to-external-target-handler';
 export * from './theia-navigate-to-marker-contribution';
 export * from './theia-opener-options-navigation-service';
-export * from './theia-source-model-changed-handler';

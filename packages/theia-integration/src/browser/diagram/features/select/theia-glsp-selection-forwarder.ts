@@ -16,11 +16,11 @@
 // based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/sprotty/theia-sprotty-selection-forwarder.ts
 import {
     AnyObject,
+    GLSPModelSource,
     hasArrayProp,
     hasObjectProp,
     hasStringProp,
     ISelectionListener,
-    isSourceUriAware,
     ModelSource,
     SModelRoot,
     TYPES,
@@ -49,19 +49,6 @@ export namespace GlspSelection {
 }
 
 /**
- * @deprecated Use `GlspSelection.is()` instead
- */
-export function isGlspSelection(selection?: unknown): selection is GlspSelection {
-    return (
-        AnyObject.is(selection) &&
-        hasArrayProp(selection, 'selectedElementsIDs') &&
-        hasStringProp(selection, 'widgetId') &&
-        hasStringProp(selection, 'sourceUri', true) &&
-        hasObjectProp(selection, 'additionalSelectionData', true)
-    );
-}
-
-/**
  * Additional domain specific selection data that can be attached to a {@link GlspSelection}
  */
 export interface GlspSelectionData {
@@ -80,6 +67,8 @@ export abstract class GlspSelectionDataService {
 /**
  * Reacts to diagram selection changes and forwards the corresponding {@link GlspSelection}
  * to Theia`s {@link SelectionService}
+ *
+ * (bound in Diagram child DI container)
  */
 @injectable()
 export class TheiaGLSPSelectionForwarder implements ISelectionListener {
@@ -101,8 +90,8 @@ export class TheiaGLSPSelectionForwarder implements ISelectionListener {
     protected async getSourceUri(): Promise<string | undefined> {
         if (!this.sourceUri) {
             const modelSource = await this.modelSourceProvider();
-            if (isSourceUriAware(modelSource)) {
-                this.sourceUri = modelSource.sourceURI;
+            if (modelSource instanceof GLSPModelSource) {
+                this.sourceUri = modelSource.sourceUri;
             }
         }
         return this.sourceUri;
