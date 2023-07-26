@@ -117,7 +117,7 @@ export class TheiaGLSPSelectionForwarder implements ISelectionListener {
         const additionalSelectionData = (await this.selectionDataService?.getSelectionData(selectedElementsIDs)) ?? undefined;
         const glspSelection: GlspSelection = {
             selectedElementsIDs,
-            additionalSelectionData,
+            ...(additionalSelectionData && { additionalSelectionData }),
             widgetId: this.viewerOptions.baseDiv,
             sourceUri: sourceUri
         };
