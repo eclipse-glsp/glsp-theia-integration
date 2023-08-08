@@ -14,10 +14,14 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { Action, Args, IActionHandler, NavigateToExternalTargetAction } from '@eclipse-glsp/client/lib';
-import { open, OpenerService } from '@theia/core/lib/browser/opener-service';
+import { OpenerService, open } from '@theia/core/lib/browser/opener-service';
 import URI from '@theia/core/lib/common/uri';
 import { inject, injectable } from '@theia/core/shared/inversify';
-
+/**
+ * Default {@link IActionHandler} for {@link NavigateToExternalTargetAction}s in Theia
+ *
+ * (bound in Diagram child DI container)
+ */
 @injectable()
 export class TheiaNavigateToExternalTargetHandler implements IActionHandler {
     static JSON_OPENER_OPTIONS = 'jsonOpenerOptions';

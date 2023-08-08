@@ -16,8 +16,14 @@
 import { Action, ExternalSourceModelChangedHandler, ViewerOptions } from '@eclipse-glsp/client';
 import { ApplicationShell, ConfirmDialog, Widget } from '@theia/core/lib/browser';
 import { inject, injectable } from '@theia/core/shared/inversify';
-import { getDiagramWidget } from './diagram/glsp-diagram-widget';
+import { getDiagramWidget } from '../../glsp-diagram-widget';
 
+/**
+ * Default {@link ExternalSourceModelChangedHandler} for Theia. Notifies the user if the underlying source model
+ * has changed. Optional a model reload can be triggered.
+ *
+ * (bound in Diagram child DI container)
+ */
 @injectable()
 export class TheiaSourceModelChangedHandler extends ExternalSourceModelChangedHandler {
     @inject(ApplicationShell) protected readonly shell: ApplicationShell;

@@ -13,7 +13,17 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export * from './base-theia-glsp-connector';
+export * from './features/export/theia-export-module';
+export * from './features/export/theia-export-svg-action-handler';
+export * from './features/navigation/theia-navigate-to-external-target-handler';
+export * from './features/navigation/theia-navigation-module';
+export * from './features/notification-module/notification-module';
+export * from './features/notification-module/theia-glsp-message-service';
+export * from './features/select/theia-glsp-selection-forwarder';
+export * from './features/select/theia-select-module';
+export * from './features/source-model-watcher/theia-source-model-changed-handler';
+export * from './features/source-model-watcher/theia-source-model-watcher-module';
+
 export * from './glsp-command-handler';
 export * from './glsp-diagram-commands';
 export * from './glsp-diagram-configuration';
@@ -22,10 +32,6 @@ export * from './glsp-diagram-keybinding';
 export * from './glsp-diagram-manager';
 export * from './glsp-diagram-widget';
 export * from './glsp-layout-commands';
-export * from './glsp-notification-manager';
-export * from './glsp-theia-diagram-server';
-export * from './saveable-glsp-model-source';
+export * from './glsp-saveable';
 export * from './theia-context-menu-service';
-export * from './theia-glsp-connector';
-export * from './theia-glsp-selection-forwarder';
 export * from './theia-marker-manager';

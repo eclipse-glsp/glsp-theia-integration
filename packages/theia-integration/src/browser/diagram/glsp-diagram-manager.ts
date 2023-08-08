@@ -16,7 +16,7 @@
  ********************************************************************************/
 // based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/theia/diagram-manager.ts
 
-import { codiconCSSString, configureServerActions, EditMode } from '@eclipse-glsp/client';
+import { codiconCSSString, EditMode } from '@eclipse-glsp/client';
 import {
     ApplicationShell,
     FrontendApplicationContribution,
@@ -28,13 +28,13 @@ import {
 } from '@theia/core/lib/browser';
 import { SelectionService } from '@theia/core/lib/common/selection-service';
 import URI from '@theia/core/lib/common/uri';
-import { inject, injectable, interfaces, postConstruct } from '@theia/core/shared/inversify';
+import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
 import { EditorManager, EditorPreferences } from '@theia/editor/lib/browser';
+import { GLSPClientProvider } from '../glsp-client-provider';
 import { TheiaOpenerOptionsNavigationService } from '../theia-opener-options-navigation-service';
 import { DiagramConfiguration, DiagramConfigurationRegistry } from './glsp-diagram-configuration';
 import { GLSPDiagramContextKeyService } from './glsp-diagram-context-key-service';
 import { GLSPDiagramWidget, GLSPDiagramWidgetOptions } from './glsp-diagram-widget';
-import { TheiaGLSPConnector } from './theia-glsp-connector';
 
 export function registerDiagramManager(
     bind: interfaces.Bind,
@@ -48,10 +48,6 @@ export function registerDiagramManager(
     bind(OpenHandler).toService(diagramManagerServiceId);
     bind(WidgetFactory).toService(diagramManagerServiceId);
 }
-
-export const TheiaGLSPConnectorProvider = Symbol('TheiaGLSPConnectorProvider');
-
-export type TheiaGLSPConnectorProvider = (diagramType: string) => Promise<TheiaGLSPConnector>;
 
 @injectable()
 export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWidget> implements WidgetFactory {
@@ -73,8 +69,8 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
     @inject(SelectionService)
     theiaSelectionService: SelectionService;
 
-    @inject(TheiaGLSPConnectorProvider)
-    protected readonly connectorProvider: TheiaGLSPConnectorProvider;
+    @inject(GLSPClientProvider)
+    protected readonly glspClientProvider: GLSPClientProvider;
 
     @inject(EditorManager)
     protected readonly editorManager: EditorManager;
@@ -86,18 +82,9 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
 
     abstract get diagramType(): string;
 
-    protected _diagramConnector: TheiaGLSPConnector;
+    abstract get contributionId(): string;
 
     protected widgetCount = 0;
-
-    @postConstruct()
-    protected initialize(): void {
-        this.connectorProvider(this.diagramType)
-            .then(connector => (this._diagramConnector = connector))
-            .catch(_err => {
-                throw new Error(`No diagram connector is registered for diagramType: ${this.diagramType}!`);
-            });
-    }
 
     override async doOpen(widget: GLSPDiagramWidget, maybeOptions?: WidgetOpenerOptions): Promise<void> {
         const widgetWasAttached = widget.isAttached;
@@ -151,12 +138,10 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
             const widgetId = this.createWidgetId(options);
             const config = this.getDiagramConfiguration(options);
             const diContainer = config.createContainer(clientId);
-
-            // do not await the result here as it blocks the Theia layout restoration for open widgets
-            // instead simply check in the widget if we are already initialized
-            this.diagramConnector.initializeResult.then(initializeResult =>
-                configureServerActions(initializeResult, this.diagramType, diContainer)
-            );
+            const glpsClientContribution = this.glspClientProvider.getGLSPClientContribution(this.contributionId);
+            if (!glpsClientContribution) {
+                throw new Error(`No glsp client contribution is registered for id: ${this.contributionId}!`);
+            }
 
             const widget = new GLSPDiagramWidget(
                 options,
@@ -165,7 +150,7 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
                 this.editorPreferences,
                 this.storage,
                 this.theiaSelectionService,
-                this.diagramConnector
+                glpsClientContribution
             );
             widget.listenToFocusState(this.shell);
             return widget;
@@ -203,10 +188,6 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
             }
         }
         return 0;
-    }
-
-    get diagramConnector(): TheiaGLSPConnector {
-        return this._diagramConnector;
     }
 
     override get id(): string {

@@ -124,16 +124,6 @@
     font-weight: bold;
 }
 
-/*Status div */
-
-.sprotty-status {
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    display: flex;
-    align-items: center;
-}
-
 .sprotty-status .fatal {
     color: var(--theia-inputValidation-errorBorder);
 }
@@ -163,25 +153,4 @@
 .sprotty-info {
     fill: var(--theia-info-color0);
     color: var(--theia-inputValidation-infoBackground);
-}
-
-.sprotty-infoRow .codicon {
-    margin-right: 8px;
-}
-.sprotty-status .ok {
-    visibility: hidden;
-}
-
-.sprotty-status-message {
-    visibility: hidden;
-    padding-left: 10px;
-}
-
-.sprotty-status-message.fatal {
-    visibility: visible;
-    padding-left: 10px;
-}
-
-.sprotty-status:hover .sprotty-status-message {
-    visibility: visible;
 }

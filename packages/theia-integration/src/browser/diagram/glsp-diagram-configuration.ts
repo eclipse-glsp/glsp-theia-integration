@@ -13,22 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import {
-    bindAsService,
-    configureActionHandler,
-    ContainerConfiguration,
-    ExternalSourceModelChangedHandler,
-    InstanceRegistry,
-    NavigateToExternalTargetAction,
-    TYPES
-} from '@eclipse-glsp/client';
+import { ContainerConfiguration, InstanceRegistry } from '@eclipse-glsp/client';
 import { Container, inject, injectable, multiInject, optional } from '@theia/core/shared/inversify';
 import { TheiaContextMenuService } from '../theia-glsp-context-menu-service';
-import { TheiaNavigateToExternalTargetHandler } from '../theia-navigate-to-external-target-handler';
-import { TheiaSourceModelChangedHandler } from '../theia-source-model-changed-handler';
-import { connectTheiaContextMenuService, TheiaContextMenuServiceFactory } from './theia-context-menu-service';
-import { TheiaGLSPSelectionForwarder } from './theia-glsp-selection-forwarder';
-import { connectTheiaMarkerManager, TheiaMarkerManager, TheiaMarkerManagerFactory } from './theia-marker-manager';
+import { THEIA_DEFAULT_MODULES } from './features/default-modules';
+import { TheiaContextMenuServiceFactory, connectTheiaContextMenuService } from './theia-context-menu-service';
+import { TheiaMarkerManager, TheiaMarkerManagerFactory, connectTheiaMarkerManager } from './theia-marker-manager';
 
 export const DiagramContainerFactory = Symbol('DiagramContainerFactory');
 /**
@@ -70,6 +60,8 @@ export class DiagramConfigurationRegistry extends InstanceRegistry<DiagramConfig
  * The created diagram container is a child container of the main Theia DI container.
  * This means that services that are configured inside of the diagram container also have access (i.e. can inject)
  * services from the main Theia DI container.
+ *
+ * (bound in Theia main DI container)
  */
 @injectable()
 export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
@@ -82,11 +74,20 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
 
     abstract readonly diagramType: string;
 
-    createContainer(widgetId: string, ...containerConfiguration: ContainerConfiguration): Container {
+    createContainer(widgetId: string): Container {
         const container = this.diagramContainerFactory();
-        this.configureContainer(container, widgetId, ...containerConfiguration);
+        this.configureContainer(container, widgetId, ...this.getContainerConfiguration());
         this.initializeContainer(container);
         return container;
+    }
+
+    /**
+     * Retrieves additional {@link ContainerConfiguration} for the diagram container.
+     * Typically this composes a set of theia specific customization modules.
+     * @returns the container configuration
+     */
+    protected getContainerConfiguration(): ContainerConfiguration {
+        return [...THEIA_DEFAULT_MODULES];
     }
 
     /**
@@ -100,16 +101,7 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
     abstract configureContainer(container: Container, widgetId: string, ...containerConfiguration: ContainerConfiguration): void;
 
     protected initializeContainer(container: Container): void {
-        bindAsService(container, TYPES.ISelectionListener, TheiaGLSPSelectionForwarder);
-
-        container.bind(ExternalSourceModelChangedHandler).toService(TheiaSourceModelChangedHandler);
-        configureActionHandler(container, NavigateToExternalTargetAction.KIND, TheiaNavigateToExternalTargetHandler);
         connectTheiaContextMenuService(container, this.contextMenuServiceFactory);
         connectTheiaMarkerManager(container, this.theiaMarkerManager, this.diagramType);
     }
-}
-
-export function configureDiagramServer<T>(container: Container, server: { new (...args: any[]): T }): void {
-    container.bind(server).toSelf().inSingletonScope();
-    container.bind(TYPES.ModelSource).toService(server);
 }

@@ -17,10 +17,8 @@ import { codiconCSSString } from '@eclipse-glsp/client';
 import { ContainerModule, injectable, interfaces } from '@theia/core/shared/inversify';
 import { GLSPDiagramLanguage } from '../common/glsp-diagram-language';
 import { registerCopyPasteContextMenu } from './copy-paste-context-menu-contribution';
-import { BaseTheiaGLSPConnector } from './diagram/base-theia-glsp-connector';
 import { GLSPDiagramManager, registerDiagramManager } from './diagram/glsp-diagram-manager';
 import { registerDiagramLayoutCommands } from './diagram/glsp-layout-commands';
-import { TheiaGLSPConnector } from './diagram/theia-glsp-connector';
 import { BaseGLSPClientContribution, GLSPClientContribution } from './glsp-client-contribution';
 import { registerMarkerNavigationCommands } from './theia-navigate-to-marker-contribution';
 
@@ -51,7 +49,6 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
     }
 
     initialize(context: ContainerContext): void {
-        this.bindTheiaGLSPConnector(context);
         this.bindGLSPClientContribution(context);
         this.bindDiagramConfiguration(context);
         this.configureDiagramManager(context);
@@ -61,28 +58,6 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
         this.configureCopyPasteContextMenu(context);
         this.configureMarkerNavigationCommands(context);
         this.configure(context);
-    }
-
-    /**
-     * Defines the binding for the theia glsp connector of the diagram integration. A {@link ConfigurableTheiaGLSPConnector}
-     * is bound and configured using the diagramLanguage property. Can be overwritten in subclasses to provide a
-     * binding using the {@link TheiaGLSPConnector} service identifier.
-     *
-     * For example:
-     * ```typescript
-     * context.bind(TheiaGLSPConnector).toSelf(MyCustomTheiaGLSPConnector);
-     * ```
-     * Note that theia glsp connector bindings are consumed via multi-injection. This means binding the {@link TheiaGLSPConnector}
-     * service identifier in singleton scope has no effect.
-     *
-     * @param context the container context
-     */
-    bindTheiaGLSPConnector(context: ContainerContext): void {
-        context.bind(TheiaGLSPConnector).toDynamicValue(dynamicContext => {
-            const connector = dynamicContext.container.resolve(ConfigurableTheiaGLSPConnector);
-            connector.doConfigure(this.diagramLanguage);
-            return connector;
-        });
     }
 
     /**
@@ -202,42 +177,6 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
 }
 
 /**
- * Internal class that is used in {@link GLSPTheiaFrontendModule.bindTheiaGLSPConnector} to
- * bind a default implementation for {@link TheiaGLSPConnector}. A custom {@link TheiaGLSPConnector} should
- * never extend this class. Use {@link BaseTheiaGLSPConnector} instead.
- */
-@injectable()
-class ConfigurableTheiaGLSPConnector extends BaseTheiaGLSPConnector {
-    private _contributionId: string;
-    private _diagramType?: string;
-
-    public doConfigure(diagramLanguage: GLSPDiagramLanguage): void {
-        this._contributionId = diagramLanguage.contributionId;
-        this._diagramType = diagramLanguage.diagramType;
-        this.initialize();
-    }
-    get diagramType(): string {
-        if (!this._diagramType) {
-            throw new Error('No diagramType has been set for this ConfigurableTheiaGLSPConnector');
-        }
-        return this._diagramType;
-    }
-
-    get contributionId(): string {
-        if (!this._contributionId) {
-            throw new Error('No contributionId has been set for this ConfigurableTheiaGLSPConnector');
-        }
-        return this._contributionId;
-    }
-
-    protected override initialize(): void {
-        if (this._diagramType && this._contributionId) {
-            super.initialize();
-        }
-    }
-}
-
-/**
  * Internal class that is used in {@link GLSPTheiaFrontendModule.configureDiagramManager} to
  * bind a default implementation for `DiagramManager`. A custom `DiagramManager` should
  * never extend this class. Use {@link GLSPDiagramManager} instead.
@@ -248,19 +187,14 @@ class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
     private _label: string;
     private _fileExtensions: string[] = [];
     private _iconClass = codiconCSSString('type-hierarchy-sub');
+    private _contributionId: string;
 
     public doConfigure(diagramLanguage: GLSPDiagramLanguage): void {
         this._fileExtensions = diagramLanguage.fileExtensions;
         this._diagramType = diagramLanguage.diagramType;
         this._label = diagramLanguage.label;
         this._iconClass = diagramLanguage.iconClass || this._iconClass;
-        this.initialize();
-    }
-
-    protected override initialize(): void {
-        if (this._diagramType) {
-            return super.initialize();
-        }
+        this._contributionId = diagramLanguage.contributionId;
     }
 
     get fileExtensions(): string[] {
@@ -276,6 +210,10 @@ class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
 
     get label(): string {
         return this._label;
+    }
+
+    get contributionId(): string {
+        return this._contributionId;
     }
 
     override get iconClass(): string {

@@ -13,48 +13,52 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { IActionDispatcher, ModelSource, SaveModelAction } from '@eclipse-glsp/client';
+import { DirtyStateChange, EditorContextService, GLSPActionDispatcher, SaveModelAction } from '@eclipse-glsp/client';
 import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from '@theia/core';
 import { Saveable } from '@theia/core/lib/browser';
-import { DirtyStateNotifier } from './glsp-theia-diagram-server';
 
 type AutoSaveType = 'off' | 'afterDelay' | 'onFocusChange' | 'onWindowChange';
 
-export class SaveableGLSPModelSource implements Saveable, Disposable {
+/**
+ * The default {@link Saveable} implementation of the `GLSPDiagramWidget`.
+ * Supports `afterDelay` autosave functionality. Other  autosave types (`onWindowChange`|`onFocusChange`)
+ * are not supported. If the `autoSaveType` is set to an unsupported value the `afterDelay` save strategy will
+ * be used.
+ */
+export class GLSPSaveable implements Saveable, Disposable {
     protected _autoSave: AutoSaveType = 'off';
     autoSaveDelay = 500;
 
-    private autoSaveJobs = new DisposableCollection();
-    private isDirty = false;
-    readonly dirtyChangedEmitter: Emitter<void> = new Emitter<void>();
+    protected autoSaveJobs = new DisposableCollection();
+    protected toDispose = new DisposableCollection();
+    readonly onDirtyChangedEmitter: Emitter<void> = new Emitter<void>();
+    get onDirtyChanged(): Event<void> {
+        return this.onDirtyChangedEmitter.event;
+    }
 
-    constructor(readonly actionDispatcher: IActionDispatcher, readonly modelSource: ModelSource) {
-        if (DirtyStateNotifier.is(this.modelSource)) {
-            this.modelSource.onDirtyStateChange(dirtyState => (this.dirty = dirtyState.isDirty));
+    constructor(protected actionDispatcher: GLSPActionDispatcher, protected editorContextService: EditorContextService) {
+        this.toDispose.pushAll([
+            this.editorContextService.onDirtyStateChanged(change => this.handleDirtyStateChange(change)),
+            this.onDirtyChangedEmitter,
+            this.autoSaveJobs
+        ]);
+    }
+
+    protected handleDirtyStateChange(change: DirtyStateChange): void {
+        this.onDirtyChangedEmitter.fire(undefined);
+        if (change.isDirty) {
+            this.scheduleAutoSave();
         }
     }
 
-    get onDirtyChanged(): Event<void> {
-        return this.dirtyChangedEmitter.event;
-    }
-
     save(): MaybePromise<void> {
-        if (this.isDirty) {
+        if (this.editorContextService.isDirty) {
             return this.actionDispatcher.dispatch(SaveModelAction.create());
         }
     }
 
     get dirty(): boolean {
-        return this.isDirty;
-    }
-
-    set dirty(newDirty: boolean) {
-        const oldValue = this.isDirty;
-        if (oldValue !== newDirty) {
-            this.isDirty = newDirty;
-            this.dirtyChangedEmitter.fire(undefined);
-        }
-        this.scheduleAutoSave();
+        return this.editorContextService.isDirty;
     }
 
     set autoSave(autoSave: AutoSaveType) {
@@ -91,7 +95,7 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
 
     // Needs to be implemented to pass the type check of `WorkspaceFrontendContribution.canBeSaved`.
     async revert(options?: Saveable.RevertOptions): Promise<void> {
-        console.warn('GLSP only supports server-side saving. The `revert` implementation is no-op and has no effect.');
+        console.log('GLSP only supports server-side saving. The `revert` implementation is no-op and has no effect.');
     }
 
     // Needs to be implemented to pass the type check of `WorkspaceFrontendContribution.canBeSaved`.
@@ -100,7 +104,6 @@ export class SaveableGLSPModelSource implements Saveable, Disposable {
     }
 
     dispose(): void {
-        this.autoSaveJobs.dispose();
-        this.dirtyChangedEmitter.dispose();
+        this.toDispose.dispose();
     }
 }
