@@ -24,7 +24,7 @@ import {
 } from '@eclipse-glsp/client';
 import { TheiaGLSPMessageService } from './theia-glsp-message-service';
 
-export const notificationModule = new FeatureModule((bind, unbind, isBound, rebind) => {
+export const theiaNotificationModule = new FeatureModule((bind, unbind, isBound, rebind) => {
     const context = { bind, unbind, isBound, rebind };
     bind(TheiaGLSPMessageService).toSelf().inSingletonScope();
     configureActionHandler(context, ServerMessageAction.KIND, TheiaGLSPMessageService);

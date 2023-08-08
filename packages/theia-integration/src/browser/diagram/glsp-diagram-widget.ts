@@ -28,7 +28,6 @@ import {
     FocusTracker,
     GLSPActionDispatcher,
     GLSPModelSource,
-    GLSPStatusOverlay,
     hasStringProp,
     ICopyPasteHandler,
     InitializeCanvasBoundsAction,
@@ -42,6 +41,7 @@ import {
     SetUIExtensionVisibilityAction,
     SetViewportAction,
     StartProgressAction,
+    StatusOverlay,
     TYPES,
     ViewerOptions,
     Viewport
@@ -174,7 +174,7 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
         // Dispatch a placeholder model until the real model from the server is available.
         await this.actionDispatcher.dispatch(SetModelAction.create(EMPTY_ROOT));
         // Initialize GLSP client
-        await this.actionDispatcher.dispatch(SetUIExtensionVisibilityAction.create({ extensionId: GLSPStatusOverlay.ID, visible: true }));
+        await this.actionDispatcher.dispatch(SetUIExtensionVisibilityAction.create({ extensionId: StatusOverlay.ID, visible: true }));
         this.actionDispatcher.dispatch(ServerStatusAction.create('Initializing...', { severity: 'INFO' }));
         this.actionDispatcher.dispatch(StartProgressAction.create({ progressId: 'initializeClient', title: 'Initializing' }));
         const glspClient = await this.glspClientContribution.glspClient;

@@ -15,7 +15,15 @@
  ********************************************************************************/
 export * from './features/export/theia-export-module';
 export * from './features/export/theia-export-svg-action-handler';
+export * from './features/navigation/theia-navigate-to-external-target-handler';
+export * from './features/navigation/theia-navigation-module';
+export * from './features/notification-module/notification-module';
+export * from './features/notification-module/theia-glsp-message-service';
 export * from './features/select/theia-glsp-selection-forwarder';
+export * from './features/select/theia-select-module';
+export * from './features/source-model-watcher/theia-source-model-changed-handler';
+export * from './features/source-model-watcher/theia-source-model-watcher-module';
+
 export * from './glsp-command-handler';
 export * from './glsp-diagram-commands';
 export * from './glsp-diagram-configuration';

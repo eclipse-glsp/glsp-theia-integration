@@ -16,7 +16,7 @@
 
 import { theiaExportModule } from './export/theia-export-module';
 import { theiaNavigationModule } from './navigation/theia-navigation-module';
-import { notificationModule } from './notification-module/notification-module';
+import { theiaNotificationModule } from './notification-module/notification-module';
 import { theiaSelectModule } from './select/theia-select-module';
 import { theiaSourceModelWatcherModule } from './source-model-watcher/theia-source-model-watcher-module';
 
@@ -25,5 +25,5 @@ export const THEIA_DEFAULT_MODULES = [
     theiaExportModule,
     theiaNavigationModule,
     theiaSourceModelWatcherModule,
-    notificationModule
+    theiaNotificationModule
 ] as const;
