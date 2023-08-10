@@ -10,11 +10,13 @@ yarn-error.log
 
 *.log
 
-examples/browser-app/src-gen/
-examples/browser-app/gen-webpack.config.js
-examples/browser-app/gen-webpack.node.config.js
+examples/*-app/src-gen/
+examples/*-app/gen-webpack.config.js
+examples/*-app/gen-webpack.node.config.js
 
 examples/**/server/**
 !examples/**/server/download.ts
 tsconfig.tsbuildinfo
 eslint.xml
+
+.browser_modules
