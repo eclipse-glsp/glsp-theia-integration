@@ -16,7 +16,7 @@
  ********************************************************************************/
 // based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/theia/diagram-manager.ts
 
-import { codiconCSSString, EditMode } from '@eclipse-glsp/client';
+import { codiconCSSString, EditMode, IDiagramOptions } from '@eclipse-glsp/client';
 import {
     ApplicationShell,
     FrontendApplicationContribution,
@@ -97,9 +97,9 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
         }
         if (options.mode === 'activate') {
             await widget.getSvgElement();
-            await this.shell.activateWidget(widget.widgetId);
+            await this.shell.activateWidget(widget.id);
         } else if (options.mode === 'reveal') {
-            await this.shell.revealWidget(widget.widgetId);
+            await this.shell.revealWidget(widget.id);
         }
         if (this.handleNavigations(widget, options)) {
             return;
@@ -134,28 +134,35 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
 
     async createWidget(options?: any): Promise<GLSPDiagramWidget> {
         if (GLSPDiagramWidgetOptions.is(options)) {
-            const clientId = this.createClientId();
-            const widgetId = this.createWidgetId(options);
             const config = this.getDiagramConfiguration(options);
-            const diContainer = config.createContainer(clientId);
+            const diagramOptions = this.createDiagramOptions(options);
+            const diContainer = config.createContainer(diagramOptions);
             const glpsClientContribution = this.glspClientProvider.getGLSPClientContribution(this.contributionId);
             if (!glpsClientContribution) {
                 throw new Error(`No glsp client contribution is registered for id: ${this.contributionId}!`);
             }
 
-            const widget = new GLSPDiagramWidget(
-                options,
-                widgetId,
-                diContainer,
-                this.editorPreferences,
-                this.storage,
-                this.theiaSelectionService,
-                glpsClientContribution
-            );
+            const widget = new GLSPDiagramWidget(options, diContainer, this.editorPreferences, this.storage, this.theiaSelectionService);
             widget.listenToFocusState(this.shell);
             return widget;
         }
         throw Error('DiagramWidgetFactory needs DiagramWidgetOptions but got ' + JSON.stringify(options));
+    }
+
+    protected createDiagramOptions(options: GLSPDiagramWidgetOptions): IDiagramOptions {
+        return {
+            clientId: this.createClientId(),
+            diagramType: options.diagramType,
+            sourceUri: options.uri,
+            editMode: options.editMode,
+            glspClientProvider: async () => {
+                const client = await this.glspClientProvider.getGLSPClient(this.contributionId);
+                if (!client) {
+                    throw new Error(`No glsp client is registered for id: ${this.contributionId}!`);
+                }
+                return client;
+            }
+        };
     }
 
     protected createClientId(): string {
@@ -171,10 +178,6 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
             label: uri.path.base,
             editMode: options && options.editMode ? options.editMode : EditMode.EDITABLE
         };
-    }
-
-    protected createWidgetId(options: GLSPDiagramWidgetOptions): string {
-        return `${this.diagramType}:${options.uri}`;
     }
 
     protected getDiagramConfiguration(options: GLSPDiagramWidgetOptions): DiagramConfiguration {
