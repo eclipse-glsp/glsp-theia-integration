@@ -13,8 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ContainerConfiguration, InstanceRegistry } from '@eclipse-glsp/client';
-import { Container, inject, injectable, multiInject, optional } from '@theia/core/shared/inversify';
+import { ContainerConfiguration, IDiagramOptions, InstanceRegistry, createDiagramOptionsModule } from '@eclipse-glsp/client';
+import { Container, ContainerModule, inject, injectable, multiInject, optional } from '@theia/core/shared/inversify';
 import { TheiaContextMenuService } from '../theia-glsp-context-menu-service';
 import { THEIA_DEFAULT_MODULES } from './features/default-modules';
 import { TheiaContextMenuServiceFactory, connectTheiaContextMenuService } from './theia-context-menu-service';
@@ -35,11 +35,11 @@ export const DiagramConfiguration = Symbol('DiagramConfiguration');
 export interface DiagramConfiguration {
     /**
      * Creates a new diagram container for a widget with the given id and container configuration
-     * @param widgetId The id of the corresponding diagram widget
+     * @param options The diagram specific configuration options.
      * @param containerConfiguration Additional container configuration.
      *  Typically modules that are scoped to the Theia application context and  should be loaded on top of the generic diagram modules.
      */
-    createContainer(widgetId: string, ...containerConfiguration: ContainerConfiguration): Container;
+    createContainer(options: IDiagramOptions, ...containerConfiguration: ContainerConfiguration): Container;
     /** The id of the corresponding `DiagramWidget` */
     readonly diagramType: string;
 }
@@ -74,11 +74,16 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
 
     abstract readonly diagramType: string;
 
-    createContainer(widgetId: string): Container {
+    createContainer(options: IDiagramOptions): Container {
         const container = this.diagramContainerFactory();
-        this.configureContainer(container, widgetId, ...this.getContainerConfiguration());
+        const diagramOptionsModule = this.createDiagramOptionsModule(options);
+        this.configureContainer(container, diagramOptionsModule, ...this.getContainerConfiguration());
         this.initializeContainer(container);
         return container;
+    }
+
+    protected createDiagramOptionsModule(options: IDiagramOptions): ContainerModule {
+        return createDiagramOptionsModule(options);
     }
 
     /**
@@ -95,10 +100,9 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
      * Theia specific bindings can be either be loaded as additional {@link ContainerConfiguration} or
      *  setup using the {@link configure} method.
      * @param container The newly created DI container
-     * @param widgetId  The id of the corresponding diagram widget.
      * @param containerConfiguration Optional additional container configuration
      */
-    abstract configureContainer(container: Container, widgetId: string, ...containerConfiguration: ContainerConfiguration): void;
+    abstract configureContainer(container: Container, ...containerConfiguration: ContainerConfiguration): void;
 
     protected initializeContainer(container: Container): void {
         connectTheiaContextMenuService(container, this.contextMenuServiceFactory);

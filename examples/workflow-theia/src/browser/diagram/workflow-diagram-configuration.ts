@@ -25,8 +25,8 @@ import { WorkflowLanguage } from '../../common/workflow-language';
 export class WorkflowDiagramConfiguration extends GLSPDiagramConfiguration {
     diagramType: string = WorkflowLanguage.diagramType;
 
-    configureContainer(container: Container, widgetId: string, ...containerConfiguration: ContainerConfiguration): Container {
-        initializeWorkflowDiagramContainer(container, widgetId, ...containerConfiguration);
+    configureContainer(container: Container, ...containerConfiguration: ContainerConfiguration): Container {
+        initializeWorkflowDiagramContainer(container, ...containerConfiguration);
         return container;
     }
 }

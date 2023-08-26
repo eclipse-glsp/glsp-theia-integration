@@ -19,11 +19,9 @@ import {
     AnyObject,
     Args,
     Bounds,
-    configureServerActions,
+    DiagramLoader,
     EditorContextService,
-    EMPTY_ROOT,
     EnableToolPaletteAction,
-    EndProgressAction,
     FocusStateChangedAction,
     FocusTracker,
     GLSPActionDispatcher,
@@ -35,13 +33,8 @@ import {
     RequestModelAction,
     RequestTypeHintsAction,
     SelectAction,
-    ServerStatusAction,
     SetEditModeAction,
-    SetModelAction,
-    SetUIExtensionVisibilityAction,
     SetViewportAction,
-    StartProgressAction,
-    StatusOverlay,
     TYPES,
     ViewerOptions,
     Viewport
@@ -62,7 +55,6 @@ import URI from '@theia/core/lib/common/uri';
 import { Container } from '@theia/core/shared/inversify';
 import { EditorPreferences } from '@theia/editor/lib/browser';
 import { pickBy } from 'lodash';
-import { GLSPClientContribution } from '../glsp-client-contribution';
 import { GLSPSaveable } from './glsp-saveable';
 
 export interface GLSPDiagramWidgetOptions extends NavigatableWidgetOptions {
@@ -104,23 +96,25 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
 
     constructor(
         protected options: GLSPDiagramWidgetOptions,
-        readonly widgetId: string,
         readonly diContainer: Container,
         readonly editorPreferences: EditorPreferences,
         readonly storage: StorageService,
-        readonly theiaSelectionService: SelectionService,
-        readonly glspClientContribution: GLSPClientContribution
+        readonly theiaSelectionService: SelectionService
     ) {
         super();
         this.title.closable = true;
         this.title.label = options.label;
         this.title.iconClass = options.iconClass;
-        this.id = widgetId;
+        this.id = this.createWidgetId();
         this.saveable = new GLSPSaveable(this.actionDispatcher, this.diContainer.get(EditorContextService));
         this.updateSaveable();
         this.title.caption = this.uri.path.fsPath();
         this.toDispose.push(editorPreferences.onPreferenceChanged(() => this.updateSaveable()));
         this.toDispose.push(this.saveable);
+    }
+
+    protected createWidgetId(): string {
+        return `${this.diagramType}:${this.options.uri}`;
     }
 
     protected override onAfterAttach(msg: Message): void {
@@ -158,7 +152,6 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
     }
 
     protected async initializeDiagram(): Promise<void> {
-        await this.initializeGLSPClient();
         // Filter options to only contain defined primitive values
         const definedOptions: any = pickBy(this.options, v => v !== undefined && typeof v !== 'object');
         this.requestModelOptions = {
@@ -166,30 +159,9 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
             ...definedOptions
         };
 
-        return this.dispatchInitialActions();
-    }
+        const loader = this.diContainer.get(DiagramLoader);
 
-    protected async initializeGLSPClient(): Promise<void> {
-        const modelSource = this.diContainer.get(GLSPModelSource);
-        // Dispatch a placeholder model until the real model from the server is available.
-        await this.actionDispatcher.dispatch(SetModelAction.create(EMPTY_ROOT));
-        // Initialize GLSP client
-        await this.actionDispatcher.dispatch(SetUIExtensionVisibilityAction.create({ extensionId: StatusOverlay.ID, visible: true }));
-        this.actionDispatcher.dispatch(ServerStatusAction.create('Initializing...', { severity: 'INFO' }));
-        this.actionDispatcher.dispatch(StartProgressAction.create({ progressId: 'initializeClient', title: 'Initializing' }));
-        const glspClient = await this.glspClientContribution.glspClient;
-        const initializeResult = glspClient.initializeResult;
-        if (!initializeResult) {
-            throw new Error('Error during diagram initialization. The GLSP server has not been initialized yet');
-        }
-        configureServerActions(initializeResult, this.diagramType, this.diContainer);
-        await glspClient.initializeClientSession({ clientSessionId: this.clientId, diagramType: this.options.diagramType });
-        modelSource.connect(glspClient, this.clientId);
-        this.disposed.connect(() => {
-            modelSource.dispose();
-        });
-        this.actionDispatcher.dispatch(ServerStatusAction.create('', { severity: 'NONE' }));
-        this.actionDispatcher.dispatch(EndProgressAction.create('initializeClient'));
+        return loader.load(this.requestModelOptions);
     }
 
     protected getBoundsInPage(element: Element): Bounds {

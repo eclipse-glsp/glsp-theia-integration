@@ -42,7 +42,7 @@ export class TheiaExportSvgActionHandler implements IActionHandler {
     }
 
     async export(action: ExportSvgAction): Promise<void> {
-        const uri = await this.editorContextService.getSourceUri();
+        const uri = this.editorContextService.sourceUri;
         const folder = await this.fileService.resolve(new URI(uri));
         let file = await this.fileDialogService.showSaveDialog({ title: 'Export Diagram', filters: { 'Images (*.svg)': ['svg'] } }, folder);
         if (file) {

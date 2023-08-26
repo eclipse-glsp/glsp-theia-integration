@@ -4,7 +4,8 @@
     "rootDir": "src",
     "outDir": "lib",
     "baseUrl": ".",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "module": "Node16"
   },
   "include": ["src"]
 }
