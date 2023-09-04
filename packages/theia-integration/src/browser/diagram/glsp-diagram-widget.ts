@@ -161,7 +161,7 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
 
         const loader = this.diContainer.get(DiagramLoader);
 
-        return loader.load(this.requestModelOptions);
+        return loader.load({ requestModelOptions: this.requestModelOptions });
     }
 
     protected getBoundsInPage(element: Element): Bounds {

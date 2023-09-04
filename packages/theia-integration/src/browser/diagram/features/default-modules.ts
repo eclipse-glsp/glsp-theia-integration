@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
+import { ModuleConfiguration } from '@eclipse-glsp/client';
 import { theiaExportModule } from './export/theia-export-module';
 import { theiaNavigationModule } from './navigation/theia-navigation-module';
 import { theiaNotificationModule } from './notification-module/notification-module';
@@ -27,3 +28,7 @@ export const THEIA_DEFAULT_MODULES = [
     theiaSourceModelWatcherModule,
     theiaNotificationModule
 ] as const;
+
+export const THEIA_DEFAULT_MODULE_CONFIG: ModuleConfiguration = {
+    add: [...THEIA_DEFAULT_MODULES]
+};

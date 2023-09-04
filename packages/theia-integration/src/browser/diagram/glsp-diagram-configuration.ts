@@ -16,7 +16,7 @@
 import { ContainerConfiguration, IDiagramOptions, InstanceRegistry, createDiagramOptionsModule } from '@eclipse-glsp/client';
 import { Container, ContainerModule, inject, injectable, multiInject, optional } from '@theia/core/shared/inversify';
 import { TheiaContextMenuService } from '../theia-glsp-context-menu-service';
-import { THEIA_DEFAULT_MODULES } from './features/default-modules';
+import { THEIA_DEFAULT_MODULE_CONFIG } from './features/default-modules';
 import { TheiaContextMenuServiceFactory, connectTheiaContextMenuService } from './theia-context-menu-service';
 import { TheiaMarkerManager, TheiaMarkerManagerFactory, connectTheiaMarkerManager } from './theia-marker-manager';
 
@@ -92,7 +92,7 @@ export abstract class GLSPDiagramConfiguration implements DiagramConfiguration {
      * @returns the container configuration
      */
     protected getContainerConfiguration(): ContainerConfiguration {
-        return [...THEIA_DEFAULT_MODULES];
+        return [THEIA_DEFAULT_MODULE_CONFIG];
     }
 
     /**
