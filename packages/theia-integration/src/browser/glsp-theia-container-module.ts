@@ -13,10 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { codiconCSSString } from '@eclipse-glsp/client';
+import { codiconCSSString, lazyBind } from '@eclipse-glsp/client';
 import { ContainerModule, injectable, interfaces } from '@theia/core/shared/inversify';
+import { GLSPDiagramWidget } from '.';
 import { GLSPDiagramLanguage } from '../common/glsp-diagram-language';
 import { registerCopyPasteContextMenu } from './copy-paste-context-menu-contribution';
+import { DiagramWidgetFactory, createDiagramWidgetFactory } from './diagram/diagram-widget-factory';
 import { GLSPDiagramManager, registerDiagramManager } from './diagram/glsp-diagram-manager';
 import { registerDiagramLayoutCommands } from './diagram/glsp-layout-commands';
 import { BaseGLSPClientContribution, GLSPClientContribution } from './glsp-client-contribution';
@@ -51,6 +53,7 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
     initialize(context: ContainerContext): void {
         this.bindGLSPClientContribution(context);
         this.bindDiagramConfiguration(context);
+        this.bindDiagramWidgetFactory(context);
         this.configureDiagramManager(context);
 
         // Optional default configuration
@@ -99,9 +102,32 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
     abstract bindDiagramConfiguration(context: ContainerContext): void;
 
     /**
+     * Defines the binding for the {@link DiagramWidgetFactory} of the diagram integration. Per default a
+     * factory that constructs a {@link GLSPDiagramWidget} instance is bound.
+     * Can be overwritten in subclasses to provide a custom binding using
+     * the {@link DiagramWidgetFactory} service identifier.
+     *
+     * For example:
+     * ```typescript
+     * context.bind(DiagramWidgetFactory).to(MyCustomDiagramWidgetFactory);
+     * ```
+     * Note that glsp client contribution bindings are consumed via multi-injection. This means binding the {@link GLSPClientContribution}
+     * service identifier in singleton scope has no effect.
+     *
+     * @param context the container context
+     */
+    bindDiagramWidgetFactory(context: ContainerContext): void {
+        lazyBind(context, GLSPDiagramWidget)?.toSelf().inSingletonScope();
+        context
+            .bind(DiagramWidgetFactory)
+            .toDynamicValue(ctx => createDiagramWidgetFactory(ctx, this.diagramLanguage.diagramType))
+            .inSingletonScope();
+    }
+
+    /**
      * Configures the bindings for the diagram manager of the diagram integration. A {@link ConfigurableGLSPDiagramManager}
-     * is bound to a generated service identifer in singleton scope and then additional bindings for this service
-     * identifer are registered. Can be overwritten in subclasses to provide a custom binding.
+     * is bound to a generated service identifier in singleton scope and then additional bindings for this service
+     * identifier are registered. Can be overwritten in subclasses to provide a custom binding.
      *
      *  For example:
      * ```typescript
