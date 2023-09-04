@@ -13,8 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ContainerConfiguration, IDiagramOptions, InstanceRegistry, createDiagramOptionsModule } from '@eclipse-glsp/client';
-import { Container, ContainerModule, inject, injectable, multiInject, optional } from '@theia/core/shared/inversify';
+import { ContainerConfiguration, IDiagramOptions, createDiagramOptionsModule } from '@eclipse-glsp/client';
+import { Container, ContainerModule, inject, injectable } from '@theia/core/shared/inversify';
 import { TheiaContextMenuService } from '../theia-glsp-context-menu-service';
 import { THEIA_DEFAULT_MODULE_CONFIG } from './features/default-modules';
 import { TheiaContextMenuServiceFactory, connectTheiaContextMenuService } from './theia-context-menu-service';
@@ -43,18 +43,6 @@ export interface DiagramConfiguration {
     /** The id of the corresponding `DiagramWidget` */
     readonly diagramType: string;
 }
-
-/**
- * Registry for querying all configured {@link DiagramConfiguration}s.
- */
-@injectable()
-export class DiagramConfigurationRegistry extends InstanceRegistry<DiagramConfiguration> {
-    constructor(@multiInject(DiagramConfiguration) @optional() diagramConfigs: DiagramConfiguration[]) {
-        super();
-        diagramConfigs.forEach(c => this.register(c.diagramType, c));
-    }
-}
-
 /**
  * Default {@link DiagramConfiguration} implementation for GLSP diagrams.
  * The created diagram container is a child container of the main Theia DI container.

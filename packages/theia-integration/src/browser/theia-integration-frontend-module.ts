@@ -23,14 +23,15 @@ import {
 } from '@theia/core/lib/browser';
 import { ContainerModule } from '@theia/core/shared/inversify';
 import { GLSPContribution } from '../common';
+import { DiagramServiceProvider } from './diagram-service-provider';
+import { DiagramWidgetFactory } from './diagram/diagram-widget-factory';
 import { GLSPDiagramCommandContribution, GLSPDiagramMenuContribution } from './diagram/glsp-diagram-commands';
-import { DiagramConfigurationRegistry, DiagramContainerFactory } from './diagram/glsp-diagram-configuration';
+import { DiagramConfiguration, DiagramContainerFactory } from './diagram/glsp-diagram-configuration';
 import { GLSPDiagramContextKeyService } from './diagram/glsp-diagram-context-key-service';
 import { GLSPDiagramKeybindingContext, GLSPDiagramKeybindingContribution } from './diagram/glsp-diagram-keybinding';
 import { TheiaContextMenuServiceFactory } from './diagram/theia-context-menu-service';
 import { TheiaMarkerManager, TheiaMarkerManagerFactory } from './diagram/theia-marker-manager';
 import { GLSPClientContribution } from './glsp-client-contribution';
-import { GLSPClientProvider } from './glsp-client-provider';
 import { GLSPFrontendContribution } from './glsp-frontend-contribution';
 import { TheiaContextMenuService } from './theia-glsp-context-menu-service';
 import { TheiaOpenerOptionsNavigationService } from './theia-opener-options-navigation-service';
@@ -40,7 +41,7 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     // GLSP Contribution API
     bindContributionProvider(bind, GLSPClientContribution);
     bindAsService(context, FrontendApplicationContribution, GLSPFrontendContribution);
-    bind(GLSPClientProvider).toSelf().inSingletonScope();
+    bind(DiagramServiceProvider).toSelf().inSingletonScope();
     bind(GLSPContribution.Service)
         .toDynamicValue(({ container }) => WebSocketConnectionProvider.createProxy(container, GLSPContribution.servicePath))
         .inSingletonScope();
@@ -52,7 +53,8 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bindAsService(context, KeybindingContribution, GLSPDiagramKeybindingContribution);
 
     // Misc
-    bind(DiagramConfigurationRegistry).toSelf().inSingletonScope();
+    bindContributionProvider(bind, DiagramWidgetFactory);
+    bindContributionProvider(bind, DiagramConfiguration);
     bind(DiagramContainerFactory).toFactory(ctx => () => ctx.container.createChild());
 
     bind(GLSPDiagramContextKeyService).toSelf().inSingletonScope();

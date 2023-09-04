@@ -21,18 +21,16 @@ import {
     ApplicationShell,
     FrontendApplicationContribution,
     OpenHandler,
-    StorageService,
     WidgetFactory,
     WidgetOpenerOptions,
     WidgetOpenHandler
 } from '@theia/core/lib/browser';
-import { SelectionService } from '@theia/core/lib/common/selection-service';
 import URI from '@theia/core/lib/common/uri';
 import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
-import { EditorManager, EditorPreferences } from '@theia/editor/lib/browser';
-import { GLSPClientProvider } from '../glsp-client-provider';
+import { EditorManager } from '@theia/editor/lib/browser';
+import { DiagramServiceProvider } from '../diagram-service-provider';
 import { TheiaOpenerOptionsNavigationService } from '../theia-opener-options-navigation-service';
-import { DiagramConfiguration, DiagramConfigurationRegistry } from './glsp-diagram-configuration';
+import { DiagramConfiguration } from './glsp-diagram-configuration';
 import { GLSPDiagramContextKeyService } from './glsp-diagram-context-key-service';
 import { GLSPDiagramWidget, GLSPDiagramWidgetOptions } from './glsp-diagram-widget';
 
@@ -51,32 +49,17 @@ export function registerDiagramManager(
 
 @injectable()
 export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWidget> implements WidgetFactory {
-    @inject(EditorPreferences)
-    protected readonly editorPreferences: EditorPreferences;
-
-    @inject(StorageService)
-    protected readonly storage: StorageService;
-
     @inject(TheiaOpenerOptionsNavigationService)
     protected readonly diagramNavigationService: TheiaOpenerOptionsNavigationService;
 
     @inject(GLSPDiagramContextKeyService)
     protected readonly contextKeyService: GLSPDiagramContextKeyService;
 
-    @inject(ApplicationShell)
-    protected override readonly shell: ApplicationShell;
-
-    @inject(SelectionService)
-    theiaSelectionService: SelectionService;
-
-    @inject(GLSPClientProvider)
-    protected readonly glspClientProvider: GLSPClientProvider;
+    @inject(DiagramServiceProvider)
+    protected readonly diagramServiceProvider: DiagramServiceProvider;
 
     @inject(EditorManager)
     protected readonly editorManager: EditorManager;
-
-    @inject(DiagramConfigurationRegistry)
-    diagramConfigurationRegistry: DiagramConfigurationRegistry;
 
     abstract get fileExtensions(): string[];
 
@@ -137,12 +120,13 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
             const config = this.getDiagramConfiguration(options);
             const diagramOptions = this.createDiagramOptions(options);
             const diContainer = config.createContainer(diagramOptions);
-            const glpsClientContribution = this.glspClientProvider.getGLSPClientContribution(this.contributionId);
-            if (!glpsClientContribution) {
+            const glspClientContribution = this.diagramServiceProvider.getGLSPClientContribution(this.contributionId);
+            if (!glspClientContribution) {
                 throw new Error(`No glsp client contribution is registered for id: ${this.contributionId}!`);
             }
+            const diagramWidgetFactory = this.diagramServiceProvider.getDiagramWidgetFactory(this.diagramType);
 
-            const widget = new GLSPDiagramWidget(options, diContainer, this.editorPreferences, this.storage, this.theiaSelectionService);
+            const widget = diagramWidgetFactory?.create(options, diContainer);
             widget.listenToFocusState(this.shell);
             return widget;
         }
@@ -155,13 +139,7 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
             diagramType: options.diagramType,
             sourceUri: options.uri,
             editMode: options.editMode,
-            glspClientProvider: async () => {
-                const client = await this.glspClientProvider.getGLSPClient(this.contributionId);
-                if (!client) {
-                    throw new Error(`No glsp client is registered for id: ${this.contributionId}!`);
-                }
-                return client;
-            }
+            glspClientProvider: () => this.diagramServiceProvider.getGLSPClientContribution(this.contributionId).glspClient
         };
     }
 
@@ -181,7 +159,7 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
     }
 
     protected getDiagramConfiguration(options: GLSPDiagramWidgetOptions): DiagramConfiguration {
-        return this.diagramConfigurationRegistry.get(options.diagramType);
+        return this.diagramServiceProvider.getDiagramConfiguration(options.diagramType);
     }
 
     canHandle(uri: URI, _options?: WidgetOpenerOptions | undefined): number {

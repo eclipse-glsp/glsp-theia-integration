@@ -16,10 +16,10 @@
 
 export * from './copy-paste-context-menu-contribution';
 export * from './diagram';
+export * from './diagram-service-provider';
 export * from './diagram/features/navigation/theia-navigate-to-external-target-handler';
 export * from './diagram/features/source-model-watcher/theia-source-model-changed-handler';
 export * from './glsp-client-contribution';
-export * from './glsp-client-provider';
 export * from './glsp-frontend-contribution';
 export * from './glsp-theia-container-module';
 export * from './theia-glsp-context-menu-service';
