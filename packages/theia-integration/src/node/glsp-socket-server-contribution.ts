@@ -267,7 +267,7 @@ export function getPort(argsKey: string, defaultPort?: number): number {
     if (args.length > 0) {
         return Number.parseInt(args[0].substring(argsKey.length), 10);
     }
-    return defaultPort ? defaultPort : NaN;
+    return defaultPort ?? NaN;
 }
 
 /**

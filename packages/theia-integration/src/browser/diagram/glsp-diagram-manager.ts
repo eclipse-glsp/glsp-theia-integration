@@ -120,10 +120,6 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
             const config = this.getDiagramConfiguration(options);
             const diagramOptions = this.createDiagramOptions(options);
             const diContainer = config.createContainer(diagramOptions);
-            const glspClientContribution = this.diagramServiceProvider.getGLSPClientContribution(this.contributionId);
-            if (!glspClientContribution) {
-                throw new Error(`No glsp client contribution is registered for id: ${this.contributionId}!`);
-            }
             const diagramWidgetFactory = this.diagramServiceProvider.getDiagramWidgetFactory(this.diagramType);
 
             const widget = diagramWidgetFactory?.create(options, diContainer);
