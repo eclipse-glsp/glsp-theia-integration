@@ -22,6 +22,7 @@ import {
     RedoAction,
     RequestExportSvgAction,
     SelectAllAction,
+    SetUIExtensionVisibilityAction,
     UndoAction
 } from '@eclipse-glsp/client';
 import { ApplicationShell, CommonCommands } from '@theia/core/lib/browser';
@@ -119,6 +120,17 @@ export class GLSPDiagramCommandContribution implements CommandContribution {
         registry.registerHandler(
             CommonCommands.REDO.id,
             new GLSPCommandHandler(this.shell, { actions: () => RedoAction.create(), alwaysVisible: true })
+        );
+        registry.registerHandler(
+            CommonCommands.FIND.id,
+            new GLSPCommandHandler(this.shell, {
+                actions: () =>
+                    SetUIExtensionVisibilityAction.create({
+                        extensionId: 'search-autocomplete-palette',
+                        visible: true
+                    }),
+                alwaysVisible: true
+            })
         );
     }
 }

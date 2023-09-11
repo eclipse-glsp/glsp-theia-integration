@@ -2270,6 +2270,18 @@
     uuid "^8.0.0"
     vscode-languageserver-textdocument "^1.0.1"
 
+"@theia/keymaps@1.39.0":
+  version "1.39.0"
+  resolved "https://registry.yarnpkg.com/@theia/keymaps/-/keymaps-1.39.0.tgz#6144b353c3511fca9c7da4fd84d261bce23cb73b"
+  integrity sha512-Do413ddkxdnS9+LFRyDlfkTgTv+P4HAptg1VzWgjpA+qi8zDaMrgTHjywbZVEog2aXgCKMflqFRAKPX1Jp8mdQ==
+  dependencies:
+    "@theia/core" "1.39.0"
+    "@theia/monaco" "1.39.0"
+    "@theia/monaco-editor-core" "1.72.3"
+    "@theia/preferences" "1.39.0"
+    "@theia/userstorage" "1.39.0"
+    jsonc-parser "^2.2.0"
+
 "@theia/localization-manager@1.39.0":
   version "1.39.0"
   resolved "https://registry.yarnpkg.com/@theia/localization-manager/-/localization-manager-1.39.0.tgz#4752b49b93f0de2c6e9aa8e121e5cf251ba7d021"

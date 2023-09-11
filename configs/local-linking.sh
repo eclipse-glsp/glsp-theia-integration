@@ -84,7 +84,7 @@ if [[ "$2" != "--unlink" ]]; then
 else
     yarn unlink sprotty sprotty-protocol @eclipse-glsp/client @eclipse-glsp/protocol @eclipse-glsp-examples/workflow-glsp @eclipse-glsp-examples/workflow-server vscode-jsonrpc
     if [ -d $baseDir/glsp-server-node ]; then
-        yarn unlink@eclipse-glsp/server @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server
+        yarn unlink @eclipse-glsp/server @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server
     fi
     yarn
     yarn install --force

@@ -15,7 +15,7 @@
  ********************************************************************************/
 
 import { initializeWorkflowDiagramContainer } from '@eclipse-glsp-examples/workflow-glsp/lib';
-import { ContainerConfiguration } from '@eclipse-glsp/client';
+import { ContainerConfiguration, accessibilityModule, toolPaletteModule } from '@eclipse-glsp/client';
 import { GLSPDiagramConfiguration } from '@eclipse-glsp/theia-integration';
 import { Container, injectable } from '@theia/core/shared/inversify';
 
@@ -26,7 +26,7 @@ export class WorkflowDiagramConfiguration extends GLSPDiagramConfiguration {
     diagramType: string = WorkflowLanguage.diagramType;
 
     configureContainer(container: Container, ...containerConfiguration: ContainerConfiguration): Container {
-        initializeWorkflowDiagramContainer(container, ...containerConfiguration);
+        initializeWorkflowDiagramContainer(container, { add: accessibilityModule, remove: toolPaletteModule }, ...containerConfiguration);
         return container;
     }
 }

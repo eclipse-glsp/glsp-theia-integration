@@ -75,6 +75,11 @@ export class GLSPDiagramKeybindingContribution implements KeybindingContribution
                 command: CommonCommands.REDO.id,
                 context: this.diagramKeybindingContext.id,
                 keybinding: 'ctrlcmd+shift+z'
+            },
+            {
+                command: CommonCommands.FIND.id,
+                context: this.diagramKeybindingContext.id,
+                keybinding: 'ctrlcmd+f'
             }
         ].forEach(binding => {
             registry.registerKeybinding(binding);
