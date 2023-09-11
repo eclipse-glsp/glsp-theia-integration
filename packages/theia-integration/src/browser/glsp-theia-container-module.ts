@@ -117,7 +117,7 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
      * @param context the container context
      */
     bindDiagramWidgetFactory(context: ContainerContext): void {
-        lazyBind(context, GLSPDiagramWidget)?.toSelf().inSingletonScope();
+        lazyBind(context, GLSPDiagramWidget)?.toSelf();
         context
             .bind(DiagramWidgetFactory)
             .toDynamicValue(ctx => createDiagramWidgetFactory(ctx, this.diagramLanguage.diagramType))
