@@ -109,7 +109,7 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
     protected handleNavigations(widget: GLSPDiagramWidget, options?: WidgetOpenerOptions): boolean {
         const navigations = this.diagramNavigationService.determineNavigations(widget.uri.toString(true), options);
         if (navigations.length > 0) {
-            widget.actionDispatcher.onceModelInitialized().then(() => widget.actionDispatcher.dispatchAll(navigations));
+            widget.actionDispatcher.dispatchOnceModelInitialized(...navigations);
             return true;
         }
         return false;

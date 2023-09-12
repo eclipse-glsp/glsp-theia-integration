@@ -21,7 +21,6 @@ import {
     Bounds,
     DiagramLoader,
     EditorContextService,
-    EnableToolPaletteAction,
     FocusStateChangedAction,
     FocusTracker,
     GLSPActionDispatcher,
@@ -31,9 +30,7 @@ import {
     InitializeCanvasBoundsAction,
     isViewport,
     RequestModelAction,
-    RequestTypeHintsAction,
     SelectAction,
-    SetEditModeAction,
     SetViewportAction,
     TYPES,
     ViewerOptions,
@@ -250,15 +247,6 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
         });
     }
 
-    protected async dispatchInitialActions(): Promise<void> {
-        this.actionDispatcher.dispatch(RequestModelAction.create({ options: this.requestModelOptions }));
-        this.actionDispatcher.dispatch(RequestTypeHintsAction.create());
-        this.actionDispatcher.dispatch(SetEditModeAction.create(this.options.editMode));
-        this.actionDispatcher.onceModelInitialized().then(() => {
-            this.actionDispatcher.dispatch(EnableToolPaletteAction.create());
-        });
-    }
-
     protected override onBeforeDetach(msg: Message): void {
         this.storeViewportDataInStorageService();
         this.node.removeEventListener('mouseenter', this.handleMouseEnter);
@@ -410,7 +398,7 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
     protected async setViewportData(viewportData: ViewportDataContainer): Promise<void> {
         if (this.actionDispatcher instanceof GLSPActionDispatcher) {
             const restoreViewportAction = SetViewportAction.create(viewportData.elementId, viewportData.viewportData, { animate: true });
-            return this.actionDispatcher.onceModelInitialized().then(() => this.actionDispatcher.dispatch(restoreViewportAction));
+            return this.actionDispatcher.dispatchOnceModelInitialized(restoreViewportAction);
         }
     }
 
