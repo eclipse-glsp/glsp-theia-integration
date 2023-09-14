@@ -17,7 +17,7 @@ import {
     EndProgressAction,
     IActionHandler,
     ICommand,
-    ServerMessageAction,
+    MessageAction,
     StartProgressAction,
     UpdateProgressAction
 } from '@eclipse-glsp/client';
@@ -36,7 +36,7 @@ export class TheiaGLSPMessageService implements IActionHandler {
     protected progressReporters: Map<string, Progress> = new Map();
 
     handle(action: Action): void | Action | ICommand {
-        if (ServerMessageAction.is(action)) {
+        if (MessageAction.is(action)) {
             return this.message(action);
         }
         if (StartProgressAction.is(action)) {
@@ -50,7 +50,7 @@ export class TheiaGLSPMessageService implements IActionHandler {
         }
     }
 
-    protected message(action: ServerMessageAction): void {
+    protected message(action: MessageAction): void {
         if (!this.shouldShowMessage(action)) {
             return;
         }
@@ -78,7 +78,7 @@ export class TheiaGLSPMessageService implements IActionHandler {
         return 'log';
     }
 
-    protected shouldShowMessage(action: ServerMessageAction): boolean {
+    protected shouldShowMessage(action: MessageAction): boolean {
         return action.severity !== 'NONE';
     }
 
