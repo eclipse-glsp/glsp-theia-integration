@@ -37,7 +37,7 @@ export interface WebSocketConnectionInfo {
 export function getWebSocketAddress(info: Partial<WebSocketConnectionInfo>): string | undefined {
     if ('path' in info && info.path !== undefined && 'port' in info && info.port !== undefined) {
         const protocol = info.protocol ?? 'ws';
-        const host = info.host ?? 'localhost';
+        const host = info.host ?? '127.0.0.1';
 
         return `${protocol}://${host}:${info.port}/${info.path}`;
     }

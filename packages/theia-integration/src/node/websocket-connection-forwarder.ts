@@ -54,7 +54,7 @@ export class WebSocketConnectionForwarder implements Disposable {
             connection.onClose(() => webSocket.close()),
             this.clientChannel.onMessage(msgProvider => {
                 const buffer = msgProvider().readBytes();
-                wrappedWebSocket.send(buffer);
+                wrappedWebSocket.send(this.decodeMessage(buffer));
             }),
             connection.onClose(() => this.clientChannel.close()),
             Disposable.create(() => {
@@ -72,9 +72,13 @@ export class WebSocketConnectionForwarder implements Disposable {
         // process initially received buffer messages
         this.initialChannelListener.dispose();
         this.initialBufferStore.forEach(msg => {
-            wrappedWebSocket.send(msg);
+            wrappedWebSocket.send(this.decodeMessage(msg));
         });
         this.initialBufferStore = [];
+    }
+
+    protected decodeMessage(buffer: Uint8Array): string {
+        return new TextDecoder().decode(buffer);
     }
 
     dispose(): void {

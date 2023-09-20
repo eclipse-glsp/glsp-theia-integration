@@ -128,6 +128,10 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
         }
         super.onAfterAttach(msg);
 
+        this.disposed.connect(() => {
+            this.diContainer.unbindAll();
+        });
+
         this.node.dataset['uri'] = this.uri.toString();
         if (this.diContainer.isBound(TYPES.ICopyPasteHandler)) {
             this.copyPasteHandler = this.diContainer.get<ICopyPasteHandler>(TYPES.ICopyPasteHandler);
@@ -163,7 +167,6 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
         };
 
         const loader = this.diContainer.get(DiagramLoader);
-
         return loader.load({ requestModelOptions: this.requestModelOptions });
     }
 
