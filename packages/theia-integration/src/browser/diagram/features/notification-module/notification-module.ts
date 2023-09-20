@@ -17,7 +17,7 @@
 import {
     EndProgressAction,
     FeatureModule,
-    ServerMessageAction,
+    MessageAction,
     StartProgressAction,
     UpdateProgressAction,
     configureActionHandler
@@ -27,7 +27,7 @@ import { TheiaGLSPMessageService } from './theia-glsp-message-service';
 export const theiaNotificationModule = new FeatureModule((bind, unbind, isBound, rebind) => {
     const context = { bind, unbind, isBound, rebind };
     bind(TheiaGLSPMessageService).toSelf().inSingletonScope();
-    configureActionHandler(context, ServerMessageAction.KIND, TheiaGLSPMessageService);
+    configureActionHandler(context, MessageAction.KIND, TheiaGLSPMessageService);
     configureActionHandler(context, StartProgressAction.KIND, TheiaGLSPMessageService);
     configureActionHandler(context, UpdateProgressAction.KIND, TheiaGLSPMessageService);
     configureActionHandler(context, EndProgressAction.KIND, TheiaGLSPMessageService);
