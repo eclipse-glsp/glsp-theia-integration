@@ -56,7 +56,8 @@ export namespace GLSPSocketServerContributionOptions {
         return {
             ...GLSPServerContributionOptions.createDefaultOptions(),
             socketConnectionOptions: {
-                port: NaN
+                port: NaN,
+                host: '127.0.0.1'
             }
         };
     }

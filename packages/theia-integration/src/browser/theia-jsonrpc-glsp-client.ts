@@ -36,15 +36,6 @@ export class TheiaJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
         }
         super.handleConnectionClosed();
     }
-
-    protected override checkConnectionState(): boolean {
-        if (this.state === ClientState.ServerError) {
-            this.messageService.error(
-                `Could not establish connection to ${this.id} glsp server. Maybe the server has been shutdown due to a previous error.`
-            );
-        }
-        return super.checkConnectionState();
-    }
 }
 
 // eslint-disable-next-line no-redeclare

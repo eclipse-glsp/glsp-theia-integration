@@ -17,7 +17,7 @@
 import { ModuleConfiguration } from '@eclipse-glsp/client';
 import { theiaExportModule } from './export/theia-export-module';
 import { theiaNavigationModule } from './navigation/theia-navigation-module';
-import { theiaNotificationModule } from './notification-module/notification-module';
+import { theiaNotificationModule } from './notification/notification-module';
 import { theiaSelectModule } from './select/theia-select-module';
 import { theiaSourceModelWatcherModule } from './source-model-watcher/theia-source-model-watcher-module';
 
