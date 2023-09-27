@@ -75,7 +75,7 @@ export class TheiaContextMenuService implements IContextMenuService {
     }
 
     protected registerSubmenu(menuPath: string[], item: MenuItem): DisposableItem {
-        return this.menuProvider.registerSubmenu([...menuPath, item.id], item.label);
+        return this.menuProvider.registerSubmenu([...menuPath, item.id], item.label, { icon: item.icon });
     }
 
     protected registerCommand(menuPath: string[], item: MenuItem): DisposableItem {
