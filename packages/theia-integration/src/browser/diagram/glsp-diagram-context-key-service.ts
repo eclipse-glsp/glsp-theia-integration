@@ -16,8 +16,8 @@
 import {
     EditMode,
     EditorContextService,
-    SModelElement,
-    SModelRoot,
+    GModelElement,
+    GModelRoot,
     SelectionService,
     getElements,
     isDeletable,
@@ -62,7 +62,7 @@ export abstract class AbstractGLSPDiagramContextKeyService {
         }
     }
 
-    protected updateSelectionContextKeys(root: Readonly<SModelRoot>, selectedElementIds: string[]): void {
+    protected updateSelectionContextKeys(root: Readonly<GModelRoot>, selectedElementIds: string[]): void {
         if (selectedElementIds.length < 1) {
             this.doResetSelectionContextKeys();
             return;
@@ -91,7 +91,7 @@ export abstract class AbstractGLSPDiagramContextKeyService {
     protected abstract registerContextKeys(): void;
     protected abstract doUpdateStaticContextKeys(glspDiagramWidget: GLSPDiagramWidget): void;
     protected abstract doResetStaticContextKeys(): void;
-    protected abstract doUpdateSelectionContextKeys(selectedElements: SModelElement[]): void;
+    protected abstract doUpdateSelectionContextKeys(selectedElements: GModelElement[]): void;
     protected abstract doResetSelectionContextKeys(): void;
     protected abstract doUpdateEditModeContextKeys(editMode: string): void;
     protected abstract doResetEditModeContextKeys(): void;
@@ -159,7 +159,7 @@ export class GLSPDiagramContextKeyService extends AbstractGLSPDiagramContextKeyS
         this.glspEditorDiagramType.reset();
     }
 
-    protected doUpdateSelectionContextKeys(selectedElements: SModelElement[]): void {
+    protected doUpdateSelectionContextKeys(selectedElements: GModelElement[]): void {
         this.glspEditorHasSelection.set(true);
         this.glspEditorHasMultipleSelection.set(selectedElements.length > 1);
         this.glspEditorHasDeletableSelection.set(selectedElements.filter(isDeletable).length > 0);

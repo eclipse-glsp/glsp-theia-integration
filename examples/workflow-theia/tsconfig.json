@@ -3,9 +3,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "baseUrl": ".",
-    "resolveJsonModule": true,
-    "module": "Node16"
+    "resolveJsonModule": true
   },
   "include": ["src"]
 }

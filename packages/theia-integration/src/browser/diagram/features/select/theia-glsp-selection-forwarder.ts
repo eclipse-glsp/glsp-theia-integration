@@ -17,14 +17,14 @@
 import {
     AnyObject,
     GLSPModelSource,
-    hasArrayProp,
-    hasObjectProp,
-    hasStringProp,
+    GModelRoot,
     ISelectionListener,
     ModelSource,
-    SModelRoot,
     TYPES,
-    ViewerOptions
+    ViewerOptions,
+    hasArrayProp,
+    hasObjectProp,
+    hasStringProp
 } from '@eclipse-glsp/client';
 import { SelectionService } from '@theia/core';
 import { inject, injectable, optional } from '@theia/core/shared/inversify';
@@ -97,7 +97,7 @@ export class TheiaGLSPSelectionForwarder implements ISelectionListener {
         return this.sourceUri;
     }
 
-    selectionChanged(_root: Readonly<SModelRoot>, selectedElements: string[]): void {
+    selectionChanged(_root: Readonly<GModelRoot>, selectedElements: string[]): void {
         this.handleSelectionChanged(selectedElements);
     }
 
