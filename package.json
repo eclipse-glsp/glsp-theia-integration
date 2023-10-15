@@ -1,6 +1,6 @@
 {
   "name": "parent",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "workspaces": [
     "packages/theia-integration",
@@ -27,7 +27,7 @@
     "watch": "lerna run --parallel watch"
   },
   "devDependencies": {
-    "@eclipse-glsp/dev": "next",
+    "@eclipse-glsp/dev": "2.0.0",
     "@types/node": "16.x",
     "lerna": "^6.6.2",
     "typescript": "^5.1.3"
