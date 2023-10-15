@@ -1,21 +1,24 @@
 # Eclipse GLSP Theia Integration Changelog
 
-## [1.1.0 - Upcoming]()
+## [2.0.0- 14/10/2023](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.0.0)
 
 ### Changes
 
--   [protocol] Updated to vscode-jsonrpc 8.0.2 to be compliant with client [#136](https://github.com/eclipse-glsp/glsp-theia-integration/pull/136)
--   [backend] Added support for using custom JVM args in `GLSPSocketServerContribution` [#125](https://github.com/eclipse-glsp/glsp-theia-integration/pull/125)
--   [diagram] Fixed a bug that prevented proper focus tracking when switching between tabs [#132](https://github.com/eclipse-glsp/glsp-theia-integration/pull/132)
--   [diagram] Fixed a bug that could cause dispatching of `SaveActions` even if the diagram is not dirty [#141](https://github.com/eclipse-glsp/glsp-theia-integration/pull/141) - Contributed on behalf of STMicroelectronics
--   [backend] (Web)Socket based `GLSPServerContributions` now support auto-assigned ports [#151](https://github.com/eclipse-glsp/glsp-theia-integration/pull/151)
+-   [protocol] Update to vscode-jsonrpc 8.0.2 to be compliant with client [#136](https://github.com/eclipse-glsp/glsp-theia-integration/pull/136)
+-   [backend] Add support for using custom JVM args in `GLSPSocketServerContribution` [#125](https://github.com/eclipse-glsp/glsp-theia-integration/pull/125)
+-   [diagram] Fix a bug that prevented proper focus tracking when switching between tabs [#132](https://github.com/eclipse-glsp/glsp-theia-integration/pull/132)
+-   [diagram] Fix a bug that could cause dispatching of `SaveAction`s even if the diagram is not dirty [#141](https://github.com/eclipse-glsp/glsp-theia-integration/pull/141) - Contributed on behalf of STMicroelectronics
+-   [backend] (Web)Socket based `GLSPServerContributions` now supports auto-assigned ports [#151](https://github.com/eclipse-glsp/glsp-theia-integration/pull/151)
 -   [validation] Only keep live validation markers in problems view and clean all others [#153](https://github.com/eclipse-glsp/glsp-theia-integration/pull/153)
 -   [backend] Provide `GLSPNodeServerContribution` to enable direct server integration into the Theia backed [#154](https://github.com/eclipse-glsp/glsp-theia-integration) - Contributed on behalf of STMicroelectronics
 -   [theia] Add support for showing server progress in Theia [#168](https://github.com/eclipse-glsp/glsp-theia-integration/pull/168)
+-   [websocket] Add support for Websocket communication to GLSP server from both the backend and the frontend directly [#155](https://github.com/eclipse-glsp/glsp-theia-integration/pull/155) [#159(https://github.com/eclipse-glsp/glsp-theia-integration/pull/159)] [#179](https://github.com/eclipse-glsp/glsp-theia-integration/pull/179)
+-   [backend] Fix a bug that disconnected all Theia clients when closing a single one [#164](https://github.com/eclipse-glsp/glsp-theia-integration/pull/164)
+-   [diagram] Add support for icons in context menu submenus [#180](https://github.com/eclipse-glsp/glsp-theia-integration/pull/180)
 
 ### Breaking Changes
 
--   [theia] Updated Theia dependencies to `1.33.0`. Due to API breaks, Theia versions `<1.33.0` are no longer supported. [#119](https://github.com/eclipse-glsp/glsp-theia-integration/pull/119) - Contributed on behalf of STMicroelectronics <br>
+-   [theia] Update Theia dependencies to `1.33.0`. Due to API breaks, Theia versions `<1.33.0` are no longer supported. [#119](https://github.com/eclipse-glsp/glsp-theia-integration/pull/119) - Contributed on behalf of STMicroelectronics <br>
     This also causes breaking changes in:
     -   `GlspServerContribution` (and inherited classes)
         -   `connect` method now takes a `Channel` instead of a `Connection` parameter
@@ -27,12 +30,32 @@
     -   `GLSPClientContribution.waitForActivation` is now optional and is not implemented by default.
     -   `GLSPClientProviderImpl` has been renamed to `GLSPClientProvider`, function keys have been renamed has well
     -   Removed `GLSPContribution.Service` and dropped the related deprecated session concept.
--   [API] Removed dependency to sprotty-theia [#149](https://github.com/eclipse-glsp/glsp-theia-integration/pull/149)
+-   [API] Remove dependency to sprotty-theia [#149](https://github.com/eclipse-glsp/glsp-theia-integration/pull/149)
     -   Modules from `sprotty-theia` are no longer reexported via the browser index.ts file
--   [diagram] Refactored `GLSPDiagramConfiguration`. Diagram containers are now child containers of the Theia DI container [#152](https://github.com/eclipse-glsp/glsp-theia-integration/pull/1525)
+-   [diagram] Refactor `GLSPDiagramConfiguration`. Diagram containers are now child containers of the Theia DI container [#152](https://github.com/eclipse-glsp/glsp-theia-integration/pull/1525)
     -   `GLSPDiagramConfiguration`
         -   `doCreateContainer` method has been renamed to `configureContainer` and requires additional arguments.
--   [theia] BaseGLSPClientContribution: changed `createGLSPClient(connectionProvider: ConnectionProvider)` to an async function
+-   [theia] BaseGLSPClientContribution: change `createGLSPClient(connectionProvider: ConnectionProvider)` to an async function [#155](https://github.com/eclipse-glsp/glsp-theia-integration/pull/155)
+-   [deps] Update to inversify 6 and Typescript 5.x [#163](https://github.com/eclipse-glsp/glsp-theia-integration/pull/163)
+    -   GLSP uses a synchronous inversify context this means with inversify 6.x decorator methods (e.g. @postConstruct) with asynchronous results are no longer supported
+-   [API] Remove `TheiaGLSPConnector`. The diagram DI container is now a child container of the Theia main container and has direct access to all Theia services [#173](https://github.com/eclipse-glsp/glsp-theia-integration/pull/173)
+
+    -   Refactor/rename `SavableGLSPModelSource` -> `GLSPSavable`
+    -   Move export functionality from removed connector to `theiaExportModule`
+    -   Encapsulate forwarding to Theia selection service in `theiaSelectionModule`
+    -   Encapsulate source model changed handling in `theiaSourceModelWatcherModule`
+    -   Moving handling of navigation targets into `theiaNavigationModule`
+    -   Move server message & process handling from removed connector to `theiaNotificationModule`
+    -   Remove `GLSPNotificationManager`
+    -   Remove dedicated `ServerStatus` handling in `GLSPDiagramWidget` and use the new `statusModule` instead
+
+-   [diagram] Refactor `GLSPDiagramWidget` and removed `dispatchInitialActions` method. [#176](https://github.com/eclipse-glsp/glsp-theia-integration/pull/176)
+    -   To dispatch custom initial actions use the new `IDiagramStartup` service instead.
+    -   Unify related multi-injection bindings and consistently use `ContributionProvider`s for them
+        -   Remove `DiagramConfigurationRegistry`
+        -   Remove `GLSPClientProvider`
+        -   `GLSPDiagramWidget` now directly injects Theia services -> use `GLSPDiagramWidgetFactory` to for construction
+-   [API] Rename `ServerStatusAction` -> `StatusAction` & `ServerMessageAction`->`MessageAction` [#178](https://github.com/eclipse-glsp/glsp-theia-integration/pull/178)
 
 ## [1.0.0 - 30/06/2022](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v1.0.0)
 
