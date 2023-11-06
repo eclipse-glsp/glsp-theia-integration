@@ -154,3 +154,11 @@
     fill: var(--theia-info-color0);
     color: var(--theia-inputValidation-infoBackground);
 }
+
+.sprotty-projection-bar.vertical.bordered-projection-bar {
+    width: var(--theia-scrollbar-rail-width);
+}
+
+.sprotty-projection-bar.horizontal.bordered-projection-bar {
+    height: var(--theia-scrollbar-rail-width);
+}
