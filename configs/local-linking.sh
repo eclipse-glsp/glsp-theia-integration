@@ -25,6 +25,9 @@ function linkClient() {
     yarn $1
     cd ../vscode-jsonrpc || exit
     yarn $1
+    cd ../inversify || exit
+    yarn $1
+
 }
 
 # Setup yarn links to use the glsp-node packages in glsp-theia-integration
@@ -48,7 +51,7 @@ linkNodeServer() {
 
         cd $2/glsp-server-node || exit
 
-        yarn $1 @eclipse-glsp/protocol vscode-jsonrpc
+        yarn $1 @eclipse-glsp/protocol vscode-jsonrpc inversify
         yarn install --force
     fi
 }
@@ -76,17 +79,18 @@ if [[ "$2" != "--unlink" ]]; then
     linkClient link $baseDir
     linkNodeServer link $baseDir
     cd $baseDir/glsp-theia-integration || exit
-    yarn link sprotty sprotty-protocol @eclipse-glsp/client @eclipse-glsp/protocol @eclipse-glsp-examples/workflow-glsp vscode-jsonrpc
+    yarn link sprotty sprotty-protocol @eclipse-glsp/client @eclipse-glsp/protocol @eclipse-glsp-examples/workflow-glsp vscode-jsonrpc inversify
     if [ -d $baseDir/glsp-server-node ]; then
         yarn link @eclipse-glsp/server @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server
     fi
     yarn install --force
 else
-    yarn unlink sprotty sprotty-protocol @eclipse-glsp/client @eclipse-glsp/protocol @eclipse-glsp-examples/workflow-glsp @eclipse-glsp-examples/workflow-server vscode-jsonrpc
+    yarn unlink sprotty sprotty-protocol @eclipse-glsp/client @eclipse-glsp/protocol @eclipse-glsp-examples/workflow-glsp vscode-jsonrpc inversify
     if [ -d $baseDir/glsp-server-node ]; then
-        yarn unlink@eclipse-glsp/server @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server
+        yarn unlink @eclipse-glsp/server @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server
     fi
     yarn
     yarn install --force
+    linkNodeServer unlink $baseDir
     linkClient unlink $baseDir
 fi
