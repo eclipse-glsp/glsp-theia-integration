@@ -34,6 +34,7 @@ import '../../css/decoration.css';
 import '../../css/diagram.css';
 import '../../css/theia-dialogs.css';
 import '../../css/tool-palette.css';
+import '../../css/smart-connector.css';
 import {
     GLSPContribution,
     WebSocketConnectionInfo,
