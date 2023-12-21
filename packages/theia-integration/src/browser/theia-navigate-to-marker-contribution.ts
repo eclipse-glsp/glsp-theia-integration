@@ -16,13 +16,20 @@
 import { bindAsService, collectIssueMarkers, NavigateToMarkerAction } from '@eclipse-glsp/client/lib';
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from '@theia/core';
 import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
-import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
+import { inject, injectable } from '@theia/core/shared/inversify';
 import { GLSPCommandHandler, GLSPContextMenu, GLSPDiagramKeybindingContext } from './diagram';
+import { ContainerContext } from './glsp-theia-container-module';
 
-export function registerMarkerNavigationCommands(bind: interfaces.Bind): void {
-    bindAsService(bind, CommandContribution, NavigateToMarkerCommandContribution);
-    bindAsService(bind, MenuContribution, NavigateToMarkerMenuContribution);
-    bindAsService(bind, KeybindingContribution, NavigateToMarkerKeybindingContribution);
+export function registerMarkerNavigationCommands(context: Omit<ContainerContext, 'unbind' | 'rebind'>): void {
+    if (!context.isBound(NavigateToMarkerCommandContribution)) {
+        bindAsService(context, CommandContribution, NavigateToMarkerCommandContribution);
+    }
+    if (!context.isBound(NavigateToMarkerMenuContribution)) {
+        bindAsService(context, MenuContribution, NavigateToMarkerMenuContribution);
+    }
+    if (!context.isBound(NavigateToMarkerKeybindingContribution)) {
+        bindAsService(context, KeybindingContribution, NavigateToMarkerKeybindingContribution);
+    }
 }
 
 export namespace NavigateToMarkerCommand {
