@@ -29,13 +29,6 @@
     background: var(--theia-menu-background);
     color: var(--theia-titleBar-activeForeground);
     max-width: 200px;
-    
-    /* display: flex; */
-}
-
-/* scrollbar */
-.smart-connector-group::-webkit-scrollbar {
-    display: none;
 }
 
 .smart-connector-button {
