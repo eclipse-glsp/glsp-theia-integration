@@ -977,12 +977,12 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@eclipse-glsp-examples/workflow-glsp@next":
-  version "2.1.0-alpha.290"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-2.1.0-alpha.290.tgz#2e32ecdc6c61758f06fdb8036c57288a4bba4ac2"
-  integrity sha512-rSv1s2j89UX27yJ1eTJVFX6f7fCkX1/nBNLN50jq3UgrykEusbD/PlQCF8dCMh8GVddt7l3R9YKSVNtTKFGgkQ==
+"@eclipse-glsp-examples/workflow-glsp@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-2.1.0.tgz#4ff8660dce094a2ad31e7034eae3a220bbfb80cd"
+  integrity sha512-uHn8dRutEO00F7KsZZEhRBnu4J6gRkFB4yTeVimtBik5FXld+z+zY7AfSfrfz+AJ9Fu+aEIZyyzHASmlWLvXOA==
   dependencies:
-    "@eclipse-glsp/client" "2.1.0-alpha.290+5990e6e"
+    "@eclipse-glsp/client" "2.1.0"
     balloon-css "^0.5.0"
 
 "@eclipse-glsp-examples/workflow-server-bundled@next":
@@ -990,13 +990,13 @@
   resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-server-bundled/-/workflow-server-bundled-2.1.0-next.71.tgz#7020bf62edb186a7108a3e2bab992efcfeedaab7"
   integrity sha512-dKwd+8pz4kULnWHoSGhNKS90iP5jtdfBzl85vU60Zz9401DMADXXJXZxtFPRiwJydPNdPdWKzb4WRhowjXZlmA==
 
-"@eclipse-glsp-examples/workflow-server@next":
-  version "2.1.0-next.71"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-server/-/workflow-server-2.1.0-next.71.tgz#acf13bb8035cc031e75b476708392eb4beaf2bf8"
-  integrity sha512-8njxaz4bcjACe/3b7/JAB6utwpkrJdRSQi1kHE4LWVrUajoHniL4dJIwCwVPWLjisHjk5oO3U+aD7TsnJchNBw==
+"@eclipse-glsp-examples/workflow-server@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-server/-/workflow-server-2.1.0.tgz#63af096a4138677c0f50359d44c8eeed3cfc7aed"
+  integrity sha512-VBcVJY8mmI6nsLvND2x0LX/+Osi6JpQ+eGok7tbbcr3QZfbG83EcUiKCt2xlzkBaaoTlo6UQyelqN6W8MQe+DQ==
   dependencies:
-    "@eclipse-glsp/layout-elk" "2.1.0-next.71+7cb92ef"
-    "@eclipse-glsp/server" "2.1.0-next.71+7cb92ef"
+    "@eclipse-glsp/layout-elk" "2.1.0"
+    "@eclipse-glsp/server" "2.1.0"
     inversify "^6.0.1"
 
 "@eclipse-glsp/cli@~2.0.0":
@@ -1011,12 +1011,12 @@
     semver "^7.5.1"
     shelljs "^0.8.5"
 
-"@eclipse-glsp/client@2.1.0-alpha.290+5990e6e", "@eclipse-glsp/client@next":
-  version "2.1.0-alpha.290"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-2.1.0-alpha.290.tgz#5a608bd70d1ea2cc53f88e18d01b92af521ba61e"
-  integrity sha512-/Qw6+Y1VUzJqIS78v3Hj/kFccAa1Ay82U7UKTdtHVLV1g+MNeLDt2w9LnQGePkP5eRsPjT9FfjjIzviiRqkqew==
+"@eclipse-glsp/client@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-2.1.0.tgz#324c48e243cb24d454c9c4a38dcd7effea92b729"
+  integrity sha512-OxQhgcz1VJnmj4IYMSz7Xp4bk50yX/nvrcdVyBvnWJ0S2FF9rJZcdMykooMg19N0nfnG+cjzVa4lbd5Mf975XQ==
   dependencies:
-    "@eclipse-glsp/sprotty" "2.1.0-alpha.290+5990e6e"
+    "@eclipse-glsp/sprotty" "2.1.0"
     autocompleter "^9.1.0"
     file-saver "^2.0.5"
     lodash "4.17.21"
@@ -1076,19 +1076,19 @@
   resolved "https://registry.yarnpkg.com/@eclipse-glsp/eslint-config/-/eslint-config-2.0.0.tgz#d2070c5e10b0e3fcc3c5ab3a5fcc1dcf0596980e"
   integrity sha512-cne25IFXtX7Ab5oN98IkUulBVrZ7x2mnutyDilTkC132f4vZuPE1aWBY4HOyUbfODVLN2xpQckJQF9X1qdnYNA==
 
-"@eclipse-glsp/graph@2.1.0-next.71+7cb92ef":
-  version "2.1.0-next.71"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/graph/-/graph-2.1.0-next.71.tgz#572827547461592eb68011bc6baa2316a6b4dd02"
-  integrity sha512-Nv8FYnJ7tO772Xe6zTN1nACH5gxnx2D6r73bDuMaa5iLt0rdUyFwlMS20FKbk5LF8xEK5jLh/UtHOYot1QTh2g==
+"@eclipse-glsp/graph@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/graph/-/graph-2.1.0.tgz#f6d82310ed52ca9eab1c6640857fcc49fbcf2515"
+  integrity sha512-TGreAQ4cSCln0BIBiQ89276RRCBW70Y5ifXJ+qpfWYCbnWnTXwepRdy6Q/OXY5zwjcH7doXSQnmDv5hODVI/ww==
   dependencies:
-    "@eclipse-glsp/protocol" next
+    "@eclipse-glsp/protocol" "2.1.0"
 
-"@eclipse-glsp/layout-elk@2.1.0-next.71+7cb92ef":
-  version "2.1.0-next.71"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/layout-elk/-/layout-elk-2.1.0-next.71.tgz#f00c33eb173eceb3860fcfe3c51525bf07d20fe7"
-  integrity sha512-XUndAH4hjIBFhHUkbh3uTKdHC19SvImUXYLg6vKmpi7jn15cvCIfnhSgDTBPP62CQeA3GgTtnYOHDOSSPJu7ww==
+"@eclipse-glsp/layout-elk@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/layout-elk/-/layout-elk-2.1.0.tgz#0a228e6b67673bda69c1c498e9bd8c06d0e11227"
+  integrity sha512-FUE78Du62FEBU9HbF7gcJMlyMFT4C1ZYEPlY/4NOdl6HlI9IbXdeS2z/sv/xIBUCuSDk3YoRQhGe2wLWynRWmg==
   dependencies:
-    "@eclipse-glsp/server" "2.1.0-next.71+7cb92ef"
+    "@eclipse-glsp/server" "2.1.0"
     elkjs "^0.7.1"
 
 "@eclipse-glsp/mocha-config@~2.0.0":
@@ -1108,34 +1108,34 @@
   dependencies:
     prettier-plugin-packagejson "~2.4.6"
 
-"@eclipse-glsp/protocol@2.1.0-alpha.290+5990e6e", "@eclipse-glsp/protocol@next":
-  version "2.1.0-alpha.290"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-2.1.0-alpha.290.tgz#0b874cb344e5b741f2a4be43a824121f2913aab6"
-  integrity sha512-e49InCT4rgW33wY7Y15RA5jvC34qHdMfxIE/vmxZQApOQEdmdHw7fg8CtJ4hXDVeSXOuUN0On5InaMIpg07xKQ==
+"@eclipse-glsp/protocol@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-2.1.0.tgz#e76a65a4815c969bfb86a1ab202ad24384a317cc"
+  integrity sha512-CUcVbsjiddDWEuhWKDLgfqslmau2QT6QTF9LyA4/y6Eomv5s8nTexeBMI6hCWL4sHgMfQ4t2zI9zV2a5gIow4A==
   dependencies:
     sprotty-protocol "0.15.0-next.044bba2.13"
     uuid "7.0.3"
     vscode-jsonrpc "^8.0.2"
 
-"@eclipse-glsp/server@2.1.0-next.71+7cb92ef":
-  version "2.1.0-next.71"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/server/-/server-2.1.0-next.71.tgz#a772a1a76cce813dce8345048d224cc846bf8924"
-  integrity sha512-jKRhE/J6peR5AbXCIdJcJLw2GBL4YdSbSRNC7KkvkwtE3/ETfnTBUb+x3/F9G5PDDM0qSqpxQt6jKT1qiIvOVQ==
+"@eclipse-glsp/server@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/server/-/server-2.1.0.tgz#6c281904f974de8ac9893994f2d5c3a144dbf557"
+  integrity sha512-0xPkDLt54hMjNyX33KJFP18O1nUV8U318jYZy6CZfJClnacWrKk8SQKBEUlzhpDFMUrZBvArKmwRylq0pnHpfw==
   dependencies:
-    "@eclipse-glsp/graph" "2.1.0-next.71+7cb92ef"
-    "@eclipse-glsp/protocol" next
+    "@eclipse-glsp/graph" "2.1.0"
+    "@eclipse-glsp/protocol" "2.1.0"
     "@types/uuid" "8.3.1"
     commander "^8.3.0"
     fast-json-patch "^3.1.0"
     winston "^3.3.3"
     ws "^8.12.1"
 
-"@eclipse-glsp/sprotty@2.1.0-alpha.290+5990e6e":
-  version "2.1.0-alpha.290"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/sprotty/-/sprotty-2.1.0-alpha.290.tgz#8936b7f65aa220845357ef3e5520ed48e4aa7fa0"
-  integrity sha512-GdIXslu6+in0/esxGo3IWkxOUFdJQqRuRRCrHmgegiSOgB2/swo1pR/liuxSClwAGxxhk1m46WpHPPkmB24BtA==
+"@eclipse-glsp/sprotty@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/sprotty/-/sprotty-2.1.0.tgz#4adf93dd501dc65426f7beac145ac007fcb37aa9"
+  integrity sha512-STBH3Af9sTD102mfgr0kplMSkvkkWIOMGLjr7Hl+b5yx8niMrFmy6HGIBVpyw9mb5DW+6eKN+3QjyslTetL8TA==
   dependencies:
-    "@eclipse-glsp/protocol" "2.1.0-alpha.290+5990e6e"
+    "@eclipse-glsp/protocol" "2.1.0"
     autocompleter "^9.1.0"
     snabbdom "^3.5.1"
     sprotty "1.0.0"
