@@ -1,5 +1,12 @@
 # Eclipse GLSP Theia Integration Changelog
 
+## 2.1.0 - active
+
+### Changes
+
+-   [diagram] Fixed a bug that prevented projection bars from being rendered correctly [#185](https://github.com/eclipse-glsp/glsp-theia-integration/pull/185)
+-   [theia] Ensure that configuring multiple GLSP diagram languages does not breaking the inversify configuration [#190](https://github.com/eclipse-glsp/glsp-theia-integration/pull/190)
+
 ## [2.0.0- 14/10/2023](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.0.0)
 
 ### Changes

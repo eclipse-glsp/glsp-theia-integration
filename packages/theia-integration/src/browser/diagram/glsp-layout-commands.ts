@@ -24,15 +24,22 @@ import {
 } from '@eclipse-glsp/client';
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, MenuPath } from '@theia/core';
 import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
-import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
+import { inject, injectable } from '@theia/core/shared/inversify';
+import { ContainerContext } from '../glsp-theia-container-module';
 import { GLSPCommandHandler } from './glsp-command-handler';
 import { GLSPDiagramMenus } from './glsp-diagram-commands';
 import { GLSPDiagramKeybindingContext } from './glsp-diagram-keybinding';
 
-export function registerDiagramLayoutCommands(bind: interfaces.Bind): void {
-    bindAsService(bind, CommandContribution, GLSPLayoutCommandContribution);
-    bindAsService(bind, MenuContribution, GLSPLayoutMenuContribution);
-    bindAsService(bind, KeybindingContribution, GLSPLayoutKeybindingContribution);
+export function registerDiagramLayoutCommands(context: Omit<ContainerContext, 'unbind' | 'rebind'>): void {
+    if (!context.isBound(GLSPLayoutCommandContribution)) {
+        bindAsService(context, CommandContribution, GLSPLayoutCommandContribution);
+    }
+    if (!context.isBound(GLSPLayoutMenuContribution)) {
+        bindAsService(context, MenuContribution, GLSPLayoutMenuContribution);
+    }
+    if (!context.isBound(GLSPLayoutKeybindingContribution)) {
+        bindAsService(context, KeybindingContribution, GLSPLayoutKeybindingContribution);
+    }
 }
 
 export namespace GLSPLayoutCommands {

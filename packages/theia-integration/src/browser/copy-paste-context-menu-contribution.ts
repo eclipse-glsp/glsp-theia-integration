@@ -16,11 +16,14 @@
 import { bindAsService } from '@eclipse-glsp/client';
 import { MenuContribution, MenuModelRegistry } from '@theia/core';
 import { CommonCommands } from '@theia/core/lib/browser';
-import { injectable, interfaces } from '@theia/core/shared/inversify';
+import { injectable } from '@theia/core/shared/inversify';
+import { ContainerContext } from './glsp-theia-container-module';
 import { TheiaGLSPContextMenu } from './theia-glsp-context-menu-service';
 
-export function registerCopyPasteContextMenu(bind: interfaces.Bind): void {
-    bindAsService(bind, MenuContribution, CopyPasteMenuContribution);
+export function registerCopyPasteContextMenu(context: Omit<ContainerContext, 'unbind' | 'rebind'>): void {
+    if (!context.isBound(CopyPasteMenuContribution)) {
+        bindAsService(context, MenuContribution, CopyPasteMenuContribution);
+    }
 }
 
 @injectable()

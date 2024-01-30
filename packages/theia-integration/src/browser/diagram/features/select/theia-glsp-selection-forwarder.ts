@@ -27,7 +27,9 @@ import {
     hasStringProp
 } from '@eclipse-glsp/client';
 import { SelectionService } from '@theia/core';
-import { inject, injectable, optional } from '@theia/core/shared/inversify';
+import { ApplicationShell } from '@theia/core/lib/browser';
+import { inject, injectable, optional, postConstruct } from '@theia/core/shared/inversify';
+import { getDiagramWidget } from '../../glsp-diagram-widget';
 
 export interface GlspSelection {
     additionalSelectionData?: GlspSelectionData;
@@ -61,7 +63,7 @@ export interface GlspSelectionData {
  */
 @injectable()
 export abstract class GlspSelectionDataService {
-    abstract getSelectionData(selectedElementIds: string[]): Promise<GlspSelectionData>;
+    abstract getSelectionData(root: Readonly<GModelRoot>, selectedElementIds: string[]): Promise<GlspSelectionData>;
 }
 
 /**
@@ -85,7 +87,24 @@ export class TheiaGLSPSelectionForwarder implements ISelectionListener {
     @inject(TYPES.ModelSourceProvider)
     protected modelSourceProvider: () => Promise<ModelSource>;
 
+    @inject(ApplicationShell)
+    protected shell: ApplicationShell;
+
     protected sourceUri?: string;
+
+    @postConstruct()
+    protected init(): void {
+        this.shell.onDidChangeActiveWidget(() => {
+            const activeDiagramWidget = getDiagramWidget(this.shell);
+            if (activeDiagramWidget) {
+                // restore selection from diagram to the global scope
+                this.selectionChanged(
+                    activeDiagramWidget.editorContext.modelRoot,
+                    activeDiagramWidget.editorContext.selectedElements.map(element => element.id)
+                );
+            }
+        });
+    }
 
     protected async getSourceUri(): Promise<string | undefined> {
         if (!this.sourceUri) {
@@ -97,13 +116,13 @@ export class TheiaGLSPSelectionForwarder implements ISelectionListener {
         return this.sourceUri;
     }
 
-    selectionChanged(_root: Readonly<GModelRoot>, selectedElements: string[]): void {
-        this.handleSelectionChanged(selectedElements);
+    selectionChanged(root: Readonly<GModelRoot>, selectedElements: string[]): void {
+        this.handleSelectionChanged(root, selectedElements);
     }
 
-    async handleSelectionChanged(selectedElementsIDs: string[]): Promise<void> {
+    async handleSelectionChanged(root: Readonly<GModelRoot>, selectedElementsIDs: string[]): Promise<void> {
         const sourceUri = await this.getSourceUri();
-        const additionalSelectionData = (await this.selectionDataService?.getSelectionData(selectedElementsIDs)) ?? undefined;
+        const additionalSelectionData = (await this.selectionDataService?.getSelectionData(root, selectedElementsIDs)) ?? undefined;
         const glspSelection: GlspSelection = {
             selectedElementsIDs,
             additionalSelectionData,
