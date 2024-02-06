@@ -30,6 +30,16 @@
     "@theia/cli": "1.45.1"
   },
   "theia": {
-    "target": "browser"
+    "target": "browser",
+    "frontend": {
+      "config": {
+        "reloadOnReconnect": true
+      }
+    },
+    "backend": {
+      "config": {
+        "frontendConnectionTimeout": 86400000
+      }
+    }
   }
 }
