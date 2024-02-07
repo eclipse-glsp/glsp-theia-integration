@@ -1,6 +1,12 @@
 # Eclipse GLSP Theia Integration Changelog
 
-## 2.1.0 - active
+## 2.1.1 [2.1.1- 07/02/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.1.1)
+
+### Changes
+
+-   [deps] Update to `2.1.1` patch version of ´@eclipse-glsp/client`
+
+## 2.1.0 [2.1.0- 24/01/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.1.0)
 
 ### Changes
 
