@@ -16,8 +16,9 @@
 import { isTaskNode } from '@eclipse-glsp-examples/workflow-glsp/lib/model';
 import { NavigateAction } from '@eclipse-glsp/client';
 import { GLSPCommandHandler, GLSPContextMenu } from '@eclipse-glsp/theia-integration';
-import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from '@theia/core';
-import { ApplicationShell } from '@theia/core/lib/browser';
+import { Command, CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, MessageService } from '@theia/core';
+import { ApplicationShell, QuickInputService } from '@theia/core/lib/browser';
+import { WebSocketConnectionSource } from '@theia/core/lib/browser/messaging/ws-connection-source';
 import { inject, injectable } from '@theia/core/shared/inversify';
 
 export namespace WorkflowNavigationCommands {
@@ -26,9 +27,24 @@ export namespace WorkflowNavigationCommands {
     export const DOCUMENTATION = 'glsp-workflow-documentation';
 }
 
+const reconnectCommand: Command = {
+    id: 'test.reconnect',
+    label: 'Test frontend reconnect'
+};
+
 @injectable()
 export class WorkflowNavigationCommandContribution implements CommandContribution {
     @inject(ApplicationShell) protected readonly shell: ApplicationShell;
+
+    @inject(WebSocketConnectionSource)
+    protected connectionProvider: WebSocketConnectionSource;
+
+    @inject(QuickInputService)
+    protected readonly quickInputService: QuickInputService;
+
+    @inject(MessageService)
+    protected readonly messageService: MessageService;
+
     registerCommands(commands: CommandRegistry): void {
         commands.registerCommand(
             { id: WorkflowNavigationCommands.NEXT_NODE, label: 'Go to Next Node' },
@@ -51,6 +67,25 @@ export class WorkflowNavigationCommandContribution implements CommandContributio
                 isEnabled: context => context.selectedElements.filter(isTaskNode).length === 1
             })
         );
+        commands.registerCommand(reconnectCommand, {
+            execute: async () => {
+                const timeoutString = await this.quickInputService.input({
+                    value: '500',
+                    validateInput: input => Promise.resolve(Number.parseInt(input, 10) === undefined ? 'not an integer' : undefined)
+                });
+                if (timeoutString) {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    (this.connectionProvider as any).socket.disconnect();
+                    setTimeout(
+                        () => {
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            (this.connectionProvider as any).socket.connect();
+                        },
+                        Number.parseInt(timeoutString, 10)
+                    );
+                }
+            }
+        });
     }
 }
 
