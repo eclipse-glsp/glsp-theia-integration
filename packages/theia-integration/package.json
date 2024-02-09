@@ -1,6 +1,6 @@
 {
   "name": "@eclipse-glsp/theia-integration",
-  "version": "2.1.1",
+  "version": "2.1.0-theia1.45.0",
   "description": "Glue code to integrate GLSP clients into Eclipse Theia",
   "keywords": [
     "theia-extension",
