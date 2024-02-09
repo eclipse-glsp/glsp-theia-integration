@@ -15,12 +15,8 @@
  ********************************************************************************/
 import { bindAsService } from '@eclipse-glsp/client';
 import { CommandContribution, MenuContribution, bindContributionProvider } from '@theia/core';
-import {
-    FrontendApplicationContribution,
-    KeybindingContext,
-    KeybindingContribution,
-    WebSocketConnectionProvider
-} from '@theia/core/lib/browser';
+import { FrontendApplicationContribution, KeybindingContext, KeybindingContribution } from '@theia/core/lib/browser';
+import { ServiceConnectionProvider } from '@theia/core/lib/browser/messaging/service-connection-provider';
 import { ContainerModule } from '@theia/core/shared/inversify';
 import { GLSPContribution } from '../common';
 import { DiagramServiceProvider } from './diagram-service-provider';
@@ -43,7 +39,7 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bindAsService(context, FrontendApplicationContribution, GLSPFrontendContribution);
     bind(DiagramServiceProvider).toSelf().inSingletonScope();
     bind(GLSPContribution.Service)
-        .toDynamicValue(({ container }) => WebSocketConnectionProvider.createProxy(container, GLSPContribution.servicePath))
+        .toDynamicValue(({ container }) => ServiceConnectionProvider.createProxy(container, GLSPContribution.servicePath))
         .inSingletonScope();
 
     // Diagram Command API
