@@ -1,6 +1,6 @@
 {
   "name": "browser-app",
-  "version": "2.1.0",
+  "version": "2.2.0-next",
   "private": true,
   "scripts": {
     "build": "theia build --mode development",
@@ -13,21 +13,21 @@
     "watch": "theia build --watch --mode development"
   },
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-theia": "2.1.0",
-    "@theia/core": "1.39.0",
-    "@theia/editor": "1.39.0",
-    "@theia/filesystem": "1.39.0",
-    "@theia/markers": "1.39.0",
-    "@theia/messages": "1.39.0",
-    "@theia/monaco": "1.39.0",
-    "@theia/navigator": "1.39.0",
-    "@theia/preferences": "1.39.0",
-    "@theia/process": "1.39.0",
-    "@theia/terminal": "1.39.0",
-    "@theia/workspace": "1.39.0"
+    "@eclipse-glsp-examples/workflow-theia": "2.2.0-next",
+    "@theia/core": "1.45.1",
+    "@theia/editor": "1.45.1",
+    "@theia/filesystem": "1.45.1",
+    "@theia/markers": "1.45.1",
+    "@theia/messages": "1.45.1",
+    "@theia/monaco": "1.45.1",
+    "@theia/navigator": "1.45.1",
+    "@theia/preferences": "1.45.1",
+    "@theia/process": "1.45.1",
+    "@theia/terminal": "1.45.1",
+    "@theia/workspace": "1.45.1"
   },
   "devDependencies": {
-    "@theia/cli": "1.39.0"
+    "@theia/cli": "1.45.1"
   },
   "theia": {
     "target": "browser"

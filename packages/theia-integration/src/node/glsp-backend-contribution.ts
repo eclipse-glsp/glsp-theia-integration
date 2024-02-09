@@ -43,7 +43,7 @@ export class GLSPBackendContribution implements MessagingService.Contribution {
     }
 
     protected forward(service: MessagingService, path: string, contribution: GLSPServerContribution): void {
-        service.wsChannel(path, async (_params, clientChannel) => {
+        service.registerChannelHandler(path, async (_params, clientChannel) => {
             try {
                 const toDispose = await contribution.connect(clientChannel);
                 clientChannel.onClose(() => toDispose.dispose());
