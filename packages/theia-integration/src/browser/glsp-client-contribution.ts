@@ -24,7 +24,8 @@ import {
     listen
 } from '@eclipse-glsp/client';
 import { Disposable, DisposableCollection, MessageService } from '@theia/core';
-import { FrontendApplication, WebSocketConnectionProvider } from '@theia/core/lib/browser';
+import { FrontendApplication } from '@theia/core/lib/browser';
+import { ServiceConnectionProvider } from '@theia/core/lib/browser/messaging/service-connection-provider';
 import { Deferred } from '@theia/core/lib/common/promise-util';
 import { inject, injectable } from '@theia/core/shared/inversify';
 import { MessageConnection } from 'vscode-jsonrpc';
@@ -111,7 +112,8 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     }
 
     @inject(MessageService) protected readonly messageService: MessageService;
-    @inject(WebSocketConnectionProvider) protected readonly connectionProvider: WebSocketConnectionProvider;
+    @inject(ServiceConnectionProvider)
+    protected readonly connectionProvider: ServiceConnectionProvider;
 
     get glspClient(): Promise<GLSPClient> {
         return this.glspClientDeferred.promise;
@@ -179,9 +181,9 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     protected createChannelConnection(): Promise<MessageConnection> {
         return new Promise((resolve, reject) => {
             this.connectionProvider.listen(
-                {
-                    path: GLSPContribution.getPath(this),
-                    onConnection: channel => {
+                GLSPContribution.getPath(this),
+                (path, channel) => {
+                    if (path === GLSPContribution.getPath(this)) {
                         if (this.toDispose.disposed) {
                             channel.close();
                             reject(new Error('GLSPClientContribution is already disposed'));
@@ -194,7 +196,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
                         resolve(connection);
                     }
                 },
-                { reconnecting: false }
+                false
             );
         });
     }
