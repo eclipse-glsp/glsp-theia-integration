@@ -195,7 +195,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
                         resolve(connection);
                     }
                 },
-                false
+                true
             );
         });
     }
