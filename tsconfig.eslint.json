@@ -4,5 +4,5 @@
     "noEmit": true
   },
   "exclude": ["**/node_modules", "**/.eslintrc.js"],
-  "include": ["packages/*/src", "examples/*/src", "**/download.ts"]
+  "include": ["packages/*/src", "examples/*/src"]
 }

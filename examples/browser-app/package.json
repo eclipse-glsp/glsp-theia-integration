@@ -3,8 +3,8 @@
   "version": "2.2.0-next",
   "private": true,
   "scripts": {
-    "build": "theia build --mode development",
-    "prepare": "yarn build",
+    "bundle": "theia build --mode development",
+    "clean": "rimraf lib",
     "start": "theia start --WF_GLSP=0 --root-dir=../workspace",
     "start:debug": "theia start --WF_GLSP=5007  --root-dir=../workspace --loglevel=debug --debug",
     "start:integrated": "theia start --WF_GLSP=5007  --root-dir=../workspace --loglevel=debug --integratedNode",

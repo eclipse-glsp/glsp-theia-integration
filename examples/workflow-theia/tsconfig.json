@@ -2,8 +2,13 @@
   "extends": "@eclipse-glsp/ts-config/tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "lib",
-    "resolveJsonModule": true
+    "composite": true,
+    "outDir": "lib"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [
+    {
+      "path": "../../packages/theia-integration"
+    }
+  ]
 }

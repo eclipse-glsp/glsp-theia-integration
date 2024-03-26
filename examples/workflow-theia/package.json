@@ -29,10 +29,8 @@
   ],
   "scripts": {
     "build": "tsc -b",
-    "clean": "rimraf lib tsconfig.tsbuildinfo",
+    "clean": "rimraf lib *.tsbuildinfo",
     "lint": "eslint --ext .ts,.tsx ./src",
-    "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
-    "prepare": "yarn clean && yarn build",
     "watch": "tsc -w"
   },
   "dependencies": {
@@ -40,9 +38,6 @@
     "@eclipse-glsp-examples/workflow-server": "next",
     "@eclipse-glsp-examples/workflow-server-bundled": "next",
     "@eclipse-glsp/theia-integration": "2.2.0-next"
-  },
-  "devDependencies": {
-    "mvn-artifact-download": "5.1.0"
   },
   "publishConfig": {
     "access": "public"
