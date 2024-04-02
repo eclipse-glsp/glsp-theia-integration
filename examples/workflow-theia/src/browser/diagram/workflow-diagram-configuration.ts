@@ -27,8 +27,8 @@ export class WorkflowDiagramConfiguration extends GLSPDiagramConfiguration {
 
     configureContainer(container: Container, ...containerConfiguration: ContainerConfiguration): Container {
         containerConfiguration = containerConfiguration.concat(containerConfiguration, [{
-            add: selectionPaletteModule,
-        }])
+            add: selectionPaletteModule
+        }]);
         initializeWorkflowDiagramContainer(container, ...containerConfiguration);
         return container;
     }
