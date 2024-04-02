@@ -1,13 +1,13 @@
 /* expand button */
 
-#smart-connector-expand-button {
+#selection-palette-expand-button {
     background: var(--theia-titleBar-activeBackground);
     color: var(--theia-titleBar-activeForeground);
 }
 
 /* search bar */
 
-.smart-connector-search {
+.selection-palette-search {
     background: var(--theia-input-background);
     color: var(--theia-input-foreground);
     border: var(--theia-border-width) solid var(--theia-input-border);
@@ -18,24 +18,24 @@
 
 /* header */
 
-.smart-connector-group-header {
+.selection-palette-group-header {
     background: var(--theia-titleBar-activeBackground);
     color: var(--theia-titleBar-activeForeground);
 }
 
-.smart-connector-group-header:hover:not(.clicked) {
+.selection-palette-group-header:hover:not(.clicked) {
     background: var(--theia-menubar-selectionBackground);
 }
 
 /* single containers */
 
-.smart-connector-group-container {
+.selection-palette-group-container {
     background: var(--theia-menu-background);
     color: var(--theia-titleBar-activeForeground);
 }
 
 /* single item */
 
-.smart-connector-button:hover:not(.clicked) {
+.selection-palette-button:hover:not(.clicked) {
     background: var(--theia-list-hoverBackground);
 }
