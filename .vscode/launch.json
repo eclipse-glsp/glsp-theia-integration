@@ -8,6 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Workflow Browser Backend",
+      "preLaunchTask": "[Theia] Prepare Browser Start",
       "program": "${workspaceRoot}/examples/browser-app/src-gen/backend/main.js",
       "args": [
         "--hostname=localhost",
@@ -222,7 +223,49 @@
         "order": 2
       },
       "runtimeArgs": ["--incognito"]
-    }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Workflow Electron Backend",
+      "preLaunchTask": "[Theia] Prepare Electron Start",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+      "windows": {
+        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+      },
+      "cwd": "${workspaceFolder}/examples/electron-app",
+      "protocol": "inspector",
+      "args": [
+        ".",
+        "--log-level=debug",
+        "--hostname=localhost",
+        "--no-cluster",
+        "--app-project-path=${workspaceFolder}/examples/electron-app",
+        "--remote-debugging-port=9222",
+        "--no-app-auto-install"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceFolder}/examples/electron-app/src-gen/backend/electron-main.js",
+        "${workspaceFolder}/examples/electron-app/src-gen/backend/main.js",
+        "${workspaceFolder}/examples/electron-app/src-gen/backend/server.js",
+        "${workspaceFolder}/examples/electron-app/lib/**/*.js",
+        "${workspaceFolder}/packages/*/lib/**/*.js"
+      ],
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std"
+    },
+    {
+      "type": "chrome",
+      "request": "attach",
+      "name": "Attach to Electron Frontend",
+      "port": 9222,
+      "webRoot": "${workspaceFolder}/examples/electron-app"
+    },
   ],
   "compounds": [
     {

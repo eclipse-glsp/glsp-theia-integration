@@ -130,6 +130,28 @@
         "panel": "new"
       },
       "command": "google-chrome 127.0.0.1:3000"
+    },
+    {
+      "label": "[Theia] Prepare Browser Start",
+      "type": "shell",
+      "group": "build",
+      "command": "yarn browser rebuild",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "[Theia] Prepare Electron Start",
+      "type": "shell",
+      "group": "build",
+      "command": "yarn electron rebuild",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
     }
   ]
 }

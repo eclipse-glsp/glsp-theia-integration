@@ -1,22 +1,22 @@
 {
-  "name": "browser-app",
+  "name": "electron-app",
   "version": "2.2.0-next",
   "private": true,
+  "main": "src-gen/backend/electron-main.js",
   "scripts": {
     "build": "theia build --mode development",
     "prepare": "yarn build",
-    "rebuild": "theia rebuild:browser --cacheRoot ../..",
+    "rebuild": "theia rebuild:electron --cacheRoot ../..",
     "start": "yarn rebuild && theia start --WF_GLSP=0 --root-dir=../workspace",
     "start:debug": "yarn rebuild && theia start --WF_GLSP=5007  --root-dir=../workspace --loglevel=debug --debug",
     "start:integrated": "yarn rebuild && theia start --WF_GLSP=5007  --root-dir=../workspace --loglevel=debug --integratedNode",
-    "start:ws": "yarn rebuild && theia start --WF_GLSP=0 --WF_PATH=workflow --root-dir=../workspace",
-    "start:ws:debug": "yarn rebuild && theia start --WF_GLSP=8081 --WF_PATH=workflow --root-dir=../workspace --logLevel=debug --debug",
     "watch": "theia build --watch --mode development"
   },
   "dependencies": {
     "@eclipse-glsp-examples/workflow-theia": "2.2.0-next",
     "@theia/core": "1.45.1",
     "@theia/editor": "1.45.1",
+    "@theia/electron": "1.45.1",
     "@theia/filesystem": "1.45.1",
     "@theia/markers": "1.45.1",
     "@theia/messages": "1.45.1",
@@ -28,10 +28,11 @@
     "@theia/workspace": "1.45.1"
   },
   "devDependencies": {
-    "@theia/cli": "1.45.1"
+    "@theia/cli": "1.45.1",
+    "electron": "^25.3.0"
   },
   "theia": {
-    "target": "browser",
+    "target": "electron",
     "frontend": {
       "config": {
         "reloadOnReconnect": true
@@ -39,7 +40,7 @@
     },
     "backend": {
       "config": {
-        "frontendConnectionTimeout": 86400000
+        "frontendConnectionTimeout": -1
       }
     }
   }
