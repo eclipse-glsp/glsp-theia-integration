@@ -25,7 +25,7 @@ import {
 } from '@eclipse-glsp/client';
 import { Disposable, DisposableCollection, MessageService } from '@theia/core';
 import { FrontendApplication } from '@theia/core/lib/browser';
-import { ServiceConnectionProvider } from '@theia/core/lib/browser/messaging/service-connection-provider';
+import { RemoteConnectionProvider, ServiceConnectionProvider } from '@theia/core/lib/browser/messaging/service-connection-provider';
 import { Deferred } from '@theia/core/lib/common/promise-util';
 import { inject, injectable } from '@theia/core/shared/inversify';
 import { MessageConnection } from 'vscode-jsonrpc';
@@ -111,7 +111,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
     }
 
     @inject(MessageService) protected readonly messageService: MessageService;
-    @inject(ServiceConnectionProvider)
+    @inject(RemoteConnectionProvider)
     protected readonly connectionProvider: ServiceConnectionProvider;
 
     get glspClient(): Promise<GLSPClient> {
