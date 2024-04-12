@@ -254,6 +254,7 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
         this.storeViewportDataInStorageService();
         this.node.removeEventListener('mouseenter', this.handleMouseEnter);
         this.node.removeEventListener('mouseleave', this.handleMouseLeave);
+        document.querySelector(`#${this.viewerOptions.hiddenDiv}`)?.remove();
         super.onBeforeDetach(msg);
     }
 
