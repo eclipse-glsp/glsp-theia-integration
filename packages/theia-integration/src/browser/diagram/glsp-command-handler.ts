@@ -60,7 +60,10 @@ export interface GLSPCommand {
  * A reusable {@link CommandHandler} for simplified action dispatching in GLSP diagrams.
  */
 export class GLSPCommandHandler implements CommandHandler {
-    constructor(protected readonly shell: ApplicationShell, protected readonly command: GLSPCommand) {}
+    constructor(
+        protected readonly shell: ApplicationShell,
+        protected readonly command: GLSPCommand
+    ) {}
 
     async execute(): Promise<void> {
         if (this.isEnabled() && this.diagramWidget) {

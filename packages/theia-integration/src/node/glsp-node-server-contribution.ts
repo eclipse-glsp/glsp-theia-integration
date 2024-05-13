@@ -14,11 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import {
-    ContainerConfiguration,
     GLSPClientProxy,
     GLSPServer,
     JsonrpcClientProxy,
-    ModuleConfiguration,
     asArray,
     configureClientConnection,
     distinctAdd,
@@ -26,6 +24,7 @@ import {
     hasNumberProp,
     remove
 } from '@eclipse-glsp/protocol';
+import { ContainerConfiguration, ModuleConfiguration } from '@eclipse-glsp/protocol/lib/di';
 import { Channel, Disposable, MaybePromise } from '@theia/core';
 import { Container, ContainerModule, inject, injectable } from '@theia/core/shared/inversify';
 import { MessageConnection } from 'vscode-jsonrpc';

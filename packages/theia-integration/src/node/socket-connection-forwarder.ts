@@ -30,7 +30,10 @@ import {
 export class SocketConnectionForwarder implements Disposable {
     protected toDispose = new DisposableCollection();
 
-    constructor(protected readonly channel: Channel, protected readonly socket: Socket) {
+    constructor(
+        protected readonly channel: Channel,
+        protected readonly socket: Socket
+    ) {
         const reader = new SocketMessageReader(socket);
         const writer = new SocketMessageWriter(socket);
         const connection = this.createMessageConnection(reader, writer);

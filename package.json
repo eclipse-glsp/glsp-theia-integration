@@ -15,8 +15,10 @@
     "check:pr": "yarn all && yarn check:headers",
     "clean": "lerna run clean && rimraf logs/*.log",
     "compile": "tsc -b",
+    "generate:index": "lerna run generate:index && yarn lint:fix",
     "lint": "eslint --ext .ts,.tsx .",
     "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
+    "lint:fix": "yarn lint --fix",
     "prepare": "yarn build",
     "publish:latest": "lerna publish from-git --no-git-reset --no-git-tag-version --no-push",
     "publish:next": "lerna publish preminor --exact --canary --preid next --dist-tag next --no-git-reset --no-git-tag-version --no-push --ignore-scripts --yes",
@@ -26,11 +28,14 @@
     "start:integrated": "yarn browser start:integrated",
     "start:ws": "yarn browser start:ws",
     "start:ws:debug": "yarn browser start:ws:debug",
-    "upgrade:next": "yarn upgrade -p \"@eclipse-glsp.*\" --next ",
+    "upgrade:next": "glsp updateNext",
     "watch": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"yarn -s browser watch\""
   },
+  "resolutions": {
+    "snabbdom": "~3.5.1"
+  },
   "devDependencies": {
-    "@eclipse-glsp/dev": "2.0.0",
+    "@eclipse-glsp/dev": "next",
     "@types/node": "16.x",
     "concurrently": "^8.2.2",
     "lerna": "^7.0.0",

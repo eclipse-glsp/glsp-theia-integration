@@ -36,7 +36,10 @@ export class GLSPSaveable implements Saveable, Disposable {
         return this.onDirtyChangedEmitter.event;
     }
 
-    constructor(protected actionDispatcher: GLSPActionDispatcher, protected editorContextService: EditorContextService) {
+    constructor(
+        protected actionDispatcher: GLSPActionDispatcher,
+        protected editorContextService: EditorContextService
+    ) {
         this.toDispose.pushAll([
             this.editorContextService.onDirtyStateChanged(change => this.handleDirtyStateChange(change)),
             this.onDirtyChangedEmitter,

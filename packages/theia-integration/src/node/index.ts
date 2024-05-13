@@ -18,3 +18,5 @@ export * from './glsp-node-server-contribution';
 export * from './glsp-server-contribution';
 export * from './glsp-socket-server-contribution';
 export * from './socket-connection-forwarder';
+export * from './theia-integration-backend-module';
+export * from './websocket-connection-forwarder';

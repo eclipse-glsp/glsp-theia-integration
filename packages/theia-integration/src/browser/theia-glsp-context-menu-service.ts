@@ -109,7 +109,10 @@ export class TheiaContextMenuService implements IContextMenuService {
 }
 
 class GLSPCommandHandler implements CommandHandler {
-    constructor(readonly menuItem: MenuItem, readonly actionDispatcher?: IActionDispatcher) {}
+    constructor(
+        readonly menuItem: MenuItem,
+        readonly actionDispatcher?: IActionDispatcher
+    ) {}
 
     execute(...args: any[]): void {
         if (this.actionDispatcher && this.menuItem.actions) {
@@ -135,7 +138,10 @@ interface DisposableItem {
 }
 
 class DisposableMenuAction implements DisposableItem {
-    constructor(protected readonly menuAction: MenuAction, protected readonly disposable: Disposable) {}
+    constructor(
+        protected readonly menuAction: MenuAction,
+        protected readonly disposable: Disposable
+    ) {}
     dispose(menuProvider: MenuModelRegistry, commandRegistry: CommandRegistry): void {
         menuProvider.unregisterMenuAction(this.menuAction);
         this.disposable.dispose();
@@ -143,7 +149,10 @@ class DisposableMenuAction implements DisposableItem {
 }
 
 class DisposableCommand implements DisposableItem {
-    constructor(protected readonly command: Command, protected readonly disposable: Disposable) {}
+    constructor(
+        protected readonly command: Command,
+        protected readonly disposable: Disposable
+    ) {}
     dispose(menuProvider: MenuModelRegistry, commandRegistry: CommandRegistry): void {
         commandRegistry.unregisterCommand(this.command);
         this.disposable.dispose();
