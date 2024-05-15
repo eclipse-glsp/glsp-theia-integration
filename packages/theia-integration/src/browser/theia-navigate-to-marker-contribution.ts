@@ -17,7 +17,9 @@ import { bindAsService, collectIssueMarkers, NavigateToMarkerAction } from '@ecl
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from '@theia/core';
 import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
 import { inject, injectable } from '@theia/core/shared/inversify';
-import { GLSPCommandHandler, GLSPContextMenu, GLSPDiagramKeybindingContext } from './diagram';
+import { GLSPCommandHandler } from './diagram/glsp-command-handler';
+import { GLSPDiagramKeybindingContext } from './diagram/glsp-diagram-keybinding';
+import { GLSPContextMenu } from './diagram/theia-context-menu-service';
 import { ContainerContext } from './glsp-theia-container-module';
 
 export function registerMarkerNavigationCommands(context: Omit<ContainerContext, 'unbind' | 'rebind'>): void {

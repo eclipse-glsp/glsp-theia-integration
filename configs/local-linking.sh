@@ -17,6 +17,8 @@ function linkClient() {
     yarn $1
     cd ../protocol || exit
     yarn $1
+    cd ../glsp-sprotty || exit
+    yarn $1
     cd $2/glsp-client || exit
     yarn install --force
     cd node_modules/sprotty || exit
@@ -48,7 +50,8 @@ linkNodeServer() {
         yarn $1
         cd ../../examples/workflow-server || exit
         yarn $1
-
+        cd ../workflow-server-bundled || exit
+        yarn $1
         cd $2/glsp-server-node || exit
 
         yarn $1 @eclipse-glsp/protocol vscode-jsonrpc inversify
@@ -79,15 +82,15 @@ if [[ "$2" != "--unlink" ]]; then
     linkClient link $baseDir
     linkNodeServer link $baseDir
     cd $baseDir/glsp-theia-integration || exit
-    yarn link sprotty sprotty-protocol @eclipse-glsp/client @eclipse-glsp/protocol @eclipse-glsp-examples/workflow-glsp vscode-jsonrpc inversify
+    yarn link sprotty sprotty-protocol @eclipse-glsp/client @eclipse-glsp/protocol @eclipse-glsp/sprotty @eclipse-glsp-examples/workflow-glsp vscode-jsonrpc inversify
     if [ -d $baseDir/glsp-server-node ]; then
-        yarn link @eclipse-glsp/server @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server
+        yarn link @eclipse-glsp/server @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server @eclipse-glsp-examples/workflow-server-bundled
     fi
     yarn install --force
 else
-    yarn unlink sprotty sprotty-protocol @eclipse-glsp/client @eclipse-glsp/protocol @eclipse-glsp-examples/workflow-glsp vscode-jsonrpc inversify
+    yarn unlink sprotty sprotty-protocol @eclipse-glsp/client @eclipse-glsp/protocol @eclipse-glsp/sprotty @eclipse-glsp-examples/workflow-glsp vscode-jsonrpc inversify
     if [ -d $baseDir/glsp-server-node ]; then
-        yarn unlink @eclipse-glsp/server @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server
+        yarn unlink @eclipse-glsp/server @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server @eclipse-glsp-examples/workflow-server-bundled
     fi
     yarn
     yarn install --force

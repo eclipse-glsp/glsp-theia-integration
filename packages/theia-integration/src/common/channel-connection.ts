@@ -15,8 +15,15 @@
  ********************************************************************************/
 import { Channel, Disposable, DisposableCollection, Emitter, MessageProvider } from '@theia/core';
 import {
-    AbstractMessageReader, AbstractMessageWriter, createMessageConnection, DataCallback, Logger, Message,
-    MessageConnection, MessageReader, MessageWriter
+    AbstractMessageReader,
+    AbstractMessageWriter,
+    createMessageConnection,
+    DataCallback,
+    Logger,
+    Message,
+    MessageConnection,
+    MessageReader,
+    MessageWriter
 } from 'vscode-jsonrpc';
 
 // Temporary fix/workaround to enable comparability with Theia >=1.27 until https://github.com/eclipse-theia/theia/issues/11405 is resolved

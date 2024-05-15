@@ -28,7 +28,10 @@ export class WebSocketConnectionForwarder implements Disposable {
     protected initialChannelListener: Disposable;
     protected initialBufferStore: Uint8Array[] = [];
 
-    constructor(protected readonly clientChannel: Channel, protected readonly webSocket: WebSocket) {
+    constructor(
+        protected readonly clientChannel: Channel,
+        protected readonly webSocket: WebSocket
+    ) {
         /**
          * The webSocket connection is successfully established `onOpen`
          * The service client channel however, might send message (i.e. the InitializeRequest) once the backend contribution is resolved.
