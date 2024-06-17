@@ -24,7 +24,7 @@ import { RawProcess, RawProcessFactory } from '@theia/process/lib/node/raw-proce
 import * as cp from 'child_process';
 import { createInterface } from 'readline';
 import { GLSPContribution } from '../common';
-export const GLSPServerContribution = Symbol.for('GLSPServerContribution');
+export const GLSPServerContribution = Symbol('GLSPServerContribution');
 
 /**
  * The backend service component of a {@link GLSPContribution}. Responsible for launching new

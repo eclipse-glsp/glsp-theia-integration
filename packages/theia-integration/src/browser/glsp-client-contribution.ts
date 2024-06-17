@@ -33,6 +33,7 @@ import { MessageConnection } from 'vscode-jsonrpc';
 import '../../css/command-palette.css';
 import '../../css/decoration.css';
 import '../../css/diagram.css';
+import '../../css/features.css';
 import '../../css/theia-dialogs.css';
 import '../../css/tool-palette.css';
 import {
@@ -43,7 +44,7 @@ import {
     isValidWebSocketAddress
 } from '../common';
 import { TheiaJsonrpcGLSPClient } from './theia-jsonrpc-glsp-client';
-export const GLSPClientContribution = Symbol.for('GLSPClientContribution');
+export const GLSPClientContribution = Symbol('GLSPClientContribution');
 
 /**
  * The frontend service component of a {@link GLSPContribution}. Responsible for providing & initializing the

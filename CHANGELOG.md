@@ -1,5 +1,12 @@
 # Eclipse GLSP Theia Integration Changelog
 
+## 2.2.0 - active
+
+### Changes
+
+-   [rpc] Ensure that the GLSP client properly reconnects to the backend after a temporary connection loss [#197](https://github.com/eclipse-glsp/glsp-theia-integration/pull/197) [#203](https://github.com/eclipse-glsp/glsp-theia-integration/pull/203)
+-   [diagram] Fix a bug that prevented proper disposal of the hidden diagram div after closing a diagram editor [#204](https://github.com/eclipse-glsp/glsp-theia-integration/pull/204)
+
 ## [2.1.0- 24/01/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.1.0)
 
 ### Changes
