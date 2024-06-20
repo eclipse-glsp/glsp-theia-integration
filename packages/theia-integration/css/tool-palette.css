@@ -16,8 +16,9 @@
 
 .tool-palette {
     box-shadow: 0px 1px 6px var(--theia-widget-shadow);
-    top: 0px;
-    width: 210px;
+    top: 20px;
+    width: fit-content;
+    font-size: var(--theia-ui-font-size1);
 }
 
 .tool-group {
@@ -29,31 +30,11 @@
     color: var(--theia-titleBar-activeForeground);
     border: 0;
     font-weight: normal;
-    overflow: hidden;
-    padding: 0.2em;
-    line-height: 1.5em;
-    box-shadow: none;
     border-top: 1px solid var(--theia-focusBorder);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
 }
 
 .inactive .tool-palette .palette-header {
     border-top: 1px solid var(--theia-tab-unfocusedInactiveForeground);
-}
-
-.tool-palette .palette-header .header-icon {
-    font-size: var(--theia-ui-font-size1);
-    padding: 0.2em;
-    display: flex;
-    align-items: center;
-}
-
-.tool-palette .palette-header .header-tools {
-    display: flex;
-    align-items: center;
 }
 
 .tool-palette .palette-header .header-tools i {
@@ -78,13 +59,9 @@
 }
 
 .tool-palette .palette-body .group-header {
-    font-size: var(--theia-ui-font-size1);
-    font-weight: normal;
     background: var(--theia-editorHoverWidget-statusBarBackground);
     color: var(--theia-titleBar-activeForeground);
     border: 0;
-    display: flex;
-    align-items: center;
 }
 
 .tool-palette .palette-body .tool-button {

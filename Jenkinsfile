@@ -8,10 +8,10 @@ spec:
     tty: true
     resources:
       limits:
-        memory: "2Gi"
+        memory: "4Gi"
         cpu: "1"
       requests:
-        memory: "2Gi"
+        memory: "4Gi"
         cpu: "1"
     command:
     - cat
@@ -45,6 +45,7 @@ pipeline {
         SPAWN_WRAP_SHIM_ROOT = "${env.WORKSPACE}"
         EMAIL_TO= "glsp-build@eclipse.org"
         PUPPETEER_SKIP_DOWNLOAD="true"
+        ELECTRON_SKIP_BINARY_DOWNLOAD=1
     }
     
     stages {
@@ -52,7 +53,10 @@ pipeline {
             steps {
                 timeout(30) {
                     container('node') {
+                        sh "yarn install --unsafe-perm --ignore-scripts"
+                        sh 'node ./configs/disable-ripgrep-postinstall.js'
                         sh "yarn install --unsafe-perm"
+                        sh "yarn browser build"
                         script {
                             // Fail the step if there are uncommited changes to the yarn.lock file
                             if (sh(returnStatus: true, script: 'git diff --name-only | grep -q "^yarn.lock"') == 0) {

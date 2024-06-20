@@ -6,6 +6,11 @@
 
 -   [rpc] Ensure that the GLSP client properly reconnects to the backend after a temporary connection loss [#197](https://github.com/eclipse-glsp/glsp-theia-integration/pull/197) [#203](https://github.com/eclipse-glsp/glsp-theia-integration/pull/203)
 -   [diagram] Fix a bug that prevented proper disposal of the hidden diagram div after closing a diagram editor [#204](https://github.com/eclipse-glsp/glsp-theia-integration/pull/204)
+-   [diagram] Improve `createDiagramWidgetFactory` utility function to also support factories for GLSPDiagramWidget subclasses [#211](https://github.com/eclipse-glsp/glsp-theia-integration/pull/211)
+
+### Potentially Breaking Changes
+
+-   [launch] Changed the `GLSPServerContributionOptions.debugArgument` from `debug` to `glspDebug` to avoid clashes with nodes `debug` argument. Launch configurations and scripts need to be updated accordingly. [#211](https://github.com/eclipse-glsp/glsp-theia-integration/pull/211)
 
 ## [2.1.0- 24/01/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.1.0)
 

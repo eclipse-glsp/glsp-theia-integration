@@ -162,3 +162,12 @@
 .sprotty-projection-bar.horizontal.bordered-projection-bar {
     height: var(--theia-scrollbar-rail-width);
 }
+
+.mouse-enter .sprotty-projection-bar {
+    opacity: 1;
+}
+
+.mouse-leave .sprotty-projection-bar {
+    opacity: 0;
+    pointer-events: none;
+}

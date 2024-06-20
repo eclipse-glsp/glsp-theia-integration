@@ -80,7 +80,7 @@
         "--no-cluster",
         "--root-dir=${workspaceRoot}/examples/workspace",
         "--app-project-path=${workspaceRoot}/examples/browser-app",
-        "--debug",
+        "--glspDebug",
         "--loglevel=debug",
         "--integratedNode"
       ],
@@ -119,7 +119,7 @@
         "--no-cluster",
         "--root-dir=${workspaceRoot}/examples/workspace",
         "--app-project-path=${workspaceRoot}/examples/browser-app",
-        "--debug",
+        "--glspDebug",
         "--logLevel=debug"
       ],
       "env": {
@@ -154,7 +154,7 @@
         "--no-cluster",
         "--root-dir=${workspaceRoot}/examples/workspace",
         "--app-project-path=${workspaceRoot}/examples/browser-app",
-        "--debug",
+        "--glspDebug",
         "--logLevel=debug"
       ],
       "env": {
@@ -222,6 +222,47 @@
         "order": 2
       },
       "runtimeArgs": ["--incognito"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Workflow Electron Backend",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+      "windows": {
+        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+      },
+      "cwd": "${workspaceFolder}/examples/electron-app",
+      "protocol": "inspector",
+      "args": [
+        ".",
+        "--root-dir=${workspaceRoot}/examples/workspace",
+        "--log-level=debug",
+        "--hostname=localhost",
+        "--no-cluster",
+        "--app-project-path=${workspaceFolder}/examples/electron-app",
+        "--remote-debugging-port=9222",
+        "--no-app-auto-install"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceFolder}/examples/electron-app/lib/backend/electron-main.js",
+        "${workspaceFolder}/examples/electron-app/lib/backend/main.js",
+        "${workspaceFolder}/examples/electron-app/lib/**/*.js",
+        "${workspaceFolder}/packages/*/lib/**/*.js"
+      ],
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std"
+    },
+    {
+      "type": "chrome",
+      "request": "attach",
+      "name": "Attach to Electron Frontend",
+      "port": 9222,
+      "webRoot": "${workspaceFolder}/examples/electron-app"
     }
   ],
   "compounds": [
@@ -244,6 +285,11 @@
         "Launch Workflow Browser Backend (Integrated Node GLSP Server)",
         "Launch Workflow Browser Frontend"
       ],
+      "stopAll": true
+    },
+    {
+      "name": "Launch Workflow Electron Backend & Frontend",
+      "configurations": ["Launch Workflow Electron Backend", "Attach to Electron Frontend"],
       "stopAll": true
     }
   ]

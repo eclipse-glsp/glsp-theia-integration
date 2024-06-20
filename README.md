@@ -54,10 +54,28 @@ Clone this repository and build Theia-Integration packages:
 yarn install
 ```
 
+To build the browser application execute:
+
+```bash
+yarn browser build
+```
+
 Next, start the Theia application, and point your browser to [localhost:3000](http://localhost:3000):
 
 ```bash
-yarn start
+yarn browser start
+```
+
+To build the Electron application execute:
+
+```bash
+yarn electron build
+```
+
+Then start the Electron application with:
+
+```bash
+yarn electron start
 ```
 
 ### How to start the Workflow Diagram example server from the sources
@@ -69,7 +87,11 @@ Checkout the README of the [glsp-server](https://github.com/eclipse-glsp/glsp-se
 Once the Workflow Diagram Server is running, start the Theia application with the `debug` flag so that it'll connect to an existing server process -- the one you started from the command line or from your IDE before:
 
 ```bash
-cd start:debug
+yarn browser start:debug
+
+// or
+
+yarn electron start:debug
 ```
 
 ### Start Workflow Diagram example in WebSocket mode
@@ -88,11 +110,11 @@ The example provides scripts and launch configs that pass this argument to test 
 -   Embedded: Start a Node GLSP server in WebSocket mode along with the backend:
 
     -   VS Code Launch config: `Launch Workflow Browser Backend (WebSocket GLSP Server)`
-    -   Script: `yarn start:ws`
+    -   Script: `yarn browser start:ws` or `yarn electron start:ws`
 
 -   Debug mode: Expects a running GLSP server (Java or Node) in WebSocket mode:
     -   VS Code Launch config: `Launch Workflow Browser Backend (External Websocket GLSP Server)`
-    -   Script: `yarn start:ws:debug`
+    -   Script: `yarn browser start:ws:debug` or `yarn electron start:ws:debug`
 
 #### **2. Connect directly to GLSP server from frontend via WebSockets**
 
@@ -114,7 +136,7 @@ If this argument is passed, the node-based GLSP server will be integrated direct
 The example provides scripts and launch configs that pass this argument to test this connectivity option:
 
 -   VS Code Launch config: `Launch Workflow Browser Backend (Integrated Node GLSP Server)`
--   Script: `yarn start:integrated`
+-   Script: `yarn browser start:integrated` or `yarn electron start:integrated`
 
 > _**Remark:**_ In production, one would decide for one way of connectivity, and would not implement all the different options as we do in the workflow diagram example. This was setup to easily show and switch between the different possibilities.
 

@@ -37,3 +37,23 @@
 :root {
     --grid-color: color-mix(in srgb, var(--theia-editor-foreground) 10%, transparent);
 }
+
+.theia-dark .grid-background .sprotty-graph,
+.theia-dark .grid-background.sprotty-graph {
+    --grid-color: rgba(255, 255, 255, 0.1);
+}
+
+.theia-light .grid-background .sprotty-graph,
+.theia-light .grid-background.sprotty-graph {
+    --grid-color: rgba(0, 0, 0, 0.1);
+}
+
+.theia-hc .grid-background .sprotty-graph,
+.theia-hc .grid-background.sprotty-graph {
+    --grid-color: rgba(255, 255, 255);
+}
+
+.theia-hcLight .grid-background .sprotty-graph,
+.theia-hcLight .grid-background.sprotty-graph {
+    --grid-color: rgba(0, 0, 0);
+}

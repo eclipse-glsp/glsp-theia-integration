@@ -109,19 +109,18 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
      *
      * For example:
      * ```typescript
-     * context.bind(DiagramWidgetFactory).to(MyCustomDiagramWidgetFactory);
+     * context.bind(DiagramWidgetFactory)
+     *  .toDynamicValue(ctx => createDiagramWidgetFactory(ctx, this.diagramLanguage.diagramType, MyDiagramWidget));
+     *
      * ```
-     * Note that glsp client contribution bindings are consumed via multi-injection. This means binding the {@link GLSPClientContribution}
+     * Note that glsp diagram factory bindings are consumed via multi-injection. This means binding the {@link DiagramWidgetFactory}
      * service identifier in singleton scope has no effect.
      *
      * @param context the container context
      */
     bindDiagramWidgetFactory(context: ContainerContext): void {
         lazyBind(context, GLSPDiagramWidget)?.toSelf();
-        context
-            .bind(DiagramWidgetFactory)
-            .toDynamicValue(ctx => createDiagramWidgetFactory(ctx, this.diagramLanguage.diagramType))
-            .inSingletonScope();
+        context.bind(DiagramWidgetFactory).toDynamicValue(ctx => createDiagramWidgetFactory(ctx, this.diagramLanguage.diagramType));
     }
 
     /**

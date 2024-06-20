@@ -84,12 +84,12 @@ export namespace GLSPServerContributionOptions {
         };
     }
 
-    export const debugArgument = '--debug';
+    export const debugArgument = '--glspDebug';
 
     /**
      * Utility function which specifies if the Theia application has been started in debug mode.
-     * i.e. if the '--debug' flag has been passed.
-     * @returns `true` if the '--debug' flag has been set.
+     * i.e. if the '--glspDebug' flag has been passed.
+     * @returns `true` if the '--glspDebug' flag has been set.
      */
     export function inDebugMode(): boolean {
         const args = process.argv.filter(a => a.toLowerCase().startsWith(debugArgument.toLowerCase()));
