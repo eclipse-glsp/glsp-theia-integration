@@ -14,9 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
+import { Constructor } from '@eclipse-glsp/client';
 import { Container, interfaces } from '@theia/core/shared/inversify';
 import { GLSPDiagramWidget, GLSPDiagramWidgetOptions } from './glsp-diagram-widget';
-
 /**
  * A factory for creating new, injectable {@link GLSPDiagramWidget} instances.
  * Scoped to a specific `diagramType`
@@ -29,12 +29,21 @@ export interface DiagramWidgetFactory {
 
 /**
  * Utility function to create the default inversify binding for the {@link DiagramWidgetFactory}
+ * @param context the inversify context
+ * @param diagramType the diagram type this factory is for
+ * @param widgetConstructor The optional widget constructor that should be used by this factory (i.e resolved from the container).
+ *                          Can be used to create a factory for a subclass of {@link GLSPDiagramWidget}.
  */
-export function createDiagramWidgetFactory(context: interfaces.Context, diagramType: string): DiagramWidgetFactory {
+export function createDiagramWidgetFactory(
+    context: interfaces.Context,
+    diagramType: string,
+    widgetConstructor?: Constructor<GLSPDiagramWidget>
+): DiagramWidgetFactory {
     return {
         diagramType,
         create: (options, diagramDiContainer) => {
-            const diagramWidget = context.container.get(GLSPDiagramWidget);
+            const serviceId: Constructor<GLSPDiagramWidget> = widgetConstructor ?? GLSPDiagramWidget;
+            const diagramWidget = context.container.resolve(serviceId);
             diagramWidget.configure(options, diagramDiContainer);
             return diagramWidget;
         }

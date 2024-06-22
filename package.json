@@ -8,13 +8,13 @@
   ],
   "scripts": {
     "all": "yarn install && yarn lint",
-    "browser": "yarn --cwd examples/browser-app",
-    "build": "yarn compile && yarn bundle",
-    "bundle": "yarn browser bundle",
+    "browser": "yarn -s --cwd examples/browser-app",
+    "build": "yarn compile",
     "check:headers": "yarn glsp checkHeaders . -t lastCommit",
     "check:pr": "yarn all && yarn check:headers",
     "clean": "lerna run clean && rimraf logs/*.log",
     "compile": "tsc -b",
+    "electron": "yarn -s --cwd examples/electron-app",
     "generate:index": "lerna run generate:index && yarn lint:fix",
     "lint": "eslint --ext .ts,.tsx .",
     "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
@@ -23,16 +23,9 @@
     "publish:latest": "lerna publish from-git --no-git-reset --no-git-tag-version --no-push",
     "publish:next": "lerna publish preminor --exact --canary --preid next --dist-tag next --no-git-reset --no-git-tag-version --no-push --ignore-scripts --yes",
     "publish:prepare": "lerna version --ignore-scripts --yes --no-push",
-    "start": "yarn browser start",
-    "start:debug": "yarn browser start:debug",
-    "start:integrated": "yarn browser start:integrated",
-    "start:ws": "yarn browser start:ws",
-    "start:ws:debug": "yarn browser start:ws:debug",
     "upgrade:next": "glsp updateNext",
-    "watch": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"yarn -s browser watch\""
-  },
-  "resolutions": {
-    "snabbdom": "~3.5.1"
+    "watch:browser": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"yarn -s browser watch\"",
+    "watch:electron": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"yarn -s electron watch\""
   },
   "devDependencies": {
     "@eclipse-glsp/dev": "next",
