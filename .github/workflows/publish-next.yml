@@ -1,0 +1,38 @@
+name: 'Publish `next` version'
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['PR']
+    types:
+      - completed
+permissions:
+  contents: read
+  actions: read
+  checks: write
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master')
+    steps:
+      - uses: actions/checkout@v4.1.7
+        with:
+          # To fetch all history for all branches and tags.
+          # Required for lerna to determine the version of the next package.
+          fetch-depth: 0
+      - uses: actions/setup-node@v4.0.2
+        with:
+          node-version: 18.x
+          registry-url: 'https://registry.npmjs.org'
+      - uses: actions/setup-python@v5.1.0
+        with:
+          python-version: '3.11'
+      - name: Build
+        run: yarn --skip-integrity-check --network-timeout 100000
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9
+      - name: Publish NPM
+        run: yarn publish:next
+        env:
+          NPM_CONFIG_PROVENANCE: 'true'
+          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
