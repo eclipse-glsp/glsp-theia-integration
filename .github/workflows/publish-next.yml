@@ -1,14 +1,13 @@
 name: 'Publish `next` version'
 on:
-  workflow_dispatch:
   workflow_run:
     workflows: ['PR']
     types:
       - completed
+  workflow_dispatch:
+
 permissions:
-  contents: read
-  actions: read
-  checks: write
+  id-token: write
 jobs:
   build:
     name: Build & Test
