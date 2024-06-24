@@ -10,7 +10,7 @@ permissions:
   id-token: write
 jobs:
   build:
-    name: Build & Test
+    name: Build & Release
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master')
     env:
@@ -18,6 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4.1.7
         with:
+          # To fetch all history for all branches and tags.
+          # Required for lerna to determine the version of the next package.
+          fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_commit.id || github.sha }}
       - name: Check for changes in "packages" directory
         id: check_changes
