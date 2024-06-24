@@ -1,0 +1,69 @@
+name: PR
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: actions/setup-node@v4.0.2
+        with:
+          node-version: 18.x
+      - uses: actions/setup-python@v5.1.0
+        with:
+          python-version: '3.11'
+      - name: Build
+        run: yarn --skip-integrity-check --network-timeout 100000
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9
+      - name: Check for uncommitted changes in yarn.lock
+        run: |
+          if git diff --name-only | grep -q "^yarn.lock"; then
+            echo "::error::The yarn.lock file has uncommitted changes!"
+            exit 1
+          fi
+      - name: Build electron
+        run: yarn electron build
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
+      - name: Build browser
+        run: yarn browser build
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: actions/setup-node@v4.0.2
+        with:
+          node-version: 18.x
+      - uses: actions/setup-python@v5.1.0
+        with:
+          python-version: '3.11'
+      - name: Install
+        run: |
+          yarn install --ignore-scripts
+          yarn compile
+      - name: Create eslint json report
+        run: |
+          yarn lint:ci
+        continue-on-error: true
+      - name: Annotate Code Linting Results
+        uses: ataylorme/eslint-annotate-action@d57a1193d4c59cbfbf3f86c271f42612f9dbd9e9 # v3.0.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          report-json: 'eslint_report.json'
+          check-name: 'ESLint Report'
+        # Only execute for push on master or PRs in the main repository (Annotations don't work in forks due to security reasons)
+        if: always() && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == 'eclipse-glsp/glsp-theia-integration')
+      - name: Create summary
+        run: |
+          npm_config_yes=true npx github:10up/eslint-json-to-md#82ff16b --path ./eslint_report.json --output ./eslint_report.md
+          cat eslint_report.md >> $GITHUB_STEP_SUMMARY
+        if: always()
