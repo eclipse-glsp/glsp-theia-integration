@@ -1,4 +1,4 @@
-name: 'Publish `next`'
+name: 'Publish next'
 on:
   workflow_run:
     workflows: ['PR']
