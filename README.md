@@ -1,4 +1,4 @@
-# Eclipse GLSP - Theia Integration for GLSP Clients [![Build Status](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-theia-integration/job/master/badge/icon)](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-theia-integration/job/master/)
+# Eclipse GLSP - Theia Integration for GLSP Clients [![CI](https://github.com/eclipse-glsp/glsp-theia-integration/actions/workflows/ci.yml/badge.svg)](https://github.com/eclipse-glsp/glsp-theia-integration/actions/workflows/ci.yml) [![Publish next](https://github.com/eclipse-glsp/glsp-theia-integration/actions/workflows/publish-next.yml/badge.svg)](https://github.com/eclipse-glsp/glsp-theia-integration/actions/workflows/publish-next.yml)
 
 This project contains the glue code necessary to integrate diagram editors built with the [graphical language server platform](https://github.com/eclipse-glsp/glsp) with [Eclipse Theia](https://github.com/theia-ide/theia) as well as an example Theia application for testing purposes.
 
