@@ -1,6 +1,6 @@
 /********************************************************************************
  * Copyright (c) 2017-2018 TypeFox and others.
- * Modifications: (c) 2019-2023 EclipseSource and others.
+ * Modifications: (c) 2019-2024 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -128,6 +128,8 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
         }
         super.onAfterAttach(msg);
 
+        this.restoreViewportDataFromStorageService();
+
         this.disposed.connect(() => {
             this.diContainer.unbindAll();
         });
@@ -139,8 +141,8 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
             this.addClipboardListener(this.node, 'paste', e => this.handlePaste(e));
             this.addClipboardListener(this.node, 'cut', e => this.handleCut(e));
         }
-        this.node.addEventListener('mouseenter', e => this.handleMouseEnter(e));
-        this.node.addEventListener('mouseleave', e => this.handleMouseLeave(e));
+        this.addEventListener(this.node, 'mouseenter', e => this.handleMouseEnter(e));
+        this.addEventListener(this.node, 'mouseleave', e => this.handleMouseLeave(e));
     }
 
     protected createContainer(): void {
@@ -160,14 +162,19 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
 
     protected async initializeDiagram(): Promise<void> {
         // Filter options to only contain defined primitive values
-        const definedOptions: any = pickBy(this.options, v => v !== undefined && typeof v !== 'object');
-        this.requestModelOptions = {
-            sourceUri: this.uri.path.fsPath(),
-            ...definedOptions
-        };
+        this.requestModelOptions = this.getRequestModelOptions();
 
         const loader = this.diContainer.get(DiagramLoader);
         return loader.load({ requestModelOptions: this.requestModelOptions });
+    }
+
+    protected getRequestModelOptions(): Args {
+        const definedOptions: any = pickBy(this.options, v => v !== undefined && typeof v !== 'object');
+
+        return {
+            sourceUri: this.uri.path.fsPath(),
+            ...definedOptions
+        };
     }
 
     protected getBoundsInPage(element: Element): Bounds {
@@ -252,8 +259,6 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
 
     protected override onBeforeDetach(msg: Message): void {
         this.storeViewportDataInStorageService();
-        this.node.removeEventListener('mouseenter', this.handleMouseEnter);
-        this.node.removeEventListener('mouseleave', this.handleMouseLeave);
         document.querySelector(`#${this.viewerOptions.hiddenDiv}`)?.remove();
         super.onBeforeDetach(msg);
     }
@@ -309,8 +314,7 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
     }
 
     protected isThisWidget(widget?: Widget | null): boolean {
-        // eslint-disable-next-line no-null/no-null
-        if (!widget || widget === null) {
+        if (!widget) {
             return false;
         }
         const diagramWidget = getDiagramWidget(widget);
@@ -456,7 +460,17 @@ function isViewportDataContainer(obj: any | undefined): obj is ViewportDataConta
     return obj !== undefined && obj['elementId'] !== undefined && obj['viewportData'] !== undefined;
 }
 
+/**
+ * Retrieve the active (or current) diagram widget from the given shell.
+ * @param shell The application shell to retrieve the active widget from.
+ * @returns The active diagram widget or `undefined` if no diagram widget is active/current.
+ */
 export function getDiagramWidget(shell?: ApplicationShell): GLSPDiagramWidget | undefined;
+/**
+ * Retrieve the corresponding diagram widget from the given widget.
+ * @param widget The widget to retrieve the diagram widget from.
+ * @returns The diagram widget or `undefined` if the given widget is not a diagram widget or a diagram widget container.
+ */
 export function getDiagramWidget(widget?: Widget): GLSPDiagramWidget | undefined;
 export function getDiagramWidget(widgetOrShell?: Widget | ApplicationShell): GLSPDiagramWidget | undefined {
     const widget = widgetOrShell instanceof ApplicationShell ? widgetOrShell.activeWidget ?? widgetOrShell.currentWidget : widgetOrShell;

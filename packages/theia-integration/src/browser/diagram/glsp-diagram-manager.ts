@@ -1,6 +1,6 @@
 /********************************************************************************
  * Copyright (c) 2018-2018 TypeFox and others.
- * Modifications: (c) 2019-2023 EclipseSource and others.
+ * Modifications: (c) 2019-2024 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -70,7 +70,6 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
     protected widgetCount = 0;
 
     override async doOpen(widget: GLSPDiagramWidget, maybeOptions?: WidgetOpenerOptions): Promise<void> {
-        const widgetWasAttached = widget.isAttached;
         const options: WidgetOpenerOptions = {
             mode: 'activate',
             ...maybeOptions
@@ -86,9 +85,6 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
         }
         if (this.handleNavigations(widget, options)) {
             return;
-        }
-        if (!widgetWasAttached && widget instanceof GLSPDiagramWidget) {
-            widget.restoreViewportDataFromStorageService();
         }
     }
 
