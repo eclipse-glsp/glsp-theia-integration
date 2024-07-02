@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2023 EclipseSource and others.
+ * Copyright (c) 2023-2024 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,11 +13,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { EditorContextService, ExportSvgAction, IActionHandler } from '@eclipse-glsp/client';
+import { EditorContextService, ExportSvgAction, IActionHandler, MaybePromise } from '@eclipse-glsp/client';
 import { MessageService, URI } from '@theia/core';
 import { inject, injectable } from '@theia/core/shared/inversify';
 import { FileDialogService } from '@theia/filesystem/lib/browser/file-dialog/file-dialog-service';
 import { FileService } from '@theia/filesystem/lib/browser/file-service';
+import { FileStat } from '@theia/filesystem/lib/common/files';
 
 /**
  * Default {@link IActionHandler} for {@link ExportSvgAction}s in Theia
@@ -42,8 +43,7 @@ export class TheiaExportSvgActionHandler implements IActionHandler {
     }
 
     async export(action: ExportSvgAction): Promise<void> {
-        const uri = this.editorContextService.sourceUri;
-        const folder = await this.fileService.resolve(new URI(uri));
+        const folder = await this.getExportFolder();
         let file = await this.fileDialogService.showSaveDialog({ title: 'Export Diagram', filters: { 'Images (*.svg)': ['svg'] } }, folder);
         if (file) {
             try {
@@ -56,5 +56,10 @@ export class TheiaExportSvgActionHandler implements IActionHandler {
                 this.messageService.info(`Error exporting diagram '${error}'`);
             }
         }
+    }
+
+    protected getExportFolder(): MaybePromise<FileStat> {
+        const uri = this.editorContextService.sourceUri;
+        return this.fileService.resolve(new URI(uri));
     }
 }
