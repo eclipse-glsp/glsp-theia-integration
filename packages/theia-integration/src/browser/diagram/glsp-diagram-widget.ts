@@ -155,6 +155,11 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
         document.body.appendChild(hiddenContainer);
     }
 
+    /**
+     * Note:Manually updating the autosave settings is only necessary when using THeia < 1.50.0.
+     * Since Theia 1.50.0, the autosave settings are generically handled an no longer in the responsibility
+     *  of the `Saveable` implementation.
+     */
     protected updateSaveable(): void {
         this.saveable.autoSave = this.editorPreferences['files.autoSave'];
         this.saveable.autoSaveDelay = this.editorPreferences['files.autoSaveDelay'];
