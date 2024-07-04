@@ -156,9 +156,9 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
     }
 
     /**
-     * Note:Manually updating the autosave settings is only necessary when using THeia < 1.50.0.
-     * Since Theia 1.50.0, the autosave settings are generically handled an no longer in the responsibility
-     *  of the `Saveable` implementation.
+     * Note: Manually updating the autosave settings is only necessary when using Theia < 1.50.0.
+     * Since Theia 1.50.0, the autosave settings are generically handled and no longer the responsibility
+     * of the `Saveable` implementation. See https://github.com/eclipse-theia/theia/pull/13683
      */
     protected updateSaveable(): void {
         this.saveable.autoSave = this.editorPreferences['files.autoSave'];
