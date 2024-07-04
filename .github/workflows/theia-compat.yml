@@ -1,0 +1,38 @@
+name: Theia Compatibility
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: '0 8 * * 1' # Every Monday at 8 AM UTC
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        theia_version: [1.45.1, 1.49.1, latest]
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: actions/setup-node@v4.0.2
+        with:
+          node-version: 18.x
+      - uses: actions/setup-python@v5.1.0
+        with:
+          python-version: '3.11'
+      - name: Build
+        run: yarn --skip-integrity-check --network-timeout 100000
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9
+      - name: Change theia version
+        run: yarn change:theia-version ${{ matrix.theia_version }}
+      - name: Build electron
+        run: yarn electron build
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
+      - name: Build browser
+        run: yarn browser build
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
