@@ -13,11 +13,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { DirtyStateChange, EditorContextService, GLSPActionDispatcher, SaveModelAction } from '@eclipse-glsp/client';
-import { Disposable, DisposableCollection, Emitter, Event, MaybePromise } from '@theia/core';
+import { Deferred, DirtyStateChange, EditorContextService, GLSPActionDispatcher, SaveModelAction } from '@eclipse-glsp/client';
+import { Disposable, DisposableCollection, Emitter, Event } from '@theia/core';
 import { Saveable } from '@theia/core/lib/browser';
 import { satisfiesTheiaVersion } from '../../common';
-
 type AutoSaveType = 'off' | 'afterDelay' | 'onFocusChange' | 'onWindowChange';
 
 /**
@@ -41,6 +40,11 @@ export class GLSPSaveable implements Saveable, Disposable {
         return this.onContentChangedEmitter.event;
     }
 
+    protected pendingSave?: Deferred<void>;
+    // The timeout in ms after which a pending save operation will be rejected if the server does not respond with a save confirmation
+    // i.e dirty state change
+    protected saveTimeout = 2000;
+
     constructor(
         protected actionDispatcher: GLSPActionDispatcher,
         protected editorContextService: EditorContextService
@@ -54,6 +58,9 @@ export class GLSPSaveable implements Saveable, Disposable {
 
     protected handleDirtyStateChange(change: DirtyStateChange): void {
         this.onDirtyChangedEmitter.fire(undefined);
+        if (change.reason === 'save' && this.pendingSave) {
+            this.pendingSave.resolve();
+        }
 
         if (change.isDirty) {
             this.onContentChangedEmitter.fire(undefined);
@@ -61,25 +68,43 @@ export class GLSPSaveable implements Saveable, Disposable {
         }
     }
 
-    save(): MaybePromise<void> {
+    /**
+     * Saves the current diagram by dispatching a `SaveModelAction` to the GLSP server.
+     * The save operation is asynchronous and the method returns a promise that resolves once the save operation is completed.
+     * or is rejected if the {@link saveTimeout} is reached before the server responds with a save confirmation.
+     * Note: if the diagram is currently not dirty this is a no-op and no save action is dispatched.
+     * @returns A promise that resolves once the save client-server roundtrip is completed i.e.
+     * the server has responded with a save confirmation in the form of `SetDirtyStateAction`
+     */
+    save(): Promise<void> {
         if (this.editorContextService.isDirty) {
-            return this.actionDispatcher.dispatch(SaveModelAction.create());
+            this.actionDispatcher.dispatch(SaveModelAction.create());
+            this.pendingSave = new Deferred<void>();
+            const savePromise = this.pendingSave.promise.then(() => (this.pendingSave = undefined));
+
+            const timeoutPromise = new Promise<void>((_, reject) =>
+                setTimeout(() => {
+                    if (this.pendingSave && this.pendingSave.state === 'unresolved') {
+                        this.pendingSave.resolve();
+                        this.pendingSave = undefined;
+                        reject(new Error('Save operation timed out'));
+                    }
+                }, this.saveTimeout)
+            );
+
+            return Promise.race([savePromise, timeoutPromise]).catch(error => {
+                this.pendingSave = undefined;
+                throw error;
+            });
         }
+        return Promise.resolve();
     }
 
     get dirty(): boolean {
+        if (this.pendingSave) {
+            return false;
+        }
         return this.editorContextService.isDirty;
-    }
-
-    // Needs to be implemented to pass the type check of `WorkspaceFrontendContribution.canBeSaved`.
-    // GLSP handles saving and model changes on the server side. The `revert` implementation is no-op and has no effect.
-    async revert(options?: Saveable.RevertOptions): Promise<void> {}
-
-    // Needs to be implemented to pass the type check of `WorkspaceFrontendContribution.canBeSaved`.
-    // GLSP only supports server-side saving. The `createSnapshot` implementation is no-op and has no effect.
-    createSnapshot(): Saveable.Snapshot {
-        // eslint-disable-next-line no-null/no-null
-        return { read: () => null };
     }
 
     dispose(): void {
