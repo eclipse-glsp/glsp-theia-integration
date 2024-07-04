@@ -22,11 +22,11 @@ type AutoSaveType = 'off' | 'afterDelay' | 'onFocusChange' | 'onWindowChange';
 
 /**
  * The default {@link Saveable} implementation of the `GLSPDiagramWidget`.
- * Since Theia 1.50.0 handling the autosave functionality is done by a central `SaveableService` and no longer the responsibility of the
- * {@link Saveable} itself. This implementation has a compatibility layer to be compatible with both the old saveable implementation prior
+ * Since Theia 1.50.0, handling the autosave functionality is done by a central `SaveableService` and is no longer the responsibility of the
+ * {@link Saveable} itself. This implementation includes a compatibility layer for both the old saveable implementation prior
  * to Theia 1.50.0 and the new saveable implementation.
- * When using a Theia version >= 1.50.0 the autosave functionality is limited to the `afterDelay` strategy.
- * Other  autosave types (`onWindowChange`|`onFocusChange`)  are not supported. If the `autoSaveType` is set to an unsupported value the
+ * When using a Theia version >= 1.50.0, the autosave functionality is limited to the `afterDelay` strategy.
+ * Other autosave types (`onWindowChange` | `onFocusChange`) are not supported. If the `autoSaveType` is set to an unsupported value, the
  * `afterDelay` save strategy will be used.
  */
 export class GLSPSaveable implements Saveable, Disposable {
