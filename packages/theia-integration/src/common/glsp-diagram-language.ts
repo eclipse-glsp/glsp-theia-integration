@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2021 EclipseSource and others.
+ * Copyright (c) 2021-2024 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -27,9 +27,15 @@ export interface GLSPDiagramLanguage {
     readonly fileExtensions: string[];
     /** Display-label for this language. Is used in UI elements like the editor-widget title */
     readonly label: string;
+    /**
+     * An optional provider name for this language. If defined, it will be used in supporting UI elements
+     *  e.g. the open-with dialog.
+     */
+    readonly providerName?: string;
     /** The icon class that is associated with this language. If undefined, a default icon class will be used  */
     readonly iconClass?: string;
-    /** The id of the diagram manager that is responsible for this language. If undefined, a default id derived
+    /**
+     * The id of the diagram manager that is responsible for this language. If undefined, a default id derived
      * from the diagram type will be used.
      */
     readonly diagramManagerId?: string;
