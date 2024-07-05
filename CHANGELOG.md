@@ -1,6 +1,6 @@
 # Eclipse GLSP Theia Integration Changelog
 
-## [2.2.0- 04/07/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.2.0)
+## 2.2.0 - active
 
 ### Changes
 
@@ -8,7 +8,6 @@
 -   [diagram] Fix a bug that prevented proper disposal of the hidden diagram div after closing a diagram editor [#204](https://github.com/eclipse-glsp/glsp-theia-integration/pull/204)
 -   [diagram] Improve `createDiagramWidgetFactory` utility function to also support factories for GLSPDiagramWidget subclasses [#211](https://github.com/eclipse-glsp/glsp-theia-integration/pull/211)
 -   [diagram] Ensure that viewport restore on diagram open works generically indecently of how the diagram widget has been created [#218](https://github.com/eclipse-glsp/glsp-theia-integration/pull/218)
--   [api] Update `GLSPSaveable` to be compliant with the API changes of Theia 1.50.0. Include a backwards compatibility layer for Theia < 1.50.0 [#220](https://github.com/eclipse-glsp/glsp-theia-integration/pull/220)
 
 ### Potentially Breaking Changes
 
