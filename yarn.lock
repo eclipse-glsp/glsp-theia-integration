@@ -1076,12 +1076,12 @@
   resolved "https://registry.yarnpkg.com/@eclipse-glsp/eslint-config/-/eslint-config-2.0.0.tgz#d2070c5e10b0e3fcc3c5ab3a5fcc1dcf0596980e"
   integrity sha512-cne25IFXtX7Ab5oN98IkUulBVrZ7x2mnutyDilTkC132f4vZuPE1aWBY4HOyUbfODVLN2xpQckJQF9X1qdnYNA==
 
-"@eclipse-glsp/graph@2.2.0-next.82+10dd95b":
-  version "2.2.0-next.82"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/graph/-/graph-2.2.0-next.82.tgz#553fd53af0be91df0f932af2715a7501580bff72"
-  integrity sha512-TJdxxVQbXM5sV2w+5G3I+tPVWICRNalcK4TDJI37y4gLd0N39gPDwq2GKzOCWpvR/h5PYA6rl1+N09qHWk911A==
+"@eclipse-glsp/graph@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/graph/-/graph-2.1.0.tgz#f6d82310ed52ca9eab1c6640857fcc49fbcf2515"
+  integrity sha512-TGreAQ4cSCln0BIBiQ89276RRCBW70Y5ifXJ+qpfWYCbnWnTXwepRdy6Q/OXY5zwjcH7doXSQnmDv5hODVI/ww==
   dependencies:
-    "@eclipse-glsp/protocol" next
+    "@eclipse-glsp/protocol" "2.1.0"
 
 "@eclipse-glsp/layout-elk@2.1.0":
   version "2.1.0"
@@ -1108,21 +1108,21 @@
   dependencies:
     prettier-plugin-packagejson "~2.4.6"
 
+"@eclipse-glsp/protocol@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-2.1.0.tgz#e76a65a4815c969bfb86a1ab202ad24384a317cc"
+  integrity sha512-CUcVbsjiddDWEuhWKDLgfqslmau2QT6QTF9LyA4/y6Eomv5s8nTexeBMI6hCWL4sHgMfQ4t2zI9zV2a5gIow4A==
+  dependencies:
+    sprotty-protocol "0.15.0-next.044bba2.13"
+    uuid "7.0.3"
+    vscode-jsonrpc "^8.0.2"
+
 "@eclipse-glsp/protocol@2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-2.1.1.tgz#127e05473020954b8d2d6e3e30a16541f048f5b2"
   integrity sha512-t9vcnI174eB6UVfj6bpyFOnc3MV0EN8VawFgniV+dgon++6Rbg2tyxlFRFfAs/itkYBCQkmeF2WdPe9v3CnosQ==
   dependencies:
     sprotty-protocol "1.0.0"
-    uuid "7.0.3"
-    vscode-jsonrpc "^8.0.2"
-
-"@eclipse-glsp/protocol@next":
-  version "2.3.0-next.309"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-2.3.0-next.309.tgz#e30496338846462be6ef8c91c0f42b0e4bd0875a"
-  integrity sha512-KHF90oL4MTo19HEFlvXCpe9xqk92jU4ezbgNALGa27OZ5NOEJgY02aJrs2od4i6YOF6swRO3pPoGts0WH9dDEQ==
-  dependencies:
-    sprotty-protocol "0.15.0-next.044bba2.13"
     uuid "7.0.3"
     vscode-jsonrpc "^8.0.2"
 
@@ -10165,7 +10165,7 @@ string-replace-loader@^3.1.0:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
 
-"string-width-cjs@npm:string-width@^4.2.0", "string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0":
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -10182,6 +10182,15 @@ string-width@^1.0.1:
     code-point-at "^1.0.0"
     is-fullwidth-code-point "^1.0.0"
     strip-ansi "^3.0.0"
+
+"string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
+  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.1"
 
 string-width@^5.0.1, string-width@^5.1.2:
   version "5.1.2"
@@ -10233,7 +10242,7 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -10246,6 +10255,13 @@ strip-ansi@^3.0.0, strip-ansi@^3.0.1:
   integrity sha512-VhumSSbBqDTP8p2ZLKj40UjBCV4+v8bUSEpUb4KjRgWk9pbqGF4REFj6KEagidb2f/M6AzC0EmFyDNGaw9OCzg==
   dependencies:
     ansi-regex "^2.0.0"
+
+strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
+  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+  dependencies:
+    ansi-regex "^5.0.1"
 
 strip-ansi@^7.0.1:
   version "7.1.0"
@@ -11275,8 +11291,7 @@ workerpool@6.2.1:
   resolved "https://registry.yarnpkg.com/workerpool/-/workerpool-6.2.1.tgz#46fc150c17d826b86a008e5a4508656777e9c343"
   integrity sha512-ILEIE97kDZvF9Wb9f6h5aXK4swSlKGUcOEGiIYb2OOu/IrDU9iwj0fD//SsA6E5ibwJxpEvhullJY4Sl4GcpAw==
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
-  name wrap-ansi-cjs
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
@@ -11289,6 +11304,15 @@ wrap-ansi@^6.0.1, wrap-ansi@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-6.2.0.tgz#e9393ba07102e6c91a3b221478f0257cd2856e53"
   integrity sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
+  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"
