@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2021-2023 EclipseSource and others.
+ * Copyright (c) 2021-2024 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -213,6 +213,7 @@ class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
     private _fileExtensions: string[] = [];
     private _iconClass = codiconCSSString('type-hierarchy-sub');
     private _contributionId: string;
+    private _providerName?: string;
 
     public doConfigure(diagramLanguage: GLSPDiagramLanguage): void {
         this._fileExtensions = diagramLanguage.fileExtensions;
@@ -220,6 +221,7 @@ class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
         this._label = diagramLanguage.label;
         this._iconClass = diagramLanguage.iconClass || this._iconClass;
         this._contributionId = diagramLanguage.contributionId;
+        this._providerName = diagramLanguage.providerName;
     }
 
     get fileExtensions(): string[] {
@@ -239,6 +241,10 @@ class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
 
     get contributionId(): string {
         return this._contributionId;
+    }
+
+    override get providerName(): string | undefined {
+        return this._providerName;
     }
 
     override get iconClass(): string {

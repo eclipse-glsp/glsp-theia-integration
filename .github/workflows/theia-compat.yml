@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        theia_version: [1.45.1, 1.49.1, latest]
+        theia_version: [1.49.1, latest]
     steps:
       - uses: actions/checkout@v4.1.7
       - uses: actions/setup-node@v4.0.2

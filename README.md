@@ -17,9 +17,9 @@ For details on building the project, please see the [README file of the theia-in
 | 1.0.0-theia1.34.0               | >=1.34.0 < 1.39.0  |
 | 2.0.0                           | >=1.39.0 < 1.45.0  |
 | 2.1.x                           | >=1.39.0 < 1.45.0  |
-| 2.1.0-theia1.45.0               | >=1.45.0 < 1.50.0  |
-| 2.1.0-theia1.50.0               | >=1.50.0           |
-| next                            | >=1.50.0           |
+| 2.1.0-theia1.45.0               | >=1.45.0 < 1.49.0  |
+| 2.1.0-theia1.49.0               | >=1.49.0           |
+| next                            | >=1.49.0           |
 
 > Note: For versions <=1.0.0 it is not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project e.g. for `1.0.0-theia1.27.0`:
 
