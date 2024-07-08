@@ -21,12 +21,14 @@ import {
     ApplicationShell,
     FrontendApplicationContribution,
     OpenHandler,
+    OpenWithHandler,
+    OpenWithService,
     WidgetFactory,
     WidgetOpenerOptions,
     WidgetOpenHandler
 } from '@theia/core/lib/browser';
 import URI from '@theia/core/lib/common/uri';
-import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
+import { inject, injectable, interfaces, postConstruct } from '@theia/core/shared/inversify';
 import { EditorManager } from '@theia/editor/lib/browser';
 import { DiagramServiceProvider } from '../diagram-service-provider';
 import { TheiaOpenerOptionsNavigationService } from '../theia-opener-options-navigation-service';
@@ -48,7 +50,7 @@ export function registerDiagramManager(
 }
 
 @injectable()
-export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWidget> implements WidgetFactory {
+export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWidget> implements WidgetFactory, OpenWithHandler {
     @inject(TheiaOpenerOptionsNavigationService)
     protected readonly diagramNavigationService: TheiaOpenerOptionsNavigationService;
 
@@ -61,6 +63,9 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
     @inject(EditorManager)
     protected readonly editorManager: EditorManager;
 
+    @inject(OpenWithService)
+    protected openWithService: OpenWithService;
+
     abstract get fileExtensions(): string[];
 
     abstract get diagramType(): string;
@@ -68,6 +73,16 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
     abstract get contributionId(): string;
 
     protected widgetCount = 0;
+
+    protected registerOpenWithHandler = true;
+
+    @postConstruct()
+    protected override init(): void {
+        super.init();
+        if (this.registerOpenWithHandler) {
+            this.openWithService.registerHandler(this);
+        }
+    }
 
     override async doOpen(widget: GLSPDiagramWidget, maybeOptions?: WidgetOpenerOptions): Promise<void> {
         const widgetWasAttached = widget.isAttached;
@@ -173,6 +188,10 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
 
     get iconClass(): string {
         return codiconCSSString('type-hierarchy-sub');
+    }
+
+    get providerName(): string | undefined {
+        return undefined;
     }
 }
 
