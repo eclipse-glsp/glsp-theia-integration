@@ -56,14 +56,6 @@ jobs:
         run: |
           yarn lint:ci
         continue-on-error: true
-      - name: Annotate Code Linting Results
-        uses: ataylorme/eslint-annotate-action@d57a1193d4c59cbfbf3f86c271f42612f9dbd9e9 # v3.0.0
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          report-json: 'eslint_report.json'
-          check-name: 'ESLint Report'
-        # Only execute for push on master or PRs in the main repository (Annotations don't work in forks due to security reasons)
-        if: always() && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == 'eclipse-glsp/glsp-theia-integration')
       - name: Create summary
         run: |
           npm_config_yes=true npx github:10up/eslint-json-to-md#82ff16b --path ./eslint_report.json --output ./eslint_report.md
