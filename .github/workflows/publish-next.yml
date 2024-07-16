@@ -1,7 +1,7 @@
 name: 'Publish next'
 on:
   workflow_run:
-    workflows: ['PR']
+    workflows: ['CI']
     types:
       - completed
   workflow_dispatch:
