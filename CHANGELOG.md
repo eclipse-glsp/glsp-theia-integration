@@ -12,6 +12,8 @@
 ### Potentially Breaking Changes
 
 -   [launch] Changed the `GLSPServerContributionOptions.debugArgument` from `debug` to `glspDebug` to avoid clashes with nodes `debug` argument. Launch configurations and scripts need to be updated accordingly [#211](https://github.com/eclipse-glsp/glsp-theia-integration/pull/211)
+-   [diagram] Fix a bug in the `TheiaSelectionForwarder` when handling multiple diagrams [#227](https://github.com/eclipse-glsp/glsp-theia-integration/pull/227)
+    -   This required a change in event handling. As a consequence the `shell` property has been removed. This might impact custom subclasses.
 
 ## [2.1.0- 24/01/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.1.0)
 

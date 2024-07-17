@@ -16,6 +16,8 @@
 // based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/sprotty/theia-sprotty-selection-forwarder.ts
 import {
     AnyObject,
+    DisposableCollection,
+    EditorContextService,
     GLSPModelSource,
     GModelRoot,
     ISelectionListener,
@@ -24,12 +26,11 @@ import {
     ViewerOptions,
     hasArrayProp,
     hasObjectProp,
-    hasStringProp
+    hasStringProp,
+    pluck
 } from '@eclipse-glsp/client';
-import { SelectionService } from '@theia/core';
-import { ApplicationShell } from '@theia/core/lib/browser';
-import { inject, injectable, optional, postConstruct } from '@theia/core/shared/inversify';
-import { getDiagramWidget } from '../../glsp-diagram-widget';
+import { SelectionService as TheiaSelectionService } from '@theia/core';
+import { inject, injectable, optional, postConstruct, preDestroy } from '@theia/core/shared/inversify';
 
 export interface GlspSelection {
     additionalSelectionData?: GlspSelectionData;
@@ -81,29 +82,34 @@ export class TheiaGLSPSelectionForwarder implements ISelectionListener {
     @inject(TYPES.ViewerOptions)
     protected viewerOptions: ViewerOptions;
 
-    @inject(SelectionService)
-    protected theiaSelectionService: SelectionService;
+    @inject(TheiaSelectionService)
+    protected theiaSelectionService: TheiaSelectionService;
 
     @inject(TYPES.ModelSourceProvider)
     protected modelSourceProvider: () => Promise<ModelSource>;
 
-    @inject(ApplicationShell)
-    protected shell: ApplicationShell;
+    @inject(EditorContextService)
+    protected editorContext: EditorContextService;
 
     protected sourceUri?: string;
 
+    protected toDispose = new DisposableCollection();
+
     @postConstruct()
     protected init(): void {
-        this.shell.onDidChangeActiveWidget(() => {
-            const activeDiagramWidget = getDiagramWidget(this.shell);
-            if (activeDiagramWidget) {
-                // restore selection from diagram to the global scope
-                this.selectionChanged(
-                    activeDiagramWidget.editorContext.modelRoot,
-                    activeDiagramWidget.editorContext.selectedElements.map(element => element.id)
-                );
-            }
-        });
+        this.toDispose.push(
+            this.editorContext.onFocusChanged(event => {
+                if (event.hasFocus) {
+                    // restore selection from the global scope to the diagram
+                    this.selectionChanged(this.editorContext.modelRoot, pluck(this.editorContext.selectedElements, 'id'));
+                }
+            })
+        );
+    }
+
+    @preDestroy()
+    protected dispose(): void {
+        this.toDispose.dispose();
     }
 
     protected async getSourceUri(): Promise<string | undefined> {
