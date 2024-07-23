@@ -1,5 +1,8 @@
 name: CI
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 on:
   workflow_dispatch:
   push:
@@ -10,6 +13,7 @@ on:
 jobs:
   build:
     name: Build & Test
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.7
@@ -39,6 +43,7 @@ jobs:
           NODE_OPTIONS: --max_old_space_size=4096
   lint:
     name: Lint
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.7
@@ -55,9 +60,8 @@ jobs:
       - name: Create eslint json report
         run: |
           yarn lint:ci
-        continue-on-error: true
       - name: Create summary
+        if: always()
         run: |
           npm_config_yes=true npx github:10up/eslint-json-to-md#82ff16b --path ./eslint_report.json --output ./eslint_report.md
           cat eslint_report.md >> $GITHUB_STEP_SUMMARY
-        if: always()
