@@ -4,6 +4,7 @@ on:
     workflows: ['CI']
     types:
       - completed
+    branches: [master]
   workflow_dispatch:
 
 permissions:
@@ -12,7 +13,7 @@ jobs:
   build:
     name: Build & Release
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master')
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success')
     env:
       changes: true
     steps:

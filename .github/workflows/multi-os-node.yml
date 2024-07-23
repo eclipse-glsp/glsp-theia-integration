@@ -16,27 +16,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4.1.7
-
       - name: Set up Node.js ${{ matrix.node }} on ${{ matrix.os }}
         uses: actions/setup-node@v4.0.2
         with:
           node-version: ${{ matrix.node }}
-
       - name: Set up Python
         uses: actions/setup-python@v5.1.0
         with:
           python-version: '3.11'
-
       - name: Install dependencies and build
         run: yarn --skip-integrity-check --network-timeout 100000
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9
-
       - name: Build electron
         run: yarn electron build
         env:
           NODE_OPTIONS: --max_old_space_size=4096
-
       - name: Build browser
         run: yarn browser build
         env:
