@@ -24,6 +24,7 @@ jobs:
       VSCODE_VSIX_ID: 'eclipse-glsp.workflow-vscode-example'
       VSCODE_VSIX_PATH: '${{ github.workspace }}/.../vscode-example-2.3.0-next.vsix'
       GLSP_SERVER_DEBUG: 'true'
+      GLSP_SERVER_TYPE: 'node'
 
     steps:
       - uses: actions/checkout@v4.1.7
