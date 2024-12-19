@@ -1,10 +1,10 @@
 # Eclipse GLSP Theia Integration Changelog
 
-## 2.3.0 - active
+## [2.3.0- 19/12/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.3.0)
 
 ### Changes
 
-### Potentially Breaking Changes
+-   [deps] Drop support for node `16`. New minimum version is `18.x` [#238](https://github.com/eclipse-glsp/glsp-theia-integration/pull/238)
 
 ## [2.2.1- 22/07/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.2.1)
 
@@ -47,13 +47,13 @@
 ### Breaking Changes
 
 -   [theia] Update Theia dependencies to `1.33.0`. Due to API breaks, Theia versions `<1.33.0` are no longer supported. [#119](https://github.com/eclipse-glsp/glsp-theia-integration/pull/119) - Contributed on behalf of STMicroelectronics <br>
-    This also causes breaking changes in:
+  This also causes breaking changes in:
     -   `GlspServerContribution` (and inherited classes)
         -   `connect` method now takes a `Channel` instead of a `Connection` parameter
     -   `BaseGlspServerContribution` (and inherited classes)
         -   `forward` method now takes a `Channel` as first parameter instead of a `Connection`
 -   [deps] Switch Theia extension dependencies to peer dependencies. These dependencies are no longer autoresolved and have to be declared
-    in the application package. [#138](https://github.com/eclipse-glsp/glsp-theia-integration/pull/138) - Contributed on behalf of STMicroelectronics <br>
+  in the application package. [#138](https://github.com/eclipse-glsp/glsp-theia-integration/pull/138) - Contributed on behalf of STMicroelectronics <br>
 -   [API] Refactor `GLSPContribution` API [#146](https://github.com/eclipse-glsp/glsp-theia-integration/pull/146)<br>
     -   `GLSPClientContribution.waitForActivation` is now optional and is not implemented by default.
     -   `GLSPClientProviderImpl` has been renamed to `GLSPClientProvider`, function keys have been renamed has well
