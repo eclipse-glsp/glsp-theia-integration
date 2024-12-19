@@ -18,23 +18,28 @@ For details on building the project, please see the [README file of the theia-in
 | 2.0.0                           | >=1.39.0 < 1.45.0  |
 | 2.1.x                           | >=1.39.0 < 1.45.0  |
 | 2.1.0-theia1.45.0               | >=1.45.0 < 1.49.0  |
-| 2.1.1-theia1.49.0               | >=1.49.0           |
-| 2.2.x                           | >=1.49.0           |
-| next                            | >=1.49.0           |
+| 2.1.1-theia1.49.0               | >=1.49.0 < 1.56.0  |
+| 2.2.x                           | >=1.49.0 < 1.56.0  |
+| next                            | >=1.56.0           |
 
-> Note: For versions <=1.0.0 it is not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project e.g. for `1.0.0-theia1.27.0`:
+### Potential Compatibility Issues
 
-```json
-...
- "resolutions": {
-    "**/@theia/core": "1.27.0",
-    "**/@theia/editor": "1.27.0",
-    "**/@theia/filesystem": "1.27.0",
-    "**/@theia/messages": "1.27.0",
-    "**/@theia/monaco": "1.27.0"
-  },
-...
-```
+-   When using Theia versions `<= 1.55.1` you might encounter runtime issues related to inversify.
+  Due to a loose version restriction Theia might pull in an incompatible version.
+  To resolve this the inversify version need to be locked to `6.0.2`. (e.g. via [yarn resolutions](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/) or [npm overrides](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#overrides))
+-   For `@eclipse-glsp/theia-integration` versions `<=1.0.0` it is not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project e.g. for `1.0.0-theia1.27.0`:
+
+    ```json
+    ...
+    "resolutions": {
+        "**/@theia/core": "1.27.0",
+        "**/@theia/editor": "1.27.0",
+        "**/@theia/filesystem": "1.27.0",
+        "**/@theia/messages": "1.27.0",
+        "**/@theia/monaco": "1.27.0"
+    },
+    ...
+    ```
 
 ## Workflow Diagram Example
 

@@ -29,15 +29,18 @@
     "watch:browser": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"yarn -s browser watch\"",
     "watch:electron": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"yarn -s electron watch\""
   },
+  "resolutions": {
+    "**/inversify": "6.0.2"
+  },
   "devDependencies": {
     "@eclipse-glsp/dev": "next",
-    "@types/node": "16.x",
+    "@types/node": "18.x",
     "concurrently": "^8.2.2",
     "lerna": "^7.0.0",
     "typescript": "^5.1.3"
   },
   "engines": {
-    "node": ">=16.11.0",
+    "node": ">=18",
     "yarn": ">=1.7.0 <2"
   }
 }

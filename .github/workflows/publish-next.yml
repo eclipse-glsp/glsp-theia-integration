@@ -12,7 +12,7 @@ permissions:
 jobs:
   build:
     name: Build & Release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success')
     env:
       changes: true
