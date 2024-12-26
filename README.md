@@ -24,10 +24,10 @@ For details on building the project, please see the [README file of the theia-in
 
 ### Potential Compatibility Issues
 
--   When using Theia versions `<= 1.55.1` you might encounter runtime issues related to inversify.
+- When using Theia versions `<= 1.55.1` you might encounter runtime issues related to inversify.
   Due to a loose version restriction Theia might pull in an incompatible version.
   To resolve this the inversify version need to be locked to `6.0.2`. (e.g. via [yarn resolutions](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/) or [npm overrides](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#overrides))
--   For `@eclipse-glsp/theia-integration` versions `<=1.0.0` it is not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project e.g. for `1.0.0-theia1.27.0`:
+- For `@eclipse-glsp/theia-integration` versions `<=1.0.0` it is not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project e.g. for `1.0.0-theia1.27.0`:
 
     ```json
     ...
@@ -114,14 +114,14 @@ In the example the argument to be passed is `--WF_PATH=workflow`.
 
 The example provides scripts and launch configs that pass this argument to test this connectivity option either in embedded or debug mode:
 
--   Embedded: Start a Node GLSP server in WebSocket mode along with the backend:
+- Embedded: Start a Node GLSP server in WebSocket mode along with the backend:
 
-    -   VS Code Launch config: `Launch Workflow Browser Backend (WebSocket GLSP Server)`
-    -   Script: `yarn browser start:ws` or `yarn electron start:ws`
+    - VS Code Launch config: `Launch Workflow Browser Backend (WebSocket GLSP Server)`
+    - Script: `yarn browser start:ws` or `yarn electron start:ws`
 
--   Debug mode: Expects a running GLSP server (Java or Node) in WebSocket mode:
-    -   VS Code Launch config: `Launch Workflow Browser Backend (External Websocket GLSP Server)`
-    -   Script: `yarn browser start:ws:debug` or `yarn electron start:ws:debug`
+- Debug mode: Expects a running GLSP server (Java or Node) in WebSocket mode:
+    - VS Code Launch config: `Launch Workflow Browser Backend (External Websocket GLSP Server)`
+    - Script: `yarn browser start:ws:debug` or `yarn electron start:ws:debug`
 
 #### **2. Connect directly to GLSP server from frontend via WebSockets**
 
@@ -131,8 +131,8 @@ In this case, we do not have any GLSP backend contribution which means, the GLSP
 
 The workflow example provides a launch config that passes the argument sets the environment variable:
 
--   Debug mode: Expects a running GLSP server (Java or node.js) in WebSocket mode:
-    -   VS Code Launch config: `Launch Theia Browser Backend (Direct WebSocket GLSP Server connection from frontend)`
+- Debug mode: Expects a running GLSP server (Java or node.js) in WebSocket mode:
+    - VS Code Launch config: `Launch Theia Browser Backend (Direct WebSocket GLSP Server connection from frontend)`
 
 ### Start Workflow Diagram example without a dedicated server process
 
@@ -142,8 +142,8 @@ If this argument is passed, the node-based GLSP server will be integrated direct
 
 The example provides scripts and launch configs that pass this argument to test this connectivity option:
 
--   VS Code Launch config: `Launch Workflow Browser Backend (Integrated Node GLSP Server)`
--   Script: `yarn browser start:integrated` or `yarn electron start:integrated`
+- VS Code Launch config: `Launch Workflow Browser Backend (Integrated Node GLSP Server)`
+- Script: `yarn browser start:integrated` or `yarn electron start:integrated`
 
 > _**Remark:**_ In production, one would decide for one way of connectivity, and would not implement all the different options as we do in the workflow diagram example. This was setup to easily show and switch between the different possibilities.
 
@@ -151,9 +151,9 @@ The example provides scripts and launch configs that pass this argument to test 
 
 In addition to this repository, the related source code can be found here:
 
--   <https://github.com/eclipse-glsp/glsp-server>
--   <https://github.com/eclipse-glsp/glsp-server-node>
--   <https://github.com/eclipse-glsp/glsp-client>
+- <https://github.com/eclipse-glsp/glsp-server>
+- <https://github.com/eclipse-glsp/glsp-server-node>
+- <https://github.com/eclipse-glsp/glsp-client>
 
 ## More information
 

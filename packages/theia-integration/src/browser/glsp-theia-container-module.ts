@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { codiconCSSString, lazyBind } from '@eclipse-glsp/client';
-import { ContainerModule, injectable, interfaces } from '@theia/core/shared/inversify';
+import { ContainerModule, inject, injectable, interfaces } from '@theia/core/shared/inversify';
 import { GLSPDiagramWidget } from '.';
 import { GLSPDiagramLanguage } from '../common/glsp-diagram-language';
 import { registerCopyPasteContextMenu } from './copy-paste-context-menu-contribution';
@@ -78,10 +78,10 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
      * @param context the container context
      */
     bindGLSPClientContribution(context: ContainerContext): void {
-        context.bind(GLSPClientContribution).toDynamicValue(dynamicContext => {
-            const contribution = dynamicContext.container.resolve(ConfigurableGLSPClientContribution);
-            contribution.id = this.diagramLanguage.contributionId;
-            return contribution;
+        context.bind(GLSPClientContribution).toDynamicValue(ctx => {
+            const childContainer = ctx.container.createChild();
+            childContainer.bind(GLSPDiagramLanguage).toConstantValue(this.diagramLanguage);
+            return childContainer.resolve(ConfigurableGLSPClientContribution);
         });
     }
 
@@ -139,10 +139,10 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
         const diagramManagerServiceId = Symbol(`DiagramManager_${this.diagramLanguage.diagramType}`);
         context
             .bind(diagramManagerServiceId)
-            .toDynamicValue(dynamicContext => {
-                const manager = dynamicContext.container.resolve(ConfigurableGLSPDiagramManager);
-                manager.doConfigure(this.diagramLanguage);
-                return manager;
+            .toDynamicValue(ctx => {
+                const childContainer = ctx.container.createChild();
+                childContainer.bind(GLSPDiagramLanguage).toConstantValue(this.diagramLanguage);
+                return childContainer.resolve(InternalGLSPDiagramManager);
             })
             .inSingletonScope();
         registerDiagramManager(context.bind, diagramManagerServiceId, false);
@@ -201,21 +201,25 @@ export abstract class GLSPTheiaFrontendModule extends ContainerModule {
     }
 }
 
+const GLSPDiagramLanguage = Symbol('GLSPDiagramLanguage');
+
 /**
  * Internal class that is used in {@link GLSPTheiaFrontendModule.configureDiagramManager} to
  * bind a default implementation for `DiagramManager`. A custom `DiagramManager` should
  * never extend this class. Use {@link GLSPDiagramManager} instead.
  */
+
 @injectable()
-class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
-    private _diagramType?: string;
+class InternalGLSPDiagramManager extends GLSPDiagramManager {
+    private _diagramType: string;
     private _label: string;
     private _fileExtensions: string[] = [];
     private _iconClass = codiconCSSString('type-hierarchy-sub');
     private _contributionId: string;
     private _providerName?: string;
 
-    public doConfigure(diagramLanguage: GLSPDiagramLanguage): void {
+    constructor(@inject(GLSPDiagramLanguage) diagramLanguage: GLSPDiagramLanguage) {
+        super();
         this._fileExtensions = diagramLanguage.fileExtensions;
         this._diagramType = diagramLanguage.diagramType;
         this._label = diagramLanguage.label;
@@ -229,9 +233,6 @@ class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
     }
 
     get diagramType(): string {
-        if (!this._diagramType) {
-            throw new Error('No diagramType has been set for this ConfigurableGLSPDiagramManager');
-        }
         return this._diagramType;
     }
 
@@ -259,19 +260,10 @@ class ConfigurableGLSPDiagramManager extends GLSPDiagramManager {
  */
 @injectable()
 class ConfigurableGLSPClientContribution extends BaseGLSPClientContribution {
-    protected _id?: string;
+    readonly id: string;
 
-    get id(): string {
-        if (!this._id) {
-            throw new Error('No id has been set for this DefaultTheiaGLSPConnector');
-        }
-        return this._id;
-    }
-
-    set id(value: string) {
-        if (this._id) {
-            throw new Error(`A value for id has already been set. Cannot set new value'${value}'`);
-        }
-        this._id = value;
+    constructor(@inject(GLSPDiagramLanguage) diagramLanguage: GLSPDiagramLanguage) {
+        super();
+        this.id = diagramLanguage.contributionId;
     }
 }
