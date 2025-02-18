@@ -1,6 +1,6 @@
 {
   "name": "parent",
-  "version": "2.3.0",
+  "version": "2.4.0-next",
   "private": true,
   "workspaces": [
     "packages/theia-integration",
@@ -30,7 +30,7 @@
     "watch:electron": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"yarn -s electron watch\""
   },
   "devDependencies": {
-    "@eclipse-glsp/dev": "2.3.0",
+    "@eclipse-glsp/dev": "next",
     "@types/node": "18.x",
     "concurrently": "^8.2.2",
     "lerna": "^7.0.0",
