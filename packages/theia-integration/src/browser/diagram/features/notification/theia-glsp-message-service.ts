@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2023 EclipseSource and others.
+ * Copyright (c) 2023-2025 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import {
+    Disposable,
     EndProgressAction,
     IActionHandler,
     ICommand,
@@ -23,17 +24,23 @@ import {
 } from '@eclipse-glsp/client';
 import { MessageService, Progress } from '@theia/core';
 import { ConfirmDialog } from '@theia/core/lib/browser';
-import { inject, injectable } from '@theia/core/shared/inversify';
+import { inject, injectable, preDestroy } from '@theia/core/shared/inversify';
 import { Action } from 'sprotty-protocol/lib/actions';
 
 @injectable()
-export class TheiaGLSPMessageService implements IActionHandler {
+export class TheiaGLSPMessageService implements IActionHandler, Disposable {
     static readonly SHOW_DETAILS_LABEL = 'Show details';
 
     @inject(MessageService)
     protected messageService: MessageService;
 
     protected progressReporters: Map<string, Progress> = new Map();
+
+    @preDestroy()
+    dispose(): void {
+        this.progressReporters.forEach(progress => progress.cancel());
+        this.progressReporters.clear();
+    }
 
     handle(action: Action): void | Action | ICommand {
         if (MessageAction.is(action)) {
