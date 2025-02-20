@@ -81,10 +81,10 @@
     stroke: var(--theia-editor-inactiveSelectionBackground);
 }
 
-.sprotty-resize-handle.selected:not(.movement-not-allowed),
-.sprotty-resize-handle.active:not(.movement-not-allowed),
-.sprotty-edge > .sprotty-routing-handle.selected:not(.movement-not-allowed),
-.sprotty-edge > .sprotty-routing-handle.mouseover:not(.movement-not-allowed) {
+.sprotty-resize-handle.selected,
+.sprotty-resize-handle.active,
+.sprotty-edge > .sprotty-routing-handle.selected,
+.sprotty-edge > .sprotty-routing-handle.mouseover {
     fill: var(--theia-focusBorder);
 }
 
