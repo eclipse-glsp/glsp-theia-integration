@@ -36,10 +36,10 @@ import {
     ViewerOptions,
     Viewport
 } from '@eclipse-glsp/client';
-import { Message } from '@phosphor/messaging/lib';
 import {
     ApplicationShell,
     BaseWidget,
+    Message,
     Navigatable,
     NavigatableWidgetOptions,
     SaveableSource,
@@ -478,7 +478,7 @@ export function getDiagramWidget(shell?: ApplicationShell): GLSPDiagramWidget | 
  */
 export function getDiagramWidget(widget?: Widget): GLSPDiagramWidget | undefined;
 export function getDiagramWidget(widgetOrShell?: Widget | ApplicationShell): GLSPDiagramWidget | undefined {
-    const widget = widgetOrShell instanceof ApplicationShell ? widgetOrShell.activeWidget ?? widgetOrShell.currentWidget : widgetOrShell;
+    const widget = widgetOrShell instanceof ApplicationShell ? (widgetOrShell.activeWidget ?? widgetOrShell.currentWidget) : widgetOrShell;
 
     if (widget instanceof GLSPDiagramWidget) {
         return widget;
