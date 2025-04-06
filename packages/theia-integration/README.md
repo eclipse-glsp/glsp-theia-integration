@@ -20,6 +20,7 @@ This project is built with `yarn` and is available from npm via [@eclipse-glsp/t
 | 2.2.x                           | >=1.49.0 < 1.56.0  |
 | 2.3.0                           | >=1.56.0           |
 | 2.4.0                           | >=1.56.0           |
+| next                            | >=1.56.0           |
 
 ### Potential Compatibility Issues
 

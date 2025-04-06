@@ -22,6 +22,7 @@ For details on building the project, please see the [README file of the theia-in
 | 2.2.x                           | >=1.49.0 < 1.56.0  |
 | 2.3.0                           | >=1.56.0           |
 | 2.4.0                           | >=1.56.0           |
+| next                            | >=1.56.0           |
 
 ### Potential Compatibility Issues
 
