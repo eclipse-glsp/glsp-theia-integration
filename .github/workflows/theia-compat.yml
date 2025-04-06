@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        theia_version: [1.49.1, latest]
+        theia_version: [1.56.0, latest]
     steps:
       - uses: actions/checkout@v4.1.7
       - uses: actions/setup-node@v4.0.2
@@ -32,7 +32,10 @@ jobs:
         run: yarn electron build
         env:
           NODE_OPTIONS: --max_old_space_size=4096
+      - name: Clean yarn.lock
+        run: rm -f yarn.lock
       - name: Build browser
-        run: yarn browser build
+        run: yarn --skip-integrity-check --network-timeout 100000 && browser build
         env:
           NODE_OPTIONS: --max_old_space_size=4096
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9

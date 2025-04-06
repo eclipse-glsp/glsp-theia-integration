@@ -1,5 +1,11 @@
 # Eclipse GLSP Theia Integration Changelog
 
+## 2.5.0 - active
+
+### Changes
+
+### Potentially Breaking Changes
+
 ## [2.4.0- 04/04/2025](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.4.0)
 
 ### Changes
