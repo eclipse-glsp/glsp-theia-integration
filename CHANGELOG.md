@@ -1,10 +1,10 @@
 # Eclipse GLSP Theia Integration Changelog
 
-## 2.4.0 - active
+## [2.4.0- 04/04/2025](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.4.0)
 
 ### Changes
 
-### Potentially Breaking Changes
+- [diagram] Dispose pending progresses on diagram close [#242](https://github.com/eclipse-glsp/glsp-theia-integration/pull/242)
 
 ## [2.3.0- 23/12/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.3.0)
 
