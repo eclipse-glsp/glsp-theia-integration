@@ -35,7 +35,7 @@ jobs:
       - name: Clean yarn.lock
         run: rm -f yarn.lock
       - name: Build browser
-        run: yarn --skip-integrity-check --network-timeout 100000 && browser build
+        run: yarn --skip-integrity-check --network-timeout 100000 && yarn browser build
         env:
           NODE_OPTIONS: --max_old_space_size=4096
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9
