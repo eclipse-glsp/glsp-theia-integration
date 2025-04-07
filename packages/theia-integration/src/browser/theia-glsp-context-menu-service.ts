@@ -16,8 +16,9 @@
 // based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/sprotty/theia-sprotty-context-menu-service.ts
 import { Anchor, IActionDispatcher, IContextMenuService, MenuItem } from '@eclipse-glsp/client';
 import { Command, CommandHandler, CommandRegistry, Disposable, MenuAction, MenuModelRegistry, MenuPath } from '@theia/core';
-import { ContextMenuRenderer } from '@theia/core/lib/browser';
+import { ApplicationShell, ContextMenuRenderer } from '@theia/core/lib/browser';
 import { inject, injectable } from 'inversify';
+import { getDiagramWidget, GLSPDiagramWidget } from './diagram/glsp-diagram-widget';
 
 export namespace TheiaGLSPContextMenu {
     export const CONTEXT_MENU: MenuPath = ['theia-glsp-context-menu'];
@@ -37,18 +38,32 @@ export class TheiaContextMenuService implements IContextMenuService {
     @inject(CommandRegistry)
     protected readonly commandRegistry: CommandRegistry;
 
+    @inject(ApplicationShell)
+    protected readonly shell: ApplicationShell;
+
     protected actionDispatcher?: IActionDispatcher;
 
     connect(actionDispatcher: IActionDispatcher): void {
         this.actionDispatcher = actionDispatcher;
     }
 
+    get diagramWidget(): GLSPDiagramWidget | undefined {
+        return getDiagramWidget(this.shell);
+    }
+
     show(items: MenuItem[], anchor: Anchor, onHide?: () => void): void {
+        const context = this.diagramWidget?.node;
+        if (!context) {
+            console.warn('No context available for context menu');
+            return;
+        }
         this.cleanUpNow();
+
         this.disposables = this.register(TheiaGLSPContextMenu.CONTEXT_MENU, items);
         const renderOptions = {
             menuPath: TheiaGLSPContextMenu.CONTEXT_MENU,
             anchor: anchor,
+            context,
             onHide: () => {
                 if (onHide) {
                     onHide();

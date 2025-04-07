@@ -84,7 +84,7 @@ export abstract class GLSPDiagramManager extends WidgetOpenHandler<GLSPDiagramWi
         }
     }
 
-    override async doOpen(widget: GLSPDiagramWidget, maybeOptions?: WidgetOpenerOptions): Promise<void> {
+    override async doOpen(widget: GLSPDiagramWidget, uri: URI, maybeOptions?: WidgetOpenerOptions): Promise<void> {
         const options: WidgetOpenerOptions = {
             mode: 'activate',
             ...maybeOptions
