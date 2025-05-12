@@ -14,6 +14,16 @@ jobs:
     strategy:
       matrix:
         theia_version: [1.60.0, latest]
+    env:
+      STANDALONE_URL: none'
+      GLSP_SERVER_PORT: '8081'
+      GLSP_SERVER_PLAYWRIGHT_MANAGED: 'false'
+      GLSP_WEBSOCKET_PATH: 'workflow'
+      THEIA_URL: 'http://localhost:3000'
+      VSCODE_VSIX_ID: 'none'
+      VSCODE_VSIX_PATH: 'none'
+      GLSP_SERVER_DEBUG: 'true'
+      GLSP_SERVER_TYPE: 'node'
     steps:
       - uses: actions/checkout@v4.1.7
         with:
