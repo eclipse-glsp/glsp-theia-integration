@@ -13,9 +13,15 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        theia_version: [1.56.0, latest]
+        theia_version: [1.60.0, latest]
     steps:
       - uses: actions/checkout@v4.1.7
+        with:
+          path: 'theia-integration'
+      - uses: actions/checkout@v4.1.7
+        with:
+          repository: 'eclipse-glsp/glsp-playwright'
+          path: 'glsp-playwright'
       - uses: actions/setup-node@v4.0.2
         with:
           node-version: 18.x
@@ -23,19 +29,48 @@ jobs:
         with:
           python-version: '3.11'
       - name: Build
-        run: yarn --skip-integrity-check --network-timeout 100000
+        run: |
+          cd theia-integration
+          yarn --skip-integrity-check --network-timeout 100000
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9
       - name: Change theia version
-        run: yarn change:theia-version ${{ matrix.theia_version }}
+        run: |
+          cd theia-integration
+          yarn change:theia-version ${{ matrix.theia_version }}
+      - name: Clean yarn.lock
+        run: |
+          cd theia-integration
+          rm -f yarn.lock
       - name: Build electron
-        run: yarn electron build
+        run: |
+          cd theia-integration
+          yarn electron build
         env:
           NODE_OPTIONS: --max_old_space_size=4096
-      - name: Clean yarn.lock
-        run: rm -f yarn.lock
       - name: Build browser
-        run: yarn --skip-integrity-check --network-timeout 100000 && yarn browser build
+        run: |
+          cd theia-integration
+          yarn --skip-integrity-check --network-timeout 100000 && yarn browser build
         env:
           NODE_OPTIONS: --max_old_space_size=4096
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9
+      - name: Build Playwright
+        run: |
+          cd glsp-playwright
+          yarn
+      - name: Start Browser App
+        run: |
+          cd theia-integration
+          yarn browser start &
+      - name: Run Playwright tests
+        id: run_playwright_tests
+        run: |
+          cd glsp-playwright
+            yarn test:theia
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4.3.4
+        if: always()
+        with:
+          name: playwright-report-compat-${{ matrix.theia_version }}
+          path: glsp-playwright/examples/workflow-test/playwright-report/
