@@ -15,20 +15,20 @@
   },
   "dependencies": {
     "@eclipse-glsp-examples/workflow-theia": "2.5.0-next",
-    "@theia/core": "~1.60.0",
-    "@theia/editor": "~1.60.0",
-    "@theia/filesystem": "~1.60.0",
-    "@theia/markers": "~1.60.0",
-    "@theia/messages": "~1.60.0",
-    "@theia/monaco": "~1.60.0",
-    "@theia/navigator": "~1.60.0",
-    "@theia/preferences": "~1.60.0",
-    "@theia/process": "~1.60.0",
-    "@theia/terminal": "~1.60.0",
-    "@theia/workspace": "~1.60.0"
+    "@theia/core": "~1.61.1",
+    "@theia/editor": "~1.61.1",
+    "@theia/filesystem": "~1.61.1",
+    "@theia/markers": "~1.61.1",
+    "@theia/messages": "~1.61.1",
+    "@theia/monaco": "~1.61.1",
+    "@theia/navigator": "~1.61.1",
+    "@theia/preferences": "~1.61.1",
+    "@theia/process": "~1.61.1",
+    "@theia/terminal": "~1.61.1",
+    "@theia/workspace": "~1.61.1"
   },
   "devDependencies": {
-    "@theia/cli": "~1.60.0"
+    "@theia/cli": "~1.61.1"
   },
   "theia": {
     "target": "browser",
