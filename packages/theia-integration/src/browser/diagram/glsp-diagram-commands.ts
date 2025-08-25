@@ -18,10 +18,10 @@
 import {
     CenterAction,
     FitToScreenAction,
-    LayoutOperation,
     RedoAction,
     RequestExportSvgAction,
     SelectAllAction,
+    TriggerLayoutAction,
     UndoAction
 } from '@eclipse-glsp/client';
 import { ApplicationShell, CommonCommands } from '@theia/core/lib/browser';
@@ -106,7 +106,7 @@ export class GLSPDiagramCommandContribution implements CommandContribution {
         );
         registry.registerHandler(
             GLSPDiagramCommands.LAYOUT,
-            new GLSPCommandHandler(this.shell, { actions: () => LayoutOperation.create(), alwaysVisible: true })
+            new GLSPCommandHandler(this.shell, { actions: () => TriggerLayoutAction.create(), alwaysVisible: true })
         );
         registry.registerHandler(
             GLSPDiagramCommands.SELECT_ALL,
