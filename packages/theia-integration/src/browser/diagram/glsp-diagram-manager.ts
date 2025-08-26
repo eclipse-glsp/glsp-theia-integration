@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2018-2018 TypeFox and others.
+ * Copyright (c) 2018-2025 TypeFox and others.
  * Modifications: (c) 2019-2024 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
