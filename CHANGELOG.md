@@ -4,7 +4,13 @@
 
 ### Changes
 
+- [diagram] Update layout command handler to dispatch new `TriggerLayoutAction` [#252](https://github.com/eclipse-glsp/glsp-theia-integration/pull/252)
+
 ### Potentially Breaking Changes
+
+- [theia] Update to 1.64 Community Release [#254](https://github.com/eclipse-glsp/glsp-theia-integration/pull/254)
+    - Requires node `20` and electron `37.2.1`.
+    - New minimum Theia version is 1.64.x
 
 ## [2.4.0- 04/04/2025](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.4.0)
 

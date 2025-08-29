@@ -34,7 +34,7 @@ jobs:
         if: github.event_name == 'workflow_run'
       - uses: actions/setup-node@v4.0.2
         with:
-          node-version: 18.x
+          node-version: 20.x
           registry-url: 'https://registry.npmjs.org'
         if: env.changes == 'true'
       - uses: actions/setup-python@v5.1.0
