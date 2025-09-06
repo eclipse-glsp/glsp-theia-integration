@@ -1,0 +1,14 @@
+# .github/workflows/reusable.yml
+on:
+  workflow_call:
+    inputs:
+      my_input:
+        required: false
+        type: string
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Input: ${{ inputs.my_input }}"
