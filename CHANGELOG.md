@@ -1,6 +1,6 @@
 # Eclipse GLSP Theia Integration Changelog
 
-## 2.5.0 - active
+## [v2.5.0 - 07/09/2025](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.5.0)
 
 ### Changes
 
@@ -12,19 +12,19 @@
     - Requires node `20` and electron `37.2.1`.
     - New minimum Theia version is 1.64.x
 
-## [2.4.0- 04/04/2025](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.4.0)
+## [v2.4.0- 04/04/2025](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.4.0)
 
 ### Changes
 
 - [diagram] Dispose pending progresses on diagram close [#242](https://github.com/eclipse-glsp/glsp-theia-integration/pull/242)
 
-## [2.3.0- 23/12/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.3.0)
+## [v2.3.0- 23/12/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.3.0)
 
 ### Changes
 
 - [deps] Drop support for node `16`. New minimum version is `18.x` [#238](https://github.com/eclipse-glsp/glsp-theia-integration/pull/238)
 
-## [2.2.1- 22/07/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.2.1)
+## [v2.2.1- 22/07/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.2.1)
 
 ### Changes
 
@@ -39,7 +39,7 @@
 - [diagram] Fix a bug in the `TheiaSelectionForwarder` when handling multiple diagrams [#227](https://github.com/eclipse-glsp/glsp-theia-integration/pull/227)
     - This required a change in event handling. As a consequence the `shell` property has been removed. This might impact custom subclasses.
 
-## [2.1.0- 24/01/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.1.0)
+## [v2.1.0- 24/01/2024](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.1.0)
 
 ### Changes
 
@@ -103,7 +103,7 @@
         - `GLSPDiagramWidget` now directly injects Theia services -> use `GLSPDiagramWidgetFactory` to for construction
 - [API] Rename `ServerStatusAction` -> `StatusAction` & `ServerMessageAction`->`MessageAction` [#178](https://github.com/eclipse-glsp/glsp-theia-integration/pull/178)
 
-## [1.0.0 - 30/06/2022](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v1.0.0)
+## [v1.0.0 - 30/06/2022](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v1.0.0)
 
 ### Changes
 
