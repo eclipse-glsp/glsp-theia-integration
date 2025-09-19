@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 // based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/sprotty/theia-sprotty-context-menu-service.ts
-import { Anchor, IActionDispatcher, IContextMenuService, MenuItem } from '@eclipse-glsp/client';
+import { Anchor, FocusStateChangedAction, IActionDispatcher, IContextMenuService, MenuItem } from '@eclipse-glsp/client';
 import { Command, CommandHandler, CommandRegistry, Disposable, MenuAction, MenuModelRegistry, MenuPath } from '@theia/core';
 import { ApplicationShell, ContextMenuRenderer } from '@theia/core/lib/browser';
 import { inject, injectable } from 'inversify';
@@ -69,6 +69,7 @@ export class TheiaContextMenuService implements IContextMenuService {
                     onHide();
                 }
                 this.scheduleCleanup();
+                this.restoreFocus();
             }
         };
         this.contextMenuRenderer.render(renderOptions);
@@ -120,6 +121,14 @@ export class TheiaContextMenuService implements IContextMenuService {
     protected cleanUp(): void {
         this.disposables.forEach(disposable => disposable.dispose(this.menuProvider, this.commandRegistry));
         this.disposables = [];
+    }
+
+    protected restoreFocus(): void {
+        const widget = this.diagramWidget;
+        if (!widget || widget.hasFocus) {
+            return;
+        }
+        widget.actionDispatcher.dispatch(FocusStateChangedAction.create(true));
     }
 }
 
