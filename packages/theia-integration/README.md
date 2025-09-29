@@ -22,8 +22,8 @@ This project is built with `yarn` and is available from npm via [@eclipse-glsp/t
 | 2.4.0                           | >= 1.56.0 < 1.60.0  |
 | 2.4.0-theia1.60.0               | >= 1.60.0 < 1.64.0  |
 | 2.5.0                           | >= 1.64.0 < 1.65.0  |
-| 2.5.0-theia1.65.0               | >= 1.65.0           |
-| next                            | >= 1.65.0           |
+| 2.5.0-theia1.65.0               | >= 1.64.0           |
+| next                            | >= 1.64.0           |
 
 ### Potential Compatibility Issues
 
