@@ -1,6 +1,6 @@
 {
   "name": "electron-app",
-  "version": "2.5.0",
+  "version": "2.5.0-theia1.65.0",
   "private": true,
   "main": "lib/backend/electron-main.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "watch": "theia build --watch --mode development"
   },
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-theia": "2.5.0",
+    "@eclipse-glsp-examples/workflow-theia": "2.5.0-theia1.65.0",
     "@theia/core": "~1.64.1",
     "@theia/editor": "~1.64.1",
     "@theia/electron": "~1.64.1",

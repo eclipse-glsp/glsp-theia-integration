@@ -1,6 +1,6 @@
 {
   "name": "parent",
-  "version": "2.5.0",
+  "version": "2.5.0-theia1.65.0",
   "private": true,
   "workspaces": [
     "packages/theia-integration",

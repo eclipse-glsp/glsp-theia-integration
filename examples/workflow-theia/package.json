@@ -1,6 +1,6 @@
 {
   "name": "@eclipse-glsp-examples/workflow-theia",
-  "version": "2.5.0",
+  "version": "2.5.0-theia1.65.0",
   "private": "true",
   "description": "Theia extension for the workflow GLSP example",
   "keywords": [
@@ -37,7 +37,7 @@
     "@eclipse-glsp-examples/workflow-glsp": "2.5.0",
     "@eclipse-glsp-examples/workflow-server": "2.5.0",
     "@eclipse-glsp-examples/workflow-server-bundled": "2.5.0",
-    "@eclipse-glsp/theia-integration": "2.5.0"
+    "@eclipse-glsp/theia-integration": "2.5.0-theia1.65.0"
   },
   "publishConfig": {
     "access": "public"
