@@ -50,10 +50,10 @@
     "@types/ws": "^8.5.4"
   },
   "peerDependencies": {
-    "@theia/core": "^1.60.0",
-    "@theia/filesystem": "^1.60.0",
-    "@theia/messages": "^1.60.0",
-    "@theia/monaco": "^1.60.0"
+    "@theia/core": "^1.65.0",
+    "@theia/filesystem": "^1.65.0",
+    "@theia/messages": "^1.65.0",
+    "@theia/monaco": "^1.65.0"
   },
   "publishConfig": {
     "access": "public"

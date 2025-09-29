@@ -50,7 +50,7 @@ import {
 import { SelectionService } from '@theia/core/lib/common/selection-service';
 import URI from '@theia/core/lib/common/uri';
 import { Container, inject } from '@theia/core/shared/inversify';
-import { EditorPreferences } from '@theia/editor/lib/browser';
+import { EditorPreferences } from '@theia/editor/lib/common/editor-preferences';
 import { pickBy } from 'lodash';
 import { GLSPSaveable } from './glsp-saveable';
 
