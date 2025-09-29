@@ -16,17 +16,11 @@
 import { Deferred, DirtyStateChange, EditorContextService, GLSPActionDispatcher, SaveModelAction } from '@eclipse-glsp/client';
 import { Disposable, DisposableCollection, Emitter, Event } from '@theia/core';
 import { Saveable } from '@theia/core/lib/browser';
-import { satisfiesTheiaVersion } from '../../common';
-type AutoSaveType = 'off' | 'afterDelay' | 'onFocusChange' | 'onWindowChange';
 
 /**
  * The default {@link Saveable} implementation of the `GLSPDiagramWidget`.
  * Since Theia 1.50.0, handling the autosave functionality is done by a central `SaveableService` and is no longer the responsibility of the
- * {@link Saveable} itself. This implementation includes a compatibility layer for both the old saveable implementation prior
- * to Theia 1.50.0 and the new saveable implementation.
- * When using a Theia version >= 1.50.0, the autosave functionality is limited to the `afterDelay` strategy.
- * Other autosave types (`onWindowChange` | `onFocusChange`) are not supported. If the `autoSaveType` is set to an unsupported value, the
- * `afterDelay` save strategy will be used.
+ * {@link Saveable} itself.
  */
 export class GLSPSaveable implements Saveable, Disposable {
     protected toDispose = new DisposableCollection();
@@ -51,8 +45,7 @@ export class GLSPSaveable implements Saveable, Disposable {
     ) {
         this.toDispose.pushAll([
             this.editorContextService.onDirtyStateChanged(change => this.handleDirtyStateChange(change)),
-            this.onDirtyChangedEmitter,
-            this.autoSaveJobs
+            this.onDirtyChangedEmitter
         ]);
     }
 
@@ -64,7 +57,6 @@ export class GLSPSaveable implements Saveable, Disposable {
 
         if (change.isDirty) {
             this.onContentChangedEmitter.fire(undefined);
-            this.scheduleAutoSave();
         }
     }
 
@@ -109,44 +101,5 @@ export class GLSPSaveable implements Saveable, Disposable {
 
     dispose(): void {
         this.toDispose.dispose();
-    }
-
-    // Compatibility layer for the old saveable implementation prior to Theia 1.50.0
-    protected compatibilityLayerEnabled = satisfiesTheiaVersion('<1.50.0');
-    protected _autoSave: AutoSaveType = 'off';
-    autoSaveDelay = 500;
-
-    protected autoSaveJobs = new DisposableCollection();
-
-    protected doAutoSave(): void {
-        if (this.shouldAutoSave) {
-            this.save();
-        }
-    }
-
-    protected get shouldAutoSave(): boolean {
-        return this.compatibilityLayerEnabled && this.dirty && this.autoSave !== 'off';
-    }
-
-    set autoSave(autoSave: AutoSaveType) {
-        this._autoSave = autoSave;
-        if (this.shouldAutoSave) {
-            this.scheduleAutoSave();
-        } else {
-            this.autoSaveJobs.dispose();
-        }
-    }
-
-    get autoSave(): AutoSaveType {
-        return this._autoSave;
-    }
-
-    protected scheduleAutoSave(): void {
-        if (this.shouldAutoSave) {
-            this.autoSaveJobs.dispose();
-            const autoSaveJob = window.setTimeout(() => this.doAutoSave(), this.autoSaveDelay);
-            const disposableAutoSaveJob = Disposable.create(() => window.clearTimeout(autoSaveJob));
-            this.autoSaveJobs.push(disposableAutoSaveJob);
-        }
     }
 }

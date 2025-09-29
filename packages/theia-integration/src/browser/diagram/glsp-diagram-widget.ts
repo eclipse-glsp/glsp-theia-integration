@@ -50,7 +50,6 @@ import {
 import { SelectionService } from '@theia/core/lib/common/selection-service';
 import URI from '@theia/core/lib/common/uri';
 import { Container, inject } from '@theia/core/shared/inversify';
-import { EditorPreferences } from '@theia/editor/lib/common/editor-preferences';
 import { pickBy } from 'lodash';
 import { GLSPSaveable } from './glsp-saveable';
 
@@ -84,9 +83,6 @@ export function isDiagramWidgetContainer(widget?: Widget): widget is Widget & GL
 }
 
 export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, StatefulWidget, Navigatable {
-    @inject(EditorPreferences)
-    readonly editorPreferences: EditorPreferences;
-
     @inject(StorageService)
     readonly storage: StorageService;
 
@@ -110,9 +106,7 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
         this.title.iconClass = options.iconClass;
         this.id = this.createWidgetId();
         this.saveable = new GLSPSaveable(this.actionDispatcher, this.diContainer.get(EditorContextService));
-        this.updateSaveable();
         this.title.caption = this.uri.path.fsPath();
-        this.toDispose.push(this.editorPreferences.onPreferenceChanged(() => this.updateSaveable()));
         this.toDispose.push(this.saveable);
     }
 
@@ -153,16 +147,6 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
         const hiddenContainer = document.createElement('div');
         hiddenContainer.id = this.viewerOptions.hiddenDiv;
         document.body.appendChild(hiddenContainer);
-    }
-
-    /**
-     * Note: Manually updating the autosave settings is only necessary when using Theia < 1.50.0.
-     * Since Theia 1.50.0, the autosave settings are generically handled and no longer the responsibility
-     * of the `Saveable` implementation. See https://github.com/eclipse-theia/theia/pull/13683
-     */
-    protected updateSaveable(): void {
-        this.saveable.autoSave = this.editorPreferences['files.autoSave'];
-        this.saveable.autoSaveDelay = this.editorPreferences['files.autoSaveDelay'];
     }
 
     protected async initializeDiagram(): Promise<void> {
