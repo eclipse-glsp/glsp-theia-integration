@@ -23,7 +23,8 @@ For details on building the project, please see the [README file of the theia-in
 | 2.3.0                           | >= 1.56.0           |
 | 2.4.0                           | >= 1.56.0 < 1.60.0  |
 | 2.4.0-theia1.60.0               | >= 1.60.0 < 1.64.0  |
-| 2.5.0                           | >= 1.64.0           |
+| 2.5.0                           | >= 1.64.0 < 1.65.0  |
+| 2.5.0-theia1.65.0               | >= 1.64.0           |
 | next                            | >= 1.64.0           |
 
 ### Potential Compatibility Issues
