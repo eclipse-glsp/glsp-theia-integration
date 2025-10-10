@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 // based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/sprotty/theia-sprotty-context-menu-service.ts
-import { Anchor, FocusStateChangedAction, IActionDispatcher, IContextMenuService, MenuItem } from '@eclipse-glsp/client';
+import { Anchor, ClientMenuItem, FocusStateChangedAction, IActionDispatcher, IContextMenuService } from '@eclipse-glsp/client';
 import { Command, CommandHandler, CommandRegistry, Disposable, MenuAction, MenuModelRegistry, MenuPath } from '@theia/core';
 import { ApplicationShell, ContextMenuRenderer } from '@theia/core/lib/browser';
 import { inject, injectable } from 'inversify';
@@ -51,7 +51,7 @@ export class TheiaContextMenuService implements IContextMenuService {
         return getDiagramWidget(this.shell);
     }
 
-    show(items: MenuItem[], anchor: Anchor, onHide?: () => void): void {
+    show(items: ClientMenuItem[], anchor: Anchor, onHide?: () => void): void {
         const context = this.diagramWidget?.node;
         if (!context) {
             console.warn('No context available for context menu');
@@ -75,7 +75,7 @@ export class TheiaContextMenuService implements IContextMenuService {
         this.contextMenuRenderer.render(renderOptions);
     }
 
-    protected register(menuPath: string[], items: MenuItem[]): DisposableItem[] {
+    protected register(menuPath: string[], items: ClientMenuItem[]): DisposableItem[] {
         const disposables: DisposableItem[] = [];
         for (const item of items) {
             if (item.children && item.children.length > 0) {
@@ -90,18 +90,19 @@ export class TheiaContextMenuService implements IContextMenuService {
         return disposables;
     }
 
-    protected registerSubmenu(menuPath: string[], item: MenuItem): DisposableItem {
+    protected registerSubmenu(menuPath: string[], item: ClientMenuItem): DisposableItem {
         return this.menuProvider.registerSubmenu([...menuPath, item.id], item.label, { icon: item.icon });
     }
 
-    protected registerCommand(menuPath: string[], item: MenuItem): DisposableItem {
+    protected registerCommand(menuPath: string[], item: ClientMenuItem): DisposableItem {
         const command: Command = { id: commandId(menuPath, item), label: item.label, iconClass: item.icon };
         const disposable = this.commandRegistry.registerCommand(command, new GLSPCommandHandler(item, this.actionDispatcher));
         return new DisposableCommand(command, disposable);
     }
 
-    protected registerMenuAction(menuPath: string[], item: MenuItem): DisposableItem {
-        const menuAction = { label: item.label, order: item.sortString, commandId: commandId(menuPath, item) };
+    protected registerMenuAction(menuPath: string[], item: ClientMenuItem): DisposableItem {
+        const { label, sortString: order, isEnabled, isToggled, isVisible } = item;
+        const menuAction = { label, order, isEnabled, isToggled, isVisible, commandId: commandId(menuPath, item) };
         const menuPathOfItem = item.group ? [...menuPath, item.group] : menuPath;
         const disposable = this.menuProvider.registerMenuAction(menuPathOfItem, menuAction);
         return new DisposableMenuAction(menuAction, disposable);
@@ -134,7 +135,7 @@ export class TheiaContextMenuService implements IContextMenuService {
 
 class GLSPCommandHandler implements CommandHandler {
     constructor(
-        readonly menuItem: MenuItem,
+        readonly menuItem: ClientMenuItem,
         readonly actionDispatcher?: IActionDispatcher
     ) {}
 
