@@ -24,6 +24,7 @@
     "lint:ci": "yarn lint --output-file eslint_report.json --format json",
     "lint:fix": "yarn lint --fix",
     "prepare": "yarn compile && yarn check:theia-version",
+    "publish:latest": "lerna publish from-package --no-git-reset -y",
     "publish:next": "lerna publish preminor --exact --canary --preid next --dist-tag next --no-git-reset --no-git-tag-version --no-push --ignore-scripts --yes",
     "upgrade:next": "glsp updateNext",
     "watch:browser": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"yarn -s browser watch\"",
@@ -33,7 +34,7 @@
     "@eclipse-glsp/dev": "next",
     "@types/node": "20.x",
     "concurrently": "^8.2.2",
-    "lerna": "^7.0.0",
+    "lerna": "^9.0.0",
     "typescript": "^5.9.2"
   },
   "engines": {
