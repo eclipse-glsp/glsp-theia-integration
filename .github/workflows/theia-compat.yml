@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        theia_version: [1.60.0, latest]
+        theia_version: [1.64.0, 1.66.0, latest]
     env:
       STANDALONE_URL: none'
       GLSP_SERVER_PORT: '8081'
