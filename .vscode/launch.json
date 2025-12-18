@@ -91,6 +91,7 @@
       "outFiles": [
         "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
         "${workspaceRoot}/node_modules/@eclipse-glsp/server/*/lib/**/*.js",
+        "${workspaceRoot}/node_modules/@eclipse-glsp/server-mcp/*/lib/**/*.js",
         "${workspaceRoot}/node_modules/@eclipse-glsp/graph/*/lib/**/*.js",
         "${workspaceRoot}/node_modules/@eclipse-glsp/layout-elk/*/lib/**/*.js",
         "${workspaceRoot}/node_modules/@eclipse-glsp-examples/workflow-server/*/lib/**/*.js",
