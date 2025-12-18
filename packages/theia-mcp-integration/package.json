@@ -1,10 +1,16 @@
 {
-  "name": "@eclipse-glsp-examples/workflow-theia",
+  "name": "@eclipse-glsp/theia-mcp-integration",
   "version": "2.6.0-next",
-  "private": "true",
-  "description": "Theia extension for the workflow GLSP example",
+  "description": "Glue code to integrate GLSP MCP servers into Eclipse Theia",
   "keywords": [
-    "theia-extension"
+    "theia-extension",
+    "eclipse",
+    "graphics",
+    "diagram",
+    "modeling",
+    "visualization",
+    "glsp",
+    "diagram editor"
   ],
   "homepage": "https://www.eclipse.org/glsp/",
   "bugs": "https://github.com/eclipse-glsp/glsp/issues",
@@ -23,30 +29,32 @@
       "url": "https://projects.eclipse.org/projects/ecd.glsp"
     }
   ],
+  "main": "lib/browser/index",
   "files": [
     "lib",
-    "src"
+    "src",
+    "css"
   ],
   "scripts": {
     "build": "tsc -b",
-    "clean": "rimraf lib *.tsbuildinfo",
+    "clean": "rimraf lib *.tsbuildinfo ",
+    "generate:index": "glsp generateIndex src/browser src/common src/node -s -f",
     "lint": "eslint --ext .ts,.tsx ./src",
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-glsp": "next",
-    "@eclipse-glsp-examples/workflow-server": "next",
-    "@eclipse-glsp-examples/workflow-server-bundled": "next",
-    "@eclipse-glsp/theia-integration": "2.6.0-next",
-    "@eclipse-glsp/theia-mcp-integration": "2.6.0-next"
+    "@eclipse-glsp/theia-integration": "2.6.0-next"
+  },
+  "peerDependencies": {
+    "@theia/ai-mcp": "^1.64.0",
+    "@theia/core": "^1.64.0"
   },
   "publishConfig": {
     "access": "public"
   },
   "theiaExtensions": [
     {
-      "frontend": "lib/browser/workflow-frontend-module",
-      "backend": "lib/node/workflow-backend-module"
+      "frontend": "lib/browser/theia-mcp-integration-frontend-module"
     }
   ]
 }

@@ -84,13 +84,13 @@ if [[ "$2" != "--unlink" ]]; then
     cd $baseDir/glsp-theia-integration || exit
     yarn link sprotty sprotty-protocol @eclipse-glsp/client @eclipse-glsp/protocol @eclipse-glsp/sprotty @eclipse-glsp-examples/workflow-glsp vscode-jsonrpc inversify
     if [ -d $baseDir/glsp-server-node ]; then
-        yarn link @eclipse-glsp/server @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server @eclipse-glsp-examples/workflow-server-bundled
+        yarn link @eclipse-glsp/server @eclipse-glsp/server-mcp @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server @eclipse-glsp-examples/workflow-server-bundled
     fi
     yarn install --force
 else
     yarn unlink sprotty sprotty-protocol @eclipse-glsp/client @eclipse-glsp/protocol @eclipse-glsp/sprotty @eclipse-glsp-examples/workflow-glsp vscode-jsonrpc inversify
     if [ -d $baseDir/glsp-server-node ]; then
-        yarn unlink @eclipse-glsp/server @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server @eclipse-glsp-examples/workflow-server-bundled
+        yarn unlink @eclipse-glsp/server @eclipse-glsp/server-mcp @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server @eclipse-glsp-examples/workflow-server-bundled
     fi
     yarn
     yarn install --force
