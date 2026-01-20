@@ -15,10 +15,11 @@
  ********************************************************************************/
 import { bindOrRebind, ExternalMarkerManager, IActionDispatcher, Marker, MarkerKind, MarkersReason, TYPES } from '@eclipse-glsp/client/lib';
 import URI from '@theia/core/lib/common/uri';
-import { Container, inject, injectable, optional, postConstruct } from '@theia/core/shared/inversify';
+import { Container, inject, injectable, optional, postConstruct, preDestroy } from '@theia/core/shared/inversify';
 import { ProblemManager } from '@theia/markers/lib/browser/problem/problem-manager';
 import { Diagnostic } from 'vscode-languageserver-types';
 
+import { Disposable, DisposableCollection } from '@theia/core';
 import { ApplicationShell, Widget } from '@theia/core/lib/browser';
 import { SelectionWithElementIds } from '../theia-opener-options-navigation-service';
 import { getDiagramWidget } from './glsp-diagram-widget';
@@ -84,13 +85,14 @@ class DiagnosticMarkers {
 }
 
 @injectable()
-export class TheiaMarkerManager extends ExternalMarkerManager {
+export class TheiaMarkerManager extends ExternalMarkerManager implements Disposable {
     protected markerReasonsToKeep = [MarkersReason.LIVE];
 
     @inject(ProblemManager) @optional() protected readonly problemManager?: ProblemManager;
     @inject(ApplicationShell) @optional() protected readonly shell?: ApplicationShell;
 
     protected uri2markers = new Map<string, DiagnosticMarkers>();
+    protected toDispose = new DisposableCollection();
 
     protected markers(uri: URI): DiagnosticMarkers {
         const markers = this.uri2markers.get(uri.toString());
@@ -105,10 +107,10 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
     @postConstruct()
     protected initialize(): void {
         if (this.problemManager) {
-            this.problemManager.onDidChangeMarkers(uri => this.refreshMarker(uri));
+            this.toDispose.push(this.problemManager.onDidChangeMarkers(uri => this.refreshMarker(uri)));
         }
         if (this.shell) {
-            this.shell.onDidRemoveWidget(widget => this.handleWidgetClose(widget));
+            this.toDispose.push(this.shell.onDidRemoveWidget(widget => this.handleWidgetClose(widget)));
         }
     }
 
@@ -167,6 +169,12 @@ export class TheiaMarkerManager extends ExternalMarkerManager {
             default:
                 return undefined;
         }
+    }
+
+    @preDestroy()
+    dispose(): void {
+        this.toDispose.dispose();
+        this.actionDispatcher = undefined;
     }
 
     protected handleWidgetClose(widget: Widget): void {
