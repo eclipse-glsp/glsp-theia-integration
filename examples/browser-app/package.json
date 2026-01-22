@@ -15,6 +15,9 @@
   },
   "dependencies": {
     "@eclipse-glsp-examples/workflow-theia": "2.6.0-next",
+    "@theia/ai-anthropic": "~1.66.0",
+    "@theia/ai-ide": "~1.66.0",
+    "@theia/ai-openai": "~1.66.0",
     "@theia/core": "~1.66.0",
     "@theia/editor": "~1.66.0",
     "@theia/filesystem": "~1.66.0",
