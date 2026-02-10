@@ -4,7 +4,14 @@
 
 ### Changes
 
+- [diagram] Ensure focus restore after context menu close [#263](https://github.com/eclipse-glsp/glsp-theia-integration/pull/263)
+- [theia] Adjust to Theia API changes for >= 1.65 compatibility [#265](https://github.com/eclipse-glsp/glsp-theia-integration/pull/265)
+- [diagram] Ensure proper disposal of marker manager [#272](https://github.com/eclipse-glsp/glsp-theia-integration/pull/272)
+
 ### Potentially Breaking Changes
+
+- [api] Adjust context menu service for new `MenuItem` API [#266](https://github.com/eclipse-glsp/glsp-theia-integration/pull/266)
+    - `MenuItem` -> `ClientMenuItem`
 
 ## [v2.5.0 - 07/09/2025](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.5.0)
 
