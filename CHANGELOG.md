@@ -1,6 +1,6 @@
 # Eclipse GLSP Theia Integration Changelog
 
-## v2.6.0 - active
+## [v2.6.0 - 10/02/2026](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.6.0)
 
 ### Changes
 
