@@ -1,0 +1,41 @@
+/* expand button */
+
+#selection-palette-expand-button {
+    background: var(--theia-titleBar-activeBackground);
+    color: var(--theia-titleBar-activeForeground);
+}
+
+/* search bar */
+
+.selection-palette-search {
+    background: var(--theia-input-background);
+    color: var(--theia-input-foreground);
+    border: var(--theia-border-width) solid var(--theia-input-border);
+    font-family: var(--theia-ui-font-family);
+    font-size: var(--theia-ui-font-size1);
+    line-height: var(--theia-content-line-height);
+}
+
+/* header */
+
+.selection-palette-group-header {
+    background: var(--theia-titleBar-activeBackground);
+    color: var(--theia-titleBar-activeForeground);
+}
+
+.selection-palette-group-header:hover:not(.clicked) {
+    background: var(--theia-menubar-selectionBackground);
+}
+
+/* single containers */
+
+.selection-palette-group-container {
+    background: var(--theia-menu-background);
+    color: var(--theia-titleBar-activeForeground);
+}
+
+/* single item */
+
+.selection-palette-button:hover:not(.clicked) {
+    background: var(--theia-list-hoverBackground);
+}
