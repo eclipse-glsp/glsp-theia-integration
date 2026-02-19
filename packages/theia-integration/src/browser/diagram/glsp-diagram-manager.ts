@@ -17,6 +17,7 @@
 // based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/theia/diagram-manager.ts
 
 import { codiconCSSString, EditMode, IDiagramOptions } from '@eclipse-glsp/client';
+import { URI } from '@theia/core';
 import {
     ApplicationShell,
     FrontendApplicationContribution,
@@ -27,7 +28,6 @@ import {
     WidgetOpenerOptions,
     WidgetOpenHandler
 } from '@theia/core/lib/browser';
-import URI from '@theia/core/lib/common/uri';
 import { inject, injectable, interfaces, postConstruct } from '@theia/core/shared/inversify';
 import { EditorManager } from '@theia/editor/lib/browser';
 import { DiagramServiceProvider } from '../diagram-service-provider';

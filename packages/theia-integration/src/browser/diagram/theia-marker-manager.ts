@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2023 EclipseSource and others.
+ * Copyright (c) 2020-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -14,12 +14,11 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { bindOrRebind, ExternalMarkerManager, IActionDispatcher, Marker, MarkerKind, MarkersReason, TYPES } from '@eclipse-glsp/client/lib';
-import URI from '@theia/core/lib/common/uri';
+import { Disposable, DisposableCollection, URI } from '@theia/core';
 import { Container, inject, injectable, optional, postConstruct, preDestroy } from '@theia/core/shared/inversify';
 import { ProblemManager } from '@theia/markers/lib/browser/problem/problem-manager';
 import { Diagnostic } from 'vscode-languageserver-types';
 
-import { Disposable, DisposableCollection } from '@theia/core';
 import { ApplicationShell, Widget } from '@theia/core/lib/browser';
 import { SelectionWithElementIds } from '../theia-opener-options-navigation-service';
 import { getDiagramWidget } from './glsp-diagram-widget';
