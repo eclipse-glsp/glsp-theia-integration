@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2023 EclipseSource and others.
+ * Copyright (c) 2020-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -192,7 +192,6 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
                 } else {
                     if (this.options.socketConnectionOptions.port !== port) {
                         throw new Error(
-                            // eslint-disable-next-line max-len
                             `The configured port ${this.options.socketConnectionOptions.port} does not match the port in the startup message: ${line}`
                         );
                     }
@@ -211,7 +210,6 @@ export abstract class GLSPSocketServerContribution extends BaseGLSPServerContrib
     protected checkServerPort(): void {
         if (isNaN(this.options.socketConnectionOptions.port)) {
             throw new Error(
-                // eslint-disable-next-line max-len
                 `Could not connect to to GLSP Server. The given server port is not a number: ${this.options.socketConnectionOptions.port}`
             );
         }

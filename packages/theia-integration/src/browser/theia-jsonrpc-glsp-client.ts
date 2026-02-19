@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2023 EclipseSource and others.
+ * Copyright (c) 2020-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -38,7 +38,6 @@ export class TheiaJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
     }
 }
 
-// eslint-disable-next-line no-redeclare
 export namespace TheiaJsonrpcGLSPClient {
     export interface Options extends JsonrpcGLSPClient.Options {
         messageService: MessageService;

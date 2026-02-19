@@ -36,6 +36,7 @@ import {
     ViewerOptions,
     Viewport
 } from '@eclipse-glsp/client';
+import { URI } from '@theia/core';
 import {
     ApplicationShell,
     BaseWidget,
@@ -48,7 +49,6 @@ import {
     Widget
 } from '@theia/core/lib/browser';
 import { SelectionService } from '@theia/core/lib/common/selection-service';
-import URI from '@theia/core/lib/common/uri';
 import { Container, inject } from '@theia/core/shared/inversify';
 import { pickBy } from 'lodash';
 import { GLSPSaveable } from './glsp-saveable';

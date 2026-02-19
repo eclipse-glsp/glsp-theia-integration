@@ -18,3 +18,8 @@ examples/**/server/**
 
 eslint_report.json
 .browser_modules
+
+.claude/local.settings.json
+.claude/CLAUDE.local.md
+.claude/plans
+.reviews

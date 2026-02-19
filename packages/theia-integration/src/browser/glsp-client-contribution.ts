@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2024 EclipseSource and others.
+ * Copyright (c) 2019-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -123,7 +123,6 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
 
     activate(app: FrontendApplication): MaybePromise<void> {
         if (this.toDispose.disposed) {
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
             this.toDispose.push(new DisposableCollection(Disposable.create(() => {}))); // mark as not disposed
             if (this.waitForActivation) {
                 return this.waitForActivation(app).then(() => this.doActivate());

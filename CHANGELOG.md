@@ -98,7 +98,6 @@
 - [deps] Update to inversify 6 and Typescript 5.x [#163](https://github.com/eclipse-glsp/glsp-theia-integration/pull/163)
     - GLSP uses a synchronous inversify context this means with inversify 6.x decorator methods (e.g. @postConstruct) with asynchronous results are no longer supported
 - [API] Remove `TheiaGLSPConnector`. The diagram DI container is now a child container of the Theia main container and has direct access to all Theia services [#173](https://github.com/eclipse-glsp/glsp-theia-integration/pull/173)
-
     - Refactor/rename `SavableGLSPModelSource` -> `GLSPSavable`
     - Move export functionality from removed connector to `theiaExportModule`
     - Encapsulate forwarding to Theia selection service in `theiaSelectionModule`

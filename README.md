@@ -9,7 +9,7 @@ For details on building the project, please see the [README file of the theia-in
 ## Theia Version Compatibility
 
 | @eclipse-glsp/theia-integration | Theia               |
-|---------------------------------|---------------------|
+| ------------------------------- | ------------------- |
 | 0.8.0                           | <= 1.4.0            |
 | 0.9.0                           | >= 1.20.0 <= 1.25.0 |
 | 1.0.0                           | >= 1.25.0 <= 1.26.0 |
@@ -124,7 +124,6 @@ In the example the argument to be passed is `--WF_PATH=workflow`.
 The example provides scripts and launch configs that pass this argument to test this connectivity option either in embedded or debug mode:
 
 - Embedded: Start a Node GLSP server in WebSocket mode along with the backend:
-
     - VS Code Launch config: `Launch Workflow Browser Backend (WebSocket GLSP Server)`
     - Script: `yarn browser start:ws` or `yarn electron start:ws`
 
