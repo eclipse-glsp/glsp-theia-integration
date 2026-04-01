@@ -36,13 +36,13 @@
   },
   "devDependencies": {
     "@eclipse-glsp/dev": "next",
-    "@types/node": "20.x",
+    "@types/node": "22.x",
     "concurrently": "^8.2.2",
     "lerna": "^9.0.0",
     "typescript": "^5.9.2"
   },
   "engines": {
-    "node": ">=20",
+    "node": ">=22",
     "yarn": ">=1.7.0 <2"
   }
 }
