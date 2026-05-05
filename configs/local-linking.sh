@@ -10,6 +10,10 @@
 function linkClient() {
     echo "--- Link Client packages ---"
     cd $2/glsp-client || exit
+    # Defensive: stale nested @eclipse-glsp copies from prior installs shadow the workspace
+    # symlinks via Node's nearest-node_modules-wins resolution → bundle fails.
+    # Remove them before re-linking.
+    find packages examples -path '*/node_modules/@eclipse-glsp' -type d -exec rm -rf {} + 2>/dev/null || true
 
     cd examples/workflow-glsp || exit
     yarn $1
@@ -42,6 +46,9 @@ function linkClient() {
 linkNodeServer() {
     echo $2/glsp-server-node
     if [ -d $2/glsp-server-node ]; then
+        cd $2/glsp-server-node || exit
+        # Same defensive cleanup as linkClient — stale nested @eclipse-glsp copies shadow workspace links.
+        find packages examples -path '*/node_modules/@eclipse-glsp' -type d -exec rm -rf {} + 2>/dev/null || true
         cd $2/glsp-server-node/packages/graph || exit
         yarn $1
         cd ../layout-elk || exit
@@ -84,13 +91,13 @@ if [[ "$2" != "--unlink" ]]; then
     cd $baseDir/glsp-theia-integration || exit
     yarn link sprotty sprotty-protocol @eclipse-glsp/client @eclipse-glsp/protocol @eclipse-glsp/sprotty @eclipse-glsp-examples/workflow-glsp vscode-jsonrpc inversify
     if [ -d $baseDir/glsp-server-node ]; then
-        yarn link @eclipse-glsp/server @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server @eclipse-glsp-examples/workflow-server-bundled
+        yarn link @eclipse-glsp/server @eclipse-glsp/server-mcp @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server @eclipse-glsp-examples/workflow-server-bundled
     fi
     yarn install --force
 else
     yarn unlink sprotty sprotty-protocol @eclipse-glsp/client @eclipse-glsp/protocol @eclipse-glsp/sprotty @eclipse-glsp-examples/workflow-glsp vscode-jsonrpc inversify
     if [ -d $baseDir/glsp-server-node ]; then
-        yarn unlink @eclipse-glsp/server @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server @eclipse-glsp-examples/workflow-server-bundled
+        yarn unlink @eclipse-glsp/server @eclipse-glsp/server-mcp @eclipse-glsp/graph @eclipse-glsp/layout-elk @eclipse-glsp-examples/workflow-server @eclipse-glsp-examples/workflow-server-bundled
     fi
     yarn
     yarn install --force

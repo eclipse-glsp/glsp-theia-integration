@@ -51,7 +51,8 @@
         "--app-project-path=${workspaceRoot}/examples/browser-app"
       ],
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "GLSP_MCP_SERVER_PORT": "64577"
       },
       "sourceMaps": true,
       "outFiles": [
@@ -85,12 +86,14 @@
         "--integratedNode"
       ],
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "GLSP_MCP_SERVER_PORT": "64577"
       },
       "sourceMaps": true,
       "outFiles": [
         "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
         "${workspaceRoot}/node_modules/@eclipse-glsp/server/*/lib/**/*.js",
+        "${workspaceRoot}/node_modules/@eclipse-glsp/server-mcp/*/lib/**/*.js",
         "${workspaceRoot}/node_modules/@eclipse-glsp/graph/*/lib/**/*.js",
         "${workspaceRoot}/node_modules/@eclipse-glsp/layout-elk/*/lib/**/*.js",
         "${workspaceRoot}/node_modules/@eclipse-glsp-examples/workflow-server/*/lib/**/*.js",
@@ -123,7 +126,8 @@
         "--logLevel=debug"
       ],
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "GLSP_MCP_SERVER_PORT": "64577"
       },
       "sourceMaps": true,
       "outFiles": [
@@ -158,7 +162,8 @@
         "--logLevel=debug"
       ],
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "GLSP_MCP_SERVER_PORT": "64577"
       },
       "sourceMaps": true,
       "outFiles": [
@@ -192,7 +197,8 @@
       ],
       "env": {
         "NODE_ENV": "development",
-        "WEBSOCKET_PORT": "8081"
+        "WEBSOCKET_PORT": "8081",
+        "GLSP_MCP_SERVER_PORT": "64577"
       },
       "sourceMaps": true,
       "outFiles": [

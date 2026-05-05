@@ -188,10 +188,17 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
                             reject(new Error('GLSPClientContribution is already disposed'));
                         }
                         const connection = createChannelConnection(channel);
-                        this.toDispose.push(connection);
-                        if (Disposable.is(channel)) {
-                            this.toDispose.push(channel);
-                        }
+                        this.toDispose.push(
+                            Disposable.create(async () => {
+                                // Await the shutdown so the wire flushes before we dispose the connection.
+                                const client = await this.glspClient;
+                                await client.shutdownServer();
+                                connection.dispose();
+                                if (Disposable.is(channel)) {
+                                    channel.dispose();
+                                }
+                            })
+                        );
                         resolve(connection);
                     }
                 },

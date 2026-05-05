@@ -4,8 +4,8 @@
 
 ### Potentially Breaking Changes
 
--   [build] Update to Node 22 and Theia 1.70.0 example projects [#290](https://github.com/eclipse-glsp/glsp-theia-integration/pull/290)
-    -   Theia >= 1.70.0 requires Node `22` and electron `39.7.0`
+- [build] Update to Node 22 and Theia 1.70.0 example projects [#290](https://github.com/eclipse-glsp/glsp-theia-integration/pull/290)
+    - Theia >= 1.70.0 requires Node `22` and electron `39.7.0`
 
 ## [v2.6.0 - 10/02/2026](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.6.0)
 
