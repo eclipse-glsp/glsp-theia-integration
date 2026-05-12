@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2024 EclipseSource and others.
+ * Copyright (c) 2019-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -18,6 +18,7 @@ export * from './copy-paste-context-menu-contribution';
 export * from './diagram-service-provider';
 export * from './diagram/diagram-widget-factory';
 export * from './diagram/features/default-modules';
+export * from './diagram/features/export/theia-export-command-handler';
 export * from './diagram/features/export/theia-export-module';
 export * from './diagram/features/export/theia-export-svg-action-handler';
 export * from './diagram/features/navigation/theia-navigate-to-external-target-handler';

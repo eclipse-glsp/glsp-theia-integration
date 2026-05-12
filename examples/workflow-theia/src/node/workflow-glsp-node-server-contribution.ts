@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2023 STMicroelectronics and others.
+ * Copyright (c) 2023-2026 STMicroelectronics and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,8 +13,14 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { WorkflowDiagramModule, WorkflowLayoutConfigurator, WorkflowServerModule } from '@eclipse-glsp-examples/workflow-server/node';
-import { configureELKLayoutModule } from '@eclipse-glsp/layout-elk';
+import {
+    WorkflowDiagramModule,
+    WorkflowLayoutConfigurator,
+    WorkflowMcpDiagramModule,
+    WorkflowMcpServerModule,
+    WorkflowServerModule
+} from '@eclipse-glsp-examples/workflow-server/node';
+import { ElkLayoutModule } from '@eclipse-glsp/layout-elk';
 import { GModelStorage, LogLevel, createAppModule } from '@eclipse-glsp/server/node';
 import { GLSPNodeServerContribution } from '@eclipse-glsp/theia-integration/lib/node';
 import { ContainerModule, injectable } from '@theia/core/shared/inversify';
@@ -26,12 +32,13 @@ export const LOG_DIR = join(__dirname, '..', '..', '..', '..', 'logs');
 export class WorkflowGLSPNodeServerContribution extends GLSPNodeServerContribution {
     protected override createServerModules(): ContainerModule[] {
         const appModule = createAppModule({ logLevel: LogLevel.info, logDir: LOG_DIR, fileLog: true, consoleLog: false });
-        const elkLayoutModule = configureELKLayoutModule({ algorithms: ['layered'], layoutConfigurator: WorkflowLayoutConfigurator });
+        const elkLayoutModule = new ElkLayoutModule({ algorithms: ['layered'], layoutConfigurator: WorkflowLayoutConfigurator });
         const mainModule = new WorkflowServerModule().configureDiagramModule(
             new WorkflowDiagramModule(() => GModelStorage),
-            elkLayoutModule
+            elkLayoutModule,
+            new WorkflowMcpDiagramModule()
         );
-        return [appModule, mainModule];
+        return [appModule, mainModule, new WorkflowMcpServerModule()];
     }
     readonly id = WorkflowLanguage.contributionId;
 }

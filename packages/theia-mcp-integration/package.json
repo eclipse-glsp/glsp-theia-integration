@@ -38,7 +38,7 @@
   "scripts": {
     "build": "tsc -b",
     "clean": "rimraf lib *.tsbuildinfo ",
-    "generate:index": "glsp generateIndex src/browser src/common src/node -s -f",
+    "generate:index": "glsp generateIndex src/browser -s -f",
     "lint": "eslint --ext .ts,.tsx ./src",
     "watch": "tsc -w"
   },

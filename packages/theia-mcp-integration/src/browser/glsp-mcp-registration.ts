@@ -34,16 +34,10 @@ export class GlspMcpRegistration implements FrontendApplicationContribution, Dis
 
     /**
      * Whether discovered GLSP MCP servers should be auto-started by Theia AI on registration.
-     * Defaults to `true` so the GLSP MCP integration is immediately available to the agent;
-     * override via `rebind(GlspMcpRegistration).to(YourSubclass)` for environments where
-     * servers should be registered but kept off until the user starts them on-demand.
+     * Defaults to `true` so the GLSP MCP integration is immediately available to the agent.
      */
     protected readonly autostart: boolean = true;
 
-    /**
-     * Aggregated cleanup — owns one inner {@link DisposableCollection} per registration. Dispose
-     * triggers `removeServer` for every registration and drops the state-change subscriptions.
-     */
     protected readonly toDispose = new DisposableCollection();
 
     onStart(app: FrontendApplication): MaybePromise<void> {
@@ -54,10 +48,6 @@ export class GlspMcpRegistration implements FrontendApplicationContribution, Dis
         this.dispose();
     }
 
-    /**
-     * GLSP servers boot on a random port by default, so a registered URL is stale on the next IDE
-     * launch. Drop our registrations on shutdown so the next session starts fresh.
-     */
     dispose(): void {
         this.toDispose.dispose();
     }
@@ -77,9 +67,6 @@ export class GlspMcpRegistration implements FrontendApplicationContribution, Dis
             autostart: this.autostart
         });
 
-        // Per-registration cleanup group. Disposing it removes the MCP server entry AND drops the
-        // state-change subscription. Triggers either on definitive GLSP failure (state listener
-        // self-disposes) or on extension dispose (parent collection cascades).
         const perRegistration = new DisposableCollection(
             Disposable.create(() => this.mcpServerManager.removeServer(mcpServer.name)),
             glspClient.onCurrentStateChanged(state => {

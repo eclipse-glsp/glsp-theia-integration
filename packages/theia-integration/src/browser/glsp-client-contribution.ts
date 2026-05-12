@@ -23,7 +23,7 @@ import {
     MaybePromise,
     listen
 } from '@eclipse-glsp/client';
-import { Disposable, DisposableCollection, MessageService } from '@theia/core';
+import { Channel, Disposable, DisposableCollection, MessageService } from '@theia/core';
 import { FrontendApplication } from '@theia/core/lib/browser';
 import { RemoteConnectionProvider, ServiceConnectionProvider } from '@theia/core/lib/browser/messaging/service-connection-provider';
 import { Deferred } from '@theia/core/lib/common/promise-util';
@@ -188,17 +188,7 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
                             reject(new Error('GLSPClientContribution is already disposed'));
                         }
                         const connection = createChannelConnection(channel);
-                        this.toDispose.push(
-                            Disposable.create(async () => {
-                                // Await the shutdown so the wire flushes before we dispose the connection.
-                                const client = await this.glspClient;
-                                await client.shutdownServer();
-                                connection.dispose();
-                                if (Disposable.is(channel)) {
-                                    channel.dispose();
-                                }
-                            })
-                        );
+                        this.toDispose.push(Disposable.create(() => this.disposeChannel(connection, channel)));
                         resolve(connection);
                     }
                 },
@@ -214,6 +204,22 @@ export abstract class BaseGLSPClientContribution implements GLSPClientContributi
             this.glspClientDeferred.resolve(glspClient);
         } catch (error) {
             this.glspClientDeferred.reject(error);
+        }
+    }
+
+    /** Best-effort `shutdown` (only if the client started) before the channel is torn down. */
+    protected async disposeChannel(connection: MessageConnection, channel: Channel): Promise<void> {
+        try {
+            if (this.glspClientDeferred.state === 'resolved') {
+                await (await this.glspClient).shutdownServer();
+            }
+        } catch {
+            // ignore — server may already be unreachable
+        } finally {
+            connection.dispose();
+            if (Disposable.is(channel)) {
+                channel.dispose();
+            }
         }
     }
 

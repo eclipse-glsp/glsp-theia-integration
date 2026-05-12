@@ -59,26 +59,22 @@ export class WorkflowGLSPClientContribution extends BaseGLSPClientContribution {
         return undefined;
     }
 
-    protected async getWebSocketPortFromEnv(): Promise<number | undefined> {
-        const envVar = await this.envVariablesServer.getValue('WEBSOCKET_PORT');
-        if (envVar && envVar.value) {
-            const webSocketPort = Number.parseInt(envVar.value, 10);
-            if (isNaN(webSocketPort) || webSocketPort < 0 || webSocketPort > 65535) {
-                throw new Error('Value of environment variable WEBSOCKET_PORT is not a valid port');
-            }
-            return webSocketPort;
-        }
-        return undefined;
+    protected getWebSocketPortFromEnv(): Promise<number | undefined> {
+        return this.getPortFromEnv('WEBSOCKET_PORT');
     }
 
-    protected async getMcpServerPortFromEnv(): Promise<number | undefined> {
-        const envVar = await this.envVariablesServer.getValue('GLSP_MCP_SERVER_PORT');
+    protected getMcpServerPortFromEnv(): Promise<number | undefined> {
+        return this.getPortFromEnv('GLSP_MCP_SERVER_PORT');
+    }
+
+    protected async getPortFromEnv(envVarName: string): Promise<number | undefined> {
+        const envVar = await this.envVariablesServer.getValue(envVarName);
         if (envVar && envVar.value) {
-            const mcpServerPort = Number.parseInt(envVar.value, 10);
-            if (isNaN(mcpServerPort) || mcpServerPort < 0 || mcpServerPort > 65535) {
-                throw new Error('Value of environment variable GLSP_MCP_SERVER_PORT is not a valid port');
+            const port = Number.parseInt(envVar.value, 10);
+            if (isNaN(port) || port < 0 || port > 65535) {
+                throw new Error(`Value of environment variable ${envVarName} is not a valid port`);
             }
-            return mcpServerPort;
+            return port;
         }
         return undefined;
     }

@@ -102,9 +102,9 @@ Pick the most fitting tag from the vocabulary (Step 1.2) based on PR title and b
 
 **Formatting:**
 
-- Entry prefix: `-   ` (dash + exactly 3 spaces)
-- Sub-item indent: 4 spaces + `-   ` (4 spaces from parent dash)
-- Sub-sub-item indent: 8 spaces + `-   `
+- Entry prefix: `- ` (dash + 1 space — enforced by prettier)
+- Sub-item indent: 4 spaces + `- ` (4 spaces from parent dash)
+- Sub-sub-item indent: 8 spaces + `- `
 - Single space between `[tag]` and description text
 - Single space before PR link at end of line
 - PR links are mandatory, full URLs: `[#123](https://github.com/OWNER/REPO/pull/123)`
