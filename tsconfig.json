@@ -9,6 +9,9 @@
       "path": "./packages/theia-integration"
     },
     {
+      "path": "./packages/theia-mcp-integration"
+    },
+    {
       "path": "./examples/workflow-theia"
     }
   ]

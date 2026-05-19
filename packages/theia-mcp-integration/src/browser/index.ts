@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2023-2026 EclipseSource and others.
+ * Copyright (c) 2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,11 +13,5 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { ExportResultAction, FeatureModule, configureActionHandler, exportModule } from '@eclipse-glsp/client';
-import { TheiaExportSvgActionHandler } from './theia-export-svg-action-handler';
-export const theiaExportModule = new FeatureModule(
-    (bind, _unbind, isBound, _rebind) => {
-        configureActionHandler({ bind, isBound }, ExportResultAction.KIND, TheiaExportSvgActionHandler);
-    },
-    { requires: exportModule }
-);
+export * from './glsp-mcp-registration';
+export * from './theia-mcp-integration-frontend-module';

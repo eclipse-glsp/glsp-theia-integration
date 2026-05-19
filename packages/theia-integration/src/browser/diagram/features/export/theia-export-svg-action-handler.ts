@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2023-2024 EclipseSource and others.
+ * Copyright (c) 2023-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { EditorContextService, ExportSvgAction, IActionHandler, MaybePromise } from '@eclipse-glsp/client';
+import { EditorContextService, ExportResultAction, IActionHandler, MaybePromise } from '@eclipse-glsp/client';
 import { MessageService, URI } from '@theia/core';
 import { inject, injectable } from '@theia/core/shared/inversify';
 import { FileDialogService } from '@theia/filesystem/lib/browser/file-dialog/file-dialog-service';
@@ -21,8 +21,9 @@ import { FileService } from '@theia/filesystem/lib/browser/file-service';
 import { FileStat } from '@theia/filesystem/lib/common/files';
 
 /**
- * Default {@link IActionHandler} for {@link ExportSvgAction}s in Theia
- * (bound in Diagram child DI container)
+ * Default {@link IActionHandler} for SVG {@link ExportResultAction}s in Theia
+ * (bound in Diagram child DI container). Other export formats are ignored so binary
+ * payloads (e.g. base64-encoded PNG) are not text-written to disk by accident.
  */
 @injectable()
 export class TheiaExportSvgActionHandler implements IActionHandler {
@@ -38,11 +39,13 @@ export class TheiaExportSvgActionHandler implements IActionHandler {
     @inject(EditorContextService)
     protected editorContextService: EditorContextService;
 
-    handle(action: ExportSvgAction): void {
-        this.export(action);
+    handle(action: ExportResultAction): void {
+        if (action.format === 'svg') {
+            this.export(action);
+        }
     }
 
-    async export(action: ExportSvgAction): Promise<void> {
+    async export(action: ExportResultAction): Promise<void> {
         const folder = await this.getExportFolder();
         let file = await this.fileDialogService.showSaveDialog({ title: 'Export Diagram', filters: { 'Images (*.svg)': ['svg'] } }, folder);
         if (file) {
@@ -50,7 +53,7 @@ export class TheiaExportSvgActionHandler implements IActionHandler {
                 if (!file.path.ext) {
                     file = new URI(file.path.fsPath() + '.svg');
                 }
-                await this.fileService.write(file, action.svg);
+                await this.fileService.write(file, action.data);
                 this.messageService.info(`Diagram exported to '${file.path.name}'`);
             } catch (error) {
                 this.messageService.info(`Error exporting diagram '${error}'`);

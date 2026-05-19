@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2017-2025 TypeFox and others.
+ * Copyright (c) 2017-2026 TypeFox and others.
  * Modifications: (c) 2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
@@ -15,18 +15,21 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 // based on: https://github.com/eclipse-sprotty/sprotty-theia/blob/v0.12.0/src/theia/diagram-commands.ts
+import { CenterAction, FitToScreenAction, RedoAction, SelectAllAction, TriggerLayoutAction, UndoAction } from '@eclipse-glsp/client';
+import { ApplicationShell, CommonCommands, QuickInputService } from '@theia/core/lib/browser';
 import {
-    CenterAction,
-    FitToScreenAction,
-    RedoAction,
-    RequestExportSvgAction,
-    SelectAllAction,
-    TriggerLayoutAction,
-    UndoAction
-} from '@eclipse-glsp/client';
-import { ApplicationShell, CommonCommands } from '@theia/core/lib/browser';
-import { CommandContribution, CommandRegistry, MAIN_MENU_BAR, MenuContribution, MenuModelRegistry, MenuPath } from '@theia/core/lib/common';
+    CommandContribution,
+    CommandRegistry,
+    MAIN_MENU_BAR,
+    MenuContribution,
+    MenuModelRegistry,
+    MenuPath,
+    MessageService
+} from '@theia/core/lib/common';
+import { FileDialogService } from '@theia/filesystem/lib/browser/file-dialog/file-dialog-service';
+import { FileService } from '@theia/filesystem/lib/browser/file-service';
 import { inject, injectable } from 'inversify';
+import { TheiaExportCommandHandler } from './features/export/theia-export-command-handler';
 import { GLSPCommandHandler } from './glsp-command-handler';
 
 export namespace GLSPDiagramCommands {
@@ -70,6 +73,18 @@ export class GLSPDiagramCommandContribution implements CommandContribution {
     @inject(ApplicationShell)
     protected readonly shell: ApplicationShell;
 
+    @inject(FileService)
+    protected readonly fileService: FileService;
+
+    @inject(FileDialogService)
+    protected readonly fileDialogService: FileDialogService;
+
+    @inject(QuickInputService)
+    protected readonly quickInputService: QuickInputService;
+
+    @inject(MessageService)
+    protected readonly messageService: MessageService;
+
     registerCommands(registry: CommandRegistry): void {
         registry.registerCommand({
             id: GLSPDiagramCommands.CENTER,
@@ -102,7 +117,7 @@ export class GLSPDiagramCommandContribution implements CommandContribution {
         );
         registry.registerHandler(
             GLSPDiagramCommands.EXPORT,
-            new GLSPCommandHandler(this.shell, { actions: () => RequestExportSvgAction.create(), alwaysVisible: true })
+            new TheiaExportCommandHandler(this.shell, this.fileService, this.fileDialogService, this.quickInputService, this.messageService)
         );
         registry.registerHandler(
             GLSPDiagramCommands.LAYOUT,

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2023 EclipseSource and others.
+ * Copyright (c) 2019-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { Args, MaybePromise } from '@eclipse-glsp/client';
+import { McpInitializeParameters } from '@eclipse-glsp/protocol';
 import { BaseGLSPClientContribution, WebSocketConnectionOptions } from '@eclipse-glsp/theia-integration/lib/browser';
 import { EnvVariablesServer } from '@theia/core/lib/common/env-variables';
 import { inject, injectable } from '@theia/core/shared/inversify';
@@ -31,6 +32,14 @@ export class WorkflowGLSPClientContribution extends BaseGLSPClientContribution {
 
     readonly id = WorkflowLanguage.contributionId;
     readonly fileExtensions = WorkflowLanguage.fileExtensions;
+
+    protected override async createInitializeParameters(): Promise<McpInitializeParameters> {
+        const mcpPort = await this.getMcpServerPortFromEnv();
+        return {
+            ...(await super.createInitializeParameters()),
+            mcpServer: { name: 'glsp-workflow', ...(mcpPort !== undefined && { port: mcpPort }) }
+        };
+    }
 
     protected override createInitializeOptions(): MaybePromise<Args | undefined> {
         return {
@@ -50,14 +59,22 @@ export class WorkflowGLSPClientContribution extends BaseGLSPClientContribution {
         return undefined;
     }
 
-    protected async getWebSocketPortFromEnv(): Promise<number | undefined> {
-        const envVar = await this.envVariablesServer.getValue('WEBSOCKET_PORT');
+    protected getWebSocketPortFromEnv(): Promise<number | undefined> {
+        return this.getPortFromEnv('WEBSOCKET_PORT');
+    }
+
+    protected getMcpServerPortFromEnv(): Promise<number | undefined> {
+        return this.getPortFromEnv('GLSP_MCP_SERVER_PORT');
+    }
+
+    protected async getPortFromEnv(envVarName: string): Promise<number | undefined> {
+        const envVar = await this.envVariablesServer.getValue(envVarName);
         if (envVar && envVar.value) {
-            const webSocketPort = Number.parseInt(envVar.value, 10);
-            if (isNaN(webSocketPort) || webSocketPort < 0 || webSocketPort > 65535) {
-                throw new Error('Value of environment variable WEBSOCKET_PORT is not a valid port');
+            const port = Number.parseInt(envVar.value, 10);
+            if (isNaN(port) || port < 0 || port > 65535) {
+                throw new Error(`Value of environment variable ${envVarName} is not a valid port`);
             }
-            return webSocketPort;
+            return port;
         }
         return undefined;
     }

@@ -9,6 +9,9 @@
   "references": [
     {
       "path": "../../packages/theia-integration"
+    },
+    {
+      "path": "../../packages/theia-mcp-integration"
     }
   ]
 }
