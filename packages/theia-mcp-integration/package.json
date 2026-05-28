@@ -47,8 +47,8 @@
     "@eclipse-glsp/theia-integration": "2.7.0-next"
   },
   "peerDependencies": {
-    "@theia/ai-mcp": "^1.64.0",
-    "@theia/core": "^1.64.0"
+    "@theia/ai-mcp": "^1.66.0",
+    "@theia/core": "^1.66.0"
   },
   "publishConfig": {
     "access": "public"
