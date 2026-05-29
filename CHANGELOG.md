@@ -2,10 +2,14 @@
 
 ## v2.7.0 - active
 
+### Changes
+
+- [feature] Add support for Model Context Protocol [#271](https://github.com/eclipse-glsp/glsp-theia-integration/pull/271)
+
 ### Potentially Breaking Changes
 
-- [build] Update to Node 22 and Theia 1.70.0 example projects [#290](https://github.com/eclipse-glsp/glsp-theia-integration/pull/290)
-    - Theia >= 1.70.0 requires Node `22` and electron `39.7.0`
+- [build] Update to Node 22 [#290](https://github.com/eclipse-glsp/glsp-theia-integration/pull/290)
+- [theia] Update example projects to Theia 1.71.x and adjust minimum Theia version to 1.66.x [#315](https://github.com/eclipse-glsp/glsp-theia-integration/pull/315)
 
 ## [v2.6.0 - 10/02/2026](https://github.com/eclipse-glsp/glsp-theia-integration/releases/tag/v2.6.0)
 
