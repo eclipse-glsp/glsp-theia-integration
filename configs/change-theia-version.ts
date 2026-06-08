@@ -16,8 +16,14 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as semver from 'semver';
-const BROWSER_APP_PATH = path.resolve(__dirname, '..', 'examples', 'browser-app');
-const ELECTRON_APP_PATH = path.resolve(__dirname, '..', 'examples', 'electron-app');
+const ROOT_PATH = path.resolve(__dirname, '..');
+const BROWSER_APP_PATH = path.resolve(ROOT_PATH, 'examples', 'browser-app');
+const ELECTRON_APP_PATH = path.resolve(ROOT_PATH, 'examples', 'electron-app');
+
+// Theia versions < 1.71.x are incompatible with newer @vscode/ripgrep releases, which breaks the build.
+// Pin @vscode/ripgrep to the last compatible version via a yarn resolution for those compatibility builds.
+const RIPGREP_RESOLUTION_VERSION = '1.17.1';
+const RIPGREP_MIN_THEIA_VERSION = '1.71.0';
 
 function updateTheiaDependencyVersion(appPath: string, version: string, electronVersion?: string): void {
     const pkgJson = path.join(appPath, 'package.json');
@@ -45,6 +51,30 @@ function updateTheiaDependencyVersion(appPath: string, version: string, electron
     console.log(`Updated ${appPath} to @theia version ${version}`);
 }
 
+function updateRipgrepResolution(version: string): void {
+    const pkgJson = path.join(ROOT_PATH, 'package.json');
+    const pkg: { resolutions?: Record<string, string> } = JSON.parse(fs.readFileSync(pkgJson, 'utf8'));
+
+    const minVersion = version === 'latest' ? undefined : (semver.minVersion(version) ?? undefined);
+    const needsResolution = minVersion !== undefined && semver.lt(minVersion, RIPGREP_MIN_THEIA_VERSION);
+
+    const resolutions = pkg.resolutions ?? {};
+    if (needsResolution) {
+        resolutions['@vscode/ripgrep'] = RIPGREP_RESOLUTION_VERSION;
+        console.log(`Pinned @vscode/ripgrep to ${RIPGREP_RESOLUTION_VERSION} for @theia version ${version}`);
+    } else {
+        delete resolutions['@vscode/ripgrep'];
+    }
+
+    if (Object.keys(resolutions).length > 0) {
+        pkg.resolutions = resolutions;
+    } else {
+        delete pkg.resolutions;
+    }
+
+    fs.writeFileSync(pkgJson, JSON.stringify(pkg, undefined, 2) + '\n');
+}
+
 const version = process.argv[2];
 if (!version) {
     console.error('Please provide a version number/range');
@@ -61,6 +91,8 @@ if (electronVersion && !semver.validRange(electronVersion)) {
     console.error(`Invalid electron version number/range ${electronVersion}`);
     process.exit(1);
 }
+
+updateRipgrepResolution(version);
 
 if (fs.existsSync(BROWSER_APP_PATH)) {
     updateTheiaDependencyVersion(BROWSER_APP_PATH, version);
