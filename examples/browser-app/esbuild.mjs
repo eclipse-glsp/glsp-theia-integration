@@ -10,12 +10,8 @@ import esbuild from 'esbuild';
 const browserContext = await esbuild.context(browserOptions);
 const nodeContext = await esbuild.context(nodeOptions);
 
-
 if (watch) {
-    await Promise.all([
-        browserContext.watch(),
-        nodeContext.watch(),
-    ]);
+    await Promise.all([browserContext.watch(), nodeContext.watch()]);
 } else {
     try {
         await browserContext.rebuild();

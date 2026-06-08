@@ -12,11 +12,7 @@ const nodeContext = await esbuild.context(nodeOptions);
 const electronContext = await esbuild.context(electronOptions);
 
 if (watch) {
-    await Promise.all([
-        browserContext.watch(),
-        nodeContext.watch(),
-        electronContext.watch(),
-    ]);
+    await Promise.all([browserContext.watch(), nodeContext.watch(), electronContext.watch()]);
 } else {
     try {
         await browserContext.rebuild();
