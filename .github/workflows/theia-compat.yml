@@ -16,8 +16,9 @@ jobs:
     name: Build
     runs-on: ubuntu-22.04
     strategy:
+      fail-fast: false
       matrix:
-        theia_version: [1.66.0, 1.68.0, latest]
+        theia_version: [1.66.0, 1.71.2, latest]
     env:
       GLSP_REPO_DIR: '${{ github.workspace }}'
       GLSP_SERVER_PORT: '8081'
@@ -52,10 +53,14 @@ jobs:
         run: |
           cd glsp-theia-integration
           yarn change:theia-version ${{ matrix.theia_version }}
-      - name: Clean yarn.lock
+      # Reinstall to apply the downgrade. Must run before `electron build` so theia's native
+      # module backup/restore (.browser_modules) operates on the correctly downgraded tree.
+      - name: Install downgraded dependencies
         run: |
           cd glsp-theia-integration
-          rm -f yarn.lock
+          yarn install --force --skip-integrity-check --network-timeout 100000
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9
       - name: Build electron
         run: |
           cd glsp-theia-integration
