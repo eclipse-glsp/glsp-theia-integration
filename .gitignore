@@ -11,8 +11,9 @@ tsconfig.tsbuildinfo
 *.log
 
 examples/*-app/src-gen/
-examples/*-app/gen-webpack.config.js
-examples/*-app/gen-webpack.node.config.js
+examples/*-app/gen-esbuild.electron.mjs
+examples/*-app/gen-esbuild.browser.mjs
+examples/*-app/gen-esbuild.node.mjs
 examples/**/server/**
 !examples/**/server/download.ts
 

@@ -16,21 +16,21 @@
   },
   "dependencies": {
     "@eclipse-glsp-examples/workflow-theia": "2.8.0-next",
-    "@theia/core": "~1.71.2",
-    "@theia/editor": "~1.71.2",
-    "@theia/electron": "~1.71.2",
-    "@theia/filesystem": "~1.71.2",
-    "@theia/markers": "~1.71.2",
-    "@theia/messages": "~1.71.2",
-    "@theia/monaco": "~1.71.2",
-    "@theia/navigator": "~1.71.2",
-    "@theia/preferences": "~1.71.2",
-    "@theia/process": "~1.71.2",
-    "@theia/terminal": "~1.71.2",
-    "@theia/workspace": "~1.71.2"
+    "@theia/core": "1.72.2",
+    "@theia/editor": "1.72.2",
+    "@theia/electron": "1.72.2",
+    "@theia/filesystem": "1.72.2",
+    "@theia/markers": "1.72.2",
+    "@theia/messages": "1.72.2",
+    "@theia/monaco": "1.72.2",
+    "@theia/navigator": "1.72.2",
+    "@theia/preferences": "1.72.2",
+    "@theia/process": "1.72.2",
+    "@theia/terminal": "1.72.2",
+    "@theia/workspace": "1.72.2"
   },
   "devDependencies": {
-    "@theia/cli": "~1.71.2",
+    "@theia/cli": "1.72.2",
     "electron": "39.8.7"
   },
   "theia": {
