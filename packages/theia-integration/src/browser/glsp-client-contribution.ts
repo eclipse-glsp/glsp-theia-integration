@@ -36,6 +36,7 @@ import '../../css/diagram.css';
 import '../../css/features.css';
 import '../../css/theia-dialogs.css';
 import '../../css/tool-palette.css';
+import '../../css/selection-palette.css';
 import {
     GLSPContribution,
     WebSocketConnectionInfo,
