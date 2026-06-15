@@ -3,7 +3,7 @@
   "version": "2.8.0-next",
   "private": true,
   "scripts": {
-    "build": "yarn rebuild && theia build --mode development",
+    "build": "pnpm -w compile && pnpm rebuild && theia build --mode development",
     "clean": "rimraf lib",
     "rebuild": "theia rebuild:browser --cacheRoot ../..",
     "start": "theia start --WF_GLSP=0 --root-dir=../workspace",
@@ -14,7 +14,7 @@
     "watch": "theia build --watch --mode development"
   },
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-theia": "2.8.0-next",
+    "@eclipse-glsp-examples/workflow-theia": "workspace:*",
     "@theia/ai-anthropic": "1.72.2",
     "@theia/ai-ide": "1.72.2",
     "@theia/ai-openai": "1.72.2",

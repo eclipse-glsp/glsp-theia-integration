@@ -4,7 +4,7 @@ This package provides the glue code to automatically register [Model Context Pro
 
 When a GLSP server advertises an MCP server endpoint during initialization, this package discovers it and registers (and optionally auto-starts) the MCP server in the running Theia instance — making GLSP diagram tools available to Theia's AI agents without manual configuration.
 
-This project is built with `yarn` and is available from npm via [@eclipse-glsp/theia-mcp-integration](https://www.npmjs.com/package/@eclipse-glsp/theia-mcp-integration).
+This project is built with `pnpm` and is available from npm via [@eclipse-glsp/theia-mcp-integration](https://www.npmjs.com/package/@eclipse-glsp/theia-mcp-integration).
 
 ## Theia Version Compatibility
 

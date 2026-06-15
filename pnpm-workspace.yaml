@@ -1,0 +1,44 @@
+packages:
+    - 'packages/*'
+    - 'examples/*'
+
+# In contrast to other GLSP repos, we cannot use pnpms strict hoisting here and have to fallback to
+# shamefully hoisting (similar to yarn/npms flat layout)
+# Building the Theia example apps resolves a large, version-specific graph of transitive packages
+# directly from the app directories: theia extensions, native bundles, esbuild tooling, electron tooling etc.
+# Strictly hoisting these is a lot of maintenance effort and brittle across Theia versions
+# Published packages enforce strictly declared dependencies via eslint
+shamefullyHoist: true
+
+# Our extensions declare loose `@theia/* : ^1.66.0` peers; auto-installing them pulls the latest
+# patch and mixes @theia versions. Resolve peers from the app-pinned version instead.
+autoInstallPeers: false
+
+# Deps allowed to run install/build scripts
+# Theia has many native/postinstall deps (electron, keytar, etc.).
+allowBuilds:
+    esbuild: true
+    unrs-resolver: true
+    electron: true
+    '@theia/node-pty': true
+    keytar: true
+    nsfw: true
+    native-keymap: true
+    drivelist: true
+    find-git-repositories: true
+    node-addon-api: true
+    '@parcel/watcher': true
+    '@theia/ffmpeg': true
+    msgpackr-extract: true
+    node-pty: true
+    puppeteer: true
+
+# Min age (minutes) of dependency versions to install — supply-chain hardening. 4320 = 72h.
+minimumReleaseAge: 4320
+minimumReleaseAgeIgnoreMissingTime: false
+# First-party packages are consumed as fresh nightlies (next tag), not a supply-chain risk —
+# exempt them from the age gate. @eclipse-glsp-examples/* is a separate scope used by
+# examples/workflow-theia.
+minimumReleaseAgeExclude:
+    - '@eclipse-glsp/*'
+    - '@eclipse-glsp-examples/*'

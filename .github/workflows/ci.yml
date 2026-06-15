@@ -20,33 +20,29 @@ on:
 
 jobs:
   build:
-    name: Build & Test
+    name: Build
     timeout-minutes: 60
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
       - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: 22.x
+          cache: pnpm
       - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.11'
       - name: Build
-        run: yarn --skip-integrity-check --network-timeout 100000
+        run: pnpm compile
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9
-      - name: Check for uncommitted changes in yarn.lock
-        run: |
-          if git diff --name-only | grep -q "^yarn.lock"; then
-            echo "::error::The yarn.lock file has uncommitted changes!"
-            exit 1
-          fi
       - name: Build electron
-        run: yarn electron build
+        run: pnpm electron build
         env:
           NODE_OPTIONS: --max_old_space_size=4096
       - name: Build browser
-        run: yarn browser build
+        run: pnpm browser build
         env:
           NODE_OPTIONS: --max_old_space_size=4096
   lint:
@@ -55,19 +51,16 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
       - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: 22.x
+          cache: pnpm
       - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.11'
-      - name: Install
-        run: |
-          yarn install --ignore-scripts
-          yarn compile
       - name: Create eslint json report
-        run: |
-          yarn lint:ci
+        run: pnpm lint:ci
       - name: Create summary
         if: always()
         run: |

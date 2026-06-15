@@ -36,19 +36,23 @@
     "css"
   ],
   "scripts": {
-    "build": "tsc -b",
+    "build": "pnpm compile",
     "clean": "rimraf lib *.tsbuildinfo ",
+    "compile": "tsc -b",
     "generate:index": "glsp generateIndex src/browser -s -f",
     "lint": "eslint --ext .ts,.tsx ./src",
+    "prepublishOnly": "pnpm build",
     "watch": "tsc -w"
   },
   "dependencies": {
     "@eclipse-glsp/client": "next",
-    "@eclipse-glsp/theia-integration": "2.8.0-next"
+    "@eclipse-glsp/protocol": "next",
+    "@eclipse-glsp/theia-integration": "workspace:*"
   },
   "peerDependencies": {
     "@theia/ai-mcp": "^1.66.0",
-    "@theia/core": "^1.66.0"
+    "@theia/core": "^1.66.0",
+    "reflect-metadata": "^0.2.2"
   },
   "publishConfig": {
     "access": "public"

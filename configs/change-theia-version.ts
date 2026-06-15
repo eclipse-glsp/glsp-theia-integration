@@ -21,7 +21,7 @@ const BROWSER_APP_PATH = path.resolve(ROOT_PATH, 'examples', 'browser-app');
 const ELECTRON_APP_PATH = path.resolve(ROOT_PATH, 'examples', 'electron-app');
 
 // Theia versions < 1.71.x are incompatible with newer @vscode/ripgrep releases, which breaks the build.
-// Pin @vscode/ripgrep to the last compatible version via a yarn resolution for those compatibility builds.
+// Pin @vscode/ripgrep to the last compatible version via a pnpm override for those compatibility builds.
 const RIPGREP_RESOLUTION_VERSION = '1.17.1';
 const RIPGREP_MIN_THEIA_VERSION = '1.71.0';
 
@@ -53,23 +53,32 @@ function updateTheiaDependencyVersion(appPath: string, version: string, electron
 
 function updateRipgrepResolution(version: string): void {
     const pkgJson = path.join(ROOT_PATH, 'package.json');
-    const pkg: { resolutions?: Record<string, string> } = JSON.parse(fs.readFileSync(pkgJson, 'utf8'));
+    const pkg: { pnpm?: { overrides?: Record<string, string> } } = JSON.parse(fs.readFileSync(pkgJson, 'utf8'));
 
     const minVersion = version === 'latest' ? undefined : (semver.minVersion(version) ?? undefined);
     const needsResolution = minVersion !== undefined && semver.lt(minVersion, RIPGREP_MIN_THEIA_VERSION);
 
-    const resolutions = pkg.resolutions ?? {};
+    const pnpm = pkg.pnpm ?? {};
+    const overrides = pnpm.overrides ?? {};
     if (needsResolution) {
-        resolutions['@vscode/ripgrep'] = RIPGREP_RESOLUTION_VERSION;
+        overrides['@vscode/ripgrep'] = RIPGREP_RESOLUTION_VERSION;
         console.log(`Pinned @vscode/ripgrep to ${RIPGREP_RESOLUTION_VERSION} for @theia version ${version}`);
     } else {
-        delete resolutions['@vscode/ripgrep'];
+        delete overrides['@vscode/ripgrep'];
     }
 
-    if (Object.keys(resolutions).length > 0) {
-        pkg.resolutions = resolutions;
+    if (Object.keys(overrides).length > 0) {
+        pnpm.overrides = overrides;
+        pkg.pnpm = pnpm;
     } else {
-        delete pkg.resolutions;
+        if (pnpm.overrides !== undefined) {
+            delete pnpm.overrides;
+        }
+        if (Object.keys(pnpm).length === 0) {
+            delete pkg.pnpm;
+        } else {
+            pkg.pnpm = pnpm;
+        }
     }
 
     fs.writeFileSync(pkgJson, JSON.stringify(pkg, undefined, 2) + '\n');

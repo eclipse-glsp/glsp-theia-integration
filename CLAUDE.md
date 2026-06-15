@@ -2,19 +2,17 @@
 
 ## Project Overview
 
-Eclipse GLSP Theia Integration — provides the glue code for integrating GLSP diagram editors into Theia IDE applications.
+Eclipse GLSP Theia Integration — provides the glue code for integrating GLSP diagram editors into Theia IDE applications. Uses pnpm workspaces.
 
 ## Build & Development
 
-- **Package manager**: Yarn 1.x (classic) — do not use Yarn 2+/Berry or npm
-- **Install & build**: `yarn build` (installs deps + compiles TypeScript)
+- **Package manager**: pnpm — do not use yarn or npm
 
 ## Validation
 
-- After completing any code changes, always run the `/verify` skill before reporting completion
-- If verification fails, run the `/fix` skill to auto-fix issues, then re-run `/verify`
+- After completing any code changes, always run the `/fix` skill before reporting completion. It builds first (hard gate) and then auto-fixes lint/format/header issues; manually resolve anything it could not auto-fix (build errors, remaining lint errors) and re-run it.
 
 ### Example Apps
 
-- **Browser app**: `yarn browser build` then `yarn browser start`
-- **Electron app**: `yarn electron build` then `yarn electron start`
+- **Browser app**: `pnpm browser build` then `pnpm browser start`
+- **Electron app**: `pnpm electron build` then `pnpm electron start`
