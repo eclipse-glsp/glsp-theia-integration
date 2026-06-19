@@ -24,3 +24,4 @@ eslint_report.json
 .claude/CLAUDE.local.md
 .claude/plans
 .reviews
+.worktrees/

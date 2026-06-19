@@ -50,7 +50,6 @@ import {
 } from '@theia/core/lib/browser';
 import { SelectionService } from '@theia/core/lib/common/selection-service';
 import { Container, inject } from '@theia/core/shared/inversify';
-import { pickBy } from 'lodash';
 import { GLSPSaveable } from './glsp-saveable';
 
 export interface GLSPDiagramWidgetOptions extends NavigatableWidgetOptions {
@@ -158,7 +157,10 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
     }
 
     protected getRequestModelOptions(): Args {
-        const definedOptions: any = pickBy(this.options, v => v !== undefined && typeof v !== 'object');
+        // Only forward defined primitive options (filter out `undefined` and nested objects).
+        const definedOptions = Object.fromEntries(
+            Object.entries(this.options).filter(([, value]) => value !== undefined && typeof value !== 'object')
+        );
 
         return {
             sourceUri: this.uri.path.fsPath(),

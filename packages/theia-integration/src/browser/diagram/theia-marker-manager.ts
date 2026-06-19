@@ -17,7 +17,7 @@ import { bindOrRebind, ExternalMarkerManager, IActionDispatcher, Marker, MarkerK
 import { Disposable, DisposableCollection, URI } from '@theia/core';
 import { Container, inject, injectable, optional, postConstruct, preDestroy } from '@theia/core/shared/inversify';
 import { ProblemManager } from '@theia/markers/lib/browser/problem/problem-manager';
-import { Diagnostic } from 'vscode-languageserver-types';
+import { Diagnostic } from '@theia/core/shared/vscode-languageserver-protocol';
 
 import { ApplicationShell, Widget } from '@theia/core/lib/browser';
 import { SelectionWithElementIds } from '../theia-opener-options-navigation-service';

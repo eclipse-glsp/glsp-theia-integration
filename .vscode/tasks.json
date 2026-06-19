@@ -4,10 +4,10 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "[Theia] Build all packages",
+      "label": "[Theia] Compile browser app",
       "type": "shell",
       "group": "build",
-      "command": "yarn",
+      "command": "pnpm compile",
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -18,7 +18,7 @@
       "label": "[Theia] Watch all",
       "type": "shell",
       "group": "build",
-      "command": "yarn watch",
+      "command": "pnpm watch",
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -29,7 +29,7 @@
       "label": "[Theia] Start Workflow Theia Backend Example",
       "type": "shell",
       "group": "test",
-      "command": "cd examples/browser-app && yarn start",
+      "command": "cd examples/browser-app && pnpm start",
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -40,7 +40,7 @@
       "label": "[Theia] Start Workflow Theia Backend Example (WebSocket Server)",
       "type": "shell",
       "group": "test",
-      "command": "cd examples/browser-app && yarn start:ws",
+      "command": "cd examples/browser-app && pnpm start:ws",
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -51,7 +51,7 @@
       "label": "[Theia] Start Workflow Theia Backend Example (DEBUG)",
       "type": "shell",
       "group": "test",
-      "command": "cd examples/browser-app && yarn start:debug",
+      "command": "cd examples/browser-app && pnpm start:debug",
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -62,7 +62,7 @@
       "label": "[Theia] Start Workflow Theia Backend Example (WebSocket Server) (DEBUG)",
       "type": "shell",
       "group": "test",
-      "command": "cd examples/browser-app && yarn start:ws:debug",
+      "command": "cd examples/browser-app && pnpm start:ws:debug",
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -73,7 +73,7 @@
       "label": "[Theia] Download latest Workflow Example Java server",
       "type": "shell",
       "group": "test",
-      "command": "yarn download:exampleServer",
+      "command": "pnpm download:exampleServer",
       "presentation": {
         "reveal": "always",
         "panel": "new"

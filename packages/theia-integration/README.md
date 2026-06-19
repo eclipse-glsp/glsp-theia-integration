@@ -2,7 +2,7 @@
 
 This package contains the glue code necessary to integrate diagram editors built with the [graphical language server platform](https://github.com/eclipse-glsp/glsp) with [Eclipse Theia](https://github.com/theia-ide/theia).
 
-This project is built with `yarn` and is available from npm via [@eclipse-glsp/theia-integration](https://www.npmjs.com/package/@eclipse-glsp/theia-integration).
+This project is built with `pnpm` and is available from npm via [@eclipse-glsp/theia-integration](https://www.npmjs.com/package/@eclipse-glsp/theia-integration).
 
 ## Theia Version Compatibility
 
@@ -31,10 +31,10 @@ This project is built with `yarn` and is available from npm via [@eclipse-glsp/t
 
 - When using Theia versions `<= 1.55.1` you might encounter runtime issues related to inversify.
   Due to a loose version restriction Theia might pull in an incompatible version.
-  To resolve this the inversify version need to be locked to `6.0.2`. (e.g. via [yarn resolutions](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/) or [npm overrides](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#overrides))
+  To resolve this the inversify version need to be locked to `6.0.2`. (e.g. via [pnpm overrides](https://pnpm.io/package_json#pnpmoverrides) or [npm overrides](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#overrides))
 - Issues with `node-abi` when using node < 22:
   Due to a dynamic dependency range an incompatible version of node-abi might get resolved when using node < 22.x.
-  To resolve this the version needs to be locked to `^3.0.0`. (e.g. via [yarn resolutions](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/) or [npm overrides](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#overrides))
+  To resolve this the version needs to be locked to `^3.0.0`. (e.g. via [pnpm overrides](https://pnpm.io/package_json#pnpmoverrides) or [npm overrides](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#overrides))
 - For `@eclipse-glsp/theia-integration` versions `<=1.0.0` it is not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project e.g. for `1.0.0-theia1.27.0`:
 
     ```json

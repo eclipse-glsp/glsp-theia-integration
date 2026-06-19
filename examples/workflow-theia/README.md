@@ -2,7 +2,7 @@
 
 This package contains the glue code to integrate the [GLSP Workflow example language](https://www.npmjs.com/package/@eclipse-glsp-examples/workflow-glsp) into a Theia application.
 
-This project is built with `yarn` and is available from npm via [@eclipse-glsp-examples/workflow-theia](https://www.npmjs.com/package/@eclipse-glsp-examples/workflow-theia).
+This project is built with `pnpm` and is available from npm via [@eclipse-glsp-examples/workflow-theia](https://www.npmjs.com/package/@eclipse-glsp-examples/workflow-theia).
 
 ## Theia Version Compatibility
 

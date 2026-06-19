@@ -2,7 +2,7 @@
 
 This project contains the glue code necessary to integrate diagram editors built with the [graphical language server platform](https://github.com/eclipse-glsp/glsp) with [Eclipse Theia](https://github.com/theia-ide/theia) as well as an example Theia application for testing purposes.
 
-This project is built with `yarn` and is available from npm via [@eclipse-glsp/theia-integration](https://www.npmjs.com/package/@eclipse-glsp/theia-integration).
+This project is built with `pnpm` and is available from npm via [@eclipse-glsp/theia-integration](https://www.npmjs.com/package/@eclipse-glsp/theia-integration).
 
 For details on building the project, please see the [README file of the theia-integration package](/packages/theia-integration/README.md).
 
@@ -33,10 +33,10 @@ For details on building the project, please see the [README file of the theia-in
 
 - When using Theia versions `<= 1.55.1` you might encounter runtime issues related to inversify.
   Due to a loose version restriction Theia might pull in an incompatible version.
-  To resolve this the inversify version need to be locked to `6.0.2`. (e.g. via [yarn resolutions](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/) or [npm overrides](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#overrides))
+  To resolve this the inversify version need to be locked to `6.0.2`. (e.g. via [pnpm overrides](https://pnpm.io/package_json#pnpmoverrides) or [npm overrides](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#overrides))
 - Issues with `node-abi` when using node < 22:
   Due to a dynamic dependency range an incompatible version of node-abi might get resolved when using node < 22.x.
-  To resolve this the version needs to be locked to `^3.0.0`. (e.g. via [yarn resolutions](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/) or [npm overrides](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#overrides))
+  To resolve this the version needs to be locked to `^3.0.0`. (e.g. via [pnpm overrides](https://pnpm.io/package_json#pnpmoverrides) or [npm overrides](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#overrides))
 - For `@eclipse-glsp/theia-integration` versions `<=1.0.0` it is not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project e.g. for `1.0.0-theia1.27.0`:
 
     ```json
@@ -50,6 +50,23 @@ For details on building the project, please see the [README file of the theia-in
     },
     ...
     ```
+
+## Developer Documentation
+
+### First time setup
+
+- Install [node.js](https://nodejs.org/) (requires Node v22+)
+- Install pnpm: <https://pnpm.io/installation> (use pnpm 10+); a recent pnpm automatically switches to the version pinned in the `packageManager` field
+- Clone this repository
+- Install dependencies: `pnpm i` or `pnpm i --frozen-lockfile`
+
+### Build & Testing
+
+- Build browser app (all packages): `pnpm browser build`
+- Build electron app (all packages): `pnpm electron build`
+- Lint (all packages): `pnpm lint`
+- Clean (all packages): `pnpm clean`
+- Full validation: `pnpm check:all`
 
 ## Workflow Diagram Example
 
@@ -65,34 +82,34 @@ See [our project website](https://www.eclipse.org/glsp/documentation/#workflowov
 
 ### How to start the Workflow Diagram example?
 
-Clone this repository and build Theia-Integration packages:
+Clone this repository and compile Theia-Integration packages:
 
 ```bash
-yarn install
+pnpm compile
 ```
 
 To build the browser application execute:
 
 ```bash
-yarn browser build
+pnpm browser build
 ```
 
 Next, start the Theia application, and point your browser to [localhost:3000](http://localhost:3000):
 
 ```bash
-yarn browser start
+pnpm browser start
 ```
 
 To build the Electron application execute:
 
 ```bash
-yarn electron build
+pnpm electron build
 ```
 
 Then start the Electron application with:
 
 ```bash
-yarn electron start
+pnpm electron start
 ```
 
 ### How to start the Workflow Diagram example server from the sources
@@ -104,11 +121,11 @@ Checkout the README of the [glsp-server](https://github.com/eclipse-glsp/glsp-se
 Once the Workflow Diagram Server is running, start the Theia application with the `debug` flag so that it'll connect to an existing server process -- the one you started from the command line or from your IDE before:
 
 ```bash
-yarn browser start:debug
+pnpm browser start:debug
 
 // or
 
-yarn electron start:debug
+pnpm electron start:debug
 ```
 
 ### Start Workflow Diagram example in WebSocket mode
@@ -126,11 +143,11 @@ The example provides scripts and launch configs that pass this argument to test 
 
 - Embedded: Start a Node GLSP server in WebSocket mode along with the backend:
     - VS Code Launch config: `Launch Workflow Browser Backend (WebSocket GLSP Server)`
-    - Script: `yarn browser start:ws` or `yarn electron start:ws`
+    - Script: `pnpm browser start:ws` or `pnpm electron start:ws`
 
 - Debug mode: Expects a running GLSP server (Java or Node) in WebSocket mode:
     - VS Code Launch config: `Launch Workflow Browser Backend (External Websocket GLSP Server)`
-    - Script: `yarn browser start:ws:debug` or `yarn electron start:ws:debug`
+    - Script: `pnpm browser start:ws:debug` or `pnpm electron start:ws:debug`
 
 #### **2. Connect directly to GLSP server from frontend via WebSockets**
 
@@ -152,7 +169,7 @@ If this argument is passed, the node-based GLSP server will be integrated direct
 The example provides scripts and launch configs that pass this argument to test this connectivity option:
 
 - VS Code Launch config: `Launch Workflow Browser Backend (Integrated Node GLSP Server)`
-- Script: `yarn browser start:integrated` or `yarn electron start:integrated`
+- Script: `pnpm browser start:integrated` or `pnpm electron start:integrated`
 
 > _**Remark:**_ In production, one would decide for one way of connectivity, and would not implement all the different options as we do in the workflow diagram example. This was setup to easily show and switch between the different possibilities.
 

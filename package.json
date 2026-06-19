@@ -2,47 +2,41 @@
   "name": "parent",
   "version": "2.8.0-next",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "examples/*"
-  ],
   "scripts": {
-    "all": "yarn install && yarn lint && yarn generate:index",
-    "browser": "yarn -s --cwd examples/browser-app",
-    "build": "yarn install && yarn compile",
+    "browser": "pnpm -C examples/browser-app",
     "change:theia-version": "ts-node ./configs/change-theia-version.ts",
-    "check:all": "yarn install && yarn lint && yarn format:check && yarn headers:check",
-    "check:headers": "yarn glsp checkHeaders . -t lastCommit",
-    "check:pr": "yarn all && yarn format:check && yarn check:headers",
+    "check:all": "pnpm build && pnpm lint && pnpm format:check && pnpm headers:check",
+    "check:headers": "glsp checkHeaders . -t lastCommit",
+    "check:pr": "pnpm all && pnpm format:check && pnpm check:headers",
     "check:theia-version": "theia check:theia-version",
-    "clean": "lerna run clean && rimraf logs/*.log",
+    "clean": "pnpm -r run clean && rimraf logs/*.log",
     "compile": "tsc -b",
-    "electron": "yarn -s --cwd examples/electron-app",
-    "fix:all": "yarn lint:fix && yarn format && yarn headers:fix",
+    "electron": "pnpm -C examples/electron-app",
+    "fix:all": "pnpm lint:fix && pnpm format && pnpm headers:fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "generate:index": "lerna run generate:index && yarn lint:fix",
-    "headers:check": "yarn glsp checkHeaders .",
-    "headers:fix": "yarn glsp checkHeaders . --autoFix",
-    "lint": "eslint .",
-    "lint:ci": "yarn lint --output-file eslint_report.json --format json",
-    "lint:fix": "yarn lint --fix",
-    "prepare": "yarn compile && yarn check:theia-version",
-    "publish:latest": "lerna publish from-package --no-git-reset -y",
-    "publish:next": "lerna publish preminor --exact --canary --preid next --dist-tag next --no-git-reset --no-git-tag-version --no-push --ignore-scripts --yes",
+    "generate:index": "pnpm -r generate:index && pnpm lint:fix",
+    "headers:check": "glsp checkHeaders .",
+    "headers:fix": "glsp checkHeaders . --autoFix",
+    "preinstall": "npx only-allow pnpm",
+    "lint": "pnpm compile && eslint .",
+    "lint:ci": "pnpm lint --output-file eslint_report.json --format json",
+    "lint:fix": "pnpm lint --fix",
+    "publish:latest": "glsp releng publish latest",
+    "publish:next": "glsp releng publish next",
     "upgrade:next": "glsp updateNext",
-    "watch:browser": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"yarn -s browser watch\"",
-    "watch:electron": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"yarn -s electron watch\""
+    "watch:browser": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"pnpm browser watch\"",
+    "watch:electron": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"pnpm electron watch\""
   },
   "devDependencies": {
     "@eclipse-glsp/dev": "next",
     "@types/node": "22.x",
     "concurrently": "^8.2.2",
-    "lerna": "^9.0.0",
     "typescript": "^5.9.2"
   },
+  "packageManager": "pnpm@11.7.0",
   "engines": {
     "node": ">=22",
-    "yarn": ">=1.7.0 <2"
+    "pnpm": ">=11"
   }
 }

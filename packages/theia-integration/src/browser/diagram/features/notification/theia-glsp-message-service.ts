@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2023-2025 EclipseSource and others.
+ * Copyright (c) 2023-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import {
+    Action,
     Disposable,
     EndProgressAction,
     IActionHandler,
@@ -25,7 +26,6 @@ import {
 import { MessageService, Progress } from '@theia/core';
 import { ConfirmDialog } from '@theia/core/lib/browser';
 import { inject, injectable, preDestroy } from '@theia/core/shared/inversify';
-import { Action } from 'sprotty-protocol/lib/actions';
 
 @injectable()
 export class TheiaGLSPMessageService implements IActionHandler, Disposable {
