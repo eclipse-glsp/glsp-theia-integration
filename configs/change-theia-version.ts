@@ -25,6 +25,12 @@ const ELECTRON_APP_PATH = path.resolve(ROOT_PATH, 'examples', 'electron-app');
 const RIPGREP_RESOLUTION_VERSION = '1.17.1';
 const RIPGREP_MIN_THEIA_VERSION = '1.71.0';
 
+// pnpm 11 no longer reads the `pnpm.overrides` field from package.json — overrides must live in
+// pnpm-workspace.yaml. Manage the ripgrep pin as a clearly-delimited, removable block.
+const WORKSPACE_YAML_PATH = path.resolve(ROOT_PATH, 'pnpm-workspace.yaml');
+const RIPGREP_BLOCK_BEGIN = '# BEGIN compat ripgrep override (managed by change-theia-version.ts)';
+const RIPGREP_BLOCK_END = '# END compat ripgrep override';
+
 function updateTheiaDependencyVersion(appPath: string, version: string, electronVersion?: string): void {
     const pkgJson = path.join(appPath, 'package.json');
     const pkg: { dependencies: Record<string, string>; devDependencies: Record<string, string> } = JSON.parse(
@@ -52,36 +58,24 @@ function updateTheiaDependencyVersion(appPath: string, version: string, electron
 }
 
 function updateRipgrepResolution(version: string): void {
-    const pkgJson = path.join(ROOT_PATH, 'package.json');
-    const pkg: { pnpm?: { overrides?: Record<string, string> } } = JSON.parse(fs.readFileSync(pkgJson, 'utf8'));
-
     const minVersion = version === 'latest' ? undefined : (semver.minVersion(version) ?? undefined);
     const needsResolution = minVersion !== undefined && semver.lt(minVersion, RIPGREP_MIN_THEIA_VERSION);
 
-    const pnpm = pkg.pnpm ?? {};
-    const overrides = pnpm.overrides ?? {};
+    let content = fs.readFileSync(WORKSPACE_YAML_PATH, 'utf8');
+    // Strip any previously injected block first, so the operation is idempotent.
+    const blockRegex = new RegExp(`\\n*${RIPGREP_BLOCK_BEGIN}[\\s\\S]*?${RIPGREP_BLOCK_END}\\n*`);
+    content = content.replace(blockRegex, '\n').replace(/\s*$/, '\n');
+
     if (needsResolution) {
-        overrides['@vscode/ripgrep'] = RIPGREP_RESOLUTION_VERSION;
+        content +=
+            `\n${RIPGREP_BLOCK_BEGIN}\n` +
+            'overrides:\n' +
+            `    '@vscode/ripgrep': '${RIPGREP_RESOLUTION_VERSION}'\n` +
+            `${RIPGREP_BLOCK_END}\n`;
         console.log(`Pinned @vscode/ripgrep to ${RIPGREP_RESOLUTION_VERSION} for @theia version ${version}`);
-    } else {
-        delete overrides['@vscode/ripgrep'];
     }
 
-    if (Object.keys(overrides).length > 0) {
-        pnpm.overrides = overrides;
-        pkg.pnpm = pnpm;
-    } else {
-        if (pnpm.overrides !== undefined) {
-            delete pnpm.overrides;
-        }
-        if (Object.keys(pnpm).length === 0) {
-            delete pkg.pnpm;
-        } else {
-            pkg.pnpm = pnpm;
-        }
-    }
-
-    fs.writeFileSync(pkgJson, JSON.stringify(pkg, undefined, 2) + '\n');
+    fs.writeFileSync(WORKSPACE_YAML_PATH, content);
 }
 
 const version = process.argv[2];

@@ -32,6 +32,9 @@ allowBuilds:
     msgpackr-extract: true
     node-pty: true
     puppeteer: true
+    # Old Theia (< 1.71) compat builds pin @vscode/ripgrep to 1.17.1, whose postinstall downloads
+    # the `rg` binary that the Theia webpack build copies. Allow it so the build isn't blocked.
+    '@vscode/ripgrep': true
 
 # Min age (minutes) of dependency versions to install — supply-chain hardening. 4320 = 72h.
 minimumReleaseAge: 4320
