@@ -63,7 +63,10 @@ jobs:
       - name: Install downgraded dependencies
         run: |
           cd glsp-theia-integration
-          pnpm install --no-frozen-lockfile
+          # Old Theia (1.66.0) pulls @electron/rebuild -> @electron/node-gyp resolved via git, which
+          # pnpm's default blockExoticSubdeps rejects. Relax it for the (never-published) compat build
+          # only; the main build keeps the guard.
+          pnpm install --no-frozen-lockfile --config.blockExoticSubdeps=false
           pnpm compile
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9
@@ -76,7 +79,8 @@ jobs:
       - name: Build browser
         run: |
           cd glsp-theia-integration
-          pnpm install --no-frozen-lockfile
+          # See "Install downgraded dependencies": old Theia needs the exotic-subdep guard relaxed.
+          pnpm install --no-frozen-lockfile --config.blockExoticSubdeps=false
           pnpm compile
           pnpm browser build
         env:
