@@ -4,13 +4,18 @@ settings:
   autoInstallPeers: false
   excludeLinksFromLockfile: false
 
+overrides:
+  serialize-javascript: '>=7.0.5'
+  diff: '>=8.0.3'
+  js-yaml: '>=4.1.2'
+
 importers:
 
   .:
     devDependencies:
       '@eclipse-glsp/dev':
         specifier: next
-        version: 2.8.0-next.9(@types/node@22.19.21)(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(supports-color@8.1.1)(typescript@5.9.3)
+        version: 2.8.0-next.11(@types/node@22.19.21)(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(supports-color@8.1.1)(typescript@5.9.3)
       '@types/node':
         specifier: 22.x
         version: 22.19.21
@@ -126,22 +131,25 @@ importers:
     dependencies:
       '@eclipse-glsp-examples/workflow-glsp':
         specifier: next
-        version: 2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+        version: 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp-examples/workflow-server':
         specifier: next
-        version: 2.8.0-next.3(hono@4.12.25)(reflect-metadata@0.2.2)
+        version: 2.8.0-next.5(hono@4.12.25)
       '@eclipse-glsp-examples/workflow-server-bundled':
         specifier: next
-        version: 2.8.0-next.3
+        version: 2.8.0-next.5
       '@eclipse-glsp/client':
         specifier: next
-        version: 2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+        version: 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp/layout-elk':
         specifier: next
-        version: 2.8.0-next.3(inversify@6.2.2(reflect-metadata@0.2.2))
+        version: 2.8.0-next.5(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp/protocol':
         specifier: next
-        version: 2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))
+        version: 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/server':
+        specifier: next
+        version: 2.8.0-next.5(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp/theia-integration':
         specifier: workspace:*
         version: link:../../packages/theia-integration
@@ -153,10 +161,10 @@ importers:
     dependencies:
       '@eclipse-glsp/client':
         specifier: next
-        version: 2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+        version: 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp/protocol':
         specifier: next
-        version: 2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))
+        version: 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       semver:
         specifier: ^7.8.4
         version: 7.8.4
@@ -175,10 +183,10 @@ importers:
     dependencies:
       '@eclipse-glsp/client':
         specifier: next
-        version: 2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+        version: 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp/protocol':
         specifier: next
-        version: 2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))
+        version: 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp/theia-integration':
         specifier: workspace:*
         version: link:../theia-integration
@@ -716,35 +724,39 @@ packages:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
     engines: {node: '>=10.0.0'}
 
-  '@eclipse-glsp-examples/workflow-glsp@2.8.0-next.10':
-    resolution: {integrity: sha512-eNTN/ZX0IwvRzlDgaRHFLuxDLeM3/qotd08cS/PWvyrtoGvtQ+P40tYmgSQg6xyXzI7J8YFAGcMQqxiMsLbYiA==}
-
-  '@eclipse-glsp-examples/workflow-server-bundled@2.8.0-next.3':
-    resolution: {integrity: sha512-eGd5sDaD0O04MuMxmQiVOPSAPb097VOa00XmYlyj+xI6ECtKaseIdUfT8Aei1Og1aJdxM4MMl1UU/TNw/ghh8Q==}
-
-  '@eclipse-glsp-examples/workflow-server@2.8.0-next.3':
-    resolution: {integrity: sha512-Sv0XJuKpUioeokZGLcgT1WUODKUHnrjPYsBV6wqr3vd3B4Ey4vQ7HGpAcfcfD9pXlEcNRi+Vm/UZZX0lrBrl9A==}
-
-  '@eclipse-glsp/cli@2.8.0-next.9':
-    resolution: {integrity: sha512-NPyJJCs7VAkGwtKdnTn9oTZ/fWA35bvfFKOcB3jxZvi2dkLaxlhb/kVH4KPUSmAJ/D00JXHnCnMts/as2fTrdw==}
-    hasBin: true
-
-  '@eclipse-glsp/client@2.8.0-next.10':
-    resolution: {integrity: sha512-Mk85dhVMgHAQ/O7ql5ALL/F7kpcHh0tMDfmtzVYRfevGUh/rh08DbInKzjkxIjl0xhrJbaKvCBpTnZY4sM0sDw==}
+  '@eclipse-glsp-examples/workflow-glsp@2.8.0-next.12':
+    resolution: {integrity: sha512-oLvUKRCzFFmm16jdNKQf1MX9358tz6NuJYtQTQ9IDcIPMVLHkf6MmJNvecU9/TNnMdZKOstHRBy+uNJJOORltw==}
     peerDependencies:
       inversify: ^6.1.3
+      reflect-metadata: ^0.2.2
 
-  '@eclipse-glsp/config-test@2.8.0-next.9':
-    resolution: {integrity: sha512-zYl7zBHjCTSsetV6oJAQenY44StTyl9elriQebCioWCPhdKg+sLy6f8pl/X3CK3Vj/5RJqaBLRzEGeq1dbJnxw==}
+  '@eclipse-glsp-examples/workflow-server-bundled@2.8.0-next.5':
+    resolution: {integrity: sha512-yujhz4eNJqO2+ytuSLQsHacXeIgTQFcQQ54M7aRAJY9iZr5/8zaSXCb7OKBaqLRk2ZF4p8vMEpITivaSHOnBPg==}
 
-  '@eclipse-glsp/config@2.8.0-next.9':
-    resolution: {integrity: sha512-yvobLNQ/RRjPM3WaMtCj2WMpIW29ARICBDYu9zTyecWaIzTl7XUyGgD8uP67Wu8626qiAZgFusx8y+Inmt0R4A==}
+  '@eclipse-glsp-examples/workflow-server@2.8.0-next.5':
+    resolution: {integrity: sha512-4zq0iUYHhKPdizRZITtNcQtUFNz9VPfEeSADQJG8hbc87KxBOlS0DuAOz2bFXbRoxE3mJB685N8BTFiFMTbagA==}
 
-  '@eclipse-glsp/dev@2.8.0-next.9':
-    resolution: {integrity: sha512-ngT+PkOd5sdh4F/yad6r/OzzL8wceZ7PWpdferq/GenRmMPEGMpYk1SHB0BkYrmDUS+qSk4Yk+8gQDfeR/fnCw==}
+  '@eclipse-glsp/cli@2.8.0-next.11':
+    resolution: {integrity: sha512-GppkuXaevzyMBvQxPhJomgXay52FzKea6eacwQeXH5KpVylbE+fforTkTzpLg1OMb9Z2xxoF/+hsPimmNGnRhw==}
+    hasBin: true
 
-  '@eclipse-glsp/eslint-config@2.8.0-next.9':
-    resolution: {integrity: sha512-hLEHaewvQTG5KzcC2aFkCufT+GU0ljhoyBOd2TyyNkYH8iCy10d53q4+wqPD309yrBp0yQjDWMc8HxIiH6bXcA==}
+  '@eclipse-glsp/client@2.8.0-next.12':
+    resolution: {integrity: sha512-KZ/j5kFnQOvrMzJ0kZ+9+iL3wwfS0kn2dbNyJeGss/Gik/1SA0FRPD2hRNEnfgvIxucXlLo73uinOIraMsxwLA==}
+    peerDependencies:
+      inversify: ^6.1.3
+      reflect-metadata: ^0.2.2
+
+  '@eclipse-glsp/config-test@2.8.0-next.11':
+    resolution: {integrity: sha512-34HVLVGQ9Bsnw/Iojl2ZLXvpKHoVG9tgpYpcGWDqO0grXcOX1rb4LSqLg3LkhxfxiE6Cbq1r+A6WiYXtk3XBMw==}
+
+  '@eclipse-glsp/config@2.8.0-next.11':
+    resolution: {integrity: sha512-G8AdkdolCTlQzA+SDEMOQoeeIvkdaE/HFZShkMhksustj2pmH9GsgKvKxY8AxMiKfHBaIquw4K3ta3oXB5SVhg==}
+
+  '@eclipse-glsp/dev@2.8.0-next.11':
+    resolution: {integrity: sha512-S0O/XMuFT2DI3pAMhO/7QKjjZ9N369hK07WunG6ElfVG1QGfh1soOAISHAtCofemeSh9f6s64nekZNlqi4PxHQ==}
+
+  '@eclipse-glsp/eslint-config@2.8.0-next.11':
+    resolution: {integrity: sha512-Sxh5NoQh1k8RNwZOUm9CozvFNTF+Aemtft8HmGa30KkZ/J5fMbZFcQ/IXRFwUYq3PO0zKs3IGIZhc//scD/E3Q==}
     peerDependencies:
       '@eslint/js': ^10.0.1
       '@stylistic/eslint-plugin': ^5.10.0
@@ -758,52 +770,62 @@ packages:
       globals: ^17.6.0
       typescript-eslint: ^8.0.0
 
-  '@eclipse-glsp/graph@2.8.0-next.3':
-    resolution: {integrity: sha512-hV9JBPos46V2lLC2zgELCPwwJO/zpncMDhtFxHkd9NIKH+b2zTA0itWI27cWDGidaidtqwzuITZKzbHG3wTWLQ==}
+  '@eclipse-glsp/graph@2.8.0-next.5':
+    resolution: {integrity: sha512-vVOlt0OLuT+ZOA79IYxa7j2m0iv5+uXW+gRlZWcC4tlM5ESM45t/KIHRdd3CMaezweaMYJi8sRDOvisAwlDS7w==}
 
-  '@eclipse-glsp/layout-elk@2.8.0-next.3':
-    resolution: {integrity: sha512-/8QnSYMbwcUuhwKJfQevjKxFGlfHgvux9LVLFF0SLW9yElOi2/IK1+MHqC26FiysiXmUWuHcVUznio2jHhowoA==}
+  '@eclipse-glsp/layout-elk@2.8.0-next.5':
+    resolution: {integrity: sha512-UvuhsiTZ3iNoNFf0eqY5mVzqPcukjNY0GRkK05XdbvTvvlu0xPHRe1OHkXTm3OCU0rKD7+6kHalC7gKdw4MWnQ==}
     peerDependencies:
       inversify: ^6.1.3
+      reflect-metadata: ^0.2.2
 
-  '@eclipse-glsp/mocha-config@2.8.0-next.9':
-    resolution: {integrity: sha512-axu6xNd1wWxIiQv2F+Nm458fXum5JcGYQ7NCJ4kcWwV2paXWY6eWk3H2hO9HG004seOR+TQcR4kRfjwo3/ZoAQ==}
+  '@eclipse-glsp/mocha-config@2.8.0-next.11':
+    resolution: {integrity: sha512-9PTAZ+Z0NoJhZq2l7P031wI74qFC1CQUovMfhCfR/BAdDXucJH0v3SEYEaIEtaYHzviaVSIC3i/CmVff3Wloqw==}
     peerDependencies:
       ignore-styles: ^5.0.1
       mocha: ^11.7.6
       reflect-metadata: ^0.2.2
 
-  '@eclipse-glsp/nyc-config@2.8.0-next.9':
-    resolution: {integrity: sha512-nBrEfGSfZluWaWIKj+T//WplxgC3EGgrioBTSaH4hOtWqGPG0BujwPz8jb0jJaUmBkKg8Vn6r9DroXhtx7/jnQ==}
+  '@eclipse-glsp/nyc-config@2.8.0-next.11':
+    resolution: {integrity: sha512-uPaBj0hVm+OkrzDGjtEtqquM9+zTf561NVHHOH3ikSYiRLEwifv7FNltiz0DtV8LKEll0aVbvuI+FS5k5yG+BQ==}
     peerDependencies:
       '@istanbuljs/nyc-config-typescript': ^1.0.2
       nyc: ^18.0.0
 
-  '@eclipse-glsp/prettier-config@2.8.0-next.9':
-    resolution: {integrity: sha512-fpHLtKdhMZg2lwHWqOgnEEYQ30LrTcHaDMfLbu6rG43OVgZffNxi275s0IgWIbrzNZoLIEl8z5tMpTDr17i0Mg==}
+  '@eclipse-glsp/prettier-config@2.8.0-next.11':
+    resolution: {integrity: sha512-/tyhoG1FK0ycZGbE3Uq+SR5LVdXdSlAxFv9Dp0XH/wyUj7oBWzumXkEXa9a0kzehN2GLX/vGaA132EUa1Do6hQ==}
 
-  '@eclipse-glsp/protocol@2.8.0-next.10':
-    resolution: {integrity: sha512-i5poJQTYJ17rOgouq12H2ZrYd/7tOlEjlF+c16V4ETGoTWwyF0WA7s2QOEyyfmELYEoG35Xs3yC2lSZWoZv97Q==}
+  '@eclipse-glsp/protocol@2.8.0-next.12':
+    resolution: {integrity: sha512-asaLdnqtREilxO8+5ObuokYS8lh2EsbUlBW5LXIAtVGGrEwbyGMZyetq3nG+bSqNaDwp2qpkfAuMp8uCm6yEgg==}
     peerDependencies:
       inversify: ^6.1.3
+      reflect-metadata: ^0.2.2
+    peerDependenciesMeta:
+      inversify:
+        optional: true
+      reflect-metadata:
+        optional: true
 
-  '@eclipse-glsp/server-mcp@2.8.0-next.3':
-    resolution: {integrity: sha512-QHEwiR3kOa/NQADHliIcro3QTwd6KOxHGewy/9XbwlNNeay/2DWd3nO3AP28Gnsanef4ZQd83t5NQw845685XQ==}
+  '@eclipse-glsp/server-mcp@2.8.0-next.5':
+    resolution: {integrity: sha512-8+2nH0IpVFga46JmxuwyivCnwLgBzEaQtPLxfJKfGEltEdqE2POGZyV7gOODRmww5WfFB2+j+H4uobaAEIuLbg==}
     peerDependencies:
       inversify: ^6.1.3
+      reflect-metadata: ^0.2.2
 
-  '@eclipse-glsp/server@2.8.0-next.3':
-    resolution: {integrity: sha512-yKt/VZ7w89UQKvOqXAcgOfzfAVBbrsF1aBOaIk22ub3xnN+oDjCnV42LBr2af1UckooFoU8DCtlagmZCXIX9Ew==}
+  '@eclipse-glsp/server@2.8.0-next.5':
+    resolution: {integrity: sha512-88yjKzr5NN74iqOjsxOAyVsCEkhrHVYP2MI9vrhGmzKas3LmiBBJQN7DxcZi22+60RpIyzbsjOI8fzO6cNAuXA==}
     peerDependencies:
       inversify: ^6.1.3
+      reflect-metadata: ^0.2.2
 
-  '@eclipse-glsp/sprotty@2.8.0-next.10':
-    resolution: {integrity: sha512-E1Egb9dSADCeILJCncU1FKY33xY05sp75pVc80Naeh50eVtA6GgL4tUIlRDi6qtF1FQI+HTkqFuPEN05I2965g==}
+  '@eclipse-glsp/sprotty@2.8.0-next.12':
+    resolution: {integrity: sha512-Rx0cQribEnbLse3F7n2cBhvwzxrztzMVZbSLNEp8eV8rEQAFdskIpRxI8lPzSFCpo8Z4RsajSkzRO3R1j7owGQ==}
     peerDependencies:
       inversify: ^6.1.3
+      reflect-metadata: ^0.2.2
 
-  '@eclipse-glsp/ts-config@2.8.0-next.9':
-    resolution: {integrity: sha512-6CqN1XcAIiHGSHvazlGCReEyzRGnQHhgk56NjAn2yNC1Vefi+IvhV70yz0V4p6ooGT51jvv5VdzibD6XGzggZg==}
+  '@eclipse-glsp/ts-config@2.8.0-next.11':
+    resolution: {integrity: sha512-HWmqvmtilacxkIIdeCvBvzOB/IG+O57mnFx3pLSZZDnkbiiEcIt533pxOYz2BzvzcXwTw+qJ4fPrnAt8D4MxTw==}
     peerDependencies:
       typescript: '>=5.5'
 
@@ -1671,9 +1693,6 @@ packages:
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
 
-  '@types/uuid@8.3.1':
-    resolution: {integrity: sha512-Y2mHTRAbqfFkpjldbkHGY8JIzRN6XqYRliG8/24FcHm2D2PwW24fl5xMRTVGdrb7iMrwCaIEbLWerGIkXuFWVg==}
-
   '@types/uuid@9.0.8':
     resolution: {integrity: sha512-jg+97EGIcY9AGHJJRaaPVgetKDsrTgbRjQ5Msgjh/DQKEFl0DtyRr/VCOyD1T2R1MNeWPK/u7JoGhlDZnKBAfA==}
 
@@ -1879,6 +1898,9 @@ packages:
 
   '@virtuoso.dev/urx@0.2.13':
     resolution: {integrity: sha512-iirJNv92A1ZWxoOHHDYW/1KPoi83939o83iUBQHIim0i3tMeSKEh+bxhJdTHQ86Mr4uXx9xGUTq69cp52ZP8Xw==}
+
+  '@vscode/codicons@0.0.44':
+    resolution: {integrity: sha512-F7qPRumUK3EHjNdopfICLGRf3iNPoZQt+McTHAn4AlOWPB3W2kL4H0S7uqEqbyZ6rCxaeDjpAn3MCUnwTu/VJQ==}
 
   '@vscode/codicons@0.0.45':
     resolution: {integrity: sha512-1KAZ7XCMagp5Gdrlr4bbbcAqgcIL623iO1wW6rfcSVGAVUQvR0WP7bQx1SbJ11gmV3fdQTSEFIJQ/5C+HuVasw==}
@@ -2132,9 +2154,6 @@ packages:
 
   arg@4.1.3:
     resolution: {integrity: sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ+71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==}
-
-  argparse@1.0.10:
-    resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
 
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
@@ -2547,16 +2566,16 @@ packages:
   comlink@4.4.2:
     resolution: {integrity: sha512-OxGdvBmJuNKSCMO4NTl1L47VRp6xn2wG4F/2hYzB6tiCb709otOxtEYCSvK80PtjODfXXZu8ds+Nw5kVCjqd2g==}
 
+  commander@14.0.3:
+    resolution: {integrity: sha512-H+y0Jo/T1RZ9qPP4Eh1pkcQcLRglraJaSLoyOtHxu6AapkjWVCy2Sit1QQ4x3Dng8qDlSsZEet7g5Pq06MvTgw==}
+    engines: {node: '>=20'}
+
   commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
 
   commander@7.2.0:
     resolution: {integrity: sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==}
     engines: {node: '>= 10'}
-
-  commander@8.3.0:
-    resolution: {integrity: sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==}
-    engines: {node: '>= 12'}
 
   comment-parser@1.4.7:
     resolution: {integrity: sha512-0h+uSNtQGW3D98eQt3jJ8L06Fves8hncB4V/PKdw/Qb8Hnk19VaKuTr55UNRYiSoVa7WwrFls+rh3ux9agmkeQ==}
@@ -2809,18 +2828,6 @@ packages:
   devtools-protocol@0.0.1624250:
     resolution: {integrity: sha512-YFAat/lOiIk0ARmBweG+ygrEcbZrq5B9urRyUoeQKp53MlidHXE2TmTbxKcaXoQj7u/aX+jebDO4BW55rs0WwA==}
 
-  diff@4.0.4:
-    resolution: {integrity: sha512-X07nttJQkwkfKfvTPG/KSnE2OMdcUCao6+eXF3wmnIQRn2aPAHH3VxDbDOdegkd6JbPsXqShpvEOHfAT+nCNwQ==}
-    engines: {node: '>=0.3.1'}
-
-  diff@5.2.2:
-    resolution: {integrity: sha512-vtcDfH3TOjP8UekytvnHH1o1P4FcUdt4eQ1Y+Abap1tk/OB2MWQvcwS2ClCd1zuIhc3JKOx6p3kod8Vfys3E+A==}
-    engines: {node: '>=0.3.1'}
-
-  diff@7.0.0:
-    resolution: {integrity: sha512-PJWHUb1RFevKCwaFA9RlG5tCd+FO5iRh9A8HEtkmBH2Li03iJriB6m6JIN4rGz3K3JLawI7/veA1xzRKP6ISBw==}
-    engines: {node: '>=0.3.1'}
-
   diff@9.0.0:
     resolution: {integrity: sha512-svtcdpS8CgJyqAjEQIXdb3OjhFVVYjzGAPO8WGCmRbrml64SPw/jJD4GoE98aR7r25A0XcgrK3F02yw9R/vhQw==}
     engines: {node: '>=0.3.1'}
@@ -2871,8 +2878,8 @@ packages:
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
-  elkjs@0.10.2:
-    resolution: {integrity: sha512-Yx3ORtbAFrXelYkAy2g0eYyVY8QG0XEmGdQXmy0eithKKjbWRfl3Xe884lfkszfBF6UKyIy4LwfcZ3AZc8oxFw==}
+  elkjs@0.11.1:
+    resolution: {integrity: sha512-zxxR9k+rx5ktMwT/FwyLdPCrq7xN6e4VGGHH8hA01vVYKjTFik7nHOxBnAYtrgYUB1RpAiLvA1/U2YraWxyKKg==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -3068,11 +3075,6 @@ packages:
 
   esprima@3.1.3:
     resolution: {integrity: sha512-AWwVMNxwhN8+NIPQzAQZCm7RkLC4RbM3B1OobMuyp3i+w73X57KCKaVIxaRZb+DYCojq7rspo+fmuQfAboyhFg==}
-    engines: {node: '>=4'}
-    hasBin: true
-
-  esprima@4.0.1:
-    resolution: {integrity: sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==}
     engines: {node: '>=4'}
     hasBin: true
 
@@ -3785,10 +3787,6 @@ packages:
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
-  js-yaml@3.14.2:
-    resolution: {integrity: sha512-PMSmkqxr106Xa156c2M265Z+FTrPl+oxd/rgOQy2tijQeK5TxQ43psO1ZCwhVOSdnn+RzkzlRz/eY4BgJBYVpg==}
-    hasBin: true
-
   js-yaml@4.2.0:
     resolution: {integrity: sha512-ePWsvanv0DWuDRsW8dnt+R4jQ31SCRCQ7hhNcPXZPsoBZiemuZNYGf7adZdqX2D86j6rvKp3RpCxVTSb8WQlOw==}
     hasBin: true
@@ -3929,9 +3927,6 @@ packages:
 
   lodash.throttle@4.1.1:
     resolution: {integrity: sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==}
-
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
   lodash@4.18.1:
     resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
@@ -4665,9 +4660,6 @@ packages:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
 
-  randombytes@2.1.0:
-    resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
-
   range-parser@1.2.1:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
@@ -4926,11 +4918,9 @@ packages:
     resolution: {integrity: sha512-8I8TjW5KMOKsZQTvoxjuSIa7foAwPWGOts+6o7sgjz41/qMD9VQHEDxi6PBvK2l0MXUmqZyNpUK+T2tQaaElvw==}
     engines: {node: '>=10'}
 
-  serialize-javascript@5.0.1:
-    resolution: {integrity: sha512-SaaNal9imEO737H2c05Og0/8LUXG7EnsZyMa8MzkmuHoELfT6txuj0cMqRj6zfPKnmQ1yasR4PCJc8x+M4JSPA==}
-
-  serialize-javascript@6.0.2:
-    resolution: {integrity: sha512-Saa1xPByTTq2gdeFZYLLo+RFE35NHZkAbqZeWNd3BpzppeVisAqpDjcp8dyf6uIvEqJRd46jemmyA4iFIeVk8g==}
+  serialize-javascript@7.0.5:
+    resolution: {integrity: sha512-F4LcB0UqUl1zErq+1nYEEzSHJnIwb3AF2XWB94b+afhrekOUijwooAYqFyRbjYkm2PAKBabx6oYv/xDxNi8IBw==}
+    engines: {node: '>=20.0.0'}
 
   serve-static@1.16.3:
     resolution: {integrity: sha512-x0RTqQel6g5SY7Lg6ZreMmsOzncHFU7nhnRWkKgWuMTu5NN0DR5oruckMqRvacAN9d5w6ARnRBXl9xhDCgfMeA==}
@@ -5090,9 +5080,6 @@ packages:
   spawn-wrap@3.0.0:
     resolution: {integrity: sha512-z+s5vv4KzFPJVddGab0xX2n7kQPGMdNUX5l9T8EJqsXdKTWpcxmAqWHpsgHEXoC1taGBCc7b79bi62M5kdbrxQ==}
     engines: {node: '>=8'}
-
-  sprintf-js@1.0.3:
-    resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
   sprintf-js@1.1.3:
     resolution: {integrity: sha512-Oo+0REFV59/rz3gfJNKQiBlwfHaSESl1pcGyABQsnnIfWOFt6JNj5gCog2U6MLZ//IGYD+nA8nI+mTShREReaA==}
@@ -6543,48 +6530,48 @@ snapshots:
 
   '@discoveryjs/json-ext@0.5.7': {}
 
-  '@eclipse-glsp-examples/workflow-glsp@2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
+  '@eclipse-glsp-examples/workflow-glsp@2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/client': 2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/client': 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       balloon-css: 0.5.2
-    transitivePeerDependencies:
-      - inversify
-      - reflect-metadata
-
-  '@eclipse-glsp-examples/workflow-server-bundled@2.8.0-next.3': {}
-
-  '@eclipse-glsp-examples/workflow-server@2.8.0-next.3(hono@4.12.25)(reflect-metadata@0.2.2)':
-    dependencies:
-      '@eclipse-glsp/layout-elk': 2.8.0-next.3(inversify@6.2.2(reflect-metadata@0.2.2))
-      '@eclipse-glsp/server': 2.8.0-next.3(inversify@6.2.2(reflect-metadata@0.2.2))
-      '@eclipse-glsp/server-mcp': 2.8.0-next.3(hono@4.12.25)(inversify@6.2.2(reflect-metadata@0.2.2))
       inversify: 6.2.2(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+      snabbdom: 3.5.1
+
+  '@eclipse-glsp-examples/workflow-server-bundled@2.8.0-next.5': {}
+
+  '@eclipse-glsp-examples/workflow-server@2.8.0-next.5(hono@4.12.25)':
+    dependencies:
+      '@eclipse-glsp/layout-elk': 2.8.0-next.5(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/server': 2.8.0-next.5(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/server-mcp': 2.8.0-next.5(hono@4.12.25)(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      inversify: 6.2.2(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
     transitivePeerDependencies:
       - '@cfworker/json-schema'
       - bufferutil
       - hono
-      - reflect-metadata
       - supports-color
       - utf-8-validate
 
-  '@eclipse-glsp/cli@2.8.0-next.9': {}
+  '@eclipse-glsp/cli@2.8.0-next.11': {}
 
-  '@eclipse-glsp/client@2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
+  '@eclipse-glsp/client@2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/sprotty': 2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/sprotty': 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@vscode/codicons': 0.0.44
       autocompleter: 9.3.2
       file-saver: 2.0.5
       inversify: 6.2.2(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
       snabbdom: 3.5.1
       vscode-jsonrpc: 8.2.0
-    transitivePeerDependencies:
-      - reflect-metadata
 
-  '@eclipse-glsp/config-test@2.8.0-next.9(@types/node@22.19.21)(supports-color@8.1.1)(typescript@5.9.3)':
+  '@eclipse-glsp/config-test@2.8.0-next.11(@types/node@22.19.21)(supports-color@8.1.1)(typescript@5.9.3)':
     dependencies:
-      '@eclipse-glsp/mocha-config': 2.8.0-next.9(ignore-styles@5.0.1)(mocha@11.7.6)(reflect-metadata@0.2.2)
-      '@eclipse-glsp/nyc-config': 2.8.0-next.9(@istanbuljs/nyc-config-typescript@1.0.2(nyc@18.0.0(supports-color@8.1.1)))(nyc@18.0.0(supports-color@8.1.1))
-      '@istanbuljs/nyc-config-typescript': 1.0.2(nyc@18.0.0(supports-color@8.1.1))
+      '@eclipse-glsp/mocha-config': 2.8.0-next.11(ignore-styles@5.0.1)(mocha@11.7.6)(reflect-metadata@0.2.2)
+      '@eclipse-glsp/nyc-config': 2.8.0-next.11(@istanbuljs/nyc-config-typescript@1.0.2(nyc@18.0.0))(nyc@18.0.0(supports-color@8.1.1))
+      '@istanbuljs/nyc-config-typescript': 1.0.2(nyc@18.0.0)
       '@types/chai': 4.3.20
       '@types/mocha': 10.0.10
       '@types/sinon': 21.0.1
@@ -6602,11 +6589,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@eclipse-glsp/config@2.8.0-next.9(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(supports-color@8.1.1)(typescript@5.9.3)':
+  '@eclipse-glsp/config@2.8.0-next.11(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(supports-color@8.1.1)(typescript@5.9.3)':
     dependencies:
-      '@eclipse-glsp/eslint-config': 2.8.0-next.9(@eslint/js@10.0.1(eslint@10.5.0))(@stylistic/eslint-plugin@5.10.0(eslint@10.5.0))(@tony.ganchev/eslint-plugin-header@3.4.4(eslint@10.5.0))(eslint-config-prettier@10.1.8(eslint@10.5.0))(eslint-import-resolver-typescript@4.4.5(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0)(supports-color@8.1.1))(eslint@10.5.0)(supports-color@8.1.1))(eslint-plugin-chai-friendly@1.2.0(eslint@10.5.0))(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0)(supports-color@8.1.1))(eslint-plugin-no-null@1.0.2(eslint@10.5.0))(eslint@10.5.0)(globals@17.6.0)(typescript-eslint@8.61.0(eslint@10.5.0)(supports-color@8.1.1)(typescript@5.9.3))
-      '@eclipse-glsp/prettier-config': 2.8.0-next.9(prettier@3.8.4)
-      '@eclipse-glsp/ts-config': 2.8.0-next.9(typescript@5.9.3)
+      '@eclipse-glsp/eslint-config': 2.8.0-next.11(@eslint/js@10.0.1(eslint@10.5.0))(@stylistic/eslint-plugin@5.10.0(eslint@10.5.0))(@tony.ganchev/eslint-plugin-header@3.4.4(eslint@10.5.0))(eslint-config-prettier@10.1.8(eslint@10.5.0))(eslint-import-resolver-typescript@4.4.5(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0)(supports-color@8.1.1))(eslint@10.5.0)(supports-color@8.1.1))(eslint-plugin-chai-friendly@1.2.0(eslint@10.5.0))(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0)(supports-color@8.1.1))(eslint-plugin-no-null@1.0.2(eslint@10.5.0))(eslint@10.5.0)(globals@17.6.0)(typescript-eslint@8.61.0(eslint@10.5.0)(supports-color@8.1.1)(typescript@5.9.3))
+      '@eclipse-glsp/prettier-config': 2.8.0-next.11(prettier@3.8.4)
+      '@eclipse-glsp/ts-config': 2.8.0-next.11(typescript@5.9.3)
       '@eslint/js': 10.0.1(eslint@10.5.0)
       '@stylistic/eslint-plugin': 5.10.0(eslint@10.5.0)
       '@tony.ganchev/eslint-plugin-header': 3.4.4(eslint@10.5.0)
@@ -6629,11 +6616,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@eclipse-glsp/dev@2.8.0-next.9(@types/node@22.19.21)(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(supports-color@8.1.1)(typescript@5.9.3)':
+  '@eclipse-glsp/dev@2.8.0-next.11(@types/node@22.19.21)(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(supports-color@8.1.1)(typescript@5.9.3)':
     dependencies:
-      '@eclipse-glsp/cli': 2.8.0-next.9
-      '@eclipse-glsp/config': 2.8.0-next.9(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(supports-color@8.1.1)(typescript@5.9.3)
-      '@eclipse-glsp/config-test': 2.8.0-next.9(@types/node@22.19.21)(supports-color@8.1.1)(typescript@5.9.3)
+      '@eclipse-glsp/cli': 2.8.0-next.11
+      '@eclipse-glsp/config': 2.8.0-next.11(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(supports-color@8.1.1)(typescript@5.9.3)
+      '@eclipse-glsp/config-test': 2.8.0-next.11(@types/node@22.19.21)(supports-color@8.1.1)(typescript@5.9.3)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -6645,7 +6632,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@eclipse-glsp/eslint-config@2.8.0-next.9(@eslint/js@10.0.1(eslint@10.5.0))(@stylistic/eslint-plugin@5.10.0(eslint@10.5.0))(@tony.ganchev/eslint-plugin-header@3.4.4(eslint@10.5.0))(eslint-config-prettier@10.1.8(eslint@10.5.0))(eslint-import-resolver-typescript@4.4.5(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0)(supports-color@8.1.1))(eslint@10.5.0)(supports-color@8.1.1))(eslint-plugin-chai-friendly@1.2.0(eslint@10.5.0))(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0)(supports-color@8.1.1))(eslint-plugin-no-null@1.0.2(eslint@10.5.0))(eslint@10.5.0)(globals@17.6.0)(typescript-eslint@8.61.0(eslint@10.5.0)(supports-color@8.1.1)(typescript@5.9.3))':
+  '@eclipse-glsp/eslint-config@2.8.0-next.11(@eslint/js@10.0.1(eslint@10.5.0))(@stylistic/eslint-plugin@5.10.0(eslint@10.5.0))(@tony.ganchev/eslint-plugin-header@3.4.4(eslint@10.5.0))(eslint-config-prettier@10.1.8(eslint@10.5.0))(eslint-import-resolver-typescript@4.4.5(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0)(supports-color@8.1.1))(eslint@10.5.0)(supports-color@8.1.1))(eslint-plugin-chai-friendly@1.2.0(eslint@10.5.0))(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0)(supports-color@8.1.1))(eslint-plugin-no-null@1.0.2(eslint@10.5.0))(eslint@10.5.0)(globals@17.6.0)(typescript-eslint@8.61.0(eslint@10.5.0)(supports-color@8.1.1)(typescript@5.9.3))':
     dependencies:
       '@eslint/js': 10.0.1(eslint@10.5.0)
       '@stylistic/eslint-plugin': 5.10.0(eslint@10.5.0)
@@ -6659,51 +6646,57 @@ snapshots:
       globals: 17.6.0
       typescript-eslint: 8.61.0(eslint@10.5.0)(supports-color@8.1.1)(typescript@5.9.3)
 
-  '@eclipse-glsp/graph@2.8.0-next.3(inversify@6.2.2(reflect-metadata@0.2.2))':
+  '@eclipse-glsp/graph@2.8.0-next.5(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/protocol': 2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))
+      '@eclipse-glsp/protocol': 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
     transitivePeerDependencies:
       - inversify
+      - reflect-metadata
 
-  '@eclipse-glsp/layout-elk@2.8.0-next.3(inversify@6.2.2(reflect-metadata@0.2.2))':
+  '@eclipse-glsp/layout-elk@2.8.0-next.5(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/server': 2.8.0-next.3(inversify@6.2.2(reflect-metadata@0.2.2))
-      elkjs: 0.10.2
+      '@eclipse-glsp/server': 2.8.0-next.5(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      elkjs: 0.11.1
       inversify: 6.2.2(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@eclipse-glsp/mocha-config@2.8.0-next.9(ignore-styles@5.0.1)(mocha@11.7.6)(reflect-metadata@0.2.2)':
+  '@eclipse-glsp/mocha-config@2.8.0-next.11(ignore-styles@5.0.1)(mocha@11.7.6)(reflect-metadata@0.2.2)':
     dependencies:
       ignore-styles: 5.0.1
       mocha: 11.7.6
       reflect-metadata: 0.2.2
 
-  '@eclipse-glsp/nyc-config@2.8.0-next.9(@istanbuljs/nyc-config-typescript@1.0.2(nyc@18.0.0(supports-color@8.1.1)))(nyc@18.0.0(supports-color@8.1.1))':
+  '@eclipse-glsp/nyc-config@2.8.0-next.11(@istanbuljs/nyc-config-typescript@1.0.2(nyc@18.0.0))(nyc@18.0.0(supports-color@8.1.1))':
     dependencies:
-      '@istanbuljs/nyc-config-typescript': 1.0.2(nyc@18.0.0(supports-color@8.1.1))
+      '@istanbuljs/nyc-config-typescript': 1.0.2(nyc@18.0.0)
       nyc: 18.0.0(supports-color@8.1.1)
 
-  '@eclipse-glsp/prettier-config@2.8.0-next.9(prettier@3.8.4)':
+  '@eclipse-glsp/prettier-config@2.8.0-next.11(prettier@3.8.4)':
     dependencies:
       prettier-plugin-packagejson: 3.0.2(prettier@3.8.4)
     transitivePeerDependencies:
       - prettier
 
-  '@eclipse-glsp/protocol@2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))':
+  '@eclipse-glsp/protocol@2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      inversify: 6.2.2(reflect-metadata@0.2.2)
       sprotty-protocol: 1.4.0
       uuid: 14.0.0
       vscode-jsonrpc: 8.2.0
+    optionalDependencies:
+      inversify: 6.2.2(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
 
-  '@eclipse-glsp/server-mcp@2.8.0-next.3(hono@4.12.25)(inversify@6.2.2(reflect-metadata@0.2.2))':
+  '@eclipse-glsp/server-mcp@2.8.0-next.5(hono@4.12.25)(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/server': 2.8.0-next.3(inversify@6.2.2(reflect-metadata@0.2.2))
+      '@eclipse-glsp/server': 2.8.0-next.5(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@hono/node-server': 1.19.14(hono@4.12.25)
       '@modelcontextprotocol/sdk': 1.29.0(supports-color@8.1.1)
       inversify: 6.2.2(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+      zod: 4.4.3
     transitivePeerDependencies:
       - '@cfworker/json-schema'
       - bufferutil
@@ -6711,15 +6704,14 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@eclipse-glsp/server@2.8.0-next.3(inversify@6.2.2(reflect-metadata@0.2.2))':
+  '@eclipse-glsp/server@2.8.0-next.5(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/graph': 2.8.0-next.3(inversify@6.2.2(reflect-metadata@0.2.2))
-      '@eclipse-glsp/protocol': 2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))
-      '@types/uuid': 8.3.1
-      commander: 8.3.0
+      '@eclipse-glsp/graph': 2.8.0-next.5(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/protocol': 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      commander: 14.0.3
       fast-json-patch: 3.1.1
       inversify: 6.2.2(reflect-metadata@0.2.2)
-      lodash: 4.17.21
+      reflect-metadata: 0.2.2
       vscode-jsonrpc: 8.2.0
       winston: 3.19.0
       ws: 8.21.0
@@ -6727,19 +6719,18 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@eclipse-glsp/sprotty@2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
+  '@eclipse-glsp/sprotty@2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/protocol': 2.8.0-next.10(inversify@6.2.2(reflect-metadata@0.2.2))
+      '@eclipse-glsp/protocol': 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       autocompleter: 9.3.2
       inversify: 6.2.2(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
       snabbdom: 3.5.1
       sprotty: 1.4.0(reflect-metadata@0.2.2)
       sprotty-protocol: 1.4.0
       vscode-jsonrpc: 8.2.0
-    transitivePeerDependencies:
-      - reflect-metadata
 
-  '@eclipse-glsp/ts-config@2.8.0-next.9(typescript@5.9.3)':
+  '@eclipse-glsp/ts-config@2.8.0-next.11(typescript@5.9.3)':
     dependencies:
       typescript: 5.9.3
 
@@ -6944,10 +6935,10 @@ snapshots:
       camelcase: 5.3.1
       find-up: 4.1.0
       get-package-type: 0.1.0
-      js-yaml: 3.14.2
+      js-yaml: 4.2.0
       resolve-from: 5.0.0
 
-  '@istanbuljs/nyc-config-typescript@1.0.2(nyc@18.0.0(supports-color@8.1.1))':
+  '@istanbuljs/nyc-config-typescript@1.0.2(nyc@18.0.0)':
     dependencies:
       '@istanbuljs/schema': 0.1.6
       nyc: 18.0.0(supports-color@8.1.1)
@@ -8104,7 +8095,7 @@ snapshots:
       '@theia/monaco': 1.72.2(@theia/electron@1.72.2(electron@39.8.7))(typescript@5.9.3)
       '@theia/monaco-editor-core': 1.108.201
       '@types/diff': 5.2.3
-      diff: 5.2.2
+      diff: 9.0.0
       p-debounce: 2.1.0
       react-textarea-autosize: 8.5.9(react@18.3.1)
       ts-md5: 1.3.1
@@ -8484,8 +8475,6 @@ snapshots:
   '@types/trusted-types@2.0.7':
     optional: true
 
-  '@types/uuid@8.3.1': {}
-
   '@types/uuid@9.0.8': {}
 
   '@types/write-json-file@2.2.1': {}
@@ -8672,6 +8661,8 @@ snapshots:
       react: 18.3.1
 
   '@virtuoso.dev/urx@0.2.13': {}
+
+  '@vscode/codicons@0.0.44': {}
 
   '@vscode/codicons@0.0.45': {}
 
@@ -8926,10 +8917,6 @@ snapshots:
   archy@1.0.0: {}
 
   arg@4.1.3: {}
-
-  argparse@1.0.10:
-    dependencies:
-      sprintf-js: 1.0.3
 
   argparse@2.0.1: {}
 
@@ -9370,11 +9357,11 @@ snapshots:
 
   comlink@4.4.2: {}
 
+  commander@14.0.3: {}
+
   commander@2.20.3: {}
 
   commander@7.2.0: {}
-
-  commander@8.3.0: {}
 
   comment-parser@1.4.7: {}
 
@@ -9383,7 +9370,7 @@ snapshots:
   compression-webpack-plugin@9.2.0(webpack@5.107.2):
     dependencies:
       schema-utils: 4.3.3
-      serialize-javascript: 6.0.2
+      serialize-javascript: 7.0.5
       webpack: 5.107.2(esbuild@0.24.2)(postcss@8.5.15)(webpack-cli@4.7.0)
 
   concat-map@0.0.1: {}
@@ -9458,7 +9445,7 @@ snapshots:
       normalize-path: 3.0.0
       p-limit: 3.1.0
       schema-utils: 3.3.0
-      serialize-javascript: 5.0.1
+      serialize-javascript: 7.0.5
       webpack: 5.107.2(esbuild@0.24.2)(postcss@8.5.15)(webpack-cli@4.7.0)
 
   core-js-compat@3.49.0:
@@ -9615,12 +9602,6 @@ snapshots:
 
   devtools-protocol@0.0.1624250: {}
 
-  diff@4.0.4: {}
-
-  diff@5.2.2: {}
-
-  diff@7.0.0: {}
-
   diff@9.0.0: {}
 
   dir-glob@2.2.2:
@@ -9681,7 +9662,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  elkjs@0.10.2: {}
+  elkjs@0.11.1: {}
 
   emoji-regex@8.0.0: {}
 
@@ -9930,8 +9911,6 @@ snapshots:
       eslint-visitor-keys: 5.0.1
 
   esprima@3.1.3: {}
-
-  esprima@4.0.1: {}
 
   esquery@1.7.0:
     dependencies:
@@ -10706,11 +10685,6 @@ snapshots:
 
   js-tokens@4.0.0: {}
 
-  js-yaml@3.14.2:
-    dependencies:
-      argparse: 1.0.10
-      esprima: 4.0.1
-
   js-yaml@4.2.0:
     dependencies:
       argparse: 2.0.1
@@ -10854,8 +10828,6 @@ snapshots:
   lodash.flattendeep@4.4.0: {}
 
   lodash.throttle@4.1.1: {}
-
-  lodash@4.17.21: {}
 
   lodash@4.18.1: {}
 
@@ -11039,7 +11011,7 @@ snapshots:
       browser-stdout: 1.3.1
       chokidar: 3.6.0
       debug: 4.4.3(supports-color@8.1.1)
-      diff: 5.2.2
+      diff: 9.0.0
       escape-string-regexp: 4.0.0
       find-up: 5.0.0
       glob: 8.1.0
@@ -11048,7 +11020,7 @@ snapshots:
       log-symbols: 4.1.0
       minimatch: 5.1.9
       ms: 2.1.3
-      serialize-javascript: 6.0.2
+      serialize-javascript: 7.0.5
       strip-json-comments: 3.1.1
       supports-color: 8.1.1
       workerpool: 6.5.1
@@ -11061,7 +11033,7 @@ snapshots:
       browser-stdout: 1.3.1
       chokidar: 4.0.3
       debug: 4.4.3(supports-color@8.1.1)
-      diff: 7.0.0
+      diff: 9.0.0
       escape-string-regexp: 4.0.0
       find-up: 5.0.0
       glob: 10.5.0
@@ -11072,7 +11044,7 @@ snapshots:
       minimatch: 9.0.9
       ms: 2.1.3
       picocolors: 1.1.1
-      serialize-javascript: 6.0.2
+      serialize-javascript: 7.0.5
       strip-json-comments: 3.1.1
       supports-color: 8.1.1
       workerpool: 9.3.4
@@ -11607,10 +11579,6 @@ snapshots:
 
   quick-lru@5.1.1: {}
 
-  randombytes@2.1.0:
-    dependencies:
-      safe-buffer: 5.2.1
-
   range-parser@1.2.1: {}
 
   raw-body@2.5.3:
@@ -11917,13 +11885,7 @@ snapshots:
       type-fest: 0.13.1
     optional: true
 
-  serialize-javascript@5.0.1:
-    dependencies:
-      randombytes: 2.1.0
-
-  serialize-javascript@6.0.2:
-    dependencies:
-      randombytes: 2.1.0
+  serialize-javascript@7.0.5: {}
 
   serve-static@1.16.3:
     dependencies:
@@ -12139,8 +12101,6 @@ snapshots:
       rimraf: 6.1.3
       signal-exit: 3.0.7
       which: 2.0.2
-
-  sprintf-js@1.0.3: {}
 
   sprintf-js@1.1.3:
     optional: true
@@ -12418,7 +12378,7 @@ snapshots:
       acorn-walk: 8.3.5
       arg: 4.1.3
       create-require: 1.1.1
-      diff: 4.0.4
+      diff: 9.0.0
       make-error: 1.3.6
       typescript: 5.9.3
       v8-compile-cache-lib: 3.0.1

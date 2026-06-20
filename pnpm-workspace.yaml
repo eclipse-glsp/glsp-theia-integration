@@ -14,6 +14,14 @@ shamefullyHoist: true
 # patch and mixes @theia versions. Resolve peers from the app-pinned version instead.
 autoInstallPeers: false
 
+# Security overrides: force patched versions of transitive (dev-only) dependencies that upstream
+# tooling (mocha, nyc, sinon) still pins to ranges flagged by `pnpm audit`. These do not originate
+# from the @theia/* dependency graph, so bumping them is safe and not Theia's responsibility.
+overrides:
+    serialize-javascript: '>=7.0.5'
+    diff: '>=8.0.3'
+    js-yaml: '>=4.1.2'
+
 # Deps allowed to run install/build scripts
 # Theia has many native/postinstall deps (electron, keytar, etc.).
 allowBuilds:
