@@ -1,19 +1,4 @@
 import glspConfig from '@eclipse-glsp/eslint-config';
-import path from 'node:path';
-// Enforce honest dependency declarations for the published packages, which are consumed by external users.
-const publishedPackage = name => ({
-    files: [`packages/${name}/**/*.{ts,tsx}`],
-    rules: {
-        'import-x/no-extraneous-dependencies': [
-            'error',
-            {
-                packageDir: path.join(import.meta.dirname, 'packages', name),
-                devDependencies: false,
-                peerDependencies: true
-            }
-        ]
-    }
-});
 
 export default [
     ...glspConfig,
@@ -31,7 +16,16 @@ export default [
             }
         }
     },
-    // Enforce honest dependency declarations for the published packages
-    publishedPackage('theia-integration'),
-    publishedPackage('theia-mcp-integration')
+    {
+        files: ['packages/**/*.{ts,tsx}', 'examples/**/*.{ts,tsx}'],
+        rules: {
+            'import-x/no-extraneous-dependencies': [
+                'error',
+                {
+                    devDependencies: false,
+                    peerDependencies: true
+                }
+            ]
+        }
+    }
 ];

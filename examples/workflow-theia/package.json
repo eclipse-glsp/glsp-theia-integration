@@ -41,8 +41,14 @@
     "@eclipse-glsp/client": "next",
     "@eclipse-glsp/layout-elk": "next",
     "@eclipse-glsp/protocol": "next",
+    "@eclipse-glsp/server": "next",
     "@eclipse-glsp/theia-integration": "workspace:*",
     "@eclipse-glsp/theia-mcp-integration": "workspace:*"
+  },
+  "peerDependencies": {
+    "@theia/core": "^1.66.0",
+    "@theia/navigator": "^1.66.0",
+    "@theia/workspace": "^1.66.0"
   },
   "publishConfig": {
     "access": "public"
