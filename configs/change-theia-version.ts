@@ -57,21 +57,31 @@ function updateTheiaDependencyVersion(appPath: string, version: string, electron
     console.log(`Updated ${appPath} to @theia version ${version}`);
 }
 
+function escapeForRegExp(value: string): string {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function updateRipgrepResolution(version: string): void {
     const minVersion = version === 'latest' ? undefined : (semver.minVersion(version) ?? undefined);
     const needsResolution = minVersion !== undefined && semver.lt(minVersion, RIPGREP_MIN_THEIA_VERSION);
 
     let content = fs.readFileSync(WORKSPACE_YAML_PATH, 'utf8');
-    // Strip any previously injected block first, so the operation is idempotent.
-    const blockRegex = new RegExp(`\\n*${RIPGREP_BLOCK_BEGIN}[\\s\\S]*?${RIPGREP_BLOCK_END}\\n*`);
-    content = content.replace(blockRegex, '\n').replace(/\s*$/, '\n');
+    // Strip any previously injected block (with its indentation) first, so the operation is idempotent.
+    const blockRegex = new RegExp(`\\n*[ \\t]*${escapeForRegExp(RIPGREP_BLOCK_BEGIN)}[\\s\\S]*?${escapeForRegExp(RIPGREP_BLOCK_END)}`, 'g');
+    content = content.replace(blockRegex, '').replace(/\s*$/, '\n');
 
     if (needsResolution) {
-        content +=
-            `\n${RIPGREP_BLOCK_BEGIN}\n` +
-            'overrides:\n' +
-            `    '@vscode/ripgrep': '${RIPGREP_RESOLUTION_VERSION}'\n` +
-            `${RIPGREP_BLOCK_END}\n`;
+        const entry = `    '@vscode/ripgrep': '${RIPGREP_RESOLUTION_VERSION}'`;
+        // Merge into the existing top-level `overrides:` mapping if present; emitting a second
+        // `overrides:` key would be a duplicate YAML mapping key and break the install.
+        const overridesHeader = content.match(/^overrides:[ \t]*$/m);
+        if (overridesHeader) {
+            const insertAt = overridesHeader.index! + overridesHeader[0].length;
+            const block = `\n    ${RIPGREP_BLOCK_BEGIN}\n${entry}\n    ${RIPGREP_BLOCK_END}`;
+            content = content.slice(0, insertAt) + block + content.slice(insertAt);
+        } else {
+            content = `${content.replace(/\s*$/, '\n')}\n${RIPGREP_BLOCK_BEGIN}\noverrides:\n${entry}\n${RIPGREP_BLOCK_END}\n`;
+        }
         console.log(`Pinned @vscode/ripgrep to ${RIPGREP_RESOLUTION_VERSION} for @theia version ${version}`);
     }
 
