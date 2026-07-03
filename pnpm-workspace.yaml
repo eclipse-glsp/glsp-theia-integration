@@ -49,7 +49,9 @@ minimumReleaseAge: 4320
 minimumReleaseAgeIgnoreMissingTime: false
 # First-party packages are consumed as fresh nightlies (next tag), not a supply-chain risk —
 # exempt them from the age gate. @eclipse-glsp-examples/* is a separate scope used by
-# examples/workflow-theia.
+# examples/workflow-theia. @theia/* is a trusted first-party framework dependency; exempt it so we
+# can adopt fresh Theia patch releases without waiting out the age gate.
 minimumReleaseAgeExclude:
     - '@eclipse-glsp/*'
     - '@eclipse-glsp-examples/*'
+    - '@theia/*'

@@ -32,47 +32,47 @@ importers:
         specifier: workspace:*
         version: link:../workflow-theia
       '@theia/ai-anthropic':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)(zod@4.4.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)(zod@4.4.3)
       '@theia/ai-ide':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/ai-openai':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)(ws@8.21.0)(zod@4.4.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)(ws@8.21.0)(zod@4.4.3)
       '@theia/core':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@theia/editor':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@theia/filesystem':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/markers':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/messages':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@theia/monaco':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/navigator':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/preferences':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/process':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@theia/terminal':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/workspace':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -81,8 +81,8 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@theia/cli':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(supports-color@8.1.1)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))
 
   examples/electron-app:
     dependencies:
@@ -90,41 +90,41 @@ importers:
         specifier: workspace:*
         version: link:../workflow-theia
       '@theia/core':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@theia/editor':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@theia/electron':
-        specifier: 1.73.0
-        version: 1.73.0(electron@39.8.7)
+        specifier: 1.73.1
+        version: 1.73.1(electron@39.8.7)
       '@theia/filesystem':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/markers':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/messages':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@theia/monaco':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/navigator':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/preferences':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/process':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@theia/terminal':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/workspace':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -133,8 +133,8 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@theia/cli':
-        specifier: 1.73.0
-        version: 1.73.0(@theia/electron@1.73.0(electron@39.8.7))
+        specifier: 1.73.1
+        version: 1.73.1(@theia/electron@1.73.1(electron@39.8.7))
       electron:
         specifier: 39.8.7
         version: 39.8.7
@@ -1493,53 +1493,53 @@ packages:
     resolution: {integrity: sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==}
     engines: {node: '>=10'}
 
-  '@theia/ai-anthropic@1.73.0':
-    resolution: {integrity: sha512-CIYXVdfkiiYquKs3diDnQGrl35Akl8DWycL6SibpmpJmQlDPc07/wprK1rO0PY9O2d9qqG5Bx46Em50sHBjXtw==}
+  '@theia/ai-anthropic@1.73.1':
+    resolution: {integrity: sha512-mrd+NODFK7bV2p6ZL9XIpoYHVQ1/41B8oJrdBhZ65sBShUQUYbCH+Xu8KbU5grJda1XwAxZrUkHqmmwd7YyXeA==}
 
-  '@theia/ai-chat-ui@1.73.0':
-    resolution: {integrity: sha512-z2QF6bzymwWcITzq26MXJm6U1iDQWnWLcmRPeMjl/CiBhcDGPxSzbXYkOpcN+aOL8DA8ZkMUjpicTVMxgekzoA==}
+  '@theia/ai-chat-ui@1.73.1':
+    resolution: {integrity: sha512-QvxcfRiiNlgu4A2kFWJjPhqb643UYtur3MTEAwshY99IXt3iFI8+SziN+xVUBhLDuOgc7/dgK/G3eiFV6RL0qg==}
 
-  '@theia/ai-chat@1.73.0':
-    resolution: {integrity: sha512-eJmDZb7ZH0Dc1p+0I8wMmLko1mVlpTVYyjj5htCBjaltlpEutUVuzVm9svcuzhEjJ1UzheHzuK9rHfaF4htdbg==}
+  '@theia/ai-chat@1.73.1':
+    resolution: {integrity: sha512-jR+GI7hfMGhfDgSOnrUbkumraaQPhDYYoQFlXaNA0RBysev1zAzLnLEoFodmSo9Vdha6HkiDN3hLrSMgR6fRYw==}
 
-  '@theia/ai-core@1.73.0':
-    resolution: {integrity: sha512-uXepvmS6sqo2VC2klBfLSsa1Jj7KTYrmtE/UKjUQYVVitM6ljOntti7YfCbgBYAfv/nT+l9YK/mimDGnzBJnWQ==}
+  '@theia/ai-core@1.73.1':
+    resolution: {integrity: sha512-eRNUOzoFxujPrztJi0AnlmgdClweojIo3vPvdLw4V7FcUirhBnvjklFAFBoRx7k/cbNbJ1lnEjEkpTRNsfpJ1Q==}
 
-  '@theia/ai-ide@1.73.0':
-    resolution: {integrity: sha512-z2Kz0+U7x2HamwSKIxIPj0E+jZUDmkGVmiYi5FNkQA092VrVWjvbcnDpOki4T3WP+jf/i2pX/ImVc+HUtgt0Gg==}
+  '@theia/ai-ide@1.73.1':
+    resolution: {integrity: sha512-jTxOZ4YqTkAnsUR1+6wewF94sTIkYufGyELlmevOVR2hYi6dAJOJPhlE0WskbNzNDVfm+56mUanObAx21/6yzg==}
 
-  '@theia/ai-mcp@1.73.0':
-    resolution: {integrity: sha512-vDyy61TyISZfoq287LmyN31PRsgPVXO3roTLDIM8/cG7nU0swrZOL/up/H/X6qPoFFiSzxOpD3B3WI1d6N0ZOw==}
+  '@theia/ai-mcp@1.73.1':
+    resolution: {integrity: sha512-NdXbIyqBIaljhfiXfVxL3xKZEpV93oWNuAaL01Op6zqHfUowlR4FeHhojMbZGEw7oW/ARTERS/64fJoLJqQ77g==}
 
-  '@theia/ai-openai@1.73.0':
-    resolution: {integrity: sha512-ixN+crl1nU+ALNVqJ8+VrJE542xS0SLkjGuWmlco+URiAhfLF1VMIhE+kAFZacdDKGci6oEL+Fd3bTJI3/rNng==}
+  '@theia/ai-openai@1.73.1':
+    resolution: {integrity: sha512-8y5qa+0sILH1FjMou8Pyc6159R6sI/1gLv/c3joEGh9NFczC0lQBOLZQkIdhrcirYsBcWDkWa5GDuGtRAlgGzA==}
 
-  '@theia/ai-terminal@1.73.0':
-    resolution: {integrity: sha512-VhdX8oEXW0JRLAdjvfDO/Cd53XozkhCgPCYUGO69krXyUJGV4R0O7m0Lv/lfQ3ZZXxhx/sVtxY7EmPATJLwqYA==}
+  '@theia/ai-terminal@1.73.1':
+    resolution: {integrity: sha512-4aQrs32PkAxddn0bUDlZ0PLIY+BZsfkek1P+oQerRJ6cNIcZ+gKDWjTkRhtZGjiF30QGDWzLJWo/bDRClgIgZQ==}
 
-  '@theia/application-manager@1.73.0':
-    resolution: {integrity: sha512-+/TiXBTiIy4r9UVnFnMFand/9HgjALTvIe8sTN86jmoODVS4Ajt4YyiMAaBCdxk7sfooO2UTdcd8zX4xtNanrw==}
+  '@theia/application-manager@1.73.1':
+    resolution: {integrity: sha512-NmDan3DhfAL1Q1RngH+zrbo0+g3v9gNydLAvHCxZmvh6Dr/5dOiV38FIVdDfZh2monKKVKdDnJI1QmTqDFCnRg==}
     peerDependencies:
       '@theia/electron': '*'
     peerDependenciesMeta:
       '@theia/electron':
         optional: true
 
-  '@theia/application-package@1.73.0':
-    resolution: {integrity: sha512-dDWx8ZrTbyXIqOOrOQlUEKU8X/phzhtmoVMnF3IMcDQKFFqGHB3/ihQvHvQ+qeXtHjqgYLUJzov664yLgpy9WQ==}
+  '@theia/application-package@1.73.1':
+    resolution: {integrity: sha512-cJqgHpEtZJy2WZr8Q7zd+RJYcnsCkwse/WSCWzhk3pFnaUkX9/ho1286b8Cy+8meWdbEKF615JGDmuZ8rDhwGw==}
 
-  '@theia/bundle-plugin@1.73.0':
-    resolution: {integrity: sha512-6DG17rP6yFe6PrBkm+YkYBa4vC2l+Oxps1E8QppD8h0PuOPZBET0cMUClIBb8ELLQ1hRFUwH/hR5A9H0jaqRpA==}
+  '@theia/bundle-plugin@1.73.1':
+    resolution: {integrity: sha512-MzID7J60jHhD3ier4jDAY8KEyZB/FfPhp+d++72HMZiD73yy4dYDVViu1hd9nCVgSMOfCXU7esH4JGAfsKc1yg==}
 
-  '@theia/cli@1.73.0':
-    resolution: {integrity: sha512-SYa+XUSLoJZmqJj2I2gLixC7tYp+w1oF1HRjtYX/V0Z4eIPX5ghQWsYHpPHx73glcSPN01Mrk/jBWxkPSEVSdg==}
+  '@theia/cli@1.73.1':
+    resolution: {integrity: sha512-wovWBoSkAu6+JDM6PvpQ7fhp1qJluyoN3H8WlKetbtEOqVtKpEGZP9QRpZZZxOEFSD5GtEOxymZwQLGmFvxrmA==}
     hasBin: true
 
-  '@theia/console@1.73.0':
-    resolution: {integrity: sha512-EsasqJdBr2srYKMYqoe5PCU/m1cO4UG1es2f0O+ml/dXdQkl33sRzUl5Zpvf0TxxAlI8oUF4nGFezXasi81jcw==}
+  '@theia/console@1.73.1':
+    resolution: {integrity: sha512-9xbrpTEvhN8JOgNkIncqiC1nF3jiTFEFucy7N4VFKm4CJq38KwHrfQpzNzJSg1zd/MPmrN6X22Xozc3VgH/t0A==}
 
-  '@theia/core@1.73.0':
-    resolution: {integrity: sha512-9o3c4L5PEKSW/4VSHE2hS+sISbtlWP27VLMN82xuO5UAKUCqcXUn4IblUE3cmGrYna5m55NC+/TSbJHtGOXxjg==}
+  '@theia/core@1.73.1':
+    resolution: {integrity: sha512-arFf1sMadEeIA/R5hewI/CeQ0DfQKAQ7e0bPbMcl5Xdz0E923cbWvD/31aVgGVla6AfTXz/W7XkujJ51efWhzg==}
     peerDependencies:
       '@theia/electron': '*'
       '@types/react': ^18.3.0 || ^19.0.0
@@ -1554,88 +1554,88 @@ packages:
       '@types/react-dom':
         optional: true
 
-  '@theia/debug@1.73.0':
-    resolution: {integrity: sha512-38aeHMMAEpAnLmpyTNUJ0lUitlKismHiSLFF7MlRN8NepfpaiWxEHWPQ/Qsari4IwfRryqOweisS4QJleYPgig==}
+  '@theia/debug@1.73.1':
+    resolution: {integrity: sha512-mCFvuaRk3ev41tA6hnKhBj2Dj8GvDyCAhThY5QE58DBdeSulGFjHwttvuTVzMCE9XBTUREqtcR7grehrZZQAog==}
 
-  '@theia/editor-preview@1.73.0':
-    resolution: {integrity: sha512-SOqrS8SHrd0ngjwj1EthgjJKQRe9bcXmCwIXyyT41bTnhmhwdxNov1gQb53cbZqhmoG/BaxyXLLcz8n4GPG69w==}
+  '@theia/editor-preview@1.73.1':
+    resolution: {integrity: sha512-vF34yHFYuAnnisYFGZoAz/xdqmmfZSAn/h7GlAFlpx7rytshzJ13VvGyvCNU0IOPbF8dh3Vbuge+gMsfoIY7MQ==}
 
-  '@theia/editor@1.73.0':
-    resolution: {integrity: sha512-aVjn3LhELzI4wlKsRk3O09BOVCL33spp79Twgv+cZmPRZs/mb9EjsHarXBMkzXH2l4h8BmG4duxe3tkwSDQVCQ==}
+  '@theia/editor@1.73.1':
+    resolution: {integrity: sha512-PvD7qLnrwb7g7sW2Dw9HawbkfUkltP/fLhVEA56She5N10I6+DxDWC/Jme62RL4/a/ARdDzWdFkKKXQEiR2Drw==}
 
-  '@theia/electron@1.73.0':
-    resolution: {integrity: sha512-UxdAlCYn9xzDAKilCzLaeqnaG7HJLNm8KuRgI3Mk4jSJLC1BXbB/WWfVnA8iIIt90iWTwny3cXm9TgtCNyAJUw==}
+  '@theia/electron@1.73.1':
+    resolution: {integrity: sha512-pnk5mwAk6wu8qbp6L+64rE72YSUm8BV+XNSnG411kCYfqgl9lfEh3nSxDv8Nj6pAU0KBhu/6c56VfTCyAUXXXg==}
     peerDependencies:
       electron: 39.8.7
 
-  '@theia/ffmpeg@1.73.0':
-    resolution: {integrity: sha512-TlyLGwyIFf5hXnQ2IlksXdLLHDZ9Bd/E4xxxt7F1S+Id3mpofD+JAWK3WvJljnX9Zv9WmklF9iF0naa3ovE5qQ==}
+  '@theia/ffmpeg@1.73.1':
+    resolution: {integrity: sha512-Ud/TjAYCAlfavDGQcFbDCTpg1Pa2HAYkJTtyO01dU7HYX64PDp3fc2JUnLw7DVtnjbe706+/s2nCGDsWEscNew==}
 
-  '@theia/file-search@1.73.0':
-    resolution: {integrity: sha512-F/p0To9Oej5KrQaf+wWMsiSRHRdLcAXRNZPzuxUsQDxJ8pRFNVbYyipqxAPH9RT9QPst0vndKdxdkPsqUDcHtA==}
+  '@theia/file-search@1.73.1':
+    resolution: {integrity: sha512-wKVi1X3Vqxe894N3T9cInSt0Rzx6IUybnmkvNQM7SuOeqEpaKNjmpL4QumBKMPsa5W3FEyH4mOYnVD6rQdavNg==}
 
-  '@theia/filesystem@1.73.0':
-    resolution: {integrity: sha512-31TgiADzq01Qf8HDqbbhpNQ3HIBHtf+XIpZkcrdvFcXwTLpXJ06X0PN/cPWq6HuBB8QlkKmr4/i5pB5Q/exN5A==}
+  '@theia/filesystem@1.73.1':
+    resolution: {integrity: sha512-RBvzMY8UucyJmmDyp+qqdIJEX5V6EBt+LvMYfcILvZ2AkKHT8/qZEoD3hQGLX5ddJq7h9UZaqNZM7T8thZZZBw==}
 
-  '@theia/localization-manager@1.73.0':
-    resolution: {integrity: sha512-FQAbXlYhLex6AvrU08QJRYqDiaFESoDtSndMI7J3LTWlfZDsG5+CiQPvnj6u/F/DF7kEvMDXBvykGqWn+vYoRA==}
+  '@theia/localization-manager@1.73.1':
+    resolution: {integrity: sha512-78rrUMqfZGtaljcl4E11sTdNjUqrmKaxlNUCxUqXPnzKysJcC95nwAfOa59uvimdMwSh8ktnjiQ5YYnx61oWAQ==}
 
-  '@theia/markers@1.73.0':
-    resolution: {integrity: sha512-5q/HQv3auN7PEOJ/6FmBWsFakTKeIS32m+nzKHI6/1HU7PUXsuoLSVZH93FEAkahPbkrxMGw/96F3uv4208npw==}
+  '@theia/markers@1.73.1':
+    resolution: {integrity: sha512-YJxS+RtDnO3Ew06hpiuADTlyGdsoMHjrCEPoVjFstKqec1Ps0biiSb5B6ipmFFCktoKXYCmCkfOeFZtl5IaTEw==}
 
-  '@theia/messages@1.73.0':
-    resolution: {integrity: sha512-LE/yPUYPhvNzaXBL3oZM+JcxH+1b/7w3f4AXdt9bQp5BIex5cYcPytE4A9rLH9edXv38Dwkc+HwmCrq2bXpZwQ==}
+  '@theia/messages@1.73.1':
+    resolution: {integrity: sha512-22YatZn7J/Aq6QfimpzSILlr8iZnPHINy4suH+4ye1GpkAgiviV1WknaAAboQSoRxlszTim4DRNwO5yh+4Dztw==}
 
   '@theia/monaco-editor-core@1.108.201':
     resolution: {integrity: sha512-svIRZuZTqzNontpe6n9f8RPRBtPaOyuB1btpMJ2tcNodjTuTgs2OB/FIhRp5WF17v7negIbA9WzroXt+uzSGng==}
 
-  '@theia/monaco@1.73.0':
-    resolution: {integrity: sha512-d+SuIlRMGn5IJJ3i5b94gnZ1aMzXPFuJJvOgj0e6Lcr+oG+CDO6nroygjmRT8zZ7L/tCOamLCELcOsBZfmBt0g==}
+  '@theia/monaco@1.73.1':
+    resolution: {integrity: sha512-Z8OMvnmGMqpgSdOyOBNzEijk2kIqKPNXTDZKwy0lhhaFRNq/GsBV37g18Pt6NK86i4iHUeo4umlN3P75WY4WIw==}
 
-  '@theia/navigator@1.73.0':
-    resolution: {integrity: sha512-6SrY5ZbL3v2oJ4nDG5/ehrnbzpqKyTPhOfARKV99zCQuQJVUzaHUiOIoqpGVABRtBhHp7iQPt3GTzaY0sOZ5pQ==}
+  '@theia/navigator@1.73.1':
+    resolution: {integrity: sha512-jKZP6FIMMfdv8mzoK6G3wXhMQUmEpYpTS4tgfX4zyKeDw5uAwvoytmTnhPUVXH1L+lcJi57TPIJG5EPMM57ihA==}
 
-  '@theia/outline-view@1.73.0':
-    resolution: {integrity: sha512-fNqpsazEQCWNOTtui11YjlXTv1CoMtunTFc/VHfmdfSRs9SHAHPFw0Ymq3qDUufJsbfid6ZpFogljYU6H/VJ/A==}
+  '@theia/outline-view@1.73.1':
+    resolution: {integrity: sha512-D/QiMil11JzvY0J6fKa8pR0T03GK1QbsXvVZPhpplC62p7qnM4cBLnygpz3ZhoA1Hdn5KVrhMbSw7hXVQcMa7w==}
 
-  '@theia/output@1.73.0':
-    resolution: {integrity: sha512-2vP0Vq8L1uwpTNE7d6GRSzVL7q5sEXHmF6YmD5c6Mc7gF+YyZMZ0TnkqZEtSO3E8ja1to50sjGyfCaeBYfN8NQ==}
+  '@theia/output@1.73.1':
+    resolution: {integrity: sha512-sNeAX2AVhyWgt5HXcbUJBgpUuLYeT1X6R/HITYgO/dW+brmhGmUo6xIFxOxh0sbUiQYRY6fSbRgN5bxJwEqvLQ==}
 
-  '@theia/ovsx-client@1.73.0':
-    resolution: {integrity: sha512-+l2pOOlk2TBxi35nppvFZktDtCn9fkr6C9fWjUirMLV8z2kO9Ck1fVJFnqWKMEnMLPYpQurP/g/bSeHIs2A0Eg==}
+  '@theia/ovsx-client@1.73.1':
+    resolution: {integrity: sha512-HvWLImryRUCjqw15OfaOhf9eqgpIMq16nYms1YLIfY2HencQ0ERNixYoZvVE8WIZM2tBeSY3U3dUxgPPoT8xWg==}
 
-  '@theia/preferences@1.73.0':
-    resolution: {integrity: sha512-m//2yiTszw1I1kdi03sw9rijAV4Wwp0QZ4qvnII4t1J6/bWnAU63+zWjvvnL7ofsD8jjcFGkb9kw2HEhKgd1dQ==}
+  '@theia/preferences@1.73.1':
+    resolution: {integrity: sha512-F8b8dYTWEY2W/jL98MYiq5UXuEFZcwuEv2/cnVoujCU2vpxFYBMdG/qwJzBUMqjDhiIl77J+yL5P7n7D8isSWg==}
 
-  '@theia/process@1.73.0':
-    resolution: {integrity: sha512-q2B79XZyIwzDwC/nn4wrwrw5Qn6V+r1GnwkHBPkI68MntB6kprdlOkRDhxwAG+M6sFplR8AkwAE6otvJAAIA+w==}
+  '@theia/process@1.73.1':
+    resolution: {integrity: sha512-iU9efcKzduwFpaCo1+mw/B97X0z6Jz9UZ0R42bUWl/atTBUkQQ18xxHz+tnRRL3dXNCbAf/WRTNnqnIWWY2AOw==}
 
-  '@theia/request@1.73.0':
-    resolution: {integrity: sha512-8LNTQEiKi5EtbZbR5KQioUdd6EBh/drgsP/Xk9SaCUiA2Hz/5NWKA57nWFqwLQnDeZYXNGJ+3m316EyicvzFiQ==}
+  '@theia/request@1.73.1':
+    resolution: {integrity: sha512-KfLK1EIwyjHafLUq7BUGUEeYDUTWXfUW4jgwvlTvFOW4tgQa8bZMJ8chHMou9QABvw7kNjW5y6tG+lQsuoTl3w==}
 
-  '@theia/scm@1.73.0':
-    resolution: {integrity: sha512-KSb5FFJfWIQnK9owL5v4mJcP3wd9DNrHZTmQXrePTz2mG1vIEd1cNV7T+qEjIhtSCmEY1RS1VzrmZBKES7EQKw==}
+  '@theia/scm@1.73.1':
+    resolution: {integrity: sha512-b9hihnHwLhtYlHbSZzqQJLptgZYTobAOCoCHEYEgCwVagN2f2PBQxyLa8dC4JfdOH2441OhNax3+1ZCltAaTkA==}
 
-  '@theia/search-in-workspace@1.73.0':
-    resolution: {integrity: sha512-QY7B379gFHadqU1FxaIEGs+7cjXmpUTSGOFZLkcDg3OAMURKyePpr0ylpSKMefJbl/MoGHU5hjNOegUoag/d3g==}
+  '@theia/search-in-workspace@1.73.1':
+    resolution: {integrity: sha512-GFZ2b1BJHa71uMNhwmkR7CEH5NaP8aAzW9eAIy3LFRuCEmCrPvT2ceKoZTyEvS1U75TWO31/ni4bt3Voc8AH1Q==}
 
-  '@theia/task@1.73.0':
-    resolution: {integrity: sha512-fejVqqvYsNg+EH7jaCDaoU2RTObaVcnhM05SopXd1ZEMzNCOEMMfcy69WF5jBv2rCQ8X/WpdSC43PJ34wrwvjQ==}
+  '@theia/task@1.73.1':
+    resolution: {integrity: sha512-XxQsYkB5YdG1JgJU4bdOAjn+fcG96BTrpQpVhzis6XEEsTh/3jwpbHFkVoGxUceKNxT6n8dCfkV1PjGvzQLVFQ==}
 
-  '@theia/terminal@1.73.0':
-    resolution: {integrity: sha512-w0pRSJn3gT3QbBuWIaKV2fqdVJCz3JRcvE4XMI8TYkeZ430SpFRgDPpkfhvZOmEDyv+zLbEcDtN0hCc4Fp3OGA==}
+  '@theia/terminal@1.73.1':
+    resolution: {integrity: sha512-I/wSuS1QmWKjepZUvuwlKf4aqlZFwDlxOAC+iBueZqK4Y9PKL55giohDmxmMytkHXsbzJkIMFp5K1dsjFyEcWA==}
 
-  '@theia/test@1.73.0':
-    resolution: {integrity: sha512-HgqESKEToO4ZziAgy2D4kmJq0B1y0mrxIRulIX0/BZiFr6yyH2cOV856fH6u9DuN1oAXGRDLp7PTkKuWx4WOXw==}
+  '@theia/test@1.73.1':
+    resolution: {integrity: sha512-4BFOMP8DD8akUuU3gsrzYSn5LU0Z0TgqbpyUk8SJ6z++4r0CqSJvVgGPqoTA0KYVlcnlFPAwMDvJ2S+63pAIHQ==}
 
-  '@theia/userstorage@1.73.0':
-    resolution: {integrity: sha512-1xBMgWAL1lhLJzpCtmVUbNWiYomu2zUVCOrw5JICtk1A3pIGJ3H155otE3f6+8hJJeGIVihlYy9BFpcJiZ17LA==}
+  '@theia/userstorage@1.73.1':
+    resolution: {integrity: sha512-QthkOue8P0+C6IHNLhxxSJ+F5aDWSl6ubRxEWh4LVIeYP9rlB97KF3xXtL7vaDHBrgAbfkA3joZQiEyaIrBo6A==}
 
-  '@theia/variable-resolver@1.73.0':
-    resolution: {integrity: sha512-b46pHHTZE8R/IR5wGHMkW9gEeqvKb3AZJ8un1mg30G2JY72wtMSresU5/2/e+M7D5r7WwHWju45nh+7EoYPREQ==}
+  '@theia/variable-resolver@1.73.1':
+    resolution: {integrity: sha512-Off2S3Ej8RzmXhHMkf4i7BjyLcPkE96q9YxchbqPzaxMPrAc2jSrrL8v/4ZX2AzcGPANHN0aHH1PSxTnHXHQ9Q==}
 
-  '@theia/workspace@1.73.0':
-    resolution: {integrity: sha512-ThkmTeV+eovggylLQV7bJ2Nvo3gFVXLdYjx/KVRd4fSlXLdvodn/IczoDIZmoiviWV2xiCmRRsIJdXyeGa/SvA==}
+  '@theia/workspace@1.73.1':
+    resolution: {integrity: sha512-UnI9ZjbuJ3iQ2kWUSi2vje7y1MCMPcZIE/u7WmS2tzP3MhbGGzEfc3wgTMBohbawY0/kTo7ktdbCVc7AH3/eGA==}
 
   '@tony.ganchev/eslint-plugin-header@3.4.4':
     resolution: {integrity: sha512-O3PDvjikVWECu078bLdRb2HwjVgR+wa7D0GX8gN1A8axlgEc7tordHOoEYcKRVxGcAw7bxXjwiKGXaY17qXD+Q==}
@@ -6379,27 +6379,7 @@ snapshots:
       '@babel/helpers': 7.29.7
       '@babel/parser': 7.29.7
       '@babel/template': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-      '@babel/types': 7.29.7
-      '@jridgewell/remapping': 2.3.5
-      convert-source-map: 2.0.0
-      debug: 4.4.3(supports-color@8.1.1)
-      gensync: 1.0.0-beta.2
-      json5: 2.2.3
-      semver: 6.3.1
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/core@7.29.7(supports-color@8.1.1)':
-    dependencies:
-      '@babel/code-frame': 7.29.7
-      '@babel/generator': 7.29.7
-      '@babel/helper-compilation-targets': 7.29.7
-      '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/helpers': 7.29.7
-      '@babel/parser': 7.29.7
-      '@babel/template': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
       '@babel/types': 7.29.7
       '@jridgewell/remapping': 2.3.5
       convert-source-map: 2.0.0
@@ -6430,19 +6410,6 @@ snapshots:
       lru-cache: 5.1.1
       semver: 6.3.1
 
-  '@babel/helper-create-class-features-plugin@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-annotate-as-pure': 7.29.7
-      '@babel/helper-member-expression-to-functions': 7.29.7
-      '@babel/helper-optimise-call-expression': 7.29.7
-      '@babel/helper-replace-supers': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/helper-skip-transparent-expression-wrappers': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-      semver: 6.3.1
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/helper-create-class-features-plugin@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
@@ -6451,17 +6418,10 @@ snapshots:
       '@babel/helper-optimise-call-expression': 7.29.7
       '@babel/helper-replace-supers': 7.29.7(@babel/core@7.29.7)
       '@babel/helper-skip-transparent-expression-wrappers': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
-
-  '@babel/helper-create-regexp-features-plugin@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-annotate-as-pure': 7.29.7
-      regexpu-core: 6.4.0
-      semver: 6.3.1
 
   '@babel/helper-create-regexp-features-plugin@7.29.7(@babel/core@7.29.7)':
     dependencies:
@@ -6469,17 +6429,6 @@ snapshots:
       '@babel/helper-annotate-as-pure': 7.29.7
       regexpu-core: 6.4.0
       semver: 6.3.1
-
-  '@babel/helper-define-polyfill-provider@0.6.8(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-compilation-targets': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-      debug: 4.4.3(supports-color@8.1.1)
-      lodash.debounce: 4.0.8
-      resolve: 1.22.12
-    transitivePeerDependencies:
-      - supports-color
 
   '@babel/helper-define-polyfill-provider@0.6.8(@babel/core@7.29.7)':
     dependencies:
@@ -6496,24 +6445,15 @@ snapshots:
 
   '@babel/helper-member-expression-to-functions@7.29.7':
     dependencies:
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
       '@babel/types': 7.29.7
     transitivePeerDependencies:
       - supports-color
 
   '@babel/helper-module-imports@7.29.7':
     dependencies:
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
       '@babel/types': 7.29.7
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/helper-module-transforms@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-module-imports': 7.29.7
-      '@babel/helper-validator-identifier': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -6522,7 +6462,7 @@ snapshots:
       '@babel/core': 7.29.7
       '@babel/helper-module-imports': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
     transitivePeerDependencies:
       - supports-color
 
@@ -6532,30 +6472,12 @@ snapshots:
 
   '@babel/helper-plugin-utils@7.29.7': {}
 
-  '@babel/helper-remap-async-to-generator@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-annotate-as-pure': 7.29.7
-      '@babel/helper-wrap-function': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/helper-remap-async-to-generator@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-annotate-as-pure': 7.29.7
       '@babel/helper-wrap-function': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/helper-replace-supers@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-member-expression-to-functions': 7.29.7
-      '@babel/helper-optimise-call-expression': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
     transitivePeerDependencies:
       - supports-color
 
@@ -6564,13 +6486,13 @@ snapshots:
       '@babel/core': 7.29.7
       '@babel/helper-member-expression-to-functions': 7.29.7
       '@babel/helper-optimise-call-expression': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
     transitivePeerDependencies:
       - supports-color
 
   '@babel/helper-skip-transparent-expression-wrappers@7.29.7':
     dependencies:
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
       '@babel/types': 7.29.7
     transitivePeerDependencies:
       - supports-color
@@ -6584,7 +6506,7 @@ snapshots:
   '@babel/helper-wrap-function@7.29.7':
     dependencies:
       '@babel/template': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
       '@babel/types': 7.29.7
     transitivePeerDependencies:
       - supports-color
@@ -6598,35 +6520,17 @@ snapshots:
     dependencies:
       '@babel/types': 7.29.7
 
-  '@babel/plugin-bugfix-firefox-class-in-computed-class-key@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/plugin-bugfix-firefox-class-in-computed-class-key@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
     transitivePeerDependencies:
       - supports-color
-
-  '@babel/plugin-bugfix-safari-class-field-initializer-scope@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-bugfix-safari-class-field-initializer-scope@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@7.29.7(@babel/core@7.29.7)':
@@ -6634,28 +6538,11 @@ snapshots:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-bugfix-safari-rest-destructuring-rhs-array@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/helper-skip-transparent-expression-wrappers': 7.29.7
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/plugin-bugfix-safari-rest-destructuring-rhs-array@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
       '@babel/helper-skip-transparent-expression-wrappers': 7.29.7
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/helper-skip-transparent-expression-wrappers': 7.29.7
-      '@babel/plugin-transform-optional-chaining': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -6668,54 +6555,26 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
     transitivePeerDependencies:
       - supports-color
-
-  '@babel/plugin-proposal-private-property-in-object@7.21.0-placeholder-for-preset-env.2(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
 
   '@babel/plugin-proposal-private-property-in-object@7.21.0-placeholder-for-preset-env.2(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
-
-  '@babel/plugin-syntax-import-assertions@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-syntax-import-assertions@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-syntax-import-attributes@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-syntax-import-attributes@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-syntax-unicode-sets-regex@7.18.6(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-syntax-unicode-sets-regex@7.18.6(@babel/core@7.29.7)':
@@ -6724,40 +6583,17 @@ snapshots:
       '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7)
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-arrow-functions@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-arrow-functions@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-async-generator-functions@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/helper-remap-async-to-generator': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
 
   '@babel/plugin-transform-async-generator-functions@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
       '@babel/helper-remap-async-to-generator': 7.29.7(@babel/core@7.29.7)
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/plugin-transform-async-to-generator@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-module-imports': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/helper-remap-async-to-generator': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
+      '@babel/traverse': 7.29.7
     transitivePeerDependencies:
       - supports-color
 
@@ -6770,19 +6606,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-block-scoped-functions@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-block-scoped-functions@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-block-scoping@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-transform-block-scoping@7.29.7(@babel/core@7.29.7)':
@@ -6790,26 +6616,10 @@ snapshots:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-class-properties@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-create-class-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/helper-plugin-utils': 7.29.7
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/plugin-transform-class-properties@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-create-class-features-plugin': 7.29.7(@babel/core@7.29.7)
-      '@babel/helper-plugin-utils': 7.29.7
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/plugin-transform-class-static-block@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-create-class-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
       '@babel/helper-plugin-utils': 7.29.7
     transitivePeerDependencies:
       - supports-color
@@ -6822,18 +6632,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-classes@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-annotate-as-pure': 7.29.7
-      '@babel/helper-compilation-targets': 7.29.7
-      '@babel/helper-globals': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/helper-replace-supers': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/plugin-transform-classes@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
@@ -6842,15 +6640,9 @@ snapshots:
       '@babel/helper-globals': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
       '@babel/helper-replace-supers': 7.29.7(@babel/core@7.29.7)
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
     transitivePeerDependencies:
       - supports-color
-
-  '@babel/plugin-transform-computed-properties@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/template': 7.29.7
 
   '@babel/plugin-transform-computed-properties@7.29.7(@babel/core@7.29.7)':
     dependencies:
@@ -6858,27 +6650,13 @@ snapshots:
       '@babel/helper-plugin-utils': 7.29.7
       '@babel/template': 7.29.7
 
-  '@babel/plugin-transform-destructuring@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/plugin-transform-destructuring@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
     transitivePeerDependencies:
       - supports-color
-
-  '@babel/plugin-transform-dotall-regex@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-transform-dotall-regex@7.29.7(@babel/core@7.29.7)':
     dependencies:
@@ -6886,20 +6664,9 @@ snapshots:
       '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7)
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-duplicate-keys@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-duplicate-keys@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-duplicate-named-capturing-groups-regex@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-transform-duplicate-named-capturing-groups-regex@7.29.7(@babel/core@7.29.7)':
@@ -6908,23 +6675,10 @@ snapshots:
       '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7)
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-dynamic-import@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-dynamic-import@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-explicit-resource-management@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/plugin-transform-destructuring': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-    transitivePeerDependencies:
-      - supports-color
 
   '@babel/plugin-transform-explicit-resource-management@7.29.7(@babel/core@7.29.7)':
     dependencies:
@@ -6934,33 +6688,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-exponentiation-operator@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-exponentiation-operator@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-export-namespace-from@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-transform-export-namespace-from@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-for-of@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/helper-skip-transparent-expression-wrappers': 7.29.7
-    transitivePeerDependencies:
-      - supports-color
 
   '@babel/plugin-transform-for-of@7.29.7(@babel/core@7.29.7)':
     dependencies:
@@ -6970,37 +6706,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-function-name@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-compilation-targets': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/plugin-transform-function-name@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-compilation-targets': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7
     transitivePeerDependencies:
       - supports-color
-
-  '@babel/plugin-transform-json-strings@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-transform-json-strings@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-literals@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-transform-literals@7.29.7(@babel/core@7.29.7)':
@@ -7008,19 +6725,9 @@ snapshots:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-logical-assignment-operators@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-logical-assignment-operators@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-member-expression-literals@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-transform-member-expression-literals@7.29.7(@babel/core@7.29.7)':
@@ -7028,26 +6735,10 @@ snapshots:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-modules-amd@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/helper-plugin-utils': 7.29.7
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/plugin-transform-modules-amd@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7)
-      '@babel/helper-plugin-utils': 7.29.7
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/plugin-transform-modules-commonjs@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
       '@babel/helper-plugin-utils': 7.29.7
     transitivePeerDependencies:
       - supports-color
@@ -7060,31 +6751,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-modules-systemjs@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/helper-validator-identifier': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/plugin-transform-modules-systemjs@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7)
       '@babel/helper-plugin-utils': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/plugin-transform-modules-umd@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/helper-plugin-utils': 7.29.7
+      '@babel/traverse': 7.29.7
     transitivePeerDependencies:
       - supports-color
 
@@ -7096,21 +6769,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-named-capturing-groups-regex@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-named-capturing-groups-regex@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7)
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-new-target@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-transform-new-target@7.29.7(@babel/core@7.29.7)':
@@ -7118,36 +6780,15 @@ snapshots:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-nullish-coalescing-operator@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-nullish-coalescing-operator@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-numeric-separator@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-transform-numeric-separator@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-object-rest-spread@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-compilation-targets': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/plugin-transform-destructuring': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-parameters': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
 
   '@babel/plugin-transform-object-rest-spread@7.29.7(@babel/core@7.29.7)':
     dependencies:
@@ -7156,15 +6797,7 @@ snapshots:
       '@babel/helper-plugin-utils': 7.29.7
       '@babel/plugin-transform-destructuring': 7.29.7(@babel/core@7.29.7)
       '@babel/plugin-transform-parameters': 7.29.7(@babel/core@7.29.7)
-      '@babel/traverse': 7.29.7(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/plugin-transform-object-super@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/helper-replace-supers': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
+      '@babel/traverse': 7.29.7
     transitivePeerDependencies:
       - supports-color
 
@@ -7176,23 +6809,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-optional-catch-binding@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-optional-catch-binding@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-optional-chaining@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/helper-skip-transparent-expression-wrappers': 7.29.7
-    transitivePeerDependencies:
-      - supports-color
 
   '@babel/plugin-transform-optional-chaining@7.29.7(@babel/core@7.29.7)':
     dependencies:
@@ -7202,37 +6822,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-parameters@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-parameters@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-private-methods@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-create-class-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/helper-plugin-utils': 7.29.7
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/plugin-transform-private-methods@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-create-class-features-plugin': 7.29.7(@babel/core@7.29.7)
-      '@babel/helper-plugin-utils': 7.29.7
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/plugin-transform-private-property-in-object@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-annotate-as-pure': 7.29.7
-      '@babel/helper-create-class-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
       '@babel/helper-plugin-utils': 7.29.7
     transitivePeerDependencies:
       - supports-color
@@ -7246,30 +6844,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-property-literals@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-property-literals@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-regenerator@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-regenerator@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-regexp-modifiers@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-transform-regexp-modifiers@7.29.7(@babel/core@7.29.7)':
@@ -7278,27 +6860,10 @@ snapshots:
       '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7)
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-reserved-words@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-reserved-words@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-module-imports': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-      babel-plugin-polyfill-corejs2: 0.4.17(@babel/core@7.29.7(supports-color@8.1.1))
-      babel-plugin-polyfill-corejs3: 0.13.0(@babel/core@7.29.7(supports-color@8.1.1))
-      babel-plugin-polyfill-regenerator: 0.6.8(@babel/core@7.29.7(supports-color@8.1.1))
-      semver: 6.3.1
-    transitivePeerDependencies:
-      - supports-color
 
   '@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.7)':
     dependencies:
@@ -7312,23 +6877,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-shorthand-properties@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-shorthand-properties@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-spread@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/helper-skip-transparent-expression-wrappers': 7.29.7
-    transitivePeerDependencies:
-      - supports-color
 
   '@babel/plugin-transform-spread@7.29.7(@babel/core@7.29.7)':
     dependencies:
@@ -7338,19 +6890,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-sticky-regex@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-sticky-regex@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-template-literals@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-transform-template-literals@7.29.7(@babel/core@7.29.7)':
@@ -7358,30 +6900,14 @@ snapshots:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-typeof-symbol@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-typeof-symbol@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-unicode-escapes@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-unicode-escapes@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-unicode-property-regex@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-transform-unicode-property-regex@7.29.7(@babel/core@7.29.7)':
@@ -7390,22 +6916,10 @@ snapshots:
       '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7)
       '@babel/helper-plugin-utils': 7.29.7
 
-  '@babel/plugin-transform-unicode-regex@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/helper-plugin-utils': 7.29.7
-
   '@babel/plugin-transform-unicode-regex@7.29.7(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7)
-      '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/plugin-transform-unicode-sets-regex@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-transform-unicode-sets-regex@7.29.7(@babel/core@7.29.7)':
@@ -7413,83 +6927,6 @@ snapshots:
       '@babel/core': 7.29.7
       '@babel/helper-create-regexp-features-plugin': 7.29.7(@babel/core@7.29.7)
       '@babel/helper-plugin-utils': 7.29.7
-
-  '@babel/preset-env@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/compat-data': 7.29.7
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-compilation-targets': 7.29.7
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/helper-validator-option': 7.29.7
-      '@babel/plugin-bugfix-firefox-class-in-computed-class-key': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-bugfix-safari-class-field-initializer-scope': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-bugfix-safari-rest-destructuring-rhs-array': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-proposal-private-property-in-object': 7.21.0-placeholder-for-preset-env.2(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-syntax-import-assertions': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-syntax-import-attributes': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-syntax-unicode-sets-regex': 7.18.6(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-arrow-functions': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-async-generator-functions': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-async-to-generator': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-block-scoped-functions': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-block-scoping': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-class-properties': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-class-static-block': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-classes': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-computed-properties': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-destructuring': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-dotall-regex': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-duplicate-keys': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-duplicate-named-capturing-groups-regex': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-dynamic-import': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-explicit-resource-management': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-exponentiation-operator': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-export-namespace-from': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-for-of': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-function-name': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-json-strings': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-literals': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-logical-assignment-operators': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-member-expression-literals': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-modules-amd': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-modules-commonjs': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-modules-systemjs': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-modules-umd': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-named-capturing-groups-regex': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-new-target': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-nullish-coalescing-operator': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-numeric-separator': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-object-rest-spread': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-object-super': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-optional-catch-binding': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-optional-chaining': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-parameters': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-private-methods': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-private-property-in-object': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-property-literals': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-regenerator': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-regexp-modifiers': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-reserved-words': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-shorthand-properties': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-spread': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-sticky-regex': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-template-literals': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-typeof-symbol': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-unicode-escapes': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-unicode-property-regex': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-unicode-regex': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-unicode-sets-regex': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/preset-modules': 0.1.6-no-external-plugins(@babel/core@7.29.7(supports-color@8.1.1))
-      babel-plugin-polyfill-corejs2: 0.4.17(@babel/core@7.29.7(supports-color@8.1.1))
-      babel-plugin-polyfill-corejs3: 0.14.2(@babel/core@7.29.7(supports-color@8.1.1))
-      babel-plugin-polyfill-regenerator: 0.6.8(@babel/core@7.29.7(supports-color@8.1.1))
-      core-js-compat: 3.49.0
-      semver: 6.3.1
-    transitivePeerDependencies:
-      - supports-color
 
   '@babel/preset-env@7.29.7(@babel/core@7.29.7)':
     dependencies:
@@ -7568,13 +7005,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/preset-modules@0.1.6-no-external-plugins(@babel/core@7.29.7(supports-color@8.1.1))':
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.29.7
-      '@babel/types': 7.29.7
-      esutils: 2.0.3
-
   '@babel/preset-modules@0.1.6-no-external-plugins(@babel/core@7.29.7)':
     dependencies:
       '@babel/core': 7.29.7
@@ -7590,7 +7020,7 @@ snapshots:
       '@babel/parser': 7.29.7
       '@babel/types': 7.29.7
 
-  '@babel/traverse@7.29.7(supports-color@8.1.1)':
+  '@babel/traverse@7.29.7':
     dependencies:
       '@babel/code-frame': 7.29.7
       '@babel/generator': 7.29.7
@@ -7799,7 +7229,7 @@ snapshots:
     dependencies:
       '@eclipse-glsp/server': 2.8.0-next.7(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@hono/node-server': 1.19.14(hono@4.12.25)
-      '@modelcontextprotocol/sdk': 1.29.0(supports-color@8.1.1)
+      '@modelcontextprotocol/sdk': 1.29.0
       inversify: 6.2.2(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
       zod: 4.4.3
@@ -7859,14 +7289,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@electron/rebuild@4.0.4(supports-color@8.1.1)':
+  '@electron/rebuild@4.0.4':
     dependencies:
       '@malept/cross-spawn-promise': 2.0.0
       debug: 4.4.3(supports-color@8.1.1)
       node-abi: 4.31.0
       node-api-version: 0.2.1
       node-gyp: 12.4.0
-      read-binary-file-arch: 1.0.6(supports-color@8.1.1)
+      read-binary-file-arch: 1.0.6
     transitivePeerDependencies:
       - supports-color
 
@@ -8091,7 +7521,7 @@ snapshots:
 
   '@jspm/core@2.1.0': {}
 
-  '@kwsites/file-exists@1.1.1(supports-color@8.1.1)':
+  '@kwsites/file-exists@1.1.1':
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
@@ -8170,7 +7600,7 @@ snapshots:
     dependencies:
       '@chevrotain/types': 11.1.2
 
-  '@modelcontextprotocol/sdk@1.29.0(supports-color@8.1.1)':
+  '@modelcontextprotocol/sdk@1.29.0':
     dependencies:
       '@hono/node-server': 1.19.14(hono@4.12.25)
       ajv: 8.20.0
@@ -8180,7 +7610,7 @@ snapshots:
       cross-spawn: 7.0.6
       eventsource: 3.0.7
       eventsource-parser: 3.1.0
-      express: 5.2.1(supports-color@8.1.1)
+      express: 5.2.1
       express-rate-limit: 8.5.2(express@5.2.1)
       hono: 4.12.25
       jose: 6.2.3
@@ -8398,11 +7828,11 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@theia/ai-anthropic@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)(zod@4.4.3)':
+  '@theia/ai-anthropic@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)(zod@4.4.3)':
     dependencies:
       '@anthropic-ai/sdk': 0.93.0(zod@4.4.3)
-      '@theia/ai-core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/ai-core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     transitivePeerDependencies:
       - '@theia/electron'
       - '@types/react'
@@ -8419,18 +7849,18 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@theia/ai-chat-ui@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/ai-chat-ui@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/ai-chat': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/ai-core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor-preview': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/monaco': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/ai-chat': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/ai-core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor-preview': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/monaco': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/monaco-editor-core': 1.108.201
-      '@theia/preferences': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/preferences': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       date-fns: 4.4.0
       mermaid: 11.16.0
       tslib: 2.8.1
@@ -8449,16 +7879,16 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/ai-chat@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/ai-chat@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/ai-core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/file-search': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/monaco': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/ai-core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/file-search': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/monaco': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/monaco-editor-core': 1.108.201
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       js-yaml: 4.2.0
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -8476,16 +7906,16 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/ai-core@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/ai-core@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/monaco': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/monaco': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/monaco-editor-core': 1.108.201
-      '@theia/output': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/variable-resolver': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/output': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/variable-resolver': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@types/js-yaml': 4.0.9
       fast-deep-equal: 3.1.3
       js-yaml: 4.2.0
@@ -8506,33 +7936,33 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/ai-ide@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)(typescript@5.9.3)':
+  '@theia/ai-ide@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/ai-chat': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/ai-chat-ui': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/ai-core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/ai-mcp': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)(typescript@5.9.3)
-      '@theia/ai-terminal': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/debug': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/file-search': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/markers': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/monaco': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/navigator': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/preferences': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/scm': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/search-in-workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/task': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/terminal': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/ai-chat': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/ai-chat-ui': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/ai-core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/ai-mcp': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/ai-terminal': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/debug': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/file-search': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/markers': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/monaco': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/navigator': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/preferences': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/scm': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/search-in-workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/task': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/terminal': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       date-fns: 4.4.0
       ignore: 6.0.2
       js-yaml: 4.2.0
       minimatch: 10.2.5
       puppeteer-core: 25.1.0
-      simple-git: 3.36.0(supports-color@8.1.1)
+      simple-git: 3.36.0
     transitivePeerDependencies:
       - '@cfworker/json-schema'
       - '@theia/electron'
@@ -8550,12 +7980,12 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/ai-mcp@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)(typescript@5.9.3)':
+  '@theia/ai-mcp@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@modelcontextprotocol/sdk': 1.29.0(supports-color@8.1.1)
-      '@theia/ai-core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@modelcontextprotocol/sdk': 1.29.0
+      '@theia/ai-core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
     transitivePeerDependencies:
       - '@cfworker/json-schema'
       - '@theia/electron'
@@ -8572,12 +8002,12 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/ai-openai@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)(ws@8.21.0)(zod@4.4.3)':
+  '@theia/ai-openai@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)(ws@8.21.0)(zod@4.4.3)':
     dependencies:
-      '@theia/ai-core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/ai-core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       openai: 6.42.0(ws@8.21.0)(zod@4.4.3)
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -8597,14 +8027,14 @@ snapshots:
       - ws
       - zod
 
-  '@theia/ai-terminal@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/ai-terminal@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/ai-chat': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/ai-chat-ui': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/ai-core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/terminal': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/ai-chat': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/ai-chat-ui': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/ai-core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/terminal': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       zod: 4.4.3
     transitivePeerDependencies:
       - '@theia/electron'
@@ -8621,16 +8051,16 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/application-manager@1.73.0(@theia/electron@1.73.0(electron@39.8.7))':
+  '@theia/application-manager@1.73.1(@theia/electron@1.73.1(electron@39.8.7))':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/plugin-transform-classes': 7.29.7(@babel/core@7.29.7)
       '@babel/plugin-transform-runtime': 7.29.7(@babel/core@7.29.7)
       '@babel/preset-env': 7.29.7(@babel/core@7.29.7)
-      '@electron/rebuild': 4.0.4(supports-color@8.1.1)
-      '@theia/application-package': 1.73.0
-      '@theia/bundle-plugin': 1.73.0(esbuild@0.24.2)(webpack-cli@4.7.0)
-      '@theia/ffmpeg': 1.73.0
+      '@electron/rebuild': 4.0.4
+      '@theia/application-package': 1.73.1
+      '@theia/bundle-plugin': 1.73.1(esbuild@0.24.2)(webpack-cli@4.7.0)
+      '@theia/ffmpeg': 1.73.1
       '@types/fs-extra': 4.0.15
       '@types/semver': 7.7.1
       babel-loader: 8.4.1(@babel/core@7.29.7)(webpack@5.107.2)
@@ -8642,7 +8072,7 @@ snapshots:
       esbuild-plugin-copy: 2.1.1(esbuild@0.24.2)
       esbuild-plugins-node-modules-polyfill: 1.8.1(esbuild@0.24.2)
       fs-extra: 4.0.3
-      http-server: 14.1.1(supports-color@8.1.1)
+      http-server: 14.1.1
       ignore-loader: 0.1.2
       less: 3.13.1
       mini-css-extract-plugin: 2.10.2(webpack@5.107.2)
@@ -8661,7 +8091,7 @@ snapshots:
       worker-loader: 3.0.8(webpack@5.107.2)
       yargs: 17.7.2
     optionalDependencies:
-      '@theia/electron': 1.73.0(electron@39.8.7)
+      '@theia/electron': 1.73.1(electron@39.8.7)
     transitivePeerDependencies:
       - '@minify-html/node'
       - '@rspack/core'
@@ -8682,70 +8112,9 @@ snapshots:
       - webpack-bundle-analyzer
       - webpack-dev-server
 
-  '@theia/application-manager@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(supports-color@8.1.1)':
+  '@theia/application-package@1.73.1':
     dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/plugin-transform-classes': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/plugin-transform-runtime': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@babel/preset-env': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
-      '@electron/rebuild': 4.0.4(supports-color@8.1.1)
-      '@theia/application-package': 1.73.0
-      '@theia/bundle-plugin': 1.73.0(esbuild@0.24.2)(webpack-cli@4.7.0)
-      '@theia/ffmpeg': 1.73.0
-      '@types/fs-extra': 4.0.15
-      '@types/semver': 7.7.1
-      babel-loader: 8.4.1(@babel/core@7.29.7(supports-color@8.1.1))(webpack@5.107.2)
-      buffer: 6.0.3
-      compression-webpack-plugin: 9.2.0(webpack@5.107.2)
-      copy-webpack-plugin: 8.1.1(webpack@5.107.2)
-      css-loader: 6.11.0(webpack@5.107.2)
-      esbuild: 0.24.2
-      esbuild-plugin-copy: 2.1.1(esbuild@0.24.2)
-      esbuild-plugins-node-modules-polyfill: 1.8.1(esbuild@0.24.2)
-      fs-extra: 4.0.3
-      http-server: 14.1.1(supports-color@8.1.1)
-      ignore-loader: 0.1.2
-      less: 3.13.1
-      mini-css-extract-plugin: 2.10.2(webpack@5.107.2)
-      node-loader: 2.1.0(webpack@5.107.2)
-      path-browserify: 1.0.1
-      semver: 7.8.4
-      source-map: 0.6.1
-      source-map-loader: 2.0.2(webpack@5.107.2)
-      source-map-support: 0.5.21
-      string-replace-loader: 3.3.0(webpack@5.107.2)
-      style-loader: 2.0.0(webpack@5.107.2)
-      tslib: 2.8.1
-      umd-compat-loader: 2.1.2
-      webpack: 5.107.2(esbuild@0.24.2)(webpack-cli@4.7.0)
-      webpack-cli: 4.7.0(webpack@5.107.2)
-      worker-loader: 3.0.8(webpack@5.107.2)
-      yargs: 17.7.2
-    optionalDependencies:
-      '@theia/electron': 1.73.0(electron@39.8.7)
-    transitivePeerDependencies:
-      - '@minify-html/node'
-      - '@rspack/core'
-      - '@swc/core'
-      - '@swc/css'
-      - '@swc/html'
-      - '@webpack-cli/generators'
-      - '@webpack-cli/migrate'
-      - clean-css
-      - cssnano
-      - csso
-      - debug
-      - html-minifier-terser
-      - lightningcss
-      - postcss
-      - supports-color
-      - uglify-js
-      - webpack-bundle-analyzer
-      - webpack-dev-server
-
-  '@theia/application-package@1.73.0':
-    dependencies:
-      '@theia/request': 1.73.0
+      '@theia/request': 1.73.1
       '@types/fs-extra': 4.0.15
       '@types/semver': 7.7.1
       '@types/write-json-file': 2.2.1
@@ -8761,7 +8130,7 @@ snapshots:
       - debug
       - supports-color
 
-  '@theia/bundle-plugin@1.73.0(esbuild@0.24.2)(webpack-cli@4.7.0)':
+  '@theia/bundle-plugin@1.73.1(esbuild@0.24.2)(webpack-cli@4.7.0)':
     dependencies:
       detect-libc: 2.1.2
       resolve-package-path: 4.0.3
@@ -8782,14 +8151,14 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@theia/cli@1.73.0(@theia/electron@1.73.0(electron@39.8.7))':
+  '@theia/cli@1.73.1(@theia/electron@1.73.1(electron@39.8.7))':
     dependencies:
-      '@theia/application-manager': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))
-      '@theia/application-package': 1.73.0
-      '@theia/ffmpeg': 1.73.0
-      '@theia/localization-manager': 1.73.0
-      '@theia/ovsx-client': 1.73.0
-      '@theia/request': 1.73.0
+      '@theia/application-manager': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))
+      '@theia/application-package': 1.73.1
+      '@theia/ffmpeg': 1.73.1
+      '@theia/localization-manager': 1.73.1
+      '@theia/ovsx-client': 1.73.1
+      '@theia/request': 1.73.1
       '@types/chai': 4.3.20
       '@types/mocha': 10.0.10
       '@types/node-fetch': 2.6.13
@@ -8798,7 +8167,7 @@ snapshots:
       decompress: 4.2.1
       escape-string-regexp: 4.0.0
       glob: 8.1.0
-      http-server: 14.1.1(supports-color@8.1.1)
+      http-server: 14.1.1
       limiter: 2.1.0
       log-update: 4.0.0
       mocha: 10.8.2
@@ -8833,62 +8202,11 @@ snapshots:
       - webpack-bundle-analyzer
       - webpack-dev-server
 
-  '@theia/cli@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(supports-color@8.1.1)':
+  '@theia/console@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/application-manager': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(supports-color@8.1.1)
-      '@theia/application-package': 1.73.0
-      '@theia/ffmpeg': 1.73.0
-      '@theia/localization-manager': 1.73.0
-      '@theia/ovsx-client': 1.73.0
-      '@theia/request': 1.73.0
-      '@types/chai': 4.3.20
-      '@types/mocha': 10.0.10
-      '@types/node-fetch': 2.6.13
-      chai: 4.5.0
-      chalk: 4.0.0
-      decompress: 4.2.1
-      escape-string-regexp: 4.0.0
-      glob: 8.1.0
-      http-server: 14.1.1(supports-color@8.1.1)
-      limiter: 2.1.0
-      log-update: 4.0.0
-      mocha: 10.8.2
-      patch-package: 8.0.1
-      puppeteer: 25.1.0
-      puppeteer-core: 25.1.0
-      puppeteer-to-istanbul: 1.4.0
-      temp: 0.9.4
-      tslib: 2.8.1
-      yargs: 17.7.2
-    transitivePeerDependencies:
-      - '@minify-html/node'
-      - '@rspack/core'
-      - '@swc/core'
-      - '@swc/css'
-      - '@swc/html'
-      - '@theia/electron'
-      - '@webpack-cli/generators'
-      - '@webpack-cli/migrate'
-      - bufferutil
-      - clean-css
-      - cssnano
-      - csso
-      - debug
-      - html-minifier-terser
-      - lightningcss
-      - postcss
-      - proxy-agent
-      - supports-color
-      - uglify-js
-      - utf-8-validate
-      - webpack-bundle-analyzer
-      - webpack-dev-server
-
-  '@theia/console@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
-    dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/monaco': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/monaco': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/monaco-editor-core': 1.108.201
       anser: 2.3.5
       tslib: 2.8.1
@@ -8907,7 +8225,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/core@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@theia/core@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@lumino/algorithm': 2.0.4
@@ -8921,8 +8239,8 @@ snapshots:
       '@lumino/virtualdom': 2.0.4
       '@lumino/widgets': 2.7.5
       '@parcel/watcher': 2.5.6
-      '@theia/application-package': 1.73.0
-      '@theia/request': 1.73.0
+      '@theia/application-package': 1.73.1
+      '@theia/request': 1.73.1
       '@types/body-parser': 1.19.6
       '@types/express': 4.17.25
       '@types/fs-extra': 4.0.15
@@ -8977,29 +8295,29 @@ snapshots:
       ws: 8.21.0
       yargs: 17.7.2
     optionalDependencies:
-      '@theia/electron': 1.73.0(electron@39.8.7)
+      '@theia/electron': 1.73.1(electron@39.8.7)
     transitivePeerDependencies:
       - bufferutil
       - debug
       - supports-color
       - utf-8-validate
 
-  '@theia/debug@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/debug@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/console': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/markers': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/monaco': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/console': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/markers': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/monaco': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/monaco-editor-core': 1.108.201
-      '@theia/output': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/process': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/task': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/terminal': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/test': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/variable-resolver': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/output': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/process': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/task': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/terminal': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/test': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/variable-resolver': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@vscode/debugprotocol': 1.68.0
       fast-deep-equal: 3.1.3
       jsonc-parser: 3.3.1
@@ -9020,11 +8338,11 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/editor-preview@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/editor-preview@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/navigator': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/navigator': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@theia/electron'
@@ -9041,10 +8359,10 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/editor@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@theia/editor@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/variable-resolver': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/variable-resolver': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@theia/electron'
@@ -9057,14 +8375,14 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@theia/electron@1.73.0(electron@39.8.7)':
+  '@theia/electron@1.73.1(electron@39.8.7)':
     dependencies:
       electron: 39.8.7
       electron-store: 8.2.0
       fix-path: 4.0.0
       native-keymap: 2.5.0
 
-  '@theia/ffmpeg@1.73.0':
+  '@theia/ffmpeg@1.73.1':
     dependencies:
       '@electron/get': 2.0.3
       tslib: 2.8.1
@@ -9072,13 +8390,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@theia/file-search@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/file-search@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/process': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/process': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@vscode/ripgrep': 1.18.0
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -9096,9 +8414,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/filesystem@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/filesystem@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/body-parser': 1.19.6
       '@types/multer': 1.4.13
       '@types/tar-fs': 1.16.3
@@ -9132,7 +8450,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/localization-manager@1.73.0':
+  '@theia/localization-manager@1.73.1':
     dependencies:
       '@types/bent': 7.3.8
       '@types/fs-extra': 4.0.15
@@ -9145,11 +8463,11 @@ snapshots:
       tslib: 2.8.1
       typescript: 5.9.3
 
-  '@theia/markers@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/markers@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@theia/electron'
@@ -9166,9 +8484,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/messages@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@theia/messages@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-perfect-scrollbar: 1.5.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       ts-md5: 1.3.1
       tslib: 2.8.1
@@ -9188,15 +8506,15 @@ snapshots:
       dompurify: 3.2.7
       marked: 14.0.0
 
-  '@theia/monaco@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/monaco@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/markers': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/markers': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/monaco-editor-core': 1.108.201
-      '@theia/outline-view': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/outline-view': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       fast-plist: 0.1.3
       idb: 4.0.5
       jsonc-parser: 3.3.1
@@ -9218,11 +8536,11 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/navigator@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/navigator@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       minimatch: 10.2.5
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -9240,9 +8558,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/outline-view@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@theia/outline-view@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@theia/electron'
@@ -9255,11 +8573,11 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@theia/output@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/output@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/monaco': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/monaco': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/monaco-editor-core': 1.108.201
       p-queue: 8.1.1
       tslib: 2.8.1
@@ -9278,22 +8596,22 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/ovsx-client@1.73.0':
+  '@theia/ovsx-client@1.73.1':
     dependencies:
-      '@theia/request': 1.73.0
+      '@theia/request': 1.73.1
       limiter: 2.1.0
       semver: 7.8.4
       tslib: 2.8.1
 
-  '@theia/preferences@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/preferences@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/monaco': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/monaco': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/monaco-editor-core': 1.108.201
-      '@theia/userstorage': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/userstorage': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       async-mutex: 0.3.2
       fast-deep-equal: 3.1.3
       jsonc-parser: 3.3.1
@@ -9314,9 +8632,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/process@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@theia/process@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       node-pty: 1.2.0-beta.12
       string-argv: 0.1.2
       tslib: 2.8.1
@@ -9331,17 +8649,17 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@theia/request@1.73.0':
+  '@theia/request@1.73.1':
     dependencies:
       tslib: 2.8.1
       undici: 7.27.2
 
-  '@theia/scm@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/scm@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/monaco': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/monaco': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/monaco-editor-core': 1.108.201
       '@types/diff': 5.2.3
       diff: 9.0.0
@@ -9364,14 +8682,14 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/search-in-workspace@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/search-in-workspace@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/navigator': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/process': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/navigator': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/process': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@vscode/ripgrep': 1.18.0
       minimatch: 10.2.5
       react-textarea-autosize: 8.5.9(react@18.3.1)
@@ -9391,19 +8709,19 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/task@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/task@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/markers': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/monaco': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/markers': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/monaco': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@theia/monaco-editor-core': 1.108.201
-      '@theia/process': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/terminal': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/userstorage': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/variable-resolver': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/process': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/terminal': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/userstorage': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/variable-resolver': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       async-mutex: 0.3.2
       jsonc-parser: 3.3.1
       p-debounce: 2.1.0
@@ -9423,15 +8741,15 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/terminal@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/terminal@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/file-search': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/process': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/variable-resolver': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/workspace': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/file-search': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/process': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/variable-resolver': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/workspace': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       tslib: 2.8.1
       xterm: 5.3.0
       xterm-addon-fit: 0.8.0(xterm@5.3.0)
@@ -9452,13 +8770,13 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/test@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/test@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/editor': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/navigator': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/terminal': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/editor': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/navigator': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/terminal': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       xterm: 5.3.0
       xterm-addon-fit: 0.8.0(xterm@5.3.0)
     transitivePeerDependencies:
@@ -9476,10 +8794,10 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/userstorage@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/userstorage@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@theia/electron'
@@ -9496,9 +8814,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@theia/variable-resolver@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@theia/variable-resolver@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@theia/electron'
@@ -9511,11 +8829,11 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@theia/workspace@1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@theia/workspace@1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@theia/core': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@theia/filesystem': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
-      '@theia/variable-resolver': 1.73.0(@theia/electron@1.73.0(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/core': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@theia/filesystem': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@theia/variable-resolver': 1.73.1(@theia/electron@1.73.1(electron@39.8.7))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       jsonc-parser: 3.3.1
       tslib: 2.8.1
       valid-filename: 2.0.1
@@ -10390,15 +9708,6 @@ snapshots:
 
   b4a@1.8.1: {}
 
-  babel-loader@8.4.1(@babel/core@7.29.7(supports-color@8.1.1))(webpack@5.107.2):
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      find-cache-dir: 3.3.2
-      loader-utils: 2.0.4
-      make-dir: 3.1.0
-      schema-utils: 2.7.1
-      webpack: 5.107.2(esbuild@0.24.2)(webpack-cli@4.7.0)
-
   babel-loader@8.4.1(@babel/core@7.29.7)(webpack@5.107.2):
     dependencies:
       '@babel/core': 7.29.7
@@ -10408,29 +9717,12 @@ snapshots:
       schema-utils: 2.7.1
       webpack: 5.107.2(esbuild@0.24.2)(webpack-cli@4.7.0)
 
-  babel-plugin-polyfill-corejs2@0.4.17(@babel/core@7.29.7(supports-color@8.1.1)):
-    dependencies:
-      '@babel/compat-data': 7.29.7
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-define-polyfill-provider': 0.6.8(@babel/core@7.29.7(supports-color@8.1.1))
-      semver: 6.3.1
-    transitivePeerDependencies:
-      - supports-color
-
   babel-plugin-polyfill-corejs2@0.4.17(@babel/core@7.29.7):
     dependencies:
       '@babel/compat-data': 7.29.7
       '@babel/core': 7.29.7
       '@babel/helper-define-polyfill-provider': 0.6.8(@babel/core@7.29.7)
       semver: 6.3.1
-    transitivePeerDependencies:
-      - supports-color
-
-  babel-plugin-polyfill-corejs3@0.13.0(@babel/core@7.29.7(supports-color@8.1.1)):
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-define-polyfill-provider': 0.6.8(@babel/core@7.29.7(supports-color@8.1.1))
-      core-js-compat: 3.49.0
     transitivePeerDependencies:
       - supports-color
 
@@ -10442,26 +9734,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  babel-plugin-polyfill-corejs3@0.14.2(@babel/core@7.29.7(supports-color@8.1.1)):
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-define-polyfill-provider': 0.6.8(@babel/core@7.29.7(supports-color@8.1.1))
-      core-js-compat: 3.49.0
-    transitivePeerDependencies:
-      - supports-color
-
   babel-plugin-polyfill-corejs3@0.14.2(@babel/core@7.29.7):
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-define-polyfill-provider': 0.6.8(@babel/core@7.29.7)
       core-js-compat: 3.49.0
-    transitivePeerDependencies:
-      - supports-color
-
-  babel-plugin-polyfill-regenerator@0.6.8(@babel/core@7.29.7(supports-color@8.1.1)):
-    dependencies:
-      '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@babel/helper-define-polyfill-provider': 0.6.8(@babel/core@7.29.7(supports-color@8.1.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -10572,7 +9849,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  body-parser@2.2.2(supports-color@8.1.1):
+  body-parser@2.2.2:
     dependencies:
       bytes: 3.1.2
       content-type: 1.0.5
@@ -11623,7 +10900,7 @@ snapshots:
 
   express-rate-limit@8.5.2(express@5.2.1):
     dependencies:
-      express: 5.2.1(supports-color@8.1.1)
+      express: 5.2.1
       ip-address: 10.2.0
 
   express@4.22.2:
@@ -11662,10 +10939,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  express@5.2.1(supports-color@8.1.1):
+  express@5.2.1:
     dependencies:
       accepts: 2.0.0
-      body-parser: 2.2.2(supports-color@8.1.1)
+      body-parser: 2.2.2
       content-disposition: 1.1.0
       content-type: 1.0.5
       cookie: 0.7.2
@@ -11675,7 +10952,7 @@ snapshots:
       encodeurl: 2.0.0
       escape-html: 1.0.3
       etag: 1.8.1
-      finalhandler: 2.1.1(supports-color@8.1.1)
+      finalhandler: 2.1.1
       fresh: 2.0.0
       http-errors: 2.0.1
       merge-descriptors: 2.0.0
@@ -11686,8 +10963,8 @@ snapshots:
       proxy-addr: 2.0.7
       qs: 6.15.2
       range-parser: 1.2.1
-      router: 2.2.0(supports-color@8.1.1)
-      send: 1.2.1(supports-color@8.1.1)
+      router: 2.2.0
+      send: 1.2.1
       serve-static: 2.2.1
       statuses: 2.0.2
       type-is: 2.1.0
@@ -11779,7 +11056,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  finalhandler@2.1.1(supports-color@8.1.1):
+  finalhandler@2.1.1:
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
       encodeurl: 2.0.0
@@ -12085,7 +11362,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  http-server@14.1.1(supports-color@8.1.1):
+  http-server@14.1.1:
     dependencies:
       basic-auth: 2.0.1
       chalk: 4.1.2
@@ -12096,7 +11373,7 @@ snapshots:
       mime: 1.6.0
       minimist: 1.2.8
       opener: 1.5.2
-      portfinder: 1.0.38(supports-color@8.1.1)
+      portfinder: 1.0.38
       secure-compare: 3.0.1
       union: 0.5.0
       url-join: 4.0.1
@@ -13073,7 +12350,7 @@ snapshots:
       path-data-parser: 0.1.0
       points-on-curve: 0.2.0
 
-  portfinder@1.0.38(supports-color@8.1.1):
+  portfinder@1.0.38:
     dependencies:
       async: 3.2.6
       debug: 4.4.3(supports-color@8.1.1)
@@ -13282,7 +12559,7 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
-  read-binary-file-arch@1.0.6(supports-color@8.1.1):
+  read-binary-file-arch@1.0.6:
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
@@ -13443,7 +12720,7 @@ snapshots:
 
   route-parser@0.0.5: {}
 
-  router@2.2.0(supports-color@8.1.1):
+  router@2.2.0:
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
       depd: 2.0.0
@@ -13528,7 +12805,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  send@1.2.1(supports-color@8.1.1):
+  send@1.2.1:
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
       encodeurl: 2.0.0
@@ -13565,7 +12842,7 @@ snapshots:
       encodeurl: 2.0.0
       escape-html: 1.0.3
       parseurl: 1.3.3
-      send: 1.2.1(supports-color@8.1.1)
+      send: 1.2.1
     transitivePeerDependencies:
       - supports-color
 
@@ -13648,9 +12925,9 @@ snapshots:
       once: 1.4.0
       simple-concat: 1.0.1
 
-  simple-git@3.36.0(supports-color@8.1.1):
+  simple-git@3.36.0:
     dependencies:
-      '@kwsites/file-exists': 1.1.1(supports-color@8.1.1)
+      '@kwsites/file-exists': 1.1.1
       '@kwsites/promise-deferred': 1.1.1
       '@simple-git/args-pathspec': 1.0.3
       '@simple-git/argv-parser': 1.1.1
