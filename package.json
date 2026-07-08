@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "browser": "pnpm -C examples/browser-app",
-    "change:theia-version": "ts-node ./configs/change-theia-version.ts",
+    "change:theia-version": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON ./configs/change-theia-version.ts",
     "check:all": "pnpm build && pnpm lint && pnpm format:check && pnpm headers:check",
     "check:headers": "glsp checkHeaders . -t lastCommit",
     "check:pr": "pnpm all && pnpm format:check && pnpm check:headers",

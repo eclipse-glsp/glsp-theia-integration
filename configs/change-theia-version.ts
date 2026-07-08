@@ -16,7 +16,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as semver from 'semver';
-const ROOT_PATH = path.resolve(__dirname, '..');
+const ROOT_PATH = path.resolve(import.meta.dirname, '..');
 const BROWSER_APP_PATH = path.resolve(ROOT_PATH, 'examples', 'browser-app');
 const ELECTRON_APP_PATH = path.resolve(ROOT_PATH, 'examples', 'electron-app');
 
