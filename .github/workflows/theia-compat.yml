@@ -18,7 +18,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        theia_version: [1.66.0, 1.71.2, latest]
+        # Only the supported baseline and the newest release are covered here; the version
+        # currently pinned in the example apps is already built by the regular CI workflow.
+        #
+        # Each Theia release supports only the electron version its own example app pins
+        # (see examples/electron/package.json in the eclipse-theia/theia tag). Downgrading
+        # Theia without downgrading electron breaks `theia rebuild:electron`/`theia build`,
+        # so pin the matching electron version per compat build. Omit `electron_version` to
+        # keep the version declared in examples/electron-app/package.json.
+        include:
+          - theia_version: 1.66.0
+            electron_version: 38.4.0
+          - theia_version: latest
     env:
       GLSP_REPO_DIR: '${{ github.workspace }}'
       GLSP_SERVER_PORT: '8081'
@@ -57,7 +68,7 @@ jobs:
       - name: Change theia version
         run: |
           cd glsp-theia-integration
-          pnpm change:theia-version ${{ matrix.theia_version }}
+          pnpm change:theia-version ${{ matrix.theia_version }} ${{ matrix.electron_version }}
       # Reinstall to apply the downgrade. Must run before `electron build` so theia's native
       # module backup/restore (.browser_modules) operates on the correctly downgraded tree.
       - name: Install downgraded dependencies

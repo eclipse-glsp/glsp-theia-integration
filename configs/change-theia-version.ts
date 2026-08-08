@@ -20,16 +20,33 @@ const ROOT_PATH = path.resolve(import.meta.dirname, '..');
 const BROWSER_APP_PATH = path.resolve(ROOT_PATH, 'examples', 'browser-app');
 const ELECTRON_APP_PATH = path.resolve(ROOT_PATH, 'examples', 'electron-app');
 
-// Theia versions < 1.71.x are incompatible with newer @vscode/ripgrep releases, which breaks the build.
-// Pin @vscode/ripgrep to the last compatible version via a pnpm override for those compatibility builds.
-const RIPGREP_RESOLUTION_VERSION = '1.17.1';
-const RIPGREP_MIN_THEIA_VERSION = '1.71.0';
+// Dependencies whose current resolution breaks older Theia versions. Each entry is pinned via a pnpm
+// override when downgrading to a Theia version older than `minTheiaVersion`.
+const COMPAT_OVERRIDES = [
+    {
+        // Theia versions < 1.71.x are incompatible with newer @vscode/ripgrep releases, which breaks the build.
+        name: '@vscode/ripgrep',
+        version: '1.17.1',
+        minTheiaVersion: '1.71.0'
+    },
+    {
+        // webpack 5.108 replaced its bundled `terser-webpack-plugin` dependency with `minimizer-webpack-plugin`.
+        // Theia < 1.74 declares `webpack: ^5.76.0` and its generated `gen-webpack[.node].config.js` does
+        // `require('terser-webpack-plugin')`, so resolving webpack to >= 5.108 leaves that module uninstalled and
+        // the app build dies in webpack-cli. Pin the last webpack release that still ships terser-webpack-plugin.
+        // Only affects builds that go through webpack: since 1.72, Theia prefers esbuild when an `esbuild.mjs`
+        // exists (it does, for both example apps), so newer versions never load the webpack configs.
+        name: 'webpack',
+        version: '5.107.2',
+        minTheiaVersion: '1.74.0'
+    }
+];
 
 // pnpm 11 no longer reads the `pnpm.overrides` field from package.json — overrides must live in
-// pnpm-workspace.yaml. Manage the ripgrep pin as a clearly-delimited, removable block.
+// pnpm-workspace.yaml. Manage the compat pins as a single clearly-delimited, removable block.
 const WORKSPACE_YAML_PATH = path.resolve(ROOT_PATH, 'pnpm-workspace.yaml');
-const RIPGREP_BLOCK_BEGIN = '# BEGIN compat ripgrep override (managed by change-theia-version.ts)';
-const RIPGREP_BLOCK_END = '# END compat ripgrep override';
+const COMPAT_BLOCK_BEGIN = '# BEGIN compat overrides (managed by change-theia-version.ts)';
+const COMPAT_BLOCK_END = '# END compat overrides';
 
 function updateTheiaDependencyVersion(appPath: string, version: string, electronVersion?: string): void {
     const pkgJson = path.join(appPath, 'package.json');
@@ -57,32 +74,28 @@ function updateTheiaDependencyVersion(appPath: string, version: string, electron
     console.log(`Updated ${appPath} to @theia version ${version}`);
 }
 
-function escapeForRegExp(value: string): string {
-    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function updateRipgrepResolution(version: string): void {
+function updateCompatOverrides(version: string): void {
     const minVersion = version === 'latest' ? undefined : (semver.minVersion(version) ?? undefined);
-    const needsResolution = minVersion !== undefined && semver.lt(minVersion, RIPGREP_MIN_THEIA_VERSION);
+    const applicable = minVersion === undefined ? [] : COMPAT_OVERRIDES.filter(o => semver.lt(minVersion, o.minTheiaVersion));
 
     let content = fs.readFileSync(WORKSPACE_YAML_PATH, 'utf8');
     // Strip any previously injected block (with its indentation) first, so the operation is idempotent.
-    const blockRegex = new RegExp(`\\n*[ \\t]*${escapeForRegExp(RIPGREP_BLOCK_BEGIN)}[\\s\\S]*?${escapeForRegExp(RIPGREP_BLOCK_END)}`, 'g');
+    const blockRegex = /\n*[ \t]*# BEGIN compat[\s\S]*?# END compat[^\n]*/g;
     content = content.replace(blockRegex, '').replace(/\s*$/, '\n');
 
-    if (needsResolution) {
-        const entry = `    '@vscode/ripgrep': '${RIPGREP_RESOLUTION_VERSION}'`;
+    if (applicable.length > 0) {
+        const entries = applicable.map(o => `    '${o.name}': '${o.version}'`).join('\n');
         // Merge into the existing top-level `overrides:` mapping if present; emitting a second
         // `overrides:` key would be a duplicate YAML mapping key and break the install.
         const overridesHeader = content.match(/^overrides:[ \t]*$/m);
         if (overridesHeader) {
             const insertAt = overridesHeader.index! + overridesHeader[0].length;
-            const block = `\n    ${RIPGREP_BLOCK_BEGIN}\n${entry}\n    ${RIPGREP_BLOCK_END}`;
+            const block = `\n    ${COMPAT_BLOCK_BEGIN}\n${entries}\n    ${COMPAT_BLOCK_END}`;
             content = content.slice(0, insertAt) + block + content.slice(insertAt);
         } else {
-            content = `${content.replace(/\s*$/, '\n')}\n${RIPGREP_BLOCK_BEGIN}\noverrides:\n${entry}\n${RIPGREP_BLOCK_END}\n`;
+            content = `${content.replace(/\s*$/, '\n')}\n${COMPAT_BLOCK_BEGIN}\noverrides:\n${entries}\n${COMPAT_BLOCK_END}\n`;
         }
-        console.log(`Pinned @vscode/ripgrep to ${RIPGREP_RESOLUTION_VERSION} for @theia version ${version}`);
+        applicable.forEach(o => console.log(`Pinned ${o.name} to ${o.version} for @theia version ${version}`));
     }
 
     fs.writeFileSync(WORKSPACE_YAML_PATH, content);
@@ -105,7 +118,7 @@ if (electronVersion && !semver.validRange(electronVersion)) {
     process.exit(1);
 }
 
-updateRipgrepResolution(version);
+updateCompatOverrides(version);
 
 if (fs.existsSync(BROWSER_APP_PATH)) {
     updateTheiaDependencyVersion(BROWSER_APP_PATH, version);
