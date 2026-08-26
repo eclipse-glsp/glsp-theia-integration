@@ -171,3 +171,29 @@
     opacity: 0;
     pointer-events: none;
 }
+
+/* overlays the widget, so a sibling that claims the full height cannot push the message out of view */
+.glsp-diagram-load-error {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--theia-ui-padding) * 3);
+    background: var(--theia-editor-background);
+    text-align: center;
+    user-select: text;
+}
+
+.glsp-diagram-load-error > h3 {
+    color: var(--theia-errorForeground);
+    margin: 0;
+}
+
+.glsp-diagram-load-error > p {
+    color: var(--theia-descriptionForeground);
+    max-width: 60ch;
+    overflow-wrap: break-word;
+}

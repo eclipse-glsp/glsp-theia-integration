@@ -89,6 +89,7 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
     readonly theiaSelectionService: SelectionService;
 
     protected diagramContainer?: HTMLDivElement;
+    protected loadErrorContainer?: HTMLDivElement;
     protected copyPasteHandler?: ICopyPasteHandler;
     protected requestModelOptions: Args;
     protected storeViewportStateOnClose = true;
@@ -117,7 +118,7 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
         if (!this.diagramContainer) {
             // Create the container and initialize its content upon first attachment
             this.createContainer();
-            this.initializeDiagram();
+            this.initializeDiagram().catch(error => this.handleDiagramLoadError(error));
         }
         super.onAfterAttach(msg);
 
@@ -154,6 +155,50 @@ export class GLSPDiagramWidget extends BaseWidget implements SaveableSource, Sta
 
         const loader = this.diContainer.get(DiagramLoader);
         return loader.load({ requestModelOptions: this.requestModelOptions });
+    }
+
+    /**
+     * Reports a diagram that could not be loaded.
+     *
+     * @param error The reason the diagram could not be loaded.
+     */
+    protected handleDiagramLoadError(error: unknown): void {
+        console.error(`Could not load diagram '${this.options.uri}':`, error);
+        this.renderLoadError(error instanceof Error ? error.message : String(error));
+    }
+
+    /**
+     * Renders a message in place of the diagram.
+     *
+     * @param reason The reason to show to the user.
+     */
+    protected renderLoadError(reason: string): void {
+        this.hideDiagram();
+        this.loadErrorContainer?.remove();
+        this.loadErrorContainer = document.createElement('div');
+        this.loadErrorContainer.classList.add('glsp-diagram-load-error');
+
+        const message = document.createElement('h3');
+        message.textContent = 'Could not load diagram';
+        const detail = document.createElement('p');
+        // `textContent` rather than `innerHTML`, the reason may carry server-provided content
+        detail.textContent = reason;
+
+        this.loadErrorContainer.append(message, detail);
+        this.node.appendChild(this.loadErrorContainer);
+    }
+
+    /**
+     * Hides the diagram, if it is already rendered.
+     *
+     * The element is looked up rather than taken from {@link diagramContainer}, because the viewer replaces the
+     * element it renders into and leaves that field pointing at a detached node.
+     */
+    protected hideDiagram(): void {
+        const diagram = this.node.querySelector<HTMLElement>(`#${this.viewerOptions.baseDiv}`);
+        if (diagram) {
+            diagram.style.display = 'none';
+        }
     }
 
     protected getRequestModelOptions(): Args {
