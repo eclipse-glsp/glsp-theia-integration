@@ -4,6 +4,10 @@
 
 ### Changes
 
+- [build] Switch the example app build from webpack to esbuild, which significantly reduces build times [#322](https://github.com/eclipse-glsp/glsp-theia-integration/pull/322)
+- [theia] Update the example projects to Theia 1.74.x; the minimum supported Theia version stays 1.66.x [#322](https://github.com/eclipse-glsp/glsp-theia-integration/pull/322) [#334](https://github.com/eclipse-glsp/glsp-theia-integration/pull/334) [#338](https://github.com/eclipse-glsp/glsp-theia-integration/pull/338)
+    - `electron` is declared explicitly, as it became a peer dependency of `@theia/electron`
+- [build] Migrate the build from yarn and lerna to pnpm workspaces [#330](https://github.com/eclipse-glsp/glsp-theia-integration/pull/330)
 - [diagram] Report a diagram that fails to load in the widget instead of failing silently [#340](https://github.com/eclipse-glsp/glsp-theia-integration/pull/340)
 
 ### Potentially Breaking Changes
