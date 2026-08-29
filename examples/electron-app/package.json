@@ -1,6 +1,6 @@
 {
   "name": "electron-app",
-  "version": "2.8.0-next",
+  "version": "2.8.0",
   "private": true,
   "main": "lib/backend/electron-main.js",
   "scripts": {
