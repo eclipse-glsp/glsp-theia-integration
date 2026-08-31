@@ -48,7 +48,7 @@ const WORKSPACE_YAML_PATH = path.resolve(ROOT_PATH, 'pnpm-workspace.yaml');
 const COMPAT_BLOCK_BEGIN = '# BEGIN compat overrides (managed by change-theia-version.ts)';
 const COMPAT_BLOCK_END = '# END compat overrides';
 
-function updateTheiaDependencyVersion(appPath: string, version: string, electronVersion?: string): void {
+function updateTheiaDependencyVersion(appPath: string, version: string, electronVersion?: string, reactVersion?: string): void {
     const pkgJson = path.join(appPath, 'package.json');
     const pkg: { dependencies: Record<string, string>; devDependencies: Record<string, string> } = JSON.parse(
         fs.readFileSync(pkgJson, 'utf8')
@@ -68,6 +68,13 @@ function updateTheiaDependencyVersion(appPath: string, version: string, electron
 
     if (electronVersion) {
         pkg.devDependencies['electron'] = electronVersion;
+    }
+
+    if (reactVersion) {
+        pkg.dependencies['react'] = reactVersion;
+        pkg.dependencies['react-dom'] = reactVersion;
+        pkg.devDependencies['@types/react'] = reactVersion;
+        pkg.devDependencies['@types/react-dom'] = reactVersion;
     }
 
     fs.writeFileSync(pkgJson, JSON.stringify(pkg, undefined, 2));
@@ -118,12 +125,18 @@ if (electronVersion && !semver.validRange(electronVersion)) {
     process.exit(1);
 }
 
+const reactVersion = process.argv[4];
+if (reactVersion && !semver.validRange(reactVersion)) {
+    console.error(`Invalid React version number/range ${reactVersion}`);
+    process.exit(1);
+}
+
 updateCompatOverrides(version);
 
 if (fs.existsSync(BROWSER_APP_PATH)) {
-    updateTheiaDependencyVersion(BROWSER_APP_PATH, version);
+    updateTheiaDependencyVersion(BROWSER_APP_PATH, version, undefined, reactVersion);
 }
 
 if (fs.existsSync(ELECTRON_APP_PATH)) {
-    updateTheiaDependencyVersion(ELECTRON_APP_PATH, version, electronVersion);
+    updateTheiaDependencyVersion(ELECTRON_APP_PATH, version, electronVersion, reactVersion);
 }
