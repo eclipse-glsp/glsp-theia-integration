@@ -1,6 +1,6 @@
 {
   "name": "@eclipse-glsp/theia-mcp-integration",
-  "version": "2.8.0",
+  "version": "2.9.0-next",
   "description": "Glue code to integrate GLSP MCP servers into Eclipse Theia",
   "keywords": [
     "theia-extension",
@@ -45,8 +45,8 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@eclipse-glsp/client": "2.8.0",
-    "@eclipse-glsp/protocol": "2.8.0",
+    "@eclipse-glsp/client": "next",
+    "@eclipse-glsp/protocol": "next",
     "@eclipse-glsp/theia-integration": "workspace:*"
   },
   "peerDependencies": {

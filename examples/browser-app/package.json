@@ -1,6 +1,6 @@
 {
   "name": "browser-app",
-  "version": "2.8.0",
+  "version": "2.9.0-next",
   "private": true,
   "scripts": {
     "build": "pnpm -w compile && pnpm rebuild && theia build --mode development",

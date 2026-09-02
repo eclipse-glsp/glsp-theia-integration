@@ -14,8 +14,8 @@ importers:
   .:
     devDependencies:
       '@eclipse-glsp/dev':
-        specifier: 2.8.0
-        version: 2.8.0(@types/node@22.19.21)(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(esbuild@0.28.1)(terser@5.48.0)(typescript@5.9.3)(yaml@2.9.0)
+        specifier: next
+        version: 2.8.0-next.19(@types/node@22.19.21)(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(esbuild@0.28.1)(terser@5.48.0)(typescript@5.9.3)(yaml@2.9.0)
       '@types/node':
         specifier: 22.x
         version: 22.19.21
@@ -142,26 +142,26 @@ importers:
   examples/workflow-theia:
     dependencies:
       '@eclipse-glsp-examples/workflow-glsp':
-        specifier: 2.8.0
-        version: 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+        specifier: next
+        version: 2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp-examples/workflow-server':
-        specifier: 2.8.0
-        version: 2.8.0(hono@4.12.25)
+        specifier: next
+        version: 2.8.0-next.12(hono@4.12.25)
       '@eclipse-glsp-examples/workflow-server-bundled':
-        specifier: 2.8.0
-        version: 2.8.0
+        specifier: next
+        version: 2.8.0-next.12
       '@eclipse-glsp/client':
-        specifier: 2.8.0
-        version: 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+        specifier: next
+        version: 2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp/layout-elk':
-        specifier: 2.8.0
-        version: 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+        specifier: next
+        version: 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp/protocol':
-        specifier: 2.8.0
-        version: 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+        specifier: next
+        version: 2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp/server':
-        specifier: 2.8.0
-        version: 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+        specifier: next
+        version: 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp/theia-integration':
         specifier: workspace:*
         version: link:../../packages/theia-integration
@@ -172,11 +172,11 @@ importers:
   packages/theia-integration:
     dependencies:
       '@eclipse-glsp/client':
-        specifier: 2.8.0
-        version: 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+        specifier: next
+        version: 2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp/protocol':
-        specifier: 2.8.0
-        version: 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+        specifier: next
+        version: 2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       semver:
         specifier: ^7.8.4
         version: 7.8.4
@@ -194,11 +194,11 @@ importers:
   packages/theia-mcp-integration:
     dependencies:
       '@eclipse-glsp/client':
-        specifier: 2.8.0
-        version: 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+        specifier: next
+        version: 2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp/protocol':
-        specifier: 2.8.0
-        version: 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+        specifier: next
+        version: 2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@eclipse-glsp/theia-integration':
         specifier: workspace:*
         version: link:../theia-integration
@@ -745,39 +745,39 @@ packages:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
     engines: {node: '>=10.0.0'}
 
-  '@eclipse-glsp-examples/workflow-glsp@2.8.0':
-    resolution: {integrity: sha512-i7ixCkQeZkTu9vLA8DI1A/GZ4cquUx5uKKROlYJPVolLSeXu3Di63oCkMyl0lhaOP0J11ZrUJtAJ8xnMbK845w==}
+  '@eclipse-glsp-examples/workflow-glsp@2.8.0-next.17':
+    resolution: {integrity: sha512-dFRCOPOwe/JC/j8Ujj6pM+Lgk7QRGyflzSIjTH7/qIZkELZ+ZtvmnWuHigrOn/XhOSqhcAyfP/lrikqHr972cA==}
     peerDependencies:
       inversify: ^6.1.3
       reflect-metadata: ^0.2.2
 
-  '@eclipse-glsp-examples/workflow-server-bundled@2.8.0':
-    resolution: {integrity: sha512-i/KvHCQaQUeRN9d3G59g38ScitRLg92W/mN0keGstDFlhtj0XW11BvNbHT94RseWEiMaVuD/vWtJX7fnanL02A==}
+  '@eclipse-glsp-examples/workflow-server-bundled@2.8.0-next.12':
+    resolution: {integrity: sha512-fAs1GjNt4LSXsDMxOpFdyITUKKNKydVZvb03WWaOUKBAhD0N/+xZEql1dQeJREzcgYYf2uULzVxmCrZ192mVCA==}
 
-  '@eclipse-glsp-examples/workflow-server@2.8.0':
-    resolution: {integrity: sha512-97STJnMJbn/d0CkTgwHs6gFzSILW4nF0zkld+MGjccMGc1pvcGhwjsnc4yjv+S7s3bef4JRCW8InSxyCkXI8jw==}
+  '@eclipse-glsp-examples/workflow-server@2.8.0-next.12':
+    resolution: {integrity: sha512-2JvJ8o02W5sMsYlrgyqVqzSV7/bwsHt5MCH3DsWUozGG9xThqGEGf9/dedaDQmhbXdOIZW+nqBaJfng/en7tfw==}
 
-  '@eclipse-glsp/cli@2.8.0':
-    resolution: {integrity: sha512-ILZKIk3PAxD8sOfgAFr8Qnvyi8SoRs2F/UVoqWGHyhwMqpAdexn/s2VRcMV41h9FC/b/AZ+zc6/BbFTa0222Ew==}
+  '@eclipse-glsp/cli@2.8.0-next.19':
+    resolution: {integrity: sha512-t+PEnSqOjFXznmAexX7Ekc+jLUIqPlIkUnm1laWi/D9mFHo67KRQ7563qmrTn4Wi0NAsdWeXToFBxFxG6/PfaQ==}
     hasBin: true
 
-  '@eclipse-glsp/client@2.8.0':
-    resolution: {integrity: sha512-dR3mQ3jMUIxMic0Bd8cxg6POeMM8o2i7XVDMTP8gxcsdezk2YipHQRYYQ6YDyk3UPqxoBhwyD0a14qFqTJDYIQ==}
+  '@eclipse-glsp/client@2.8.0-next.17':
+    resolution: {integrity: sha512-zDM+0d8MQP9VwCcQDwl2fCZ+QSu6Qnvz49OaVR2s3ITTJ1SHGr2KsYZlj+y+EfnIdAwuL7Yn6yJP/5iVcf1YvA==}
     peerDependencies:
       inversify: ^6.1.3
       reflect-metadata: ^0.2.2
 
-  '@eclipse-glsp/config-test@2.8.0':
-    resolution: {integrity: sha512-r8WGm12zJd7wmIWoMz5+akFmqC+ZucA6l0z8+gX38i/rwZvz2GVeX4LFkOa/eWodkLVVJvjLWjjHcwpOvCvbIA==}
+  '@eclipse-glsp/config-test@2.8.0-next.19':
+    resolution: {integrity: sha512-kLTnX6MGyKvI9u6TxZek3AQaUcdI/TMuhDBwB0+zGma3lwuGSvXqmqkYDdXrGN5ntuYoq7sfZBuCy+67LO7SXQ==}
 
-  '@eclipse-glsp/config@2.8.0':
-    resolution: {integrity: sha512-RL/V9NMsjQ2bX9+d4Sbl1fxf7h+eLH8T8mMnjzd5MqvZdJYyUP7n+Yt5vyXenPRuXMpu4jTX9h3HL+u4mziY8g==}
+  '@eclipse-glsp/config@2.8.0-next.19':
+    resolution: {integrity: sha512-Jxb3Zq9pw1waIbBINTEy9+7clcB939bOW+Lo56GB38LBd4HkQX82/Gh0EZN7PZhMP/mCfo4J6XGOK0m7q7qbpg==}
 
-  '@eclipse-glsp/dev@2.8.0':
-    resolution: {integrity: sha512-bueBgpXygZQoYdB5lbCd/YpQGrWVUWTea+FK5Ff5cNNFrSEK/dENXPMIz5p9hjxqaQIVG00WLKs3VE6EUTu9WQ==}
+  '@eclipse-glsp/dev@2.8.0-next.19':
+    resolution: {integrity: sha512-Kairzb+bgxSVuBcVPBLxWNbJevMm3nYqbTY1WaY8RXjDCRSW03U50et2AgC2L/F8I1gmJGZLfMF4BhxJzehOIg==}
 
-  '@eclipse-glsp/eslint-config@2.8.0':
-    resolution: {integrity: sha512-3hJbDif0O028+59TMXbkv6lzeIxuYZiSsUwmYSbik3NUK+vvp+ipP10mj8m/glISiksAZXa6HRIuOvxaBm2ZYA==}
+  '@eclipse-glsp/eslint-config@2.8.0-next.19':
+    resolution: {integrity: sha512-QlXER0UYOaYT7WpzYpuHbLgjaeKTTjd0USddgvvuWneIwvsRRjaXk9QI0RKeCIKvJHjpzPOFsmW8RTjzp/EMhw==}
     peerDependencies:
       '@eslint/js': ^10.0.1
       '@stylistic/eslint-plugin': ^5.10.0
@@ -790,20 +790,20 @@ packages:
       globals: ^17.6.0
       typescript-eslint: ^8.0.0
 
-  '@eclipse-glsp/graph@2.8.0':
-    resolution: {integrity: sha512-FNLQ27K5w42ygxPnWHEXOLChQR3HBXou5J5UMXhTKJJTFy/lbGyxCmtsKDZ72rvj8l3Wyxg15SRLQUjykFxPbA==}
+  '@eclipse-glsp/graph@2.8.0-next.12':
+    resolution: {integrity: sha512-lhnsncEYZjrKmsHICmrWO5svCsenSUBDETjI5IN5V98JI31yyU/tD5F1jXKIsq2VgcvuclqKFB8KTES+Rt5ojg==}
 
-  '@eclipse-glsp/layout-elk@2.8.0':
-    resolution: {integrity: sha512-Z5N7Q8f4vgH1GIZA0TrXv2EDL50YF2HXehH9yoxnkgsKAa9Id0RZlLMKzWRbYYyaNzhrcD1vXg1iY/SBV0Kabg==}
+  '@eclipse-glsp/layout-elk@2.8.0-next.12':
+    resolution: {integrity: sha512-ISBtyK9Bza25G0i4c//oAs8JsVP538QVNVSuz1jCxlLmBMZUfl7yOGq4RBvoVG9qAeHcG36ZL/SarME8PZudhw==}
     peerDependencies:
       inversify: ^6.1.3
       reflect-metadata: ^0.2.2
 
-  '@eclipse-glsp/prettier-config@2.8.0':
-    resolution: {integrity: sha512-Or/vVcsHgN/+q12hcwwRpXragXv43g7kvXlb7HLigltDrlf5W9Mfg3umhUFpC7PTYsdHM7FVi9cwp51ggDBDWQ==}
+  '@eclipse-glsp/prettier-config@2.8.0-next.19':
+    resolution: {integrity: sha512-pBLY7CQYHl0pAwSTiNPr4j182sSi0LH9ZwL+Ka0EhvXMMxUfvPMaEmKFi5nXuxVigeOFpRcTaRyuJU0LH15AqA==}
 
-  '@eclipse-glsp/protocol@2.8.0':
-    resolution: {integrity: sha512-Dd9sVtX1kRkvWnGeyF9pC2DrHUDYaDgm0TukuRIaw4SvlKeKK2w48c2hmpRkKpsIKbWw8lk8R53FDKTqE52jnQ==}
+  '@eclipse-glsp/protocol@2.8.0-next.17':
+    resolution: {integrity: sha512-6MLj5iZu70OUxk+t1h/9FMXXu+c1RdjET6Bu12zkrkeJ9Yvpd0Nroh0C1eTqKFszFNryjH2mj5WijA2Vc0iljA==}
     peerDependencies:
       inversify: ^6.1.3
       reflect-metadata: ^0.2.2
@@ -813,31 +813,31 @@ packages:
       reflect-metadata:
         optional: true
 
-  '@eclipse-glsp/server-mcp@2.8.0':
-    resolution: {integrity: sha512-uQmlnT2pb3JRvJxJOdQAVk6sFKVwOIGzDqt+Ddg7anGHg63VJJ0chZxXfz1eDbRYpfIb9lc5p9lMON6ZduUpkw==}
+  '@eclipse-glsp/server-mcp@2.8.0-next.12':
+    resolution: {integrity: sha512-7MbmFaAZiKeV0+K4ncD3nFpGzaUKGe9Kcn2kselquFmstY7E8LtabPhuCKOX49l3wI7FukxG/tIcnwSRTQV8lQ==}
     peerDependencies:
       inversify: ^6.1.3
       reflect-metadata: ^0.2.2
 
-  '@eclipse-glsp/server@2.8.0':
-    resolution: {integrity: sha512-75jROuMd/la6YPq84R97oxxnu+R1SOXvkzEis+wu1c0By3VYriL5ur1ehRbEqdKMklQd4as9+ayuZaSojdbH0A==}
+  '@eclipse-glsp/server@2.8.0-next.12':
+    resolution: {integrity: sha512-hjaWOUPwrZRwDLHhTLo60PSHdCxfSpY3Ts0n0CqPZKzH1IU/MV243Ih8CKq1bVOMfvityO+DDnuzxrbl1OwH0A==}
     peerDependencies:
       inversify: ^6.1.3
       reflect-metadata: ^0.2.2
 
-  '@eclipse-glsp/sprotty@2.8.0':
-    resolution: {integrity: sha512-gT9JnPsecfCU2ycXCceTj66Q3UsVgya+9+JZd51b1q7Q/6zusH51x1/FkEGBbfPWpimG3awpNLV7SDdZEidNOg==}
+  '@eclipse-glsp/sprotty@2.8.0-next.17':
+    resolution: {integrity: sha512-RbDTDUmcbfT+m5ZZrShkR3kIla5NEKTUlxYhZ3Q4nRAAoIILcOKgsS9T1mO6mlLgMT+tUxUduy3Jfd3Fs9n6Qg==}
     peerDependencies:
       inversify: ^6.1.3
       reflect-metadata: ^0.2.2
 
-  '@eclipse-glsp/ts-config@2.8.0':
-    resolution: {integrity: sha512-H7Eb5bfE7IhzEvOi7t80y07dIMmC62jTAF1baWvP8T4HRHOuQH/pOnmlN2/e0tQe1CYpykGZMMO0YFO8+xuDSA==}
+  '@eclipse-glsp/ts-config@2.8.0-next.19':
+    resolution: {integrity: sha512-zH7UW1+upPxvGljLMTuOP+S7yfXtxyvDcXnkc+iPWtzZORzcLm7IZRYfzoC6EKx45cllyasiLwV5ebhk6a/QOw==}
     peerDependencies:
       typescript: '>=5.5'
 
-  '@eclipse-glsp/vitest-config@2.8.0':
-    resolution: {integrity: sha512-8+ZZRbwNBCe9283F9TEjNpWdGJdCQGUfuUtMcgGCBbiAY3h+/0Y147KKAPkcBe3vd17po8okFmOqFdqbetqnkw==}
+  '@eclipse-glsp/vitest-config@2.8.0-next.19':
+    resolution: {integrity: sha512-Kq2VLBCTbp2keeNnNK6Io06iTSepzsQ/Ql3FCrXsEMyDziYYKsPsmZ1wbMbCWFoziQokWzTf4pkTcwVCymPWCQ==}
     peerDependencies:
       '@vitest/coverage-v8': '>=4.0.0'
       vitest: '>=4.0.0'
@@ -7635,21 +7635,21 @@ snapshots:
 
   '@discoveryjs/json-ext@0.5.7': {}
 
-  '@eclipse-glsp-examples/workflow-glsp@2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
+  '@eclipse-glsp-examples/workflow-glsp@2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/client': 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/client': 2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       balloon-css: 0.5.2
       inversify: 6.2.2(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
       snabbdom: 3.5.1
 
-  '@eclipse-glsp-examples/workflow-server-bundled@2.8.0': {}
+  '@eclipse-glsp-examples/workflow-server-bundled@2.8.0-next.12': {}
 
-  '@eclipse-glsp-examples/workflow-server@2.8.0(hono@4.12.25)':
+  '@eclipse-glsp-examples/workflow-server@2.8.0-next.12(hono@4.12.25)':
     dependencies:
-      '@eclipse-glsp/layout-elk': 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
-      '@eclipse-glsp/server': 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
-      '@eclipse-glsp/server-mcp': 2.8.0(hono@4.12.25)(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/layout-elk': 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/server': 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/server-mcp': 2.8.0-next.12(hono@4.12.25)(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       inversify: 6.2.2(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
     transitivePeerDependencies:
@@ -7659,11 +7659,11 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@eclipse-glsp/cli@2.8.0': {}
+  '@eclipse-glsp/cli@2.8.0-next.19': {}
 
-  '@eclipse-glsp/client@2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
+  '@eclipse-glsp/client@2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/sprotty': 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/sprotty': 2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@vscode/codicons': 0.0.44
       autocompleter: 9.3.2
       file-saver: 2.0.5
@@ -7672,9 +7672,9 @@ snapshots:
       snabbdom: 3.5.1
       vscode-jsonrpc: 8.2.0
 
-  '@eclipse-glsp/config-test@2.8.0(@types/node@22.19.21)(esbuild@0.28.1)(terser@5.48.0)(yaml@2.9.0)':
+  '@eclipse-glsp/config-test@2.8.0-next.19(@types/node@22.19.21)(esbuild@0.28.1)(terser@5.48.0)(yaml@2.9.0)':
     dependencies:
-      '@eclipse-glsp/vitest-config': 2.8.0(@vitest/coverage-v8@4.1.9)(vitest@4.1.9)
+      '@eclipse-glsp/vitest-config': 2.8.0-next.19(@vitest/coverage-v8@4.1.9)(vitest@4.1.9)
       '@vitest/coverage-v8': 4.1.9(vitest@4.1.9)
       vitest: 4.1.9(@types/node@22.19.21)(@vitest/coverage-v8@4.1.9)(esbuild@0.28.1)(terser@5.48.0)(yaml@2.9.0)
     transitivePeerDependencies:
@@ -7702,11 +7702,11 @@ snapshots:
       - tsx
       - yaml
 
-  '@eclipse-glsp/config@2.8.0(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(typescript@5.9.3)':
+  '@eclipse-glsp/config@2.8.0-next.19(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
-      '@eclipse-glsp/eslint-config': 2.8.0(@eslint/js@10.0.1(eslint@10.5.0))(@stylistic/eslint-plugin@5.10.0(eslint@10.5.0))(@tony.ganchev/eslint-plugin-header@3.4.4(eslint@10.5.0))(eslint-config-prettier@10.1.8(eslint@10.5.0))(eslint-import-resolver-typescript@4.4.5(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0))(eslint@10.5.0))(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0))(eslint-plugin-no-null@1.0.2(eslint@10.5.0))(eslint@10.5.0)(globals@17.6.0)(typescript-eslint@8.61.0(eslint@10.5.0)(typescript@5.9.3))
-      '@eclipse-glsp/prettier-config': 2.8.0(prettier@3.8.4)
-      '@eclipse-glsp/ts-config': 2.8.0(typescript@5.9.3)
+      '@eclipse-glsp/eslint-config': 2.8.0-next.19(@eslint/js@10.0.1(eslint@10.5.0))(@stylistic/eslint-plugin@5.10.0(eslint@10.5.0))(@tony.ganchev/eslint-plugin-header@3.4.4(eslint@10.5.0))(eslint-config-prettier@10.1.8(eslint@10.5.0))(eslint-import-resolver-typescript@4.4.5(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0))(eslint@10.5.0))(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0))(eslint-plugin-no-null@1.0.2(eslint@10.5.0))(eslint@10.5.0)(globals@17.6.0)(typescript-eslint@8.61.0(eslint@10.5.0)(typescript@5.9.3))
+      '@eclipse-glsp/prettier-config': 2.8.0-next.19(prettier@3.8.4)
+      '@eclipse-glsp/ts-config': 2.8.0-next.19(typescript@5.9.3)
       '@eslint/js': 10.0.1(eslint@10.5.0)
       '@stylistic/eslint-plugin': 5.10.0(eslint@10.5.0)
       '@tony.ganchev/eslint-plugin-header': 3.4.4(eslint@10.5.0)
@@ -7727,11 +7727,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@eclipse-glsp/dev@2.8.0(@types/node@22.19.21)(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(esbuild@0.28.1)(terser@5.48.0)(typescript@5.9.3)(yaml@2.9.0)':
+  '@eclipse-glsp/dev@2.8.0-next.19(@types/node@22.19.21)(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(esbuild@0.28.1)(terser@5.48.0)(typescript@5.9.3)(yaml@2.9.0)':
     dependencies:
-      '@eclipse-glsp/cli': 2.8.0
-      '@eclipse-glsp/config': 2.8.0(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(typescript@5.9.3)
-      '@eclipse-glsp/config-test': 2.8.0(@types/node@22.19.21)(esbuild@0.28.1)(terser@5.48.0)(yaml@2.9.0)
+      '@eclipse-glsp/cli': 2.8.0-next.19
+      '@eclipse-glsp/config': 2.8.0-next.19(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(typescript@5.9.3)
+      '@eclipse-glsp/config-test': 2.8.0-next.19(@types/node@22.19.21)(esbuild@0.28.1)(terser@5.48.0)(yaml@2.9.0)
     transitivePeerDependencies:
       - '@edge-runtime/vm'
       - '@opentelemetry/api'
@@ -7762,7 +7762,7 @@ snapshots:
       - typescript
       - yaml
 
-  '@eclipse-glsp/eslint-config@2.8.0(@eslint/js@10.0.1(eslint@10.5.0))(@stylistic/eslint-plugin@5.10.0(eslint@10.5.0))(@tony.ganchev/eslint-plugin-header@3.4.4(eslint@10.5.0))(eslint-config-prettier@10.1.8(eslint@10.5.0))(eslint-import-resolver-typescript@4.4.5(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0))(eslint@10.5.0))(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0))(eslint-plugin-no-null@1.0.2(eslint@10.5.0))(eslint@10.5.0)(globals@17.6.0)(typescript-eslint@8.61.0(eslint@10.5.0)(typescript@5.9.3))':
+  '@eclipse-glsp/eslint-config@2.8.0-next.19(@eslint/js@10.0.1(eslint@10.5.0))(@stylistic/eslint-plugin@5.10.0(eslint@10.5.0))(@tony.ganchev/eslint-plugin-header@3.4.4(eslint@10.5.0))(eslint-config-prettier@10.1.8(eslint@10.5.0))(eslint-import-resolver-typescript@4.4.5(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0))(eslint@10.5.0))(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.61.0(eslint@10.5.0)(typescript@5.9.3))(eslint@10.5.0))(eslint-plugin-no-null@1.0.2(eslint@10.5.0))(eslint@10.5.0)(globals@17.6.0)(typescript-eslint@8.61.0(eslint@10.5.0)(typescript@5.9.3))':
     dependencies:
       '@eslint/js': 10.0.1(eslint@10.5.0)
       '@stylistic/eslint-plugin': 5.10.0(eslint@10.5.0)
@@ -7775,16 +7775,16 @@ snapshots:
       globals: 17.6.0
       typescript-eslint: 8.61.0(eslint@10.5.0)(typescript@5.9.3)
 
-  '@eclipse-glsp/graph@2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
+  '@eclipse-glsp/graph@2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/protocol': 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/protocol': 2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
     transitivePeerDependencies:
       - inversify
       - reflect-metadata
 
-  '@eclipse-glsp/layout-elk@2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
+  '@eclipse-glsp/layout-elk@2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/server': 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/server': 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       elkjs: 0.11.1
       inversify: 6.2.2(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
@@ -7792,13 +7792,13 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@eclipse-glsp/prettier-config@2.8.0(prettier@3.8.4)':
+  '@eclipse-glsp/prettier-config@2.8.0-next.19(prettier@3.8.4)':
     dependencies:
       prettier-plugin-packagejson: 3.0.2(prettier@3.8.4)
     transitivePeerDependencies:
       - prettier
 
-  '@eclipse-glsp/protocol@2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
+  '@eclipse-glsp/protocol@2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
       sprotty-protocol: 1.4.0
       uuid: 14.0.0
@@ -7807,9 +7807,9 @@ snapshots:
       inversify: 6.2.2(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
 
-  '@eclipse-glsp/server-mcp@2.8.0(hono@4.12.25)(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
+  '@eclipse-glsp/server-mcp@2.8.0-next.12(hono@4.12.25)(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/server': 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/server': 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@hono/node-server': 1.19.14(hono@4.12.25)
       '@modelcontextprotocol/sdk': 1.29.0(supports-color@8.1.1)
       inversify: 6.2.2(reflect-metadata@0.2.2)
@@ -7822,10 +7822,10 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@eclipse-glsp/server@2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
+  '@eclipse-glsp/server@2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/graph': 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
-      '@eclipse-glsp/protocol': 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/graph': 2.8.0-next.12(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/protocol': 2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       commander: 14.0.3
       fast-json-patch: 3.1.1
       inversify: 6.2.2(reflect-metadata@0.2.2)
@@ -7837,9 +7837,9 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@eclipse-glsp/sprotty@2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
+  '@eclipse-glsp/sprotty@2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@eclipse-glsp/protocol': 2.8.0(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@eclipse-glsp/protocol': 2.8.0-next.17(inversify@6.2.2(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       autocompleter: 9.3.2
       inversify: 6.2.2(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
@@ -7848,11 +7848,11 @@ snapshots:
       sprotty-protocol: 1.4.0
       vscode-jsonrpc: 8.2.0
 
-  '@eclipse-glsp/ts-config@2.8.0(typescript@5.9.3)':
+  '@eclipse-glsp/ts-config@2.8.0-next.19(typescript@5.9.3)':
     dependencies:
       typescript: 5.9.3
 
-  '@eclipse-glsp/vitest-config@2.8.0(@vitest/coverage-v8@4.1.9)(vitest@4.1.9)':
+  '@eclipse-glsp/vitest-config@2.8.0-next.19(@vitest/coverage-v8@4.1.9)(vitest@4.1.9)':
     dependencies:
       '@vitest/coverage-v8': 4.1.9(vitest@4.1.9)
       vitest: 4.1.9(@types/node@22.19.21)(@vitest/coverage-v8@4.1.9)(esbuild@0.28.1)(terser@5.48.0)(yaml@2.9.0)
