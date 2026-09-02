@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@theia/cli": "~1.74.1",
-    "electron": "42.3.0"
+    "electron": "42.5.1"
   },
   "theia": {
     "target": "electron",
