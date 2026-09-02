@@ -1,6 +1,6 @@
 {
   "name": "@eclipse-glsp/theia-integration",
-  "version": "2.8.0",
+  "version": "2.9.0-next",
   "description": "Glue code to integrate GLSP clients into Eclipse Theia",
   "keywords": [
     "theia-extension",
@@ -45,8 +45,8 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@eclipse-glsp/client": "2.8.0",
-    "@eclipse-glsp/protocol": "2.8.0",
+    "@eclipse-glsp/client": "next",
+    "@eclipse-glsp/protocol": "next",
     "semver": "^7.8.4",
     "vscode-jsonrpc": "8.2.0",
     "ws": "^8.17.1"
