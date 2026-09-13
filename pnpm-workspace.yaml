@@ -1,6 +1,7 @@
 packages:
     - 'packages/*'
     - 'examples/*'
+    - 'e2e/*'
 
 # In contrast to other GLSP repos, we cannot use pnpms strict hoisting here and have to fallback to
 # shamefully hoisting (similar to yarn/npms flat layout)
@@ -40,6 +41,9 @@ allowBuilds:
     msgpackr-extract: true
     node-pty: true
     puppeteer: true
+    # Playwright downloads browser binaries on install
+    '@playwright/test': true
+    playwright: true
     # Old Theia (< 1.71) compat builds pin @vscode/ripgrep to 1.17.1, whose postinstall downloads
     # the `rg` binary that the Theia webpack build copies. Allow it so the build isn't blocked.
     '@vscode/ripgrep': true

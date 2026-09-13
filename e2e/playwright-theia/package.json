@@ -1,0 +1,74 @@
+{
+  "name": "@eclipse-glsp/playwright-theia",
+  "version": "2.9.0-next",
+  "description": "Theia integration for the GLSP Playwright testing framework",
+  "keywords": [
+    "eclipse",
+    "graphics",
+    "diagram",
+    "modeling",
+    "visualization",
+    "glsp",
+    "diagram editor",
+    "theia",
+    "playwright",
+    "testing",
+    "e2e"
+  ],
+  "homepage": "https://www.eclipse.org/glsp/",
+  "bugs": "https://github.com/eclipse-glsp/glsp/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eclipse-glsp/glsp-theia-integration.git"
+  },
+  "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
+  "author": {
+    "name": "Eclipse GLSP"
+  },
+  "contributors": [
+    {
+      "name": "Eclipse GLSP Project",
+      "email": "glsp-dev@eclipse.org",
+      "url": "https://projects.eclipse.org/projects/ecd.glsp"
+    }
+  ],
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib",
+    "src",
+    "docs"
+  ],
+  "scripts": {
+    "build": "pnpm compile",
+    "clean": "rimraf lib tsconfig.tsbuildinfo coverage",
+    "compile": "tsc -b",
+    "generate:index": "glsp generateIndex src -f",
+    "lint": "eslint ./src",
+    "prepublishOnly": "pnpm build",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "@eclipse-glsp/playwright": "next"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@theia/playwright": "~1.74.1",
+    "playwright-core": "^1.59.1"
+  },
+  "peerDependencies": {
+    "@playwright/test": "^1.47.0",
+    "@theia/playwright": "^1.66.0",
+    "playwright-core": "^1.47.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

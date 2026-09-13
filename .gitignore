@@ -20,6 +20,14 @@ examples/**/server/**
 eslint_report.json
 .browser_modules
 
+# Local registry redirects (e.g. a verdaccio instance serving unreleased @eclipse-glsp packages)
+.npmrc
+
+# E2E: local environment overrides and Playwright run output
+e2e/.env
+playwright-report/
+test-results/
+
 .claude/local.settings.json
 .claude/CLAUDE.local.md
 .claude/plans

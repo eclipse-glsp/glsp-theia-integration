@@ -11,6 +11,7 @@
     "check:theia-version": "theia check:theia-version",
     "clean": "pnpm -r run clean && rimraf logs/*.log",
     "compile": "tsc -b",
+    "e2e": "pnpm -C e2e/workflow-theia-e2e",
     "electron": "pnpm -C examples/electron-app",
     "fix:all": "pnpm lint:fix && pnpm format && pnpm headers:fix",
     "format": "prettier --write .",
@@ -24,6 +25,7 @@
     "lint:fix": "pnpm lint --fix",
     "publish:latest": "glsp releng publish latest",
     "publish:next": "glsp releng publish next",
+    "test:e2e": "pnpm browser build && pnpm e2e test",
     "upgrade:next": "glsp updateNext",
     "watch:browser": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"pnpm browser watch\"",
     "watch:electron": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"pnpm electron watch\""

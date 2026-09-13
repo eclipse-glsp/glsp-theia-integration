@@ -9,7 +9,7 @@ For details on building the project, please see the [README file of the theia-in
 ## Theia Version Compatibility
 
 | @eclipse-glsp/theia-integration | Theia               |
-|---------------------------------|---------------------|
+| ------------------------------- | ------------------- |
 | 0.8.0                           | <= 1.4.0            |
 | 0.9.0                           | >= 1.20.0 <= 1.25.0 |
 | 1.0.0                           | >= 1.25.0 <= 1.26.0 |

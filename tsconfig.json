@@ -13,6 +13,12 @@
     },
     {
       "path": "./examples/workflow-theia"
+    },
+    {
+      "path": "./e2e/playwright-theia"
+    },
+    {
+      "path": "./e2e/workflow-theia-e2e"
     }
   ]
 }
