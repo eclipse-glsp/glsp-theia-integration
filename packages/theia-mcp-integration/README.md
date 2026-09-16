@@ -10,9 +10,10 @@ This project is built with `pnpm` and is available from npm via [@eclipse-glsp/t
 
 | @eclipse-glsp/theia-mcp-integration | @eclipse-glsp/theia-integration | Theia     |
 | ----------------------------------- | ------------------------------- | --------- |
-| next                                | next                            | >= 1.66.0 |
+| next                                | next                            | >= 1.75.0 |
 
-> **Note:** This package requires Theia's AI/MCP support (`@theia/ai-mcp`), which is available starting with Theia 1.66.0.
+> **Note:** This package requires Theia's AI/MCP support (`@theia/ai-mcp`), which is available starting with Theia 1.66.0. The minimum supported Theia version of this
+> package is 1.75.0.
 
 ## More information
 

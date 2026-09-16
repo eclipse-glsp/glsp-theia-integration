@@ -12,7 +12,7 @@ packages:
 # published packages are no longer caught by the linter — they surface only for consumers.
 shamefullyHoist: true
 
-# Our extensions declare loose `@theia/* : ^1.66.0` peers; auto-installing them pulls the latest
+# Our extensions declare loose `@theia/* : ^1.75.0` peers; auto-installing them pulls the latest
 # patch and mixes @theia versions. Resolve peers from the app-pinned version instead.
 autoInstallPeers: false
 

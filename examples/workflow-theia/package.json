@@ -48,9 +48,9 @@
     "@eclipse-glsp/theia-mcp-integration": "workspace:*"
   },
   "peerDependencies": {
-    "@theia/core": "^1.66.0",
-    "@theia/navigator": "^1.66.0",
-    "@theia/workspace": "^1.66.0"
+    "@theia/core": "^1.75.0",
+    "@theia/navigator": "^1.75.0",
+    "@theia/workspace": "^1.75.0"
   },
   "theiaExtensions": [
     {

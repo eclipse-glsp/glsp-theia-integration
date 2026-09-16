@@ -26,10 +26,10 @@ jobs:
         # Theia without downgrading electron breaks `theia rebuild:electron`/`theia build`,
         # so pin the matching Electron, Node.js, and React versions per compatibility build.
         include:
-          - theia_version: 1.66.0
-            electron_version: 38.4.0
-            node_version: 22.x
-            react_version: ^18.3.1
+          - theia_version: 1.75.0
+            electron_version: 42.8.1
+            node_version: 24.x
+            react_version: ^19.0.0
           - theia_version: latest
             electron_version: 42.8.1
             node_version: 24.x
@@ -60,10 +60,7 @@ jobs:
       # module backup/restore (.browser_modules) operates on the correctly downgraded tree.
       - name: Install downgraded dependencies
         run: |
-          # Old Theia (1.66.0) pulls @electron/rebuild -> @electron/node-gyp resolved via git, which
-          # pnpm's default blockExoticSubdeps rejects. Relax it for the (never-published) compat build
-          # only; the main build keeps the guard.
-          pnpm install --no-frozen-lockfile --config.blockExoticSubdeps=false
+          pnpm install --no-frozen-lockfile
           pnpm compile
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/microsoft/vscode-ripgrep/issues/9
@@ -73,8 +70,7 @@ jobs:
           NODE_OPTIONS: --max_old_space_size=4096
       - name: Build browser
         run: |
-          # See "Install downgraded dependencies": old Theia needs the exotic-subdep guard relaxed.
-          pnpm install --no-frozen-lockfile --config.blockExoticSubdeps=false
+          pnpm install --no-frozen-lockfile
           pnpm compile
           pnpm browser build
         env:

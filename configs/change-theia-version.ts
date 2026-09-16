@@ -22,25 +22,12 @@ const ELECTRON_APP_PATH = path.resolve(ROOT_PATH, 'examples', 'electron-app');
 
 // Dependencies whose current resolution breaks older Theia versions. Each entry is pinned via a pnpm
 // override when downgrading to a Theia version older than `minTheiaVersion`.
-const COMPAT_OVERRIDES = [
-    {
-        // Theia versions < 1.71.x are incompatible with newer @vscode/ripgrep releases, which breaks the build.
-        name: '@vscode/ripgrep',
-        version: '1.17.1',
-        minTheiaVersion: '1.71.0'
-    },
-    {
-        // webpack 5.108 replaced its bundled `terser-webpack-plugin` dependency with `minimizer-webpack-plugin`.
-        // Theia < 1.74 declares `webpack: ^5.76.0` and its generated `gen-webpack[.node].config.js` does
-        // `require('terser-webpack-plugin')`, so resolving webpack to >= 5.108 leaves that module uninstalled and
-        // the app build dies in webpack-cli. Pin the last webpack release that still ships terser-webpack-plugin.
-        // Only affects builds that go through webpack: since 1.72, Theia prefers esbuild when an `esbuild.mjs`
-        // exists (it does, for both example apps), so newer versions never load the webpack configs.
-        name: 'webpack',
-        version: '5.107.2',
-        minTheiaVersion: '1.74.0'
-    }
-];
+// Dependencies whose current resolution breaks older Theia versions. Each entry is pinned via a pnpm
+// override when downgrading to a Theia version older than `minTheiaVersion`.
+//
+// Empty since the minimum supported Theia version was raised to 1.75: the previous entries
+// (`@vscode/ripgrep` for < 1.71, `webpack` for < 1.74) can no longer be reached.
+const COMPAT_OVERRIDES: { name: string; version: string; minTheiaVersion: string }[] = [];
 
 // pnpm 11 no longer reads the `pnpm.overrides` field from package.json — overrides must live in
 // pnpm-workspace.yaml. Manage the compat pins as a single clearly-delimited, removable block.

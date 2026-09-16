@@ -62,12 +62,12 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
-    "@theia/playwright": "~1.74.1",
+    "@theia/playwright": "~1.75.0",
     "playwright-core": "^1.59.1"
   },
   "peerDependencies": {
     "@playwright/test": "^1.47.0",
-    "@theia/playwright": "^1.66.0",
+    "@theia/playwright": "^1.75.0",
     "playwright-core": "^1.47.0"
   }
 }
