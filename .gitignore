@@ -17,11 +17,7 @@ examples/*-app/gen-esbuild.node.mjs
 examples/**/server/**
 !examples/**/server/download.ts
 
-eslint_report.json
 .browser_modules
-
-# Local registry redirects (e.g. a verdaccio instance serving unreleased @eclipse-glsp packages)
-.npmrc
 
 # E2E: local environment overrides and Playwright run output
 e2e/.env

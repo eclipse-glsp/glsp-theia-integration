@@ -8,10 +8,6 @@
   ],
   "homepage": "https://www.eclipse.org/glsp/",
   "bugs": "https://github.com/eclipse-glsp/glsp/issues",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/eclipse-glsp/glsp-theia-integration.git"
-  },
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "author": {
     "name": "Eclipse GLSP"
@@ -23,15 +19,21 @@
       "url": "https://projects.eclipse.org/projects/ecd.glsp"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eclipse-glsp/glsp-theia-integration.git"
+  },
   "files": [
     "lib",
     "src"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "pnpm compile",
     "clean": "rimraf lib *.tsbuildinfo",
     "compile": "tsc -b",
-    "lint": "eslint --ext .ts,.tsx ./src",
     "watch": "tsc -w"
   },
   "dependencies": {
@@ -49,9 +51,6 @@
     "@theia/core": "^1.66.0",
     "@theia/navigator": "^1.66.0",
     "@theia/workspace": "^1.66.0"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "theiaExtensions": [
     {

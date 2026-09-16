@@ -32,6 +32,8 @@ export class WorkflowDiagramReadonlyViewContribution implements CommandContribut
     @inject(OpenerService) protected readonly openerService: OpenerService;
     @inject(SelectionService) protected readonly selectionService: SelectionService;
     registerMenus(registry: MenuModelRegistry): void {
+        // Theia offers no replacement for the navigator "Open With" submenu path yet.
+        // oxlint-disable-next-line typescript/no-deprecated
         registry.registerMenuAction(NavigatorContextMenu.OPEN_WITH, {
             commandId: OPEN_READONLY_DIAGRAM_VIEW.id,
             label: 'Workflow Diagram Readonly View',

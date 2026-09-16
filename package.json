@@ -14,14 +14,14 @@
     "e2e": "pnpm -C e2e/workflow-theia-e2e",
     "electron": "pnpm -C examples/electron-app",
     "fix:all": "pnpm lint:fix && pnpm format && pnpm headers:fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
     "generate:index": "pnpm -r generate:index && pnpm lint:fix",
     "headers:check": "glsp checkHeaders .",
     "headers:fix": "glsp checkHeaders . --autoFix",
     "preinstall": "npx only-allow pnpm",
-    "lint": "pnpm compile && eslint .",
-    "lint:ci": "pnpm lint --output-file eslint_report.json --format json",
+    "lint": "oxlint .",
+    "lint:ci": "oxlint . --format github",
     "lint:fix": "pnpm lint --fix",
     "publish:latest": "glsp releng publish latest",
     "publish:next": "glsp releng publish next",
@@ -32,13 +32,13 @@
   },
   "devDependencies": {
     "@eclipse-glsp/dev": "next",
-    "@types/node": "22.x",
+    "@types/node": "24.x",
     "concurrently": "^8.2.2",
-    "typescript": "^5.9.2"
+    "typescript": "^7.0.2"
   },
-  "packageManager": "pnpm@11.7.0",
   "engines": {
-    "node": ">=22",
-    "pnpm": ">=11"
-  }
+    "node": ">=24",
+    "pnpm": ">=12"
+  },
+  "packageManager": "pnpm@12.4.0"
 }
