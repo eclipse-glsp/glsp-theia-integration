@@ -20,7 +20,7 @@
     "headers:fix": "glsp checkHeaders . --autoFix",
     "preinstall": "npx only-allow pnpm",
     "lint": "oxlint .",
-    "lint:ci": "oxlint . --format github",
+    "lint:ci": "node ./configs/lint-report.mjs",
     "lint:fix": "pnpm lint --fix",
     "publish:latest": "glsp releng publish latest",
     "publish:next": "glsp releng publish next",
