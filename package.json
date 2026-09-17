@@ -5,7 +5,7 @@
   "scripts": {
     "browser": "pnpm -C examples/browser-app",
     "change:theia-version": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON ./configs/change-theia-version.ts",
-    "check:all": "pnpm build && pnpm lint && pnpm format:check && pnpm headers:check",
+    "check:all": "pnpm compile && pnpm lint && pnpm format:check && pnpm headers:check",
     "check:headers": "glsp checkHeaders . -t lastCommit",
     "check:theia-version": "theia check:theia-version",
     "clean": "pnpm -r run clean && rimraf logs/*.log",
