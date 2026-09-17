@@ -5,5 +5,10 @@
     "composite": true,
     "outDir": "lib"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [
+    {
+      "path": "../theia-integration"
+    }
+  ]
 }
