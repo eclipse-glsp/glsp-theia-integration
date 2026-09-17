@@ -31,7 +31,7 @@
     "watch:electron": "concurrently --kill-others -n tsc,browser -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"pnpm electron watch\""
   },
   "devDependencies": {
-    "@eclipse-glsp/dev": "next",
+    "@eclipse-glsp/dev": "2.9.0-next.4",
     "@types/node": "24.x",
     "concurrently": "^8.2.2",
     "typescript": "^7.0.2"
