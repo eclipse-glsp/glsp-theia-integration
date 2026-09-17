@@ -8,10 +8,6 @@
   ],
   "homepage": "https://www.eclipse.org/glsp/",
   "bugs": "https://github.com/eclipse-glsp/glsp/issues",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/eclipse-glsp/glsp-theia-integration.git"
-  },
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "author": {
     "name": "Eclipse GLSP"
@@ -23,35 +19,38 @@
       "url": "https://projects.eclipse.org/projects/ecd.glsp"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eclipse-glsp/glsp-theia-integration.git"
+  },
   "files": [
     "lib",
     "src"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "pnpm compile",
     "clean": "rimraf lib *.tsbuildinfo",
     "compile": "tsc -b",
-    "lint": "eslint --ext .ts,.tsx ./src",
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-glsp": "next",
-    "@eclipse-glsp-examples/workflow-server": "next",
-    "@eclipse-glsp-examples/workflow-server-bundled": "next",
-    "@eclipse-glsp/client": "next",
-    "@eclipse-glsp/layout-elk": "next",
-    "@eclipse-glsp/protocol": "next",
-    "@eclipse-glsp/server": "next",
+    "@eclipse-glsp-examples/workflow-glsp": "2.9.0-next.3",
+    "@eclipse-glsp-examples/workflow-server": "2.9.0-next.3",
+    "@eclipse-glsp-examples/workflow-server-bundled": "2.9.0-next.3",
+    "@eclipse-glsp/client": "2.9.0-next.3",
+    "@eclipse-glsp/layout-elk": "2.9.0-next.3",
+    "@eclipse-glsp/protocol": "2.9.0-next.3",
+    "@eclipse-glsp/server": "2.9.0-next.3",
     "@eclipse-glsp/theia-integration": "workspace:*",
     "@eclipse-glsp/theia-mcp-integration": "workspace:*"
   },
   "peerDependencies": {
-    "@theia/core": "^1.66.0",
-    "@theia/navigator": "^1.66.0",
-    "@theia/workspace": "^1.66.0"
-  },
-  "publishConfig": {
-    "access": "public"
+    "@theia/core": "^1.75.0",
+    "@theia/navigator": "^1.75.0",
+    "@theia/workspace": "^1.75.0"
   },
   "theiaExtensions": [
     {

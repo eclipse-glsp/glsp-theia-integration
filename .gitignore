@@ -17,8 +17,12 @@ examples/*-app/gen-esbuild.node.mjs
 examples/**/server/**
 !examples/**/server/download.ts
 
-eslint_report.json
 .browser_modules
+
+# E2E: local environment overrides and Playwright run output
+e2e/.env
+playwright-report/
+test-results/
 
 .claude/local.settings.json
 .claude/CLAUDE.local.md

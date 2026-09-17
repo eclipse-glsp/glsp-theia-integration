@@ -12,7 +12,7 @@
         "reveal": "always",
         "panel": "new"
       },
-      "problemMatcher": ["$tsc", "$eslint-stylish"]
+      "problemMatcher": ["$tsc"]
     },
     {
       "label": "[Theia] Watch all",
@@ -82,7 +82,7 @@
     },
     {
       "label": "[Theia] Link packages (local dev)",
-      "detail": "Links all packages to the local source and shared dependencies",
+      "detail": "Links this repository against a local glsp-core checkout",
       "type": "shell",
       "group": "none",
       "presentation": {
@@ -91,18 +91,12 @@
         "showReuseMessage": false,
         "clear": true
       },
-      "linux": {
-        "command": "./configs/local-linking.sh",
-        "args": ["${workspaceFolder}/../"]
-      },
-      "osx": {
-        "command": "./configs/local-linking.sh",
-        "args": ["${workspaceFolder}/../"]
-      },
+      "command": "pnpm glsp repo link -d ${workspaceFolder}/../ -r glsp-core glsp-theia-integration",
       "problemMatcher": []
     },
     {
       "label": "[Theia] Unlink packages (local dev)",
+      "detail": "Removes the link overrides and restores the published dependencies",
       "type": "shell",
       "group": "none",
       "presentation": {
@@ -111,14 +105,7 @@
         "showReuseMessage": false,
         "clear": true
       },
-      "linux": {
-        "command": "./configs/local-linking.sh",
-        "args": ["${workspaceFolder}/../", "--unlink"]
-      },
-      "osx": {
-        "command": "./configs/local-linking.sh",
-        "args": ["${workspaceFolder}/../", "--unlink"]
-      },
+      "command": "pnpm glsp repo unlink -d ${workspaceFolder}/../ -r glsp-core glsp-theia-integration",
       "problemMatcher": []
     },
     {

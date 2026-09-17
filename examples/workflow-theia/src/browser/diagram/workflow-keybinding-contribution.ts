@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -33,6 +33,9 @@ export class WorkflowDiagramKeybindingContext implements KeybindingContext {
 @injectable()
 export class WorkflowKeybindingContribution implements KeybindingContribution {
     registerKeybindings(registry: KeybindingRegistry): void {
+        // `context` is deprecated in favour of `when`, but this example deliberately keeps it to
+        // demonstrate the keybinding context it registers alongside the `when` clause.
+        /* oxlint-disable typescript/no-deprecated */
         registry.registerKeybinding({
             command: WorkflowNavigationCommands.NEXT_NODE,
             context: WorkflowDiagramKeybindingContext.ID,
@@ -45,5 +48,6 @@ export class WorkflowKeybindingContribution implements KeybindingContribution {
             keybinding: 'ctrl-3',
             when: 'glspEditorHasSelectionOfType == task:automated || glspEditorHasSelectionOfType == task:manual'
         });
+        /* oxlint-enable typescript/no-deprecated */
     }
 }

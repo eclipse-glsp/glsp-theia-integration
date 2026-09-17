@@ -9,7 +9,7 @@ For details on building the project, please see the [README file of the theia-in
 ## Theia Version Compatibility
 
 | @eclipse-glsp/theia-integration | Theia               |
-|---------------------------------|---------------------|
+| ------------------------------- | ------------------- |
 | 0.8.0                           | <= 1.4.0            |
 | 0.9.0                           | >= 1.20.0 <= 1.25.0 |
 | 1.0.0                           | >= 1.25.0 <= 1.26.0 |
@@ -27,8 +27,8 @@ For details on building the project, please see the [README file of the theia-in
 | 2.5.0-theia1.65.0               | >= 1.64.0           |
 | 2.6.0                           | >= 1.64.0           |
 | 2.7.0                           | >= 1.66.0           |
-| next                            | >= 1.66.0           |
 | 2.8.0                           | >= 1.66.0           |
+| next                            | >= 1.75.0           |
 
 ### Potential Compatibility Issues
 
@@ -54,6 +54,20 @@ For details on building the project, please see the [README file of the theia-in
 
 ## Developer Documentation
 
+### Structure
+
+| Package                                                            | Description                                                                                 |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| [`packages/theia-integration`](packages/theia-integration)         | `@eclipse-glsp/theia-integration`: the glue code that embeds a GLSP diagram editor in Theia |
+| [`packages/theia-mcp-integration`](packages/theia-mcp-integration) | `@eclipse-glsp/theia-mcp-integration`: registers MCP servers announced by a GLSP server     |
+| [`examples/workflow-theia`](examples/workflow-theia)               | Theia integration of the Workflow example diagram language                                  |
+| [`examples/browser-app`](examples/browser-app)                     | Theia browser application hosting the Workflow example                                      |
+| [`examples/electron-app`](examples/electron-app)                   | Theia Electron application hosting the Workflow example                                     |
+| [`e2e/playwright-theia`](e2e/playwright-theia)                     | `@eclipse-glsp/playwright-theia`: Theia integration for the GLSP Playwright framework       |
+| [`e2e/workflow-theia-e2e`](e2e/workflow-theia-e2e)                 | Playwright end-to-end tests for the Workflow example running in Theia                       |
+
+The GLSP client, protocol, Node server, and the integration-agnostic parts of the Workflow example and of the Playwright framework are developed in [glsp-core](https://github.com/eclipse-glsp/glsp-core) and consumed here as published packages.
+
 ### First time setup
 
 - Install [node.js](https://nodejs.org/) (requires Node v22+)
@@ -63,11 +77,13 @@ For details on building the project, please see the [README file of the theia-in
 
 ### Build & Testing
 
+- Compile (all packages): `pnpm compile`
 - Build browser app (all packages): `pnpm browser build`
 - Build electron app (all packages): `pnpm electron build`
 - Lint (all packages): `pnpm lint`
 - Clean (all packages): `pnpm clean`
 - Full validation: `pnpm check:all`
+- End-to-end tests: `pnpm test:e2e` (builds the browser application and runs the Playwright suites, see [`e2e/workflow-theia-e2e`](e2e/workflow-theia-e2e/README.md))
 
 ## Workflow Diagram Example
 
@@ -115,9 +131,9 @@ pnpm electron start
 
 ### How to start the Workflow Diagram example server from the sources
 
-If you want to explore or change the Workflow Diagram Server too, you can clone, build and start the `workflow example glsp-server`
-for [Java](https://github.com/eclipse-glsp/glsp-server#workflow-diagram-example) or [Node](https://github.com/eclipse-glsp/glsp-server#workflow-diagram-example) from your IDE instead of using the pre-built version of the Workflow Diagram Server.
-Checkout the README of the [glsp-server](https://github.com/eclipse-glsp/glsp-server#how-to-start-the-workflow-diagram-example) or [glsp-server-node](https://github.com/eclipse-glsp/glsp-server-node#how-to-start-the-workflow-diagram-example) for instructions on building and running the Workflow Diagram Server example.
+If you want to explore or change the Workflow Diagram Server too, you can clone, build and start the workflow example server
+for [Java](https://github.com/eclipse-glsp/glsp-server#workflow-diagram-example) or [Node](https://github.com/eclipse-glsp/glsp-core#workflow-diagram-example) from your IDE instead of using the pre-built version of the Workflow Diagram Server.
+Checkout the README of the [glsp-server](https://github.com/eclipse-glsp/glsp-server#how-to-start-the-workflow-diagram-example) for the Java server, or of [glsp-core](https://github.com/eclipse-glsp/glsp-core#how-to-start-the-workflow-diagram-example) for the Node server, for instructions on building and running the Workflow Diagram Server example.
 
 Once the Workflow Diagram Server is running, start the Theia application with the `debug` flag so that it'll connect to an existing server process -- the one you started from the command line or from your IDE before:
 
@@ -178,9 +194,8 @@ The example provides scripts and launch configs that pass this argument to test 
 
 In addition to this repository, the related source code can be found here:
 
-- <https://github.com/eclipse-glsp/glsp-server>
-- <https://github.com/eclipse-glsp/glsp-server-node>
-- <https://github.com/eclipse-glsp/glsp-client>
+- <https://github.com/eclipse-glsp/glsp-core> — GLSP client, protocol, Node server, and the Workflow example
+- <https://github.com/eclipse-glsp/glsp-server> — Java-based GLSP server
 
 ## More information
 

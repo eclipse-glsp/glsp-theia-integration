@@ -2,35 +2,9 @@
 
 This package contains the glue code to integrate the [GLSP Workflow example language](https://www.npmjs.com/package/@eclipse-glsp-examples/workflow-glsp) into a Theia application.
 
-This project is built with `pnpm` and is available from npm via [@eclipse-glsp-examples/workflow-theia](https://www.npmjs.com/package/@eclipse-glsp-examples/workflow-theia).
+This package is private and not published to npm. It is built as part of the [glsp-theia-integration](https://github.com/eclipse-glsp/glsp-theia-integration) workspace and consumed by the example applications in `examples/browser-app` and `examples/electron-app`.
 
-## Theia Version Compatibility
-
-| @eclipse-glsp/theia-integration | Theia              |
-| ------------------------------- | ------------------ |
-| 0.8.0                           | <=1.4.0            |
-| 0.9.0                           | >=1.20.0 <= 1.25.0 |
-| 1.0.0                           | >=1.25.0 <= 1.26.0 |
-| 1.0.0-theia1.27.0               | >=1.27.0 < 1.34.0  |
-| 1.0.0-theia1.34.0               | >=1.34.0 < 1.39.0  |
-| 2.0.0                           | >=1.39.0 < 1.45.0  |
-| 2.1.0                           | >=1.39.0 < 1.45.0  |
-| 2.1.0-theia1.45.0               | >=1.45.0           |
-| next                            | >=1.45.0           |
-
-> Note: For versions =1.0.0 it is not possible to safely restrict the maximum version of Theia packages. If you encounter build errors related to multiple resolved Theia versions please add a resolutions block to the `package.json` of your project e.g. for `1.0.0-theia1.27.0`:
-
-```json
-...
- "resolutions": {
-    "**/@theia/core": "1.27.0",
-    "**/@theia/editor": "1.27.0",
-    "**/@theia/filesystem": "1.27.0",
-    "**/@theia/messages": "1.27.0",
-    "**/@theia/monaco": "1.27.0"
-  },
-...
-```
+The supported Theia versions are documented once, in the [root README](../../README.md#theia-version-compatibility).
 
 ## More information
 
