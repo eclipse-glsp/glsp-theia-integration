@@ -33,6 +33,9 @@ function ownAndParentBarrels(depth: number): string[] {
 
 export default defineConfig({
     extends: [glspConfig],
+    // Loaded for `no-extraneous-dependencies`, which oxlint has no native equivalent for.
+    // The plugin imports `eslint`, hence that dev dependency; ESLint itself is never run.
+    jsPlugins: [{ name: 'importx', specifier: 'eslint-plugin-import-x' }],
     options: {
         // `typeAware` enables the type-aware rules of the shared config and the `no-floating-promises`
         // check of the e2e packages via `oxlint-tsgolint`. `typeCheck` additionally reports the
@@ -62,6 +65,17 @@ export default defineConfig({
         'test-results/'
     ],
     overrides: [
+        /* ----------------------------------------------------------------------------------------
+         * Published packages
+         * ---------------------------------------------------------------------------------------- */
+        // Must declare what they import; the e2e test package is private and lives off its devDependencies.
+        {
+            files: ['packages/**/*.{ts,tsx}', 'examples/**/*.{ts,tsx}', 'e2e/playwright-theia/**/*.{ts,tsx}'],
+            rules: {
+                'importx/no-extraneous-dependencies': ['error', { devDependencies: false, peerDependencies: true }]
+            }
+        },
+
         /* ----------------------------------------------------------------------------------------
          * E2E packages
          * ---------------------------------------------------------------------------------------- */

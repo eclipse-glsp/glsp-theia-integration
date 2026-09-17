@@ -8,19 +8,13 @@ packages:
 # Building the Theia example apps resolves a large, version-specific graph of transitive packages
 # directly from the app directories: theia extensions, native bundles, esbuild tooling, electron tooling etc.
 # Strictly hoisting these is a lot of maintenance effort and brittle across Theia versions
-# NOTE: oxlint has no `no-extraneous-dependencies` equivalent, so undeclared imports in the
-# published packages are no longer caught by the linter — they surface only for consumers.
+# Undeclared imports therefore resolve locally instead of failing, so the published packages are
+# guarded by `importx/no-extraneous-dependencies` in `oxlint.config.mts` instead.
 shamefullyHoist: true
 
 # Our extensions declare loose `@theia/* : ^1.75.0` peers; auto-installing them pulls the latest
 # patch and mixes @theia versions. Resolve peers from the app-pinned version instead.
 autoInstallPeers: false
-
-# `@tony.ganchev/eslint-plugin-header` declares ESLint as a peer, but oxlint loads it as a JS plugin and ESLint is
-# never run (this only silences the peer check).
-peerDependencyRules:
-    ignoreMissing:
-        - eslint
 
 # Security overrides: force patched versions of transitive (dev-only) dependencies that upstream
 # tooling (mocha, nyc, sinon) still pins to ranges flagged by `pnpm audit`. These do not originate

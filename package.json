@@ -34,6 +34,8 @@
     "@eclipse-glsp/dev": "2.9.0-next.4",
     "@types/node": "24.x",
     "concurrently": "^8.2.2",
+    "eslint": "^10.10.0",
+    "eslint-plugin-import-x": "^4.17.1",
     "typescript": "^7.0.2"
   },
   "engines": {
