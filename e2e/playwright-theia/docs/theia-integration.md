@@ -21,6 +21,11 @@ an IDE context:
 Suites in `@eclipse-glsp-examples/workflow-e2e` branch on these capabilities, so a Theia run picks up
 the context-menu and marker-navigation cases automatically — no per-suite overrides are needed.
 
+The loader creates a page outside Playwright's test fixtures. `TheiaIntegration.close()` closes
+that page (and its browser context) during integration teardown rather than leaving it alive until
+the worker exits. Failure inside the loader before it returns the application is not covered by
+this teardown and requires cleanup support in the loader itself.
+
 ## Options
 
 `defineTheiaIntegration()` is the only supported way to build the options: it fills in the
