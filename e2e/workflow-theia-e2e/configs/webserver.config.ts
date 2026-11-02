@@ -68,7 +68,7 @@ export function buildGlspServerWebServer(): WebServerConfig {
         command: `node ${resolveNodeServerModule()} --webSocket --port ${port}`,
         port,
         reuseExistingServer: !process.env.CI,
-        stdout: 'ignore'
+        stdout: process.env.CI ? 'pipe' : 'ignore'
     };
 }
 
@@ -90,8 +90,8 @@ export function buildWebServers(configDir: string): PlaywrightTestConfig['webSer
             ` --WF_GLSP=${glspServerPort} --WF_PATH=${GLSP_WEBSOCKET_PATH} --glspDebug`,
         port: theiaPort,
         reuseExistingServer: !process.env.CI,
-        stdout: 'ignore',
-        stderr: 'ignore',
+        stdout: process.env.CI ? 'pipe' : 'ignore',
+        stderr: process.env.CI ? 'pipe' : 'ignore',
         env: { ...(process.env as Record<string, string>) }
     };
 
