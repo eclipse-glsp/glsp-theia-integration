@@ -64,6 +64,14 @@ export class TheiaIntegration
         return new TheiaMarkerNavigator(app);
     }
 
+    /**
+     * Closes the page allocated by {@link TheiaAppLoader}, which is not managed by Playwright's
+     * test fixtures. For browser applications, closing this page also disposes of its context.
+     */
+    override async close(): Promise<void> {
+        await this.theiaApp?.page.close();
+    }
+
     protected override async launch(): Promise<void> {
         const ws = new TheiaWorkspace(this.options.workspace ? [this.options.workspace] : undefined);
         this.theiaApp = await TheiaAppLoader.load(this.args, ws, TheiaGLSPApp as any);
