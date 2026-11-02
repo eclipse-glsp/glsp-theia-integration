@@ -57,7 +57,9 @@ jobs:
           NODE_OPTIONS: --max_old_space_size=4096
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run Playwright tests
-        run: pnpm e2e test
+        # Leave time for Playwright reporting and server teardown after its global timeout.
+        timeout-minutes: 25
+        run: bash configs/run-e2e-ci.sh pnpm e2e test
       - name: Upload Playwright report
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()

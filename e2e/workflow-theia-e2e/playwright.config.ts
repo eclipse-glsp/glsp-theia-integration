@@ -29,10 +29,12 @@ applyEnvDefaults();
  */
 const config: PlaywrightTestConfig<GLSPPlaywrightOptions> = {
     ...baseConfig,
+    // Let Playwright finish reporting before the CI step timeout terminates the process.
+    globalTimeout: process.env.CI ? 20 * 60 * 1000 : undefined,
     // Summarize the run in the GitHub Actions job overview. Added here rather than in `baseConfig`,
     // so that consumers of the shared config do not need this CI-only reporter installed.
     reporter: process.env.CI
-        ? [...(baseConfig.reporter as ReporterDescription[]), ['@estruyf/github-actions-reporter']]
+        ? [...(baseConfig.reporter as ReporterDescription[]), ['line'], ['@estruyf/github-actions-reporter']]
         : baseConfig.reporter,
     testDir: 'lib/tests',
     webServer: buildWebServers(__dirname),
