@@ -62,8 +62,11 @@ This project is built with `pnpm` and is available from npm via [@eclipse-glsp/t
         }
         ```
 
-    - From GLSP `2.9.0`, `initializeDiagramContainer` accepts the structural `interfaces.Container`, so no cast is needed.
-      If you wrap it in your own initializer, type its container parameter as `interfaces.Container` instead of `Container`.
+    - From GLSP `2.9.0`, `initializeContainer`, `initializeDiagramContainer` and `initializeWorkflowDiagramContainer` accept the structural `interfaces.Container`, so no cast is needed.
+      If you wrap them in your own initializer, type its container parameter as `interfaces.Container` instead of `Container`.
+      Other APIs that take a `Container`, such as `GLSPServerLauncher.parentContainer`, still need the cast.
+    - With `moduleResolution: node`, the container types match, but some `@theia/core/shared/*` typings ship only as `index.d.cts` and cannot be resolved.
+      Switch to `bundler` (or `node16`/`nodenext`) as recommended by the [Theia migration guide](https://github.com/eclipse-theia/theia/blob/master/doc/Migration.md#v1770); the notes above then apply.
 
 ## More information
 
