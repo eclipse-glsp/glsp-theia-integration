@@ -33,7 +33,7 @@ jobs:
             node_version: 24.x
             react_version: ^19.0.0
           - theia_version: latest
-            electron_version: 42.8.1
+            electron_version: 44.9.1
             node_version: 24.x
             react_version: ^19.0.0
     env:

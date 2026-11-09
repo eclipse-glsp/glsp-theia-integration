@@ -52,6 +52,21 @@ For details on building the project, please see the [README file of the theia-in
     ...
     ```
 
+- Theia `>= 1.77.0` ships its runtime packages as ES modules, so `@theia/core/shared/inversify` resolves inversify's ESM typings while the GLSP packages resolve the CommonJS ones.
+  With `moduleResolution` set to `bundler`, `node16` or `nodenext`, passing the Theia-created diagram container to a GLSP container initializer fails to compile with `Types have separate declarations of a private property '_middleware'`.
+  Both inversify entries are compatible at runtime (see [eclipse-glsp/glsp#1822](https://github.com/eclipse-glsp/glsp/issues/1822)).
+    - With GLSP `< 2.9.0`, cast the container in your `GLSPDiagramConfiguration.configureContainer`:
+
+        ```ts
+        configureContainer(container: Container, ...containerConfiguration: ContainerConfiguration): Container {
+            initializeMyDiagramContainer(container as unknown as Parameters<typeof initializeMyDiagramContainer>[0], ...containerConfiguration);
+            return container;
+        }
+        ```
+
+    - From GLSP `2.9.0`, `initializeDiagramContainer` accepts the structural `interfaces.Container`, so no cast is needed.
+      If you wrap it in your own initializer, type its container parameter as `interfaces.Container` instead of `Container`.
+
 ## Developer Documentation
 
 ### Structure
