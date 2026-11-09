@@ -50,6 +50,24 @@ This project is built with `pnpm` and is available from npm via [@eclipse-glsp/t
     ...
     ```
 
+- Theia `>= 1.77.0` ships its runtime packages as ES modules, so `@theia/core/shared/inversify` resolves inversify's ESM typings while the GLSP packages resolve the CommonJS ones.
+  With `moduleResolution` set to `bundler`, `node16` or `nodenext`, passing the Theia-created diagram container to a GLSP container initializer fails to compile with `Types have separate declarations of a private property '_middleware'`.
+  Both inversify entries are compatible at runtime (see [eclipse-glsp/glsp#1822](https://github.com/eclipse-glsp/glsp/issues/1822)).
+    - With GLSP `< 2.9.0`, cast the container in your `GLSPDiagramConfiguration.configureContainer`:
+
+        ```ts
+        configureContainer(container: Container, ...containerConfiguration: ContainerConfiguration): Container {
+            initializeMyDiagramContainer(container as unknown as Parameters<typeof initializeMyDiagramContainer>[0], ...containerConfiguration);
+            return container;
+        }
+        ```
+
+    - From GLSP `2.9.0`, `initializeContainer`, `initializeDiagramContainer` and `initializeWorkflowDiagramContainer` accept the structural `interfaces.Container`, so no cast is needed.
+      If you wrap them in your own initializer, type its container parameter as `interfaces.Container` instead of `Container`.
+      Other APIs that take a `Container`, such as `GLSPServerLauncher.parentContainer`, still need the cast.
+    - With `moduleResolution: node`, the container types match, but some `@theia/core/shared/*` typings ship only as `index.d.cts` and cannot be resolved.
+      Switch to `bundler` (or `node16`/`nodenext`) as recommended by the [Theia migration guide](https://github.com/eclipse-theia/theia/blob/master/doc/Migration.md#v1770); the notes above then apply.
+
 ## More information
 
 For more information, please visit the [Eclipse GLSP Umbrella repository](https://github.com/eclipse-glsp/glsp) and the [Eclipse GLSP Website](https://www.eclipse.org/glsp/).
