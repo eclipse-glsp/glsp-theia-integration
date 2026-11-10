@@ -98,8 +98,18 @@ jobs:
             exit 1
           fi
           TAG_SHA=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$GITHUB_REF_NAME" --jq 'select(.object.type == "tag") | .object.sha')
-          if [[ -z "$TAG_SHA" || $(gh api "repos/$GITHUB_REPOSITORY/git/tags/$TAG_SHA" --jq .verification.verified) != "true" ]]; then
+          if [[ -z "$TAG_SHA" ]]; then
             echo "::error::Tag $GITHUB_REF_NAME is not a signed tag verified by GitHub"
+            exit 1
+          fi
+          read -r VERIFIED TAG_COMMIT < <(gh api "repos/$GITHUB_REPOSITORY/git/tags/$TAG_SHA" --jq '"\(.verification.verified) \(.object.sha)"')
+          if [[ "$VERIFIED" != "true" ]]; then
+            echo "::error::Tag $GITHUB_REF_NAME is not a signed tag verified by GitHub"
+            exit 1
+          fi
+          # the tag may have been moved since the push; checkout and build use GITHUB_SHA
+          if [[ "$TAG_COMMIT" != "$GITHUB_SHA" ]]; then
+            echo "::error::Tag $GITHUB_REF_NAME points to $TAG_COMMIT, not the pushed commit $GITHUB_SHA"
             exit 1
           fi
 
